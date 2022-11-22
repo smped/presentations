@@ -455,8 +455,19 @@
 <li>snakemake workflow
 <ul>
 <li>HTML Output inspired by <code>workflowr</code></li>
+<li>All code visible <span class="math inline">\(\implies\)</span> Reproducible as complete or in sections</li>
 </ul></li>
-<li>Performs 1) Custom Annotations, 2) Peak Calling, 3) Differential Binding</li>
+<li>Performs 1) Custom Annotations, 2) Peak Calling, 3) Differential Binding
+<ul>
+<li>Enrchment Analysis performed during multiple steps</li>
+<li>Standardised all output formats/structures</li>
+<li>All <code>R</code> Environments saved (marked as <code>temp()</code>)</li>
+</ul></li>
+</ul>
+</section>
+<section id="gravi-2" class="slide level2">
+<h2>GRAVI</h2>
+<ul>
 <li>Minimal Data:
 <ul>
 <li>1 ChIP Target across two conditions</li>
@@ -467,40 +478,45 @@
 <li>Optional Data: RNA-Seq Results, HiC Interactions, Genomic Features (H3K27ac)</li>
 </ul></li>
 </ul>
-</section>
-<section id="extrachips" class="slide level2">
-<h2>extraChIPs</h2>
+<div class="fragment">
 <ul>
-<li>Became key infrastructure</li>
+<li><code>extraChIPs</code> became key infrastructure for GRAVI</li>
 <li>3 Primary sets of Functions
 <ol type="1">
-<li>Working with <code>mcols()</code></li>
+<li>Working with <code>GRanges</code> focussed on <code>mcols()</code></li>
 <li>Data Visualisation</li>
 <li>ChIP-Seq Helper Functions</li>
 </ol></li>
 </ul>
+</div>
 </section>
 <section>
-<section id="extrachips-1" class="title-slide slide level1 center">
+<section id="extrachips" class="title-slide slide level1 center">
 <h1>extraChIPs</h1>
 
 </section>
 <section id="working-with-ranges-tibble-coercion" class="slide level2">
 <h2>Working With Ranges: <code>tibble</code> Coercion</h2>
-<pre><code>## S3 method for class 'DataFrame'
-as_tibble(x, rangeAsChar = TRUE, ...)
-
-## S3 method for class 'GenomicRanges'
-as_tibble(x, rangeAsChar = TRUE, name = "range", ...)
-
-## S3 method for class 'Seqinfo'
-as_tibble(x, ...)
-
-## S3 method for class 'GInteractions'
-as_tibble(x, rangeAsChar = TRUE, suffix = c(".x", ".y"), ...)</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="do">## S3 method for class 'DataFrame'</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">as_tibble</span>(x, <span class="at">rangeAsChar =</span> <span class="cn">TRUE</span>, ...)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="do">## S3 method for class 'GenomicRanges'</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">as_tibble</span>(x, <span class="at">rangeAsChar =</span> <span class="cn">TRUE</span>, <span class="at">name =</span> <span class="st">"range"</span>, ...)</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="do">## S3 method for class 'Seqinfo'</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">as_tibble</span>(x, ...)</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="do">## S3 method for class 'GInteractions'</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">as_tibble</span>(x, <span class="at">rangeAsChar =</span> <span class="cn">TRUE</span>, <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">".x"</span>, <span class="st">".y"</span>), ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
 <ul>
 <li>Defined for <code>GRanges</code>, <code>DataFrame</code>, <code>Seqinfo</code> and <code>GInteractions</code> classes</li>
-<li>Handles <code>S4</code> Compressed list columns well (so far)</li>
+<li>Handles <code>S4</code> Compressed list columns well (so far)
+<ul>
+<li>Uses <code>vctrs::vec_proxy()</code> to coerce to S3 lists</li>
+</ul></li>
 </ul>
 </section>
 <section id="working-with-ranges-tibble-coercion-1" class="slide level2">
@@ -508,7 +524,7 @@ as_tibble(x, rangeAsChar = TRUE, suffix = c(".x", ".y"), ...)</code></pre>
 <div class="cell columns column-output-location">
 <div class="column">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(extraChIPs)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>sq <span class="ot">&lt;-</span> <span class="fu">Seqinfo</span>(<span class="st">"chr1"</span>, <span class="at">genome =</span> <span class="st">"pretend"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>sq <span class="ot">&lt;-</span> <span class="fu">Seqinfo</span>(<span class="st">"chr1"</span>, <span class="at">genome =</span> <span class="st">"a pretend"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3"></a>gr <span class="ot">&lt;-</span> <span class="fu">GRanges</span>(</span>
 <span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">c</span>(<span class="st">"chr1:1-10:+"</span>, <span class="st">"chr1:6-12:-"</span>), </span>
 <span id="cb2-5"><a href="#cb2-5"></a>  <span class="at">seqinfo =</span> sq</span>
@@ -523,12 +539,12 @@ as_tibble(x, rangeAsChar = TRUE, suffix = c(".x", ".y"), ...)</code></pre>
   [1]     chr1      1-10      + |      range1
   [2]     chr1      6-12      - |      range2
   -------
-  seqinfo: 1 sequence from pretend genome; no seqlengths</code></pre>
+  seqinfo: 1 sequence from a pretend genome; no seqlengths</code></pre>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p>Now perform the coercion</p>
+<p><br> Now perform the coercion</p>
 <div class="cell columns column-output-location">
 <div class="column">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>tbl <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(gr)</span>
@@ -563,9 +579,25 @@ as_tibble(x, rangeAsChar = TRUE, suffix = c(".x", ".y"), ...)</code></pre>
 </section>
 <section id="working-with-ranges-tibble-coercion-2" class="slide level2">
 <h2>Working With Ranges: <code>tibble</code> Coercion</h2>
-<p>Coercion back to a <code>GRanges</code> uses <code>colToRanges</code></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">colToRanges</span>(tbl, <span class="at">var =</span> <span class="st">"range"</span>, <span class="at">seqinfo =</span> sq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Coercion back to a <code>GRanges</code> uses <code>colToRanges()</code></p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  range       id    
+  &lt;chr&gt;       &lt;chr&gt; 
+1 chr1:1-10:+ range1
+2 chr1:6-12:- range2</code></pre>
+</div>
+</div>
+</div>
+<p><br></p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">colToRanges</span>(tbl, <span class="at">var =</span> <span class="st">"range"</span>, <span class="at">seqinfo =</span> sq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 2 ranges and 1 metadata column:
       seqnames    ranges strand |          id
@@ -573,7 +605,8 @@ as_tibble(x, rangeAsChar = TRUE, suffix = c(".x", ".y"), ...)</code></pre>
   [1]     chr1      1-10      + |      range1
   [2]     chr1      6-12      - |      range2
   -------
-  seqinfo: 1 sequence from pretend genome; no seqlengths</code></pre>
+  seqinfo: 1 sequence from a pretend genome; no seqlengths</code></pre>
+</div>
 </div>
 </div>
 

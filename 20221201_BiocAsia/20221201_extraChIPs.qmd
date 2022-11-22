@@ -60,18 +60,25 @@ format:
 - Gene Regulatory Analysis using Variable Inputs
 - snakemake workflow
   + HTML Output inspired by `workflowr`
+  + All code visible $\implies$ Reproducible as complete or in sections
 - Performs 1) Custom Annotations, 2) Peak Calling, 3) Differential Binding
+  + Enrchment Analysis performed during multiple steps
+  + Standardised all output formats/structures
+  + All `R` Environments saved (marked as `temp()`)
+  
+## GRAVI
+
 - Minimal Data:
   + 1 ChIP Target across two conditions
 - Best for 2-3 ChIP targets with 2-3 conditions
   + Enables Pairwise Comparisons
   + Optional Data: RNA-Seq Results, HiC Interactions, Genomic Features (H3K27ac)
+  
+. . .
 
-## extraChIPs
-
-- Became key infrastructure
+- `extraChIPs` became key infrastructure for GRAVI
 - 3 Primary sets of Functions
-  1. Working with `mcols()`
+  1. Working with `GRanges` focussed on `mcols()`
   2. Data Visualisation
   3. ChIP-Seq Helper Functions
   
@@ -79,7 +86,8 @@ format:
 
 ## Working With Ranges: `tibble` Coercion
 
-```
+```{r eval = FALSE}
+#| echo: frame
 ## S3 method for class 'DataFrame'
 as_tibble(x, rangeAsChar = TRUE, ...)
 
@@ -93,8 +101,11 @@ as_tibble(x, ...)
 as_tibble(x, rangeAsChar = TRUE, suffix = c(".x", ".y"), ...)
 ```
 
+<br>
+
 - Defined for `GRanges`, `DataFrame`, `Seqinfo` and `GInteractions` classes
 - Handles `S4` Compressed list columns well (so far)
+  + Uses `vctrs::vec_proxy()` to coerce to S3 lists
 
 ## Working With Ranges: `tibble` Coercion
 
@@ -102,7 +113,7 @@ as_tibble(x, rangeAsChar = TRUE, suffix = c(".x", ".y"), ...)
 ```{r echo = TRUE}
 #| output-location: column
 library(extraChIPs)
-sq <- Seqinfo("chr1", genome = "pretend")
+sq <- Seqinfo("chr1", genome = "a pretend")
 gr <- GRanges(
   c("chr1:1-10:+", "chr1:6-12:-"), 
   seqinfo = sq
@@ -113,6 +124,7 @@ gr
 
 . . . 
 
+<br>
 Now perform the coercion
 
 ```{r echo=TRUE}
@@ -133,9 +145,15 @@ as_tibble(gr, rangeAsChar = FALSE)
 
 ## Working With Ranges: `tibble` Coercion
 
-Coercion back to a `GRanges` uses `colToRanges`
+Coercion back to a `GRanges` uses `colToRanges()`
 
 ```{r echo = TRUE}
+#| output-location: column
+tbl
+```
+<br>
+```{r echo = TRUE}
+#| output-location: column
 colToRanges(tbl, var = "range", seqinfo = sq)
 ```
 
