@@ -1,0 +1,141 @@
+---
+title: "Using extraChIPs with GRAVI"
+subtitle: "Hot mess or slick analysis?"
+author: "Stephen (Stevie) Pederson"
+date: 2022-12-01
+institute: BiocAsia
+editor: source
+format: 
+  revealjs:
+    theme: [dark, custom.scss]
+    width: 1600
+    heigth: 900
+    sansfont: Times New Roman
+    logo: https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png
+---
+
+## Who Am I?
+
+
+- Stephen Pederson $\implies$ Steve
+
+::: {.incremental}
+- St<u>**eph**</u>en Pederson $\implies$ Steph
+- Stephen Pederson $\implies$ Stevie &nbsp; ![](https://static.miraheze.org/nonbinarywiki/c/c0/Nonbinary.png){width=80px}
+
+:::
+
+## Who Am I?
+
+- Postdoctoral Bioinformatician (ECR)
+    + Black Ochre Data Laboratories &nbsp; ![](tki.jpg){width=80px}
+
+. . .
+
+- Co-ordinator Bioinformatics Hub, University of Adelaide (2014 - 2020)
+
+. . .
+
+- Author/Maintainer of `ngsReports` &nbsp; ![](https://github.com/steveped/stickers/raw/main/alt_ngsReports_sticker.png){width=70px}
+   + Parse & plot `FastQC`, `cutadapt`, `STAR`, `macs2` etc.
+
+
+## GRAVI
+
+- 2020 - 2022: Dame Roma Mitchell Cancer Research Laboratories (DRMCRL)
+- Activation of the Androgen Receptor (AR) as a threapeutic strategy for Breast Cancer
+- Combined genomic changes to AR, ER & GATA3 binding after DHT-treatment (ChIP-Seq)
+  + 4 cell lines + 2 PDX model
+  + Additional Histone Marks
+  + Additional HiC / HiChIP Data (Sometimes)
+  + RNA Seq data
+
+## GRAVI: Datasets
+
+![](DRMCRL_datasets.jpg)
+
+
+## GRAVI
+
+- Gene Regulatory Analysis using Variable Inputs
+- snakemake workflow
+  + HTML Output inspired by `workflowr`
+- Performs 1) Custom Annotations, 2) Peak Calling, 3) Differential Binding
+- Minimal Data:
+  + 1 ChIP Target across two conditions
+- Best for 2-3 ChIP targets with 2-3 conditions
+  + Enables Pairwise Comparisons
+  + Optional Data: RNA-Seq Results, HiC Interactions, Genomic Features (H3K27ac)
+
+## extraChIPs
+
+- Became key infrastructure
+- 3 Primary sets of Functions
+  1. Working with `mcols()`
+  2. Data Visualisation
+  3. ChIP-Seq Helper Functions
+  
+# extraChIPs
+
+## Working With Ranges: `tibble` Coercion
+
+```
+## S3 method for class 'DataFrame'
+as_tibble(x, rangeAsChar = TRUE, ...)
+
+## S3 method for class 'GenomicRanges'
+as_tibble(x, rangeAsChar = TRUE, name = "range", ...)
+
+## S3 method for class 'Seqinfo'
+as_tibble(x, ...)
+
+## S3 method for class 'GInteractions'
+as_tibble(x, rangeAsChar = TRUE, suffix = c(".x", ".y"), ...)
+```
+
+- Defined for `GRanges`, `DataFrame`, `Seqinfo` and `GInteractions` classes
+- Handles `S4` Compressed list columns well (so far)
+
+## Working With Ranges: `tibble` Coercion
+
+
+```{r echo = TRUE}
+#| output-location: column
+library(extraChIPs)
+sq <- Seqinfo("chr1", genome = "pretend")
+gr <- GRanges(
+  c("chr1:1-10:+", "chr1:6-12:-"), 
+  seqinfo = sq
+)
+gr$id <- c("range1", "range2")
+gr
+```
+
+. . . 
+
+Now perform the coercion
+
+```{r echo=TRUE}
+#| output-location: column
+tbl <- as_tibble(gr)
+tbl
+```
+
+. . . 
+
+Setting `rangeAsChar = FALSE` gives you standard `as.data.frame` columns
+
+```{r echo=TRUE}
+#| output-location: column
+as_tibble(gr, rangeAsChar = FALSE)
+```
+
+
+## Working With Ranges: `tibble` Coercion
+
+Coercion back to a `GRanges` uses `colToRanges`
+
+```{r echo = TRUE}
+colToRanges(tbl, var = "range", seqinfo = sq)
+```
+
