@@ -14,18 +14,37 @@ format:
     logo: https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png
 ---
 
+```{r setup, echo=FALSE, eval=TRUE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE, warning = FALSE
+)
+```
+
+
 # Introduction
 
-## Who Am I?
+<!-- ## Who Am I? -->
 
 
-- Stephen Pederson $\implies$ Steve
+<!-- - Stephen Pederson $\implies$ Steve -->
 
-::: {.incremental}
-- St<u>**eph**</u>en Pederson $\implies$ Steph
-- Stephen Pederson $\implies$ Stevie &nbsp; ![](https://static.miraheze.org/nonbinarywiki/c/c0/Nonbinary.png){width=80px}
+<!-- ::: {.incremental} -->
+<!-- - St<u>**eph**</u>en Pederson $\implies$ Steph -->
+<!-- - Stephen Pederson $\implies$ Stevie &nbsp; ![](https://static.miraheze.org/nonbinarywiki/c/c0/Nonbinary.png){width=80px} -->
 
-:::
+<!-- ::: -->
+
+<!-- ::: {.fragment} -->
+
+<!-- ```{r out.width='50%'} -->
+<!-- library(wordcloud) -->
+<!-- set.seed(100) -->
+<!-- wordcloud(c("Stephen", "Steph", "Steve", "Stevie"), c(0.2, 0.15, 0.05, 0.6)) -->
+<!-- ``` -->
+
+
+<!-- ::: -->
 
 ## Who Am I?
 
@@ -109,38 +128,77 @@ as_tibble(x, rangeAsChar = TRUE, suffix = c(".x", ".y"), ...)
 - Handles `S4` Compressed list columns well (so far)
   + Uses `vctrs::vec_proxy()` to coerce to S3 lists
 
-## Working With Ranges: `tibble` Coercion
+## Working With Ranges: `tibble` Coercion 
+
+```{r, echo=FALSE, eval=TRUE}
+library(GenomicRanges)
+gr <- new("GRanges", seqnames = new("Rle", values = structure(2L, levels = c("chr1", 
+"chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", 
+"chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", 
+"chr17", "chr18", "chr19", "chr20", "chr21", "chr22", "chrX", 
+"chrY"), class = "factor"), lengths = 4L, elementMetadata = NULL, 
+    metadata = list()), ranges = new("IRanges", start = c(204732494L, 
+204732666L, 204732666L, 204732666L), width = c(6195L, 4833L, 
+4870L, 4870L), NAMES = NULL, elementType = "ANY", elementMetadata = NULL, 
+    metadata = list()), strand = new("Rle", values = structure(1L, levels = c("+", 
+"-", "*"), class = "factor"), lengths = 4L, elementMetadata = NULL, 
+    metadata = list()), seqinfo = new("Seqinfo", seqnames = c("chr1", 
+"chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", 
+"chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", 
+"chr17", "chr18", "chr19", "chr20", "chr21", "chr22", "chrX", 
+"chrY"), seqlengths = c(249250621L, 243199373L, 198022430L, 191154276L, 
+180915260L, 171115067L, 159138663L, 146364022L, 141213431L, 135534747L, 
+135006516L, 133851895L, 115169878L, 107349540L, 102531392L, 90354753L, 
+81195210L, 78077248L, 59128983L, 63025520L, 48129895L, 51304566L, 
+155270560L, 59373566L), is_circular = c(FALSE, FALSE, FALSE, 
+FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
+FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
+FALSE, FALSE, FALSE), genome = c("GRCh37", "GRCh37", "GRCh37", 
+"GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", 
+"GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", 
+"GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37"
+)), elementMetadata = new("DFrame", rownames = NULL, nrows = 4L, 
+    elementType = "ANY", elementMetadata = NULL, metadata = list(), 
+    listData = list(gene_name = c("CTLA4", 
+    "CTLA4", "CTLA4", "CTLA4"), 
+        transcript_name = c("CTLA4-205", "CTLA4-201", "CTLA4-204", 
+        "CTLA4-203"))), elementType = "ANY", metadata = list())
+```
+
+Starting with the protein-coding transcripts for *CTLA4*
 
 
-```{r echo = TRUE}
-#| output-location: column
-library(extraChIPs)
-sq <- Seqinfo("chr1", genome = "a pretend")
-gr <- GRanges(
-  c("chr1:1-10:+", "chr1:6-12:-"), 
-  seqinfo = sq
-)
-gr$id <- c("range1", "range2")
+```{r}
 gr
 ```
 
-. . . 
-
+. . .
 <br>
-Now perform the coercion
 
-```{r echo=TRUE}
+```{r}
 #| output-location: column
+sq <- seqinfo(gr)
+sq
+```
+
+
+## Working With Ranges: `tibble` Coercion 
+
+Now perform the coercion using `as_tibble()`
+
+```{r}
+#| output-location: column
+library(extraChIPs)
 tbl <- as_tibble(gr)
 tbl
 ```
 
 . . . 
+<br>
 
 Setting `rangeAsChar = FALSE` gives you standard `as.data.frame` columns
 
-```{r echo=TRUE}
-#| output-location: column
+```{r}
 as_tibble(gr, rangeAsChar = FALSE)
 ```
 
@@ -149,13 +207,219 @@ as_tibble(gr, rangeAsChar = FALSE)
 
 Coercion back to a `GRanges` uses `colToRanges()`
 
-```{r echo = TRUE}
+```{r}
 #| output-location: column
 tbl
 ```
 <br>
-```{r echo = TRUE}
-#| output-location: column
+```{r}
 colToRanges(tbl, var = "range", seqinfo = sq)
 ```
+
+
+## Operations Retaining `mcols`: `reduceMC()`
+
+
+```{r}
+gr
+```
+
+<br>
+
+Common functions like `reduce` lose `mcols` information
+
+```{r}
+reduce(gr)
+```
+
+## Operations Retaining `mcols`: `reduceMC()`
+
+
+```{r}
+gr
+```
+
+<br>
+
+`reduceMC()` collapses the `mcols` information
+
+```{r}
+reduceMC(gr)
+```
+
+
+## Operations Retaining `mcols`: `reduceMC()`
+
+More realistically we might want to find unique TSS within a gene
+
+```{r}
+library(magrittr)
+gr %>% 
+  resize(width = 1, fix = 'start') %>% 
+  reduceMC()
+```
+
+. . . 
+
+- Columns are simplified to vectors by default where possible.
+
+## Operations Retaining `mcols`: `reduceMC()`
+
+- Keep all values by setting `simplify = FALSE`
+
+```{r}
+gr %>% 
+  resize(width = 1, fix = 'start') %>% 
+  reduceMC(simplify = FALSE)
+```
+
+
+## Set Operations Retaining `mcols`
+
+- Set operations have `*MC()` versions
+- `setdiff()` Vs `setdiffMC()`
+- `union` Vs `unionMC()`
+- `intersect` Vs `intersectMC()`
+
+. . .
+
+- Information is only retained from the query `GRanges`
+  +  `x` in `setdiffMC(x, y)`
+
+
+## Tidyverse-inspired Functions: `chopMC()`
+
+
+```{r}
+gr
+```
+
+. . .
+
+<br>
+
+- `chopMC()` acts like `chop()` using the range as the backbone
+
+```{r}
+chopMC(gr)
+```
+
+## Tidyverse-inspired Functions: `distinctMC()`
+
+```{r}
+gr
+```
+
+<br>
+
+- `distinctMC()` behaves like `distinct()` using the ranges + any requested columns
+
+```{r}
+distinctMC(gr)
+```
+
+## Tidyverse-inspired Functions: `distinctMC()`
+
+```{r}
+gr
+```
+
+<br>
+
+- `distinctMC()` behaves like `distinct()` using the ranges + any requested columns
+
+
+```{r}
+distinctMC(gr, .keep_all = TRUE)
+```
+
+
+# Working with Peaks
+
+## `importPeaks()`
+
+Most often, we'll load in replicates with identical structure $\implies$ `GRangesList`
+
+```{r}
+library(glue)
+fl <- glue("GATA3_E2_rep{1:2}.narrowPeak")
+peaks <- importPeaks(fl, seqinfo = sq)
+vapply(peaks, length, integer(1))
+library(stringr)
+names(peaks) <- str_remove_all(names(peaks), ".narrowPeak")
+```
+
+## `importPeaks()`
+
+```{r}
+peaks
+```
+
+## `makeConsensus()`
+
+```{r}
+makeConsensus(peaks)
+```
+
+## `makeConsensus()`
+
+```{r}
+makeConsensus(peaks, var = "score")
+```
+
+## `makeConsensus()`
+
+```{r}
+library(plyranges)
+peaks %>% 
+  endoapply(mutate, centre = start + peak) %>% 
+  makeConsensus(var = "centre", p = 1, simplify = FALSE) 
+```
+
+## `makeConsensus()`
+
+```{r}
+peaks %>% 
+  endoapply(mutate, centre = start + peak) %>% 
+  makeConsensus(var = "centre", p = 1, simplify = FALSE) %>% 
+  mutate(centre = vapply(centre, median, numeric(1)))
+```
+
+# Differential Binding
+
+# Visualisation
+
+## `plotOverlaps()`
+
+```{r, fig.width=7, fig.height=7}
+#| output-location: column
+plotOverlaps(peaks)
+```
+
+## `plotOverlaps()`
+
+```{r}
+plotOverlaps(peaks, type = "upset", var = "score")
+```
+
+## `plotPie()`
+
+`plotPie()` summarises one, two or three columns in combination
+
+```{r, fig.height=6, fig.width=6}
+#| output-location: column
+gr$detected <- c(FALSE, TRUE, FALSE, TRUE)
+plotPie(gr, fill = "detected", category_width = 10)
+```
+
+## `plotPie()`
+
+`plotPie()` summarises one, two or three columns in combination
+
+```{r, fig.height=6, fig.width=6}
+#| output-location: column
+plotPie(gr, fill = "detected", x = "gene_name") 
+```
+
+Can also accept `DataFrame` or `data.frame` objects as input
 

@@ -396,24 +396,30 @@
   <p class="date">2022-12-01</p>
 </section>
 
+<section class="slide level2">
+
+<div class="cell">
+
+</div>
+</section>
 <section>
 <section id="introduction" class="title-slide slide level1 center">
 <h1>Introduction</h1>
-
+<!-- ## Who Am I? -->
+<!-- - Stephen Pederson $\implies$ Steve -->
+<!-- ::: {.incremental} -->
+<!-- - St<u>**eph**</u>en Pederson $\implies$ Steph -->
+<!-- - Stephen Pederson $\implies$ Stevie &nbsp; ![](https://static.miraheze.org/nonbinarywiki/c/c0/Nonbinary.png){width=80px} -->
+<!-- ::: -->
+<!-- ::: {.fragment} -->
+<!-- ```{r out.width='50%'} -->
+<!-- library(wordcloud) -->
+<!-- set.seed(100) -->
+<!-- wordcloud(c("Stephen", "Steph", "Steve", "Stevie"), c(0.2, 0.15, 0.05, 0.6)) -->
+<!-- ``` -->
+<!-- ::: -->
 </section>
 <section id="who-am-i" class="slide level2">
-<h2>Who Am I?</h2>
-<ul>
-<li>Stephen Pederson <span class="math inline">\(\implies\)</span> Steve</li>
-</ul>
-<div>
-<ul>
-<li class="fragment">St<u><strong>eph</strong></u>en Pederson <span class="math inline">\(\implies\)</span> Steph</li>
-<li class="fragment">Stephen Pederson <span class="math inline">\(\implies\)</span> Stevie &nbsp; <img data-src="https://static.miraheze.org/nonbinarywiki/c/c0/Nonbinary.png" width="80"></li>
-</ul>
-</div>
-</section>
-<section id="who-am-i-1" class="slide level2">
 <h2>Who Am I?</h2>
 <ul>
 <li>Postdoctoral Bioinformatician (ECR)
@@ -526,96 +532,627 @@
 </section>
 <section id="working-with-ranges-tibble-coercion-1" class="slide level2">
 <h2>Working With Ranges: <code>tibble</code> Coercion</h2>
-<div class="cell columns column-output-location">
-<div class="column">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(extraChIPs)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>sq <span class="ot">&lt;-</span> <span class="fu">Seqinfo</span>(<span class="st">"chr1"</span>, <span class="at">genome =</span> <span class="st">"a pretend"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a>gr <span class="ot">&lt;-</span> <span class="fu">GRanges</span>(</span>
-<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">c</span>(<span class="st">"chr1:1-10:+"</span>, <span class="st">"chr1:6-12:-"</span>), </span>
-<span id="cb2-5"><a href="#cb2-5"></a>  <span class="at">seqinfo =</span> sq</span>
-<span id="cb2-6"><a href="#cb2-6"></a>)</span>
-<span id="cb2-7"><a href="#cb2-7"></a>gr<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"range1"</span>, <span class="st">"range2"</span>)</span>
-<span id="cb2-8"><a href="#cb2-8"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
+<div class="cell">
+
+</div>
+<p>Starting with the protein-coding transcripts for <em>CTLA4</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>GRanges object with 2 ranges and 1 metadata column:
-      seqnames    ranges strand |          id
-         &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;
-  [1]     chr1      1-10      + |      range1
-  [2]     chr1      6-12      - |      range2
+<pre><code>GRanges object with 4 ranges and 2 metadata columns:
+      seqnames              ranges strand |   gene_name transcript_name
+         &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;     &lt;character&gt;
+  [1]     chr2 204732494-204738688      + |       CTLA4       CTLA4-205
+  [2]     chr2 204732666-204737498      + |       CTLA4       CTLA4-201
+  [3]     chr2 204732666-204737535      + |       CTLA4       CTLA4-204
+  [4]     chr2 204732666-204737535      + |       CTLA4       CTLA4-203
   -------
-  seqinfo: 1 sequence from a pretend genome; no seqlengths</code></pre>
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
 </div>
 </div>
-</div>
-<div class="fragment">
-<p><br> Now perform the coercion</p>
+<p>. . . <br></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>tbl <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(gr)</span>
-<span id="cb4-2"><a href="#cb4-2"></a>tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>sq <span class="ot">&lt;-</span> <span class="fu">seqinfo</span>(gr)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>sq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  range       id    
-  &lt;chr&gt;       &lt;chr&gt; 
-1 chr1:1-10:+ range1
-2 chr1:6-12:- range2</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>Setting <code>rangeAsChar = FALSE</code> gives you standard <code>as.data.frame</code> columns</p>
-<div class="cell columns column-output-location">
-<div class="column">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">as_tibble</span>(gr, <span class="at">rangeAsChar =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 6
-  seqnames start   end width strand id    
-  &lt;fct&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;fct&gt;  &lt;chr&gt; 
-1 chr1         1    10    10 +      range1
-2 chr1         6    12     7 -      range2</code></pre>
-</div>
+<pre><code>Seqinfo object with 24 sequences from GRCh37 genome:
+  seqnames seqlengths isCircular genome
+  chr1      249250621      FALSE GRCh37
+  chr2      243199373      FALSE GRCh37
+  chr3      198022430      FALSE GRCh37
+  chr4      191154276      FALSE GRCh37
+  chr5      180915260      FALSE GRCh37
+  ...             ...        ...    ...
+  chr20      63025520      FALSE GRCh37
+  chr21      48129895      FALSE GRCh37
+  chr22      51304566      FALSE GRCh37
+  chrX      155270560      FALSE GRCh37
+  chrY       59373566      FALSE GRCh37</code></pre>
 </div>
 </div>
 </div>
 </section>
 <section id="working-with-ranges-tibble-coercion-2" class="slide level2">
 <h2>Working With Ranges: <code>tibble</code> Coercion</h2>
+<p>Now perform the coercion using <code>as_tibble()</code></p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">library</span>(extraChIPs)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>tbl <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(gr)</span>
+<span id="cb6-3"><a href="#cb6-3"></a>tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  range                      gene_name transcript_name
+  &lt;chr&gt;                      &lt;chr&gt;     &lt;chr&gt;          
+1 chr2:204732494-204738688:+ CTLA4     CTLA4-205      
+2 chr2:204732666-204737498:+ CTLA4     CTLA4-201      
+3 chr2:204732666-204737535:+ CTLA4     CTLA4-204      
+4 chr2:204732666-204737535:+ CTLA4     CTLA4-203      </code></pre>
+</div>
+</div>
+</div>
+<p>. . . <br></p>
+<p>Setting <code>rangeAsChar = FALSE</code> gives you standard <code>as.data.frame</code> columns</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">as_tibble</span>(gr, <span class="at">rangeAsChar =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 7
+  seqnames     start       end width strand gene_name transcript_name
+  &lt;fct&gt;        &lt;int&gt;     &lt;int&gt; &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;     &lt;chr&gt;          
+1 chr2     204732494 204738688  6195 +      CTLA4     CTLA4-205      
+2 chr2     204732666 204737498  4833 +      CTLA4     CTLA4-201      
+3 chr2     204732666 204737535  4870 +      CTLA4     CTLA4-204      
+4 chr2     204732666 204737535  4870 +      CTLA4     CTLA4-203      </code></pre>
+</div>
+</div>
+</section>
+<section id="working-with-ranges-tibble-coercion-3" class="slide level2">
+<h2>Working With Ranges: <code>tibble</code> Coercion</h2>
 <p>Coercion back to a <code>GRanges</code> uses <code>colToRanges()</code></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  range       id    
-  &lt;chr&gt;       &lt;chr&gt; 
-1 chr1:1-10:+ range1
-2 chr1:6-12:- range2</code></pre>
+<pre><code># A tibble: 4 × 3
+  range                      gene_name transcript_name
+  &lt;chr&gt;                      &lt;chr&gt;     &lt;chr&gt;          
+1 chr2:204732494-204738688:+ CTLA4     CTLA4-205      
+2 chr2:204732666-204737498:+ CTLA4     CTLA4-201      
+3 chr2:204732666-204737535:+ CTLA4     CTLA4-204      
+4 chr2:204732666-204737535:+ CTLA4     CTLA4-203      </code></pre>
 </div>
 </div>
 </div>
 <p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">colToRanges</span>(tbl, <span class="at">var =</span> <span class="st">"range"</span>, <span class="at">seqinfo =</span> sq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 4 ranges and 2 metadata columns:
+      seqnames              ranges strand |   gene_name transcript_name
+         &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;     &lt;character&gt;
+  [1]     chr2 204732494-204738688      + |       CTLA4       CTLA4-205
+  [2]     chr2 204732666-204737498      + |       CTLA4       CTLA4-201
+  [3]     chr2 204732666-204737535      + |       CTLA4       CTLA4-204
+  [4]     chr2 204732666-204737535      + |       CTLA4       CTLA4-203
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+</section>
+<section id="operations-retaining-mcols-reducemc" class="slide level2">
+<h2>Operations Retaining <code>mcols</code>: <code>reduceMC()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 4 ranges and 2 metadata columns:
+      seqnames              ranges strand |   gene_name transcript_name
+         &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;     &lt;character&gt;
+  [1]     chr2 204732494-204738688      + |       CTLA4       CTLA4-205
+  [2]     chr2 204732666-204737498      + |       CTLA4       CTLA4-201
+  [3]     chr2 204732666-204737535      + |       CTLA4       CTLA4-204
+  [4]     chr2 204732666-204737535      + |       CTLA4       CTLA4-203
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Common functions like <code>reduce</code> lose <code>mcols</code> information</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">reduce</span>(gr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 1 range and 0 metadata columns:
+      seqnames              ranges strand
+         &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt;
+  [1]     chr2 204732494-204738688      +
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+</section>
+<section id="operations-retaining-mcols-reducemc-1" class="slide level2">
+<h2>Operations Retaining <code>mcols</code>: <code>reduceMC()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 4 ranges and 2 metadata columns:
+      seqnames              ranges strand |   gene_name transcript_name
+         &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;     &lt;character&gt;
+  [1]     chr2 204732494-204738688      + |       CTLA4       CTLA4-205
+  [2]     chr2 204732666-204737498      + |       CTLA4       CTLA4-201
+  [3]     chr2 204732666-204737535      + |       CTLA4       CTLA4-204
+  [4]     chr2 204732666-204737535      + |       CTLA4       CTLA4-203
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+<p><br></p>
+<p><code>reduceMC()</code> collapses the <code>mcols</code> information</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">reduceMC</span>(gr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 1 range and 2 metadata columns:
+      seqnames              ranges strand |   gene_name
+         &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;
+  [1]     chr2 204732494-204738688      + |       CTLA4
+                        transcript_name
+                        &lt;CharacterList&gt;
+  [1] CTLA4-205,CTLA4-201,CTLA4-204,...
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+</section>
+<section id="operations-retaining-mcols-reducemc-2" class="slide level2">
+<h2>Operations Retaining <code>mcols</code>: <code>reduceMC()</code></h2>
+<p>More realistically we might want to find unique TSS within a gene</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb22-2"><a href="#cb22-2"></a>gr <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">resize</span>(<span class="at">width =</span> <span class="dv">1</span>, <span class="at">fix =</span> <span class="st">'start'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">reduceMC</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 2 ranges and 2 metadata columns:
+      seqnames    ranges strand |   gene_name               transcript_name
+         &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;               &lt;CharacterList&gt;
+  [1]     chr2 204732494      + |       CTLA4                     CTLA4-205
+  [2]     chr2 204732666      + |       CTLA4 CTLA4-201,CTLA4-204,CTLA4-203
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li>Columns are simplified to vectors by default where possible.</li>
+</ul>
+</div>
+</section>
+<section id="operations-retaining-mcols-reducemc-3" class="slide level2">
+<h2>Operations Retaining <code>mcols</code>: <code>reduceMC()</code></h2>
+<ul>
+<li>Keep all values by setting <code>simplify = FALSE</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>gr <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">resize</span>(<span class="at">width =</span> <span class="dv">1</span>, <span class="at">fix =</span> <span class="st">'start'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">reduceMC</span>(<span class="at">simplify =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 2 ranges and 2 metadata columns:
+      seqnames    ranges strand |         gene_name
+         &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; |   &lt;CharacterList&gt;
+  [1]     chr2 204732494      + |             CTLA4
+  [2]     chr2 204732666      + | CTLA4,CTLA4,CTLA4
+                    transcript_name
+                    &lt;CharacterList&gt;
+  [1]                     CTLA4-205
+  [2] CTLA4-201,CTLA4-204,CTLA4-203
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+</section>
+<section id="set-operations-retaining-mcols" class="slide level2">
+<h2>Set Operations Retaining <code>mcols</code></h2>
+<ul>
+<li>Set operations have <code>*MC()</code> versions</li>
+<li><code>setdiff()</code> Vs <code>setdiffMC()</code></li>
+<li><code>union</code> Vs <code>unionMC()</code></li>
+<li><code>intersect</code> Vs <code>intersectMC()</code></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Information is only retained from the query <code>GRanges</code>
+<ul>
+<li><code>x</code> in <code>setdiffMC(x, y)</code></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="tidyverse-inspired-functions-chopmc" class="slide level2">
+<h2>Tidyverse-inspired Functions: <code>chopMC()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 4 ranges and 2 metadata columns:
+      seqnames              ranges strand |   gene_name transcript_name
+         &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;     &lt;character&gt;
+  [1]     chr2 204732494-204738688      + |       CTLA4       CTLA4-205
+  [2]     chr2 204732666-204737498      + |       CTLA4       CTLA4-201
+  [3]     chr2 204732666-204737535      + |       CTLA4       CTLA4-204
+  [4]     chr2 204732666-204737535      + |       CTLA4       CTLA4-203
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><br></p>
+<ul>
+<li><code>chopMC()</code> acts like <code>chop()</code> using the range as the backbone</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">chopMC</span>(gr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 3 ranges and 2 metadata columns:
+      seqnames              ranges strand |   gene_name     transcript_name
+         &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;     &lt;CharacterList&gt;
+  [1]     chr2 204732494-204738688      + |       CTLA4           CTLA4-205
+  [2]     chr2 204732666-204737498      + |       CTLA4           CTLA4-201
+  [3]     chr2 204732666-204737535      + |       CTLA4 CTLA4-204,CTLA4-203
+  -------
+  seqinfo: 1 sequence from an unspecified genome; no seqlengths</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="tidyverse-inspired-functions-distinctmc" class="slide level2">
+<h2>Tidyverse-inspired Functions: <code>distinctMC()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 4 ranges and 2 metadata columns:
+      seqnames              ranges strand |   gene_name transcript_name
+         &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;     &lt;character&gt;
+  [1]     chr2 204732494-204738688      + |       CTLA4       CTLA4-205
+  [2]     chr2 204732666-204737498      + |       CTLA4       CTLA4-201
+  [3]     chr2 204732666-204737535      + |       CTLA4       CTLA4-204
+  [4]     chr2 204732666-204737535      + |       CTLA4       CTLA4-203
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+<p><br></p>
+<ul>
+<li><code>distinctMC()</code> behaves like <code>distinct()</code> using the ranges + any requested columns</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">distinctMC</span>(gr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 3 ranges and 0 metadata columns:
+      seqnames              ranges strand
+         &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt;
+  [1]     chr2 204732494-204738688      +
+  [2]     chr2 204732666-204737498      +
+  [3]     chr2 204732666-204737535      +
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+</section>
+<section id="tidyverse-inspired-functions-distinctmc-1" class="slide level2">
+<h2>Tidyverse-inspired Functions: <code>distinctMC()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 4 ranges and 2 metadata columns:
+      seqnames              ranges strand |   gene_name transcript_name
+         &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;     &lt;character&gt;
+  [1]     chr2 204732494-204738688      + |       CTLA4       CTLA4-205
+  [2]     chr2 204732666-204737498      + |       CTLA4       CTLA4-201
+  [3]     chr2 204732666-204737535      + |       CTLA4       CTLA4-204
+  [4]     chr2 204732666-204737535      + |       CTLA4       CTLA4-203
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+<p><br></p>
+<ul>
+<li><code>distinctMC()</code> behaves like <code>distinct()</code> using the ranges + any requested columns</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">distinctMC</span>(gr, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 3 ranges and 2 metadata columns:
+      seqnames              ranges strand |   gene_name transcript_name
+         &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;     &lt;character&gt;
+  [1]     chr2 204732494-204738688      + |       CTLA4       CTLA4-205
+  [2]     chr2 204732666-204737498      + |       CTLA4       CTLA4-201
+  [3]     chr2 204732666-204737535      + |       CTLA4       CTLA4-204
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="working-with-peaks" class="title-slide slide level1 center">
+<h1>Working with Peaks</h1>
+
+</section>
+<section id="importpeaks" class="slide level2">
+<h2><code>importPeaks()</code></h2>
+<p>Most often, we’ll load in replicates with identical structure <span class="math inline">\(\implies\)</span> <code>GRangesList</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">library</span>(glue)</span>
+<span id="cb38-2"><a href="#cb38-2"></a>fl <span class="ot">&lt;-</span> <span class="fu">glue</span>(<span class="st">"GATA3_E2_rep{1:2}.narrowPeak"</span>)</span>
+<span id="cb38-3"><a href="#cb38-3"></a>peaks <span class="ot">&lt;-</span> <span class="fu">importPeaks</span>(fl, <span class="at">seqinfo =</span> sq)</span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="fu">vapply</span>(peaks, length, <span class="fu">integer</span>(<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GATA3_E2_rep1.narrowPeak GATA3_E2_rep2.narrowPeak 
+                      10                       10 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb40-2"><a href="#cb40-2"></a><span class="fu">names</span>(peaks) <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(<span class="fu">names</span>(peaks), <span class="st">".narrowPeak"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="importpeaks-1" class="slide level2">
+<h2><code>importPeaks()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>peaks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRangesList object of length 2:
+$GATA3_E2_rep1
+GRanges object with 10 ranges and 5 metadata columns:
+                             seqnames          ranges strand |     score
+                                &lt;Rle&gt;       &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt;
+   ZR-75-1_GATA3_E2_1_peak_1     chr1   523658-523929      * |       174
+   ZR-75-1_GATA3_E2_1_peak_2     chr1   780928-781330      * |       373
+   ZR-75-1_GATA3_E2_1_peak_3     chr1   821067-821391      * |        71
+   ZR-75-1_GATA3_E2_1_peak_4     chr1   849166-849528      * |       232
+   ZR-75-1_GATA3_E2_1_peak_5     chr1   852773-852955      * |       112
+   ZR-75-1_GATA3_E2_1_peak_6     chr1 1707118-1707445      * |       170
+   ZR-75-1_GATA3_E2_1_peak_7     chr1 1790623-1790995      * |       175
+   ZR-75-1_GATA3_E2_1_peak_8     chr1 1800979-1801188      * |        70
+   ZR-75-1_GATA3_E2_1_peak_9     chr1 1814836-1815115      * |        80
+  ZR-75-1_GATA3_E2_1_peak_10     chr1 1933329-1933586      * |       117
+                             signalValue    pValue    qValue      peak
+                               &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;
+   ZR-75-1_GATA3_E2_1_peak_1     7.90069  20.38453  17.44608       134
+   ZR-75-1_GATA3_E2_1_peak_2    12.49110  40.68121  37.35409       209
+   ZR-75-1_GATA3_E2_1_peak_3     4.24703   9.79599   7.18429       157
+   ZR-75-1_GATA3_E2_1_peak_4    12.30190  26.35153  23.27520       189
+   ZR-75-1_GATA3_E2_1_peak_5     7.84787  13.98412  11.22576       118
+   ZR-75-1_GATA3_E2_1_peak_6    10.07489  19.93628  17.00446       168
+   ZR-75-1_GATA3_E2_1_peak_7     9.65966  20.51598  17.57464       200
+   ZR-75-1_GATA3_E2_1_peak_8     6.36320   9.63799   7.02867        97
+   ZR-75-1_GATA3_E2_1_peak_9     6.73437  10.68456   8.03742       151
+  ZR-75-1_GATA3_E2_1_peak_10     6.37055  14.51252  11.73312       133
+  -------
+  seqinfo: 24 sequences from GRCh37 genome
+
+$GATA3_E2_rep2
+GRanges object with 10 ranges and 5 metadata columns:
+                             seqnames          ranges strand |     score
+                                &lt;Rle&gt;       &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt;
+   ZR-75-1_GATA3_E2_2_peak_1     chr1   523672-523939      * |        73
+   ZR-75-1_GATA3_E2_2_peak_2     chr1   780837-781294      * |       310
+   ZR-75-1_GATA3_E2_2_peak_3     chr1   821066-821346      * |        17
+   ZR-75-1_GATA3_E2_2_peak_4     chr1   849167-849522      * |       352
+   ZR-75-1_GATA3_E2_2_peak_5     chr1 1707074-1707325      * |        32
+   ZR-75-1_GATA3_E2_2_peak_6     chr1 1790623-1791019      * |       173
+   ZR-75-1_GATA3_E2_2_peak_7     chr1 1800936-1801227      * |       121
+   ZR-75-1_GATA3_E2_2_peak_8     chr1 1814913-1815157      * |       121
+   ZR-75-1_GATA3_E2_2_peak_9     chr1 1933372-1933563      * |        42
+  ZR-75-1_GATA3_E2_2_peak_10     chr1 2462419-2462660      * |        65
+                             signalValue    pValue    qValue      peak
+                               &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;
+   ZR-75-1_GATA3_E2_2_peak_1     5.12315  10.08017   7.30926       136
+   ZR-75-1_GATA3_E2_2_peak_2    14.67066  34.47041  31.01986       308
+   ZR-75-1_GATA3_E2_2_peak_3     2.82475   4.16110   1.76187       148
+   ZR-75-1_GATA3_E2_2_peak_4    15.79546  38.73673  35.20665       176
+   ZR-75-1_GATA3_E2_2_peak_5     4.54744   5.74956   3.22346       143
+   ZR-75-1_GATA3_E2_2_peak_6     9.75019  20.46024  17.32872       232
+   ZR-75-1_GATA3_E2_2_peak_7     8.29678  15.09020  12.11843       168
+   ZR-75-1_GATA3_E2_2_peak_8     8.29678  15.09020  12.11843       146
+   ZR-75-1_GATA3_E2_2_peak_9     4.23712   6.90630   4.29843        90
+  ZR-75-1_GATA3_E2_2_peak_10     4.90164   9.25272   6.52910       112
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+</section>
+<section id="makeconsensus" class="slide level2">
+<h2><code>makeConsensus()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">makeConsensus</span>(peaks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 11 ranges and 3 metadata columns:
+       seqnames          ranges strand | GATA3_E2_rep1 GATA3_E2_rep2         n
+          &lt;Rle&gt;       &lt;IRanges&gt;  &lt;Rle&gt; |     &lt;logical&gt;     &lt;logical&gt; &lt;numeric&gt;
+   [1]     chr1   523658-523939      * |          TRUE          TRUE         2
+   [2]     chr1   780837-781330      * |          TRUE          TRUE         2
+   [3]     chr1   821066-821391      * |          TRUE          TRUE         2
+   [4]     chr1   849166-849528      * |          TRUE          TRUE         2
+   [5]     chr1   852773-852955      * |          TRUE         FALSE         1
+   [6]     chr1 1707074-1707445      * |          TRUE          TRUE         2
+   [7]     chr1 1790623-1791019      * |          TRUE          TRUE         2
+   [8]     chr1 1800936-1801227      * |          TRUE          TRUE         2
+   [9]     chr1 1814836-1815157      * |          TRUE          TRUE         2
+  [10]     chr1 1933329-1933586      * |          TRUE          TRUE         2
+  [11]     chr1 2462419-2462660      * |         FALSE          TRUE         1
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+</section>
+<section id="makeconsensus-1" class="slide level2">
+<h2><code>makeConsensus()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">makeConsensus</span>(peaks, <span class="at">var =</span> <span class="st">"score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 11 ranges and 4 metadata columns:
+       seqnames          ranges strand |         score GATA3_E2_rep1
+          &lt;Rle&gt;       &lt;IRanges&gt;  &lt;Rle&gt; | &lt;NumericList&gt;     &lt;logical&gt;
+   [1]     chr1   523658-523939      * |       174, 73          TRUE
+   [2]     chr1   780837-781330      * |       373,310          TRUE
+   [3]     chr1   821066-821391      * |         71,17          TRUE
+   [4]     chr1   849166-849528      * |       232,352          TRUE
+   [5]     chr1   852773-852955      * |           112          TRUE
+   [6]     chr1 1707074-1707445      * |       170, 32          TRUE
+   [7]     chr1 1790623-1791019      * |       175,173          TRUE
+   [8]     chr1 1800936-1801227      * |        70,121          TRUE
+   [9]     chr1 1814836-1815157      * |        80,121          TRUE
+  [10]     chr1 1933329-1933586      * |       117, 42          TRUE
+  [11]     chr1 2462419-2462660      * |            65         FALSE
+       GATA3_E2_rep2         n
+           &lt;logical&gt; &lt;numeric&gt;
+   [1]          TRUE         2
+   [2]          TRUE         2
+   [3]          TRUE         2
+   [4]          TRUE         2
+   [5]         FALSE         1
+   [6]          TRUE         2
+   [7]          TRUE         2
+   [8]          TRUE         2
+   [9]          TRUE         2
+  [10]          TRUE         2
+  [11]          TRUE         1
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+</section>
+<section id="makeconsensus-2" class="slide level2">
+<h2><code>makeConsensus()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">library</span>(plyranges)</span>
+<span id="cb47-2"><a href="#cb47-2"></a>peaks <span class="sc">%&gt;%</span> </span>
+<span id="cb47-3"><a href="#cb47-3"></a>  <span class="fu">endoapply</span>(mutate, <span class="at">centre =</span> start <span class="sc">+</span> peak) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-4"><a href="#cb47-4"></a>  <span class="fu">makeConsensus</span>(<span class="at">var =</span> <span class="st">"centre"</span>, <span class="at">p =</span> <span class="dv">1</span>, <span class="at">simplify =</span> <span class="cn">FALSE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 9 ranges and 4 metadata columns:
+      seqnames          ranges strand |          centre GATA3_E2_rep1
+         &lt;Rle&gt;       &lt;IRanges&gt;  &lt;Rle&gt; |   &lt;NumericList&gt;     &lt;logical&gt;
+  [1]     chr1   523658-523939      * |   523792,523808          TRUE
+  [2]     chr1   780837-781330      * |   781137,781145          TRUE
+  [3]     chr1   821066-821391      * |   821224,821214          TRUE
+  [4]     chr1   849166-849528      * |   849355,849343          TRUE
+  [5]     chr1 1707074-1707445      * | 1707286,1707217          TRUE
+  [6]     chr1 1790623-1791019      * | 1790823,1790855          TRUE
+  [7]     chr1 1800936-1801227      * | 1801076,1801104          TRUE
+  [8]     chr1 1814836-1815157      * | 1814987,1815059          TRUE
+  [9]     chr1 1933329-1933586      * | 1933462,1933462          TRUE
+      GATA3_E2_rep2         n
+          &lt;logical&gt; &lt;numeric&gt;
+  [1]          TRUE         2
+  [2]          TRUE         2
+  [3]          TRUE         2
+  [4]          TRUE         2
+  [5]          TRUE         2
+  [6]          TRUE         2
+  [7]          TRUE         2
+  [8]          TRUE         2
+  [9]          TRUE         2
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+</section>
+<section id="makeconsensus-3" class="slide level2">
+<h2><code>makeConsensus()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>peaks <span class="sc">%&gt;%</span> </span>
+<span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">endoapply</span>(mutate, <span class="at">centre =</span> start <span class="sc">+</span> peak) <span class="sc">%&gt;%</span> </span>
+<span id="cb49-3"><a href="#cb49-3"></a>  <span class="fu">makeConsensus</span>(<span class="at">var =</span> <span class="st">"centre"</span>, <span class="at">p =</span> <span class="dv">1</span>, <span class="at">simplify =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb49-4"><a href="#cb49-4"></a>  <span class="fu">mutate</span>(<span class="at">centre =</span> <span class="fu">vapply</span>(centre, median, <span class="fu">numeric</span>(<span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 9 ranges and 4 metadata columns:
+      seqnames          ranges strand |    centre GATA3_E2_rep1 GATA3_E2_rep2
+         &lt;Rle&gt;       &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt;     &lt;logical&gt;     &lt;logical&gt;
+  [1]     chr1   523658-523939      * |    523800          TRUE          TRUE
+  [2]     chr1   780837-781330      * |    781141          TRUE          TRUE
+  [3]     chr1   821066-821391      * |    821219          TRUE          TRUE
+  [4]     chr1   849166-849528      * |    849349          TRUE          TRUE
+  [5]     chr1 1707074-1707445      * |   1707252          TRUE          TRUE
+  [6]     chr1 1790623-1791019      * |   1790839          TRUE          TRUE
+  [7]     chr1 1800936-1801227      * |   1801090          TRUE          TRUE
+  [8]     chr1 1814836-1815157      * |   1815023          TRUE          TRUE
+  [9]     chr1 1933329-1933586      * |   1933462          TRUE          TRUE
+              n
+      &lt;numeric&gt;
+  [1]         2
+  [2]         2
+  [3]         2
+  [4]         2
+  [5]         2
+  [6]         2
+  [7]         2
+  [8]         2
+  [9]         2
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+</section></section>
+<section id="differential-binding" class="title-slide slide level1 center">
+<h1>Differential Binding</h1>
+
+</section>
+
+<section>
+<section id="visualisation" class="title-slide slide level1 center">
+<h1>Visualisation</h1>
+
+</section>
+<section id="plotoverlaps" class="slide level2">
+<h2><code>plotOverlaps()</code></h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">colToRanges</span>(tbl, <span class="at">var =</span> <span class="st">"range"</span>, <span class="at">seqinfo =</span> sq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">plotOverlaps</span>(peaks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
-<div class="cell-output cell-output-stdout">
-<pre><code>GRanges object with 2 ranges and 1 metadata column:
-      seqnames    ranges strand |          id
-         &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; | &lt;character&gt;
-  [1]     chr1      1-10      + |      range1
-  [2]     chr1      6-12      - |      range2
-  -------
-  seqinfo: 1 sequence from a pretend genome; no seqlengths</code></pre>
+<div class="cell-output-display">
+<p><img data-src="20221201_extraChIPs_files/figure-revealjs/unnamed-chunk-27-1.png" width="672"></p>
 </div>
 </div>
 </div>
+</section>
+<section id="plotoverlaps-1" class="slide level2">
+<h2><code>plotOverlaps()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">plotOverlaps</span>(peaks, <span class="at">type =</span> <span class="st">"upset"</span>, <span class="at">var =</span> <span class="st">"score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
-<img src="https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png" class="slide-logo r-stretch"><div class="footer footer-default">
+</div>
+<img data-src="20221201_extraChIPs_files/figure-revealjs/unnamed-chunk-28-1.png" width="960" class="r-stretch"></section>
+<section id="plotpie" class="slide level2">
+<h2><code>plotPie()</code></h2>
+<p><code>plotPie()</code> summarises one, two or three columns in combination</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>gr<span class="sc">$</span>detected <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb53-2"><a href="#cb53-2"></a><span class="fu">plotPie</span>(gr, <span class="at">fill =</span> <span class="st">"detected"</span>, <span class="at">category_width =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<p><img data-src="20221201_extraChIPs_files/figure-revealjs/unnamed-chunk-29-1.png" width="576"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="plotpie-1" class="slide level2">
+<h2><code>plotPie()</code></h2>
+<p><code>plotPie()</code> summarises one, two or three columns in combination</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="fu">plotPie</span>(gr, <span class="at">fill =</span> <span class="st">"detected"</span>, <span class="at">x =</span> <span class="st">"gene_name"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<p><img data-src="20221201_extraChIPs_files/figure-revealjs/unnamed-chunk-30-1.png" width="576"></p>
+</div>
+</div>
+</div>
+<p>Can also accept <code>DataFrame</code> or <code>data.frame</code> objects as input</p>
+<p><img src="https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png" class="slide-logo"></p>
+<div class="footer footer-default">
 
 </div>
 </section></section>
