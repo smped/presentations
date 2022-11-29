@@ -423,3 +423,27 @@ plotPie(gr, fill = "detected", x = "gene_name")
 
 Can also accept `DataFrame` or `data.frame` objects as input
 
+## `plotAssay*()`
+
+When using a `SummarizedExperiment` object:
+
+- `plotAssayPCA()` + `plotAssayRle()` + `plotAssayDensities()`
+- Standard `ggplot2` output
+
+## `plotHFGC()`
+
+- Wraps `GViz` plotting functions
+- plot *optional* 1) HiC, 2) Features, 3) Genes and 4) Coverage
+- Minimal data required is a `GenomicRange` + cytobands
+- Helpful for isualosting multiple ranges quickly
+
+## `plotHFGC()`
+
+(Insert figure)
+
+## `plotProfileHeatmap()`
+
+Uses `ggplot2` plotting with faces for samples or peak groupings
+
+
+

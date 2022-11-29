@@ -1151,8 +1151,33 @@ GRanges object with 10 ranges and 5 metadata columns:
 </div>
 </div>
 <p>Can also accept <code>DataFrame</code> or <code>data.frame</code> objects as input</p>
-<p><img src="https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png" class="slide-logo"></p>
-<div class="footer footer-default">
+</section>
+<section id="plotassay" class="slide level2">
+<h2><code>plotAssay*()</code></h2>
+<p>When using a <code>SummarizedExperiment</code> object:</p>
+<ul>
+<li><code>plotAssayPCA()</code> + <code>plotAssayRle()</code> + <code>plotAssayDensities()</code></li>
+<li>Standard <code>ggplot2</code> output</li>
+</ul>
+</section>
+<section id="plothfgc" class="slide level2">
+<h2><code>plotHFGC()</code></h2>
+<ul>
+<li>Wraps <code>GViz</code> plotting functions</li>
+<li>plot <em>optional</em> 1) HiC, 2) Features, 3) Genes and 4) Coverage</li>
+<li>Minimal data required is a <code>GenomicRange</code> + cytobands</li>
+<li>Helpful for isualosting multiple ranges quickly</li>
+</ul>
+</section>
+<section id="plothfgc-1" class="slide level2">
+<h2><code>plotHFGC()</code></h2>
+<p>(Insert figure)</p>
+</section>
+<section id="plotprofileheatmap" class="slide level2">
+<h2><code>plotProfileHeatmap()</code></h2>
+<p>Uses <code>ggplot2</code> plotting with faces for samples or peak groupings</p>
+
+<img src="https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png" class="slide-logo r-stretch"><div class="footer footer-default">
 
 </div>
 </section></section>
