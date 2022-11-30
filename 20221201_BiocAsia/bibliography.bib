@@ -1,0 +1,111 @@
+
+@ARTICLE{McCarthy2009-qf,
+  title    = "Testing significance relative to a fold-change threshold is a
+              {TREAT}",
+  author   = "McCarthy, Davis J and Smyth, Gordon K",
+  abstract = "MOTIVATION: Statistical methods are used to test for the
+              differential expression of genes in microarray experiments. The
+              most widely used methods successfully test whether the true
+              differential expression is different from zero, but give no
+              assurance that the differences found are large enough to be
+              biologically meaningful. RESULTS: We present a method, t-tests
+              relative to a threshold (TREAT), that allows researchers to test
+              formally the hypothesis (with associated p-values) that the
+              differential expression in a microarray experiment is greater
+              than a given (biologically meaningful) threshold. We have
+              evaluated the method using simulated data, a dataset from a
+              quality control experiment for microarrays and data from a
+              biological experiment investigating histone deacetylase
+              inhibitors. When the magnitude of differential expression is
+              taken into account, TREAT improves upon the false discovery rate
+              of existing methods and identifies more biologically relevant
+              genes. AVAILABILITY: R code implementing our methods is
+              contributed to the software package limma available at
+              http://www.bioconductor.org.",
+  journal  = "Bioinformatics",
+  volume   =  25,
+  number   =  6,
+  pages    = "765--771",
+  month    =  mar,
+  year     =  2009,
+  language = "en"
+}
+
+@ARTICLE{Law2014-xq,
+  title    = "voom: Precision weights unlock linear model analysis tools for
+              {RNA-seq} read counts",
+  author   = "Law, Charity W and Chen, Yunshun and Shi, Wei and Smyth, Gordon K",
+  abstract = "New normal linear modeling strategies are presented for analyzing
+              read counts from RNA-seq experiments. The voom method estimates
+              the mean-variance relationship of the log-counts, generates a
+              precision weight for each observation and enters these into the
+              limma empirical Bayes analysis pipeline. This opens access for
+              RNA-seq analysts to a large body of methodology developed for
+              microarrays. Simulation studies show that voom performs as well
+              or better than count-based RNA-seq methods even when the data are
+              generated according to the assumptions of the earlier methods.
+              Two case studies illustrate the use of linear modeling and gene
+              set testing methods.",
+  journal  = "Genome Biol.",
+  volume   =  15,
+  number   =  2,
+  pages    = "R29",
+  month    =  feb,
+  year     =  2014,
+  language = "en"
+}
+
+@article{sqn,
+    author = {Hicks, Stephanie C and Okrah, Kwame and Paulson, Joseph N and Quackenbush, John and Irizarry, Rafael A and Bravo, Héctor Corrada},
+    title = "{Smooth quantile normalization}",
+    journal = {Biostatistics},
+    volume = {19},
+    number = {2},
+    pages = {185-198},
+    year = {2017},
+    month = {07},
+    abstract = "{Between-sample normalization is a critical step in genomic data analysis to remove systematic bias and unwanted technical variation in high-throughput data. Global normalization methods are based on the assumption that observed variability in global properties is due to technical reasons and are unrelated to the biology of interest. For example, some methods correct for differences in sequencing read counts by scaling features to have similar median values across samples, but these fail to reduce other forms of unwanted technical variation. Methods such as quantile normalization transform the statistical distributions across samples to be the same and assume global differences in the distribution are induced by only technical variation. However, it remains unclear how to proceed with normalization if these assumptions are violated, for example, if there are global differences in the statistical distributions between biological conditions or groups, and external information, such as negative or control features, is not available. Here, we introduce a generalization of quantile normalization, referred to as smooth quantile normalization (qsmooth), which is based on the assumption that the statistical distribution of each sample should be the same (or have the same distributional shape) within biological groups or conditions, but allowing that they may differ between groups. We illustrate the advantages of our method on several high-throughput datasets with global differences in distributions corresponding to different biological conditions. We also perform a Monte Carlo simulation study to illustrate the bias-variance tradeoff and root mean squared error of qsmooth compared to other global normalization methods. A software implementation is available from https://github.com/stephaniehicks/qsmooth.}",
+    issn = {1465-4644},
+    doi = {10.1093/biostatistics/kxx028},
+    url = {https://doi.org/10.1093/biostatistics/kxx028},
+    eprint = {https://academic.oup.com/biostatistics/article-pdf/19/2/185/24268721/kxx028.pdf},
+}
+
+@Article{csaw-db,
+    author = {Aaron T L Lun and Gordon K Smyth},
+    title = {{D}e novo detection of differentially bound regions for {C}h{I}{P}-seq data using peaks and windows: controlling error rates correctly},
+    journal = {Nucleic Acids Res.},
+    year = {2014},
+    volume = {42},
+    number = {11},
+    pages = {e95},
+  }
+
+@article{Hickey2021,
+abstract = {The role of the androgen receptor (AR) in estrogen receptor (ER)-$\alpha$-positive breast cancer is controversial, constraining implementation of AR-directed therapies. Using a diverse, clinically relevant panel of cell-line and patient-derived models, we demonstrate that AR activation, not suppression, exerts potent antitumor activity in multiple disease contexts, including resistance to standard-of-care ER and CDK4/6 inhibitors. Notably, AR agonists combined with standard-of-care agents enhanced therapeutic responses. Mechanistically, agonist activation of AR altered the genomic distribution of ER and essential co-activators (p300, SRC-3), resulting in repression of ER-regulated cell cycle genes and upregulation of AR target genes, including known tumor suppressors. A gene signature of AR activity positively predicted disease survival in multiple clinical ER-positive breast cancer cohorts. These findings provide unambiguous evidence that AR has a tumor suppressor role in ER-positive breast cancer and support AR agonism as the optimal AR-directed treatment strategy, revealing a rational therapeutic opportunity. Functional interplay of sex hormones in estrogen receptor–positive breast cancer unveils the therapeutic potential of androgen receptor agonists.},
+author = {Hickey, Theresa E. and Selth, Luke A. and Chia, Kee Ming and Laven-Law, Geraldine and Milioli, Heloisa H. and Roden, Daniel and Jindal, Shalini and Hui, Mun and Finlay-Schultz, Jessica and Ebrahimie, Esmaeil and Birrell, Stephen N. and Stelloo, Suzan and Iggo, Richard and Alexandrou, Sarah and Caldon, C. Elizabeth and Abdel-Fatah, Tarek M. and Ellis, Ian O. and Zwart, Wilbert and Palmieri, Carlo and Sartorius, Carol A. and Swarbrick, Alex and Lim, Elgene and Carroll, Jason S. and Tilley, Wayne D.},
+doi = {10.1038/s41591-020-01168-7},
+issn = {1546-170X},
+journal = {Nature Medicine 2021 27:2},
+keywords = {Breast cancer,Preclinical research},
+month = {jan},
+number = {2},
+pages = {310--320},
+pmid = {33462444},
+publisher = {Nature Publishing Group},
+title = {{The androgen receptor is a tumor suppressor in estrogen receptor–positive breast cancer}},
+url = {https://www.nature.com/articles/s41591-020-01168-7},
+volume = {27},
+year = {2021}
+}
+
+@Article{workflowr,
+    title = {Creating and sharing reproducible research code the workflowr way [version 1; peer review: 3 approved]},
+    author = {John D Blischak and Peter Carbonetto and Matthew Stephens},
+    journal = {F1000Research},
+    year = {2019},
+    volume = {8},
+    number = {1749},
+    doi = {10.12688/f1000research.20843.1},
+    url = {https://doi.org/10.12688/f1000research.20843.1},
+  }

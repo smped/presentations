@@ -5,6 +5,7 @@ author: "Stephen (Stevie) Pederson"
 date: 2022-12-01
 institute: BiocAsia
 editor: source
+bibliography: bibliography.bib
 format: 
   revealjs:
     theme: [dark, custom.scss]
@@ -26,7 +27,7 @@ knitr::opts_chunk$set(
 
 ## Who Am I?
 
-- Postdoctoral Bioinformatician (ECR)
+- Post-doctoral Bioinformatician (ECR)
     + Black Ochre Data Laboratories &nbsp; ![](tki.jpg){width=80px}
     + Based in Adelaide, South Australia
     + Traditional lands of the Kaurna people
@@ -40,46 +41,47 @@ knitr::opts_chunk$set(
 ## GRAVI
 
 - 2020 - 2022: Dame Roma Mitchell Cancer Research Laboratories (DRMCRL)
-- Activation of the Androgen Receptor (AR) as a therapeutic strategy for Breast Cancer
+- Activation of the Androgen Receptor (AR) as a therapeutic strategy for Breast Cancer [@Hickey2021]
 - Combined genomic changes to AR, ER & GATA3 binding after DHT-treatment (ChIP-Seq)
   + 4 cell lines + 2 PDX model
   + Additional Histone Marks
   + Additional HiC / HiChIP Data (Sometimes)
   + RNA Seq data
 
-## GRAVI: Datasets
+<!-- ## GRAVI: Datasets -->
 
-![](DRMCRL_datasets.jpg)
+<!-- ![](DRMCRL_datasets.jpg) -->
 
 
 ## GRAVI
 
-- Gene Regulatory Analysis using Variable Inputs
+- Gene Regulatory Analysis using Variable Inputs (https://github.com/steveped/GRAVI)
 - snakemake workflow
-  + HTML Output inspired by `workflowr`
+  + HTML Output inspired by `workflowr` [@workflowr]
   + All code visible $\implies$ Reproducible as complete or in sections
-- Performs 1) Custom Annotations, 2) Peak Calling, 3) Differential Binding
-  + Enrchment Analysis performed during multiple steps
   + Standardised all output formats/structures
-  + All `R` Environments saved (marked as `temp()`)
+<!-- - Performs 1) Custom Annotations, 2) Peak Calling, 3) Differential Binding -->
+<!--   + Enrichment Analysis performed during multiple steps -->
+<!--   + All `R` Environments saved (marked as `temp()`) -->
   
 ## GRAVI
 
 - Minimal Data:
   + 1 ChIP Target across two conditions
 - Best for 2-3 ChIP targets with 2-3 conditions
-  + Enables Pairwise Comparisons
+  + Enables Pair-wise Comparisons
   + Optional Data: RNA-Seq Results, HiC Interactions, Genomic Features (H3K27ac)
   
+# extraChIPs
+
 ## GRAVI
 
-- `extraChIPs` became key infrastructure for GRAVI
+- `extraChIPs` was developed as key infrastructure for GRAVI
 - 3 Primary sets of Functions
   1. Working with `GRanges` focussed on `mcols()`
-  2. ChIP-Seq Helper Functions
+  2. ChIP-Seq Helper Functions (i.e. peaks and differential binding)
   3. Data Visualisation
   
-# extraChIPs
 
 ## Working With Ranges: `tibble` Coercion
 
@@ -160,16 +162,6 @@ tbl <- as_tibble(gr)
 tbl
 ```
 
-. . . 
-
-<br>
-
-Setting `rangeAsChar = FALSE` gives you standard `as.data.frame` columns
-
-```{r}
-as_tibble(gr, rangeAsChar = FALSE)
-```
-
 
 ## Working With Ranges: `tibble` Coercion
 
@@ -226,11 +218,6 @@ gr %>%
   reduceMC()
 ```
 
-. . . 
-
-- Columns are simplified to vectors by default where possible.
-
-
 
 ## Set Operations Retaining `mcols`
 
@@ -241,7 +228,7 @@ gr %>%
 
 . . .
 
-`mcols` are only retained from the query `GRanges` (i.e. `x` in `setdiffMC(x, y)`)
+`mcols` are only retained from the query range (i.e. `x` in `setdiffMC(x, y)`)
 
 
 ## Tidyverse-inspired Functions: `chopMC()`
@@ -312,14 +299,29 @@ peaks <- importPeaks(fl, seqinfo = sq)
 peaks
 ```
 
-## `makeConsensus()` {.smaller}
+## `plotOverlaps()`
+
+```{r, fig.width=6, fig.height=6}
+#| output-location: column
+library(stringr)
+names(peaks) <- str_remove_all(
+  names(peaks), ".narrowPeak"
+)
+plotOverlaps(
+  peaks, 
+  set_col = c("blue", "yellow"),
+  alpha = 0.2
+)
+```
+
+## `plotOverlaps()`
 
 ```{r}
-library(stringr)
-names(peaks) <- str_remove_all(names(peaks), ".narrowPeak")
-names(peaks)
+plotOverlaps(peaks, type = "upset", var = "score", set_col = c("blue", "yellow"))
 ```
-<br>
+
+## `makeConsensus()` {.smaller}
+
 ```{r}
 makeConsensus(peaks)
 ```
@@ -348,48 +350,68 @@ peaks %>%
 Example: Keep peak centres from each replicate
 
 ```{r}
-peaks %>% 
+consensus_peaks <- peaks %>% 
   endoapply(mutate, centre = start + peak) %>% 
   makeConsensus(var = "centre", p = 1, simplify = FALSE) %>% 
-  mutate(centre = vapply(centre, median, numeric(1)))
+  mutate(centre = vapply(centre, median, numeric(1))) %>% 
+  select(centre, n)
+consensus_peaks
 ```
 
-## `plotOverlaps()`
+## Map To Features {.smaller}
 
-```{r, fig.width=7, fig.height=7}
-#| output-location: column
-plotOverlaps(
-  peaks, 
-  set_col = c("blue", "yellow"),
-  alpha = 0.2
-)
-```
-
-## `plotOverlaps()`
 
 ```{r}
-plotOverlaps(peaks, type = "upset", var = "score", set_col = c("blue", "yellow"))
+library(rtracklayer)
+features <- import.gff("ZR-75_h3k27ac_features.gtf") %>% select(feature)
+features[1:5]
 ```
+
+::: {.fragment fragment-index=1}
+
+`bestOverlap()` makes this simple
+
+```{r}
+consensus_peaks$feature <- bestOverlap(consensus_peaks, features, var = "feature", missing = "none")
+consensus_peaks 
+```
+
+:::
+
+## Summarise Binding Patterns
+
+```{r}
+plotPie(consensus_peaks, fill = "feature")
+```
+
+## Summarise Binding Patterns
+
+```{r}
+plotPie(consensus_peaks, fill = "feature", scale_by = "width") +
+  scale_fill_brewer(palette = "Set1") +
+  labs(fill = "Feature")
+```
+
 
 # Differential Binding
 
 ## `dualFilter()`
 
-Sliding Windows (`csaw::windowCounts()`)
+Sliding Windows (`csaw::windowCounts()`) [@csaw-db]
 
 - Discard non-signal windows using `dualFilter()`
-- Combines signal-to-input and overall signal as filtering strategy
+- Combines 1) *signal-to-input* and 2) *overall signal* as filtering strategy
 - Provide regions of expected signal as a guide
 
 ## GRAVI
 
-- Smooth Quantile Normalisation on logCPM
-- `limma-trend`
-- Range-based $H_0$ (`treat()`)
+- Smooth Quantile Normalisation on logCPM [@sqn]
+- `limma-trend` [@Law2014-xq]
+- Range-based $H_0$ (`treat()`) [@McCarthy2009-qf]
 
 ## `plotAssayDensities()`
 
-![A) Raw logCPM and b) Smooth Quantile Normalised logCPM for the Androgren Receptor (AR)](plot-logcpm-densities-1.png){fig-align="left"}
+![A) Raw logCPM and b) Smooth Quantile Normalised logCPM for the Androgen Receptor (AR)](plot-logcpm-densities-1.png){fig-align="left"}
 
 ## `plotAssayRle()`
 
@@ -432,8 +454,26 @@ mergeByCol(win, col = "AveExpr", pval = "PValue")
 ```
 :::
 
+## `mapByFeature()`
 
-# Visualisation
+```
+mapByFeature(
+  gr,
+  genes,
+  prom,
+  enh,
+  gi,
+  cols = c("gene_id", "gene_name", "symbol"),
+  gr2prom = 0,
+  gr2enh = 0,
+  gr2gi = 0,
+  gr2gene = 1e+05,
+  prom2gene = 0,
+  enh2gene = 1e+05,
+  gi2gene = 0,
+  ...
+)
+```
 
 ## `plotProfileHeatmap()`
 
@@ -473,24 +513,7 @@ Uses `ggplot2` plotting with facets for samples or peak groupings
 
 ::::
 
-## `plotPie()`
+## References
 
-`plotPie()` summarises one, two or three columns in combination
-
-```{r, fig.height=6, fig.width=6}
-#| output-location: column
-gr$detected <- c(FALSE, TRUE, FALSE, TRUE)
-plotPie(gr, fill = "detected", category_width = 10)
-```
-
-## `plotPie()`
-
-`plotPie()` summarises one, two or three columns in combination
-
-```{r, fig.height=6, fig.width=6}
-#| output-location: column
-plotPie(gr, fill = "detected", x = "gene_name") 
-```
-
-Can also accept `DataFrame` or `data.frame` objects as input
-
+::: {#refs}
+:::
