@@ -14,6 +14,8 @@ format:
     logo: https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png
 ---
 
+# Introduction
+
 ```{r setup, echo=FALSE, eval=TRUE}
 knitr::opts_chunk$set(
   echo = TRUE,
@@ -22,38 +24,12 @@ knitr::opts_chunk$set(
 ```
 
 
-# Introduction
-
-<!-- ## Who Am I? -->
-
-
-<!-- - Stephen Pederson $\implies$ Steve -->
-
-<!-- ::: {.incremental} -->
-<!-- - St<u>**eph**</u>en Pederson $\implies$ Steph -->
-<!-- - Stephen Pederson $\implies$ Stevie &nbsp; ![](https://static.miraheze.org/nonbinarywiki/c/c0/Nonbinary.png){width=80px} -->
-
-<!-- ::: -->
-
-<!-- ::: {.fragment} -->
-
-<!-- ```{r out.width='50%'} -->
-<!-- library(wordcloud) -->
-<!-- set.seed(100) -->
-<!-- wordcloud(c("Stephen", "Steph", "Steve", "Stevie"), c(0.2, 0.15, 0.05, 0.6)) -->
-<!-- ``` -->
-
-
-<!-- ::: -->
-
 ## Who Am I?
 
 - Postdoctoral Bioinformatician (ECR)
     + Black Ochre Data Laboratories &nbsp; ![](tki.jpg){width=80px}
-
-. . .
-
-- Co-ordinator Bioinformatics Hub, University of Adelaide (2014 - 2020)
+    + Based in Adelaide, South Australia
+    + Traditional lands of the Kaurna people
 
 . . .
 
@@ -64,7 +40,7 @@ knitr::opts_chunk$set(
 ## GRAVI
 
 - 2020 - 2022: Dame Roma Mitchell Cancer Research Laboratories (DRMCRL)
-- Activation of the Androgen Receptor (AR) as a threapeutic strategy for Breast Cancer
+- Activation of the Androgen Receptor (AR) as a therapeutic strategy for Breast Cancer
 - Combined genomic changes to AR, ER & GATA3 binding after DHT-treatment (ChIP-Seq)
   + 4 cell lines + 2 PDX model
   + Additional Histone Marks
@@ -95,13 +71,13 @@ knitr::opts_chunk$set(
   + Enables Pairwise Comparisons
   + Optional Data: RNA-Seq Results, HiC Interactions, Genomic Features (H3K27ac)
   
-. . .
+## GRAVI
 
 - `extraChIPs` became key infrastructure for GRAVI
 - 3 Primary sets of Functions
   1. Working with `GRanges` focussed on `mcols()`
-  2. Data Visualisation
-  3. ChIP-Seq Helper Functions
+  2. ChIP-Seq Helper Functions
+  3. Data Visualisation
   
 # extraChIPs
 
@@ -172,15 +148,6 @@ Starting with the protein-coding transcripts for *CTLA4*
 gr
 ```
 
-. . .
-<br>
-
-```{r}
-#| output-location: column
-sq <- seqinfo(gr)
-sq
-```
-
 
 ## Working With Ranges: `tibble` Coercion 
 
@@ -194,6 +161,7 @@ tbl
 ```
 
 . . . 
+
 <br>
 
 Setting `rangeAsChar = FALSE` gives you standard `as.data.frame` columns
@@ -213,6 +181,7 @@ tbl
 ```
 <br>
 ```{r}
+sq <- seqinfo(gr)
 colToRanges(tbl, var = "range", seqinfo = sq)
 ```
 
@@ -224,7 +193,6 @@ colToRanges(tbl, var = "range", seqinfo = sq)
 gr
 ```
 
-<br>
 
 Common functions like `reduce` lose `mcols` information
 
@@ -239,7 +207,6 @@ reduce(gr)
 gr
 ```
 
-<br>
 
 `reduceMC()` collapses the `mcols` information
 
@@ -263,15 +230,6 @@ gr %>%
 
 - Columns are simplified to vectors by default where possible.
 
-## Operations Retaining `mcols`: `reduceMC()`
-
-- Keep all values by setting `simplify = FALSE`
-
-```{r}
-gr %>% 
-  resize(width = 1, fix = 'start') %>% 
-  reduceMC(simplify = FALSE)
-```
 
 
 ## Set Operations Retaining `mcols`
@@ -283,8 +241,7 @@ gr %>%
 
 . . .
 
-- Information is only retained from the query `GRanges`
-  +  `x` in `setdiffMC(x, y)`
+`mcols` are only retained from the query `GRanges` (i.e. `x` in `setdiffMC(x, y)`)
 
 
 ## Tidyverse-inspired Functions: `chopMC()`
@@ -295,8 +252,6 @@ gr
 ```
 
 . . .
-
-<br>
 
 - `chopMC()` acts like `chop()` using the range as the backbone
 
@@ -310,8 +265,6 @@ chopMC(gr)
 gr
 ```
 
-<br>
-
 - `distinctMC()` behaves like `distinct()` using the ranges + any requested columns
 
 ```{r}
@@ -324,13 +277,25 @@ distinctMC(gr)
 gr
 ```
 
-<br>
-
 - `distinctMC()` behaves like `distinct()` using the ranges + any requested columns
 
 
 ```{r}
 distinctMC(gr, .keep_all = TRUE)
+```
+
+## Additional Helpers
+
+`stitchRanges()` joins ranges setting barriers
+
+```{r}
+x <- GRanges(c("chr1:1-10", "chr1:101-110", "chr1:201-210"))
+y <- GRanges("chr1:150-200:+")
+x
+```
+<br>
+```{r}
+stitchRanges(x, exclude = y, maxgap = 100)
 ```
 
 
@@ -344,30 +309,32 @@ Most often, we'll load in replicates with identical structure $\implies$ `GRange
 library(glue)
 fl <- glue("GATA3_E2_rep{1:2}.narrowPeak")
 peaks <- importPeaks(fl, seqinfo = sq)
-vapply(peaks, length, integer(1))
-library(stringr)
-names(peaks) <- str_remove_all(names(peaks), ".narrowPeak")
-```
-
-## `importPeaks()`
-
-```{r}
 peaks
 ```
 
-## `makeConsensus()`
+## `makeConsensus()` {.smaller}
 
+```{r}
+library(stringr)
+names(peaks) <- str_remove_all(names(peaks), ".narrowPeak")
+names(peaks)
+```
+<br>
 ```{r}
 makeConsensus(peaks)
 ```
 
-## `makeConsensus()`
+## `makeConsensus()` {.smaller}
+
+Retain one or more columns from each replicate
 
 ```{r}
 makeConsensus(peaks, var = "score")
 ```
 
-## `makeConsensus()`
+## `makeConsensus()` {.smaller}
+
+Example: Keep peak centres from each replicate
 
 ```{r}
 library(plyranges)
@@ -376,7 +343,9 @@ peaks %>%
   makeConsensus(var = "centre", p = 1, simplify = FALSE) 
 ```
 
-## `makeConsensus()`
+## `makeConsensus()` {.smaller}
+
+Example: Keep peak centres from each replicate
 
 ```{r}
 peaks %>% 
@@ -385,22 +354,124 @@ peaks %>%
   mutate(centre = vapply(centre, median, numeric(1)))
 ```
 
-# Differential Binding
-
-# Visualisation
-
 ## `plotOverlaps()`
 
 ```{r, fig.width=7, fig.height=7}
 #| output-location: column
-plotOverlaps(peaks)
+plotOverlaps(
+  peaks, 
+  set_col = c("blue", "yellow"),
+  alpha = 0.2
+)
 ```
 
 ## `plotOverlaps()`
 
 ```{r}
-plotOverlaps(peaks, type = "upset", var = "score")
+plotOverlaps(peaks, type = "upset", var = "score", set_col = c("blue", "yellow"))
 ```
+
+# Differential Binding
+
+## `dualFilter()`
+
+Sliding Windows (`csaw::windowCounts()`)
+
+- Discard non-signal windows using `dualFilter()`
+- Combines signal-to-input and overall signal as filtering strategy
+- Provide regions of expected signal as a guide
+
+## GRAVI
+
+- Smooth Quantile Normalisation on logCPM
+- `limma-trend`
+- Range-based $H_0$ (`treat()`)
+
+## `plotAssayDensities()`
+
+![A) Raw logCPM and b) Smooth Quantile Normalised logCPM for the Androgren Receptor (AR)](plot-logcpm-densities-1.png){fig-align="left"}
+
+## `plotAssayRle()`
+
+![RLE plot calculating RLE within treatment groups](plot-rle-normalised-1.png){fig-align="left"}
+
+## `plotAssayPCA()`
+
+![PCA plots A) before and B) after SQN](plot-pca-1.png){fig-align="left"}
+
+## `mergeByCol()`
+
+- Differential binding tested using sliding windows
+- Merge adjacent sliding windows taking representative window
+- GRAVI defaults to window with maximum signal
+- wraps multiple `csaw` steps
+- returns representative range
+
+## `mergeByCol()`
+
+
+```{r, echo=FALSE}
+win <- data.frame(seqnames = "chr1", start = c(1, 51, 101), end = c(1, 51, 101) + 99) %>% 
+  makeGRangesFromDataFrame()
+set.seed(100)
+win$AveExpr <- c(5, 7, 6) + rnorm(3)
+win$logFC <- c(1, 1.5, 1.1) + rnorm(3)
+win$PValue <- c(0.01, 0.00, 0.04) + rexp(3, 100)
+```
+
+
+```{r}
+win
+```
+
+<br>
+
+::: {.fragment fragment-index=1}
+```{r}
+mergeByCol(win, col = "AveExpr", pval = "PValue")
+```
+:::
+
+
+# Visualisation
+
+## `plotProfileHeatmap()`
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](AR_Up_GATA3_Up_profile_heatmap.png){width="650px"}
+
+:::
+
+::: {.column width="50    %"}
+
+Uses `ggplot2` plotting with facets for samples or peak groupings
+
+:::
+
+::::
+
+## `plotHFGC()`
+
+:::: {.columns}
+
+::: {.column width="55%"}
+
+- Wraps `GViz` plotting functions
+- plot *optional* 1) HiC, 2) Features, 3) Genes or 4) Coverage
+- Helpful for visualising multiple ranges quickly
+
+:::
+
+::: {.column width="45%"}
+
+![](AR_Up_GATA3_Up_AveExpr.png)
+
+:::
+
+::::
 
 ## `plotPie()`
 
@@ -422,28 +493,4 @@ plotPie(gr, fill = "detected", x = "gene_name")
 ```
 
 Can also accept `DataFrame` or `data.frame` objects as input
-
-## `plotAssay*()`
-
-When using a `SummarizedExperiment` object:
-
-- `plotAssayPCA()` + `plotAssayRle()` + `plotAssayDensities()`
-- Standard `ggplot2` output
-
-## `plotHFGC()`
-
-- Wraps `GViz` plotting functions
-- plot *optional* 1) HiC, 2) Features, 3) Genes and 4) Coverage
-- Minimal data required is a `GenomicRange` + cytobands
-- Helpful for isualosting multiple ranges quickly
-
-## `plotHFGC()`
-
-(Insert figure)
-
-## `plotProfileHeatmap()`
-
-Uses `ggplot2` plotting with faces for samples or peak groupings
-
-
 
