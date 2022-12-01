@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 ## Who Am I?
 
 - Post-doctoral Bioinformatician (ECR)
-    + Black Ochre Data Laboratories &nbsp; ![](tki.jpg){width=80px}
+    + Black Ochre Data Laboratories &nbsp; ![](Black Ochre Data Labs Logo_white background.jpg){width=90px}
     + Based in Adelaide, South Australia
     + Traditional lands of the Kaurna people
 
