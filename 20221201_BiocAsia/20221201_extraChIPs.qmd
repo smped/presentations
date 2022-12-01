@@ -9,8 +9,8 @@ bibliography: bibliography.bib
 format: 
   revealjs:
     theme: [dark, custom.scss]
-    width: 1000
-    heigth: 700
+    width: 1024
+    height: 768
     sansfont: Times New Roman
     logo: https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png
 ---
