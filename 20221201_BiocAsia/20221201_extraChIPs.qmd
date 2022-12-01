@@ -162,21 +162,16 @@ tbl <- as_tibble(gr)
 tbl
 ```
 
+::: {.fragment fragment-index=1}
 
-## Working With Ranges: `tibble` Coercion
+Coerce back to a `GRanges` uses `colToRanges()`
 
-Coercion back to a `GRanges` uses `colToRanges()`
-
-```{r}
-#| output-location: column
-tbl
-```
-<br>
 ```{r}
 sq <- seqinfo(gr)
 colToRanges(tbl, var = "range", seqinfo = sq)
 ```
 
+:::
 
 ## Operations Retaining `mcols`: `reduceMC()`
 

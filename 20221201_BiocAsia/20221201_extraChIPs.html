@@ -565,29 +565,11 @@
 </div>
 </div>
 </div>
-</section>
-<section id="working-with-ranges-tibble-coercion-3" class="slide level2">
-<h2>Working With Ranges: <code>tibble</code> Coercion</h2>
-<p>Coercion back to a <code>GRanges</code> uses <code>colToRanges()</code></p>
-<div class="cell columns column-output-location">
-<div class="column">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 3
-  range                      gene_name transcript_name
-  &lt;chr&gt;                      &lt;chr&gt;     &lt;chr&gt;          
-1 chr2:204732494-204738688:+ CTLA4     CTLA4-205      
-2 chr2:204732666-204737498:+ CTLA4     CTLA4-201      
-3 chr2:204732666-204737535:+ CTLA4     CTLA4-204      
-4 chr2:204732666-204737535:+ CTLA4     CTLA4-203      </code></pre>
-</div>
-</div>
-</div>
-<p><br></p>
+<div class="fragment" data-fragment-index="1">
+<p>Coerce back to a <code>GRanges</code> uses <code>colToRanges()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>sq <span class="ot">&lt;-</span> <span class="fu">seqinfo</span>(gr)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">colToRanges</span>(tbl, <span class="at">var =</span> <span class="st">"range"</span>, <span class="at">seqinfo =</span> sq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>sq <span class="ot">&lt;-</span> <span class="fu">seqinfo</span>(gr)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">colToRanges</span>(tbl, <span class="at">var =</span> <span class="st">"range"</span>, <span class="at">seqinfo =</span> sq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 4 ranges and 2 metadata columns:
       seqnames              ranges strand |   gene_name transcript_name
@@ -600,11 +582,12 @@
   seqinfo: 24 sequences from GRCh37 genome</code></pre>
 </div>
 </div>
+</div>
 </section>
 <section id="operations-retaining-mcols-reducemc" class="slide level2">
 <h2>Operations Retaining <code>mcols</code>: <code>reduceMC()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 4 ranges and 2 metadata columns:
       seqnames              ranges strand |   gene_name transcript_name
@@ -619,7 +602,7 @@
 </div>
 <p>Common functions like <code>reduce</code> lose <code>mcols</code> information</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">reduce</span>(gr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">reduce</span>(gr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 1 range and 0 metadata columns:
       seqnames              ranges strand
@@ -633,7 +616,7 @@
 <section id="operations-retaining-mcols-reducemc-1" class="slide level2">
 <h2>Operations Retaining <code>mcols</code>: <code>reduceMC()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 4 ranges and 2 metadata columns:
       seqnames              ranges strand |   gene_name transcript_name
@@ -648,7 +631,7 @@
 </div>
 <p><code>reduceMC()</code> collapses the <code>mcols</code> information</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">reduceMC</span>(gr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">reduceMC</span>(gr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 1 range and 2 metadata columns:
       seqnames              ranges strand |   gene_name
@@ -666,10 +649,10 @@
 <h2>Operations Retaining <code>mcols</code>: <code>reduceMC()</code></h2>
 <p>More realistically we might want to find unique TSS within a gene</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb18-2"><a href="#cb18-2"></a>gr <span class="sc">%&gt;%</span> </span>
-<span id="cb18-3"><a href="#cb18-3"></a>  <span class="fu">resize</span>(<span class="at">width =</span> <span class="dv">1</span>, <span class="at">fix =</span> <span class="st">'start'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-4"><a href="#cb18-4"></a>  <span class="fu">reduceMC</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb16-2"><a href="#cb16-2"></a>gr <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">resize</span>(<span class="at">width =</span> <span class="dv">1</span>, <span class="at">fix =</span> <span class="st">'start'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">reduceMC</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 2 ranges and 2 metadata columns:
       seqnames    ranges strand |   gene_name               transcript_name
@@ -696,7 +679,7 @@
 <section id="tidyverse-inspired-functions-chopmc" class="slide level2">
 <h2>Tidyverse-inspired Functions: <code>chopMC()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 4 ranges and 2 metadata columns:
       seqnames              ranges strand |   gene_name transcript_name
@@ -714,7 +697,7 @@
 <li><code>chopMC()</code> acts like <code>chop()</code> using the range as the backbone</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">chopMC</span>(gr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">chopMC</span>(gr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 3 ranges and 2 metadata columns:
       seqnames              ranges strand |   gene_name     transcript_name
@@ -731,7 +714,7 @@
 <section id="tidyverse-inspired-functions-distinctmc" class="slide level2">
 <h2>Tidyverse-inspired Functions: <code>distinctMC()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 4 ranges and 2 metadata columns:
       seqnames              ranges strand |   gene_name transcript_name
@@ -748,7 +731,7 @@
 <li><code>distinctMC()</code> behaves like <code>distinct()</code> using the ranges + any requested columns</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">distinctMC</span>(gr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">distinctMC</span>(gr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 3 ranges and 0 metadata columns:
       seqnames              ranges strand
@@ -764,7 +747,7 @@
 <section id="tidyverse-inspired-functions-distinctmc-1" class="slide level2">
 <h2>Tidyverse-inspired Functions: <code>distinctMC()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 4 ranges and 2 metadata columns:
       seqnames              ranges strand |   gene_name transcript_name
@@ -781,7 +764,7 @@
 <li><code>distinctMC()</code> behaves like <code>distinct()</code> using the ranges + any requested columns</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">distinctMC</span>(gr, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">distinctMC</span>(gr, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 3 ranges and 2 metadata columns:
       seqnames              ranges strand |   gene_name transcript_name
@@ -798,9 +781,9 @@
 <h2>Additional Helpers</h2>
 <p><code>stitchRanges()</code> joins ranges setting barriers</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>x <span class="ot">&lt;-</span> <span class="fu">GRanges</span>(<span class="fu">c</span>(<span class="st">"chr1:1-10"</span>, <span class="st">"chr1:101-110"</span>, <span class="st">"chr1:201-210"</span>))</span>
-<span id="cb32-2"><a href="#cb32-2"></a>y <span class="ot">&lt;-</span> <span class="fu">GRanges</span>(<span class="st">"chr1:150-200:+"</span>)</span>
-<span id="cb32-3"><a href="#cb32-3"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>x <span class="ot">&lt;-</span> <span class="fu">GRanges</span>(<span class="fu">c</span>(<span class="st">"chr1:1-10"</span>, <span class="st">"chr1:101-110"</span>, <span class="st">"chr1:201-210"</span>))</span>
+<span id="cb30-2"><a href="#cb30-2"></a>y <span class="ot">&lt;-</span> <span class="fu">GRanges</span>(<span class="st">"chr1:150-200:+"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 3 ranges and 0 metadata columns:
       seqnames    ranges strand
@@ -814,7 +797,7 @@
 </div>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">stitchRanges</span>(x, <span class="at">exclude =</span> y, <span class="at">maxgap =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">stitchRanges</span>(x, <span class="at">exclude =</span> y, <span class="at">maxgap =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 2 ranges and 0 metadata columns:
       seqnames    ranges strand
@@ -835,10 +818,10 @@
 <h2><code>importPeaks()</code></h2>
 <p>Most often, we’ll load in replicates with identical structure <span class="math inline">\(\implies\)</span> <code>GRangesList</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">library</span>(glue)</span>
-<span id="cb36-2"><a href="#cb36-2"></a>fl <span class="ot">&lt;-</span> <span class="fu">glue</span>(<span class="st">"GATA3_E2_rep{1:2}.narrowPeak"</span>)</span>
-<span id="cb36-3"><a href="#cb36-3"></a>peaks <span class="ot">&lt;-</span> <span class="fu">importPeaks</span>(fl, <span class="at">seqinfo =</span> sq)</span>
-<span id="cb36-4"><a href="#cb36-4"></a>peaks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">library</span>(glue)</span>
+<span id="cb34-2"><a href="#cb34-2"></a>fl <span class="ot">&lt;-</span> <span class="fu">glue</span>(<span class="st">"GATA3_E2_rep{1:2}.narrowPeak"</span>)</span>
+<span id="cb34-3"><a href="#cb34-3"></a>peaks <span class="ot">&lt;-</span> <span class="fu">importPeaks</span>(fl, <span class="at">seqinfo =</span> sq)</span>
+<span id="cb34-4"><a href="#cb34-4"></a>peaks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRangesList object of length 2:
 $GATA3_E2_rep1.narrowPeak
@@ -905,18 +888,18 @@ GRanges object with 10 ranges and 5 metadata columns:
 <h2><code>plotOverlaps()</code></h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="fu">names</span>(peaks) <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(</span>
-<span id="cb38-3"><a href="#cb38-3"></a>  <span class="fu">names</span>(peaks), <span class="st">".narrowPeak"</span></span>
-<span id="cb38-4"><a href="#cb38-4"></a>)</span>
-<span id="cb38-5"><a href="#cb38-5"></a><span class="fu">plotOverlaps</span>(</span>
-<span id="cb38-6"><a href="#cb38-6"></a>  peaks, </span>
-<span id="cb38-7"><a href="#cb38-7"></a>  <span class="at">set_col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"yellow"</span>),</span>
-<span id="cb38-8"><a href="#cb38-8"></a>  <span class="at">alpha =</span> <span class="fl">0.2</span></span>
-<span id="cb38-9"><a href="#cb38-9"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="fu">names</span>(peaks) <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(</span>
+<span id="cb36-3"><a href="#cb36-3"></a>  <span class="fu">names</span>(peaks), <span class="st">".narrowPeak"</span></span>
+<span id="cb36-4"><a href="#cb36-4"></a>)</span>
+<span id="cb36-5"><a href="#cb36-5"></a><span class="fu">plotOverlaps</span>(</span>
+<span id="cb36-6"><a href="#cb36-6"></a>  peaks, </span>
+<span id="cb36-7"><a href="#cb36-7"></a>  <span class="at">set_col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"yellow"</span>),</span>
+<span id="cb36-8"><a href="#cb36-8"></a>  <span class="at">alpha =</span> <span class="fl">0.2</span></span>
+<span id="cb36-9"><a href="#cb36-9"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
-<p><img data-src="20221201_extraChIPs_files/figure-revealjs/unnamed-chunk-21-1.png" width="576"></p>
+<p><img data-src="20221201_extraChIPs_files/figure-revealjs/unnamed-chunk-20-1.png" width="576"></p>
 </div>
 </div>
 </div>
@@ -924,14 +907,14 @@ GRanges object with 10 ranges and 5 metadata columns:
 <section id="plotoverlaps-1" class="slide level2">
 <h2><code>plotOverlaps()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">plotOverlaps</span>(peaks, <span class="at">type =</span> <span class="st">"upset"</span>, <span class="at">var =</span> <span class="st">"score"</span>, <span class="at">set_col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"yellow"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">plotOverlaps</span>(peaks, <span class="at">type =</span> <span class="st">"upset"</span>, <span class="at">var =</span> <span class="st">"score"</span>, <span class="at">set_col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"yellow"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="20221201_extraChIPs_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" class="r-stretch"></section>
+<img data-src="20221201_extraChIPs_files/figure-revealjs/unnamed-chunk-21-1.png" width="960" class="r-stretch"></section>
 <section id="makeconsensus" class="slide level2 smaller">
 <h2><code>makeConsensus()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">makeConsensus</span>(peaks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="fu">makeConsensus</span>(peaks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 11 ranges and 3 metadata columns:
        seqnames          ranges strand | GATA3_E2_rep1 GATA3_E2_rep2         n
@@ -956,7 +939,7 @@ GRanges object with 10 ranges and 5 metadata columns:
 <h2><code>makeConsensus()</code></h2>
 <p>Retain one or more columns from each replicate</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">makeConsensus</span>(peaks, <span class="at">var =</span> <span class="st">"score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">makeConsensus</span>(peaks, <span class="at">var =</span> <span class="st">"score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 11 ranges and 4 metadata columns:
        seqnames          ranges strand |         score GATA3_E2_rep1
@@ -994,10 +977,10 @@ GRanges object with 10 ranges and 5 metadata columns:
 <h2><code>makeConsensus()</code></h2>
 <p>Example: Keep peak centres from each replicate</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">library</span>(plyranges)</span>
-<span id="cb44-2"><a href="#cb44-2"></a>peaks <span class="sc">%&gt;%</span> </span>
-<span id="cb44-3"><a href="#cb44-3"></a>  <span class="fu">endoapply</span>(mutate, <span class="at">centre =</span> start <span class="sc">+</span> peak) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-4"><a href="#cb44-4"></a>  <span class="fu">makeConsensus</span>(<span class="at">var =</span> <span class="st">"centre"</span>, <span class="at">p =</span> <span class="dv">1</span>, <span class="at">simplify =</span> <span class="cn">FALSE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">library</span>(plyranges)</span>
+<span id="cb42-2"><a href="#cb42-2"></a>peaks <span class="sc">%&gt;%</span> </span>
+<span id="cb42-3"><a href="#cb42-3"></a>  <span class="fu">endoapply</span>(mutate, <span class="at">centre =</span> start <span class="sc">+</span> peak) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-4"><a href="#cb42-4"></a>  <span class="fu">makeConsensus</span>(<span class="at">var =</span> <span class="st">"centre"</span>, <span class="at">p =</span> <span class="dv">1</span>, <span class="at">simplify =</span> <span class="cn">FALSE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 9 ranges and 4 metadata columns:
       seqnames          ranges strand |          centre GATA3_E2_rep1
@@ -1031,12 +1014,12 @@ GRanges object with 10 ranges and 5 metadata columns:
 <h2><code>makeConsensus()</code></h2>
 <p>Example: Keep peak centres from each replicate</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>consensus_peaks <span class="ot">&lt;-</span> peaks <span class="sc">%&gt;%</span> </span>
-<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">endoapply</span>(mutate, <span class="at">centre =</span> start <span class="sc">+</span> peak) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-3"><a href="#cb46-3"></a>  <span class="fu">makeConsensus</span>(<span class="at">var =</span> <span class="st">"centre"</span>, <span class="at">p =</span> <span class="dv">1</span>, <span class="at">simplify =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-4"><a href="#cb46-4"></a>  <span class="fu">mutate</span>(<span class="at">centre =</span> <span class="fu">vapply</span>(centre, median, <span class="fu">numeric</span>(<span class="dv">1</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-5"><a href="#cb46-5"></a>  <span class="fu">select</span>(centre, n)</span>
-<span id="cb46-6"><a href="#cb46-6"></a>consensus_peaks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>consensus_peaks <span class="ot">&lt;-</span> peaks <span class="sc">%&gt;%</span> </span>
+<span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">endoapply</span>(mutate, <span class="at">centre =</span> start <span class="sc">+</span> peak) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-3"><a href="#cb44-3"></a>  <span class="fu">makeConsensus</span>(<span class="at">var =</span> <span class="st">"centre"</span>, <span class="at">p =</span> <span class="dv">1</span>, <span class="at">simplify =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-4"><a href="#cb44-4"></a>  <span class="fu">mutate</span>(<span class="at">centre =</span> <span class="fu">vapply</span>(centre, median, <span class="fu">numeric</span>(<span class="dv">1</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-5"><a href="#cb44-5"></a>  <span class="fu">select</span>(centre, n)</span>
+<span id="cb44-6"><a href="#cb44-6"></a>consensus_peaks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 9 ranges and 2 metadata columns:
       seqnames          ranges strand |    centre         n
@@ -1058,9 +1041,9 @@ GRanges object with 10 ranges and 5 metadata columns:
 <section id="map-to-features" class="slide level2 smaller">
 <h2>Map To Features</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">library</span>(rtracklayer)</span>
-<span id="cb48-2"><a href="#cb48-2"></a>features <span class="ot">&lt;-</span> <span class="fu">import.gff</span>(<span class="st">"ZR-75_h3k27ac_features.gtf"</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(feature)</span>
-<span id="cb48-3"><a href="#cb48-3"></a>features[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">library</span>(rtracklayer)</span>
+<span id="cb46-2"><a href="#cb46-2"></a>features <span class="ot">&lt;-</span> <span class="fu">import.gff</span>(<span class="st">"ZR-75_h3k27ac_features.gtf"</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(feature)</span>
+<span id="cb46-3"><a href="#cb46-3"></a>features[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 5 ranges and 1 metadata column:
       seqnames        ranges strand |     feature
@@ -1077,8 +1060,8 @@ GRanges object with 10 ranges and 5 metadata columns:
 <div class="fragment" data-fragment-index="1">
 <p><code>bestOverlap()</code> makes this simple</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>consensus_peaks<span class="sc">$</span>feature <span class="ot">&lt;-</span> <span class="fu">bestOverlap</span>(consensus_peaks, features, <span class="at">var =</span> <span class="st">"feature"</span>, <span class="at">missing =</span> <span class="st">"none"</span>)</span>
-<span id="cb50-2"><a href="#cb50-2"></a>consensus_peaks </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>consensus_peaks<span class="sc">$</span>feature <span class="ot">&lt;-</span> <span class="fu">bestOverlap</span>(consensus_peaks, features, <span class="at">var =</span> <span class="st">"feature"</span>, <span class="at">missing =</span> <span class="st">"none"</span>)</span>
+<span id="cb48-2"><a href="#cb48-2"></a>consensus_peaks </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 9 ranges and 3 metadata columns:
       seqnames          ranges strand |    centre         n     feature
@@ -1101,19 +1084,19 @@ GRanges object with 10 ranges and 5 metadata columns:
 <section id="summarise-binding-patterns" class="slide level2">
 <h2>Summarise Binding Patterns</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">plotPie</span>(consensus_peaks, <span class="at">fill =</span> <span class="st">"feature"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="fu">plotPie</span>(consensus_peaks, <span class="at">fill =</span> <span class="st">"feature"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="20221201_extraChIPs_files/figure-revealjs/unnamed-chunk-29-1.png" width="960" class="r-stretch"></section>
+<img data-src="20221201_extraChIPs_files/figure-revealjs/unnamed-chunk-28-1.png" width="960" class="r-stretch"></section>
 <section id="summarise-binding-patterns-1" class="slide level2">
 <h2>Summarise Binding Patterns</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">plotPie</span>(consensus_peaks, <span class="at">fill =</span> <span class="st">"feature"</span>, <span class="at">scale_by =</span> <span class="st">"width"</span>) <span class="sc">+</span></span>
-<span id="cb53-2"><a href="#cb53-2"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span></span>
-<span id="cb53-3"><a href="#cb53-3"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Feature"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">plotPie</span>(consensus_peaks, <span class="at">fill =</span> <span class="st">"feature"</span>, <span class="at">scale_by =</span> <span class="st">"width"</span>) <span class="sc">+</span></span>
+<span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span></span>
+<span id="cb51-3"><a href="#cb51-3"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Feature"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="20221201_extraChIPs_files/figure-revealjs/unnamed-chunk-30-1.png" width="960" class="r-stretch"></section></section>
+<img data-src="20221201_extraChIPs_files/figure-revealjs/unnamed-chunk-29-1.png" width="960" class="r-stretch"></section></section>
 <section>
 <section id="differential-binding" class="title-slide slide level1 center">
 <h1>Differential Binding</h1>
@@ -1164,7 +1147,7 @@ GRanges object with 10 ranges and 5 metadata columns:
 
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>win</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>win</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 3 ranges and 3 metadata columns:
       seqnames    ranges strand |   AveExpr     logFC    PValue
@@ -1179,7 +1162,7 @@ GRanges object with 10 ranges and 5 metadata columns:
 <p><br></p>
 <div class="fragment" data-fragment-index="1">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="fu">mergeByCol</span>(win, <span class="at">col =</span> <span class="st">"AveExpr"</span>, <span class="at">pval =</span> <span class="st">"PValue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="fu">mergeByCol</span>(win, <span class="at">col =</span> <span class="st">"AveExpr"</span>, <span class="at">pval =</span> <span class="st">"PValue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 1 range and 8 metadata columns:
       seqnames    ranges strand | n_windows      n_up    n_down keyval_range
