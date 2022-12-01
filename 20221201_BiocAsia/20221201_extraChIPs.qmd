@@ -63,6 +63,10 @@ knitr::opts_chunk$set(
 <!-- - Performs 1) Custom Annotations, 2) Peak Calling, 3) Differential Binding -->
 <!--   + Enrichment Analysis performed during multiple steps -->
 <!--   + All `R` Environments saved (marked as `temp()`) -->
+
+## GRAVI
+
+![](GRAVI_screnshot.png)
   
 ## GRAVI
 
