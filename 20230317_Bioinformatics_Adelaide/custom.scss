@@ -1,0 +1,22 @@
+$code-block-font-size: 0.5em !important;
+$presentation-font-size-root: 32px !important;
+$body-bg: #ffffff;
+$body-color: #9f2901;
+$dark-bg-text-color: #d7e8f2;
+$link-color: #f48c05;
+$light-bg-text-color: #9f2901;
+$code-color: #769b79;
+$code-block-bg: #d7e8f2;
+$code-block-border-color: #87b9dc;
+
+
+
+/*-- scss:rules --*/
+
+.reveal .slide-logo {
+  height: 80px !important;
+  width: 160px!important;
+  max-width: unset !important;
+  max-height: unset !important;
+}
+

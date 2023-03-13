@@ -1,0 +1,912 @@
+---
+title: "extraChIPs: Going Beyond GRAVI"
+author: "Stephen (Stevie) Pederson"
+institute: Black Ochre Data Laboratories, Telethon Kids Institute
+date: 2023-03-17
+date-format: long
+bibliography: bibliography.bib
+title-slide-attributes:
+    data-background-color: "#3c3c44"
+    data-background-image: bodl_logo_white_background.jpg
+    data-background-opacity: "0.2"
+    data-background-size: "90%"
+editor: source
+format: 
+  revealjs:
+    theme: [custom.scss]
+    code-line-numbers: false
+    width: 1024
+    height: 768
+    sansfont: Times New Roman
+    logo: bodl_logo_white_background.jpg
+---
+
+## Who Am I
+
+### Professionally
+
+- 2022- Postdoctoral Bioinformatician: Black Ochre Data Laboratories
+- 2020-2022 Dame Roma Mitchell Cancer Research Laboratories
+- 2014-2020 Bioinformatics Hub, University of Adelaide
+- 2008-2018 PhD Candidate, Barry Immunology Group
+- 1991-2008 Musician
+
+::: {.fragment fragment-index=1}
+
+### Research Interests
+
+- Transcriptomics, Gene Regulation
+- R programming, Bioconductor Nerd
+
+:::
+
+## Bioconductor Packages
+
+
+
+1. `ngsReports` &nbsp; ![](https://github.com/steveped/stickers/raw/main/alt_ngsReports_sticker.png){width=120px}
+   + Parse & plot output from `FastQC`, `cutadapt`, `STAR`, `macs2` etc.
+2. `extraChIPs` &nbsp; ![](https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png){width=120px}
+   + ChIP-Seq Analysis & Visualisation
+   + Manipulation of `GRanges` objects
+   + Built as infrastructure for the `GRAVI` workflow
+
+
+##
+
+
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+But first...
+
+:::
+
+::: {.column width="60%"}
+
+![Source: https://www.dailymail.co.uk/news/article-9744517/Elephant-smashed-wall-steal-snack-squeezes-family-home-eat-cat-food.html](https://i.dailymail.co.uk/1s/2021/07/01/09/44481577-9744517-El_s_kitchen_A_hungry_wild_elephant_poked_its_head_through_a_fam-a-13_1625127106928.jpg){width=75%}
+
+:::
+
+::::
+
+::: {.notes}
+- Known since I was a small child, but the 1970s were a very different time. Tried really hard to be a 'normal' person
+- Sought professional help about 5 years ago & first heard the term Non-Binary and found the language to describe my experience
+- Many noticed how happy I was after the Hub closed, but this was not because the Hub closed at all
+- Took the time out of the spotlight to start exploring a more variable and more honest presentation 
+- Spoke to Jimmy after the Hub closed, never expecting to work together again. How do I manage the Adelaide research community when I'm out?
+- Had always been scared of revealing this. Would I be kicked out of my school teaching roles? How would it impact the relationship with my PhD supervisor? How would DVCR cope?
+- Now my line manager knows & TKI have a long history of supporting the transgender community, it was now or never. That fear no longer existed!
+- Been really quite amazing to realise how many others have siblings, children, friends, grand-children going through similar. And to find the other trans/NB members of the bioinformatics community
+- I feel like an idiot asking to be called Stevie, but am very appreciative of the kindness it represents
+- Don't consider Steve to be a 'dead-name', but more a slowly receding name
+- Still trying to figure out how to wrangle my digital footprint (github, Twitter etc)
+:::
+
+# extraChIPs {background-color="#3c3c44" background-image=https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png background-size="40%" background-opacity="0.5"}
+
+```{r setup, echo=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+library(tidyverse)
+library(extraChIPs)
+library(GenomicRanges)
+```
+
+
+
+## extraChIPs
+
+1. A walk-through of the package
+    + Significant useage well beyond ChIP-Seq data
+2. Approaches to detection of Differential ChIP-Seq Signal
+3. Some recent oddness
+
+# extraChIPs Utility Functions {background-color="#3c3c44" background-image=https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png background-size="40%" background-opacity="0.5"}
+
+## Utility Functions
+
+- Genomic Ranges objects (`GRanges`) are analogous to bed files
+- Most functions for `GRanges` focus on the ranges component
+- My focus was on the data within the `mcols()` element
+
+. . .
+
+- How can we play nicely with the `tidyverse`?
+    + Not treading on the toes of `plyranges` 
+    + $\implies$ enhancing approaches implemented by `plyranges`
+
+## `tibble` Coercion
+
+```{r eval = FALSE}
+## S3 method for class 'DataFrame'
+as_tibble(x, rangeAsChar = TRUE, ...)
+
+## S3 method for class 'GenomicRanges'
+as_tibble(x, rangeAsChar = TRUE, name = "range", ...)
+
+## S3 method for class 'Seqinfo'
+as_tibble(x, ...)
+
+## S3 method for class 'GInteractions'
+as_tibble(x, rangeAsChar = TRUE, suffix = c(".x", ".y"), ...)
+```
+
+<br>
+
+- Very handy for interacting with `ggplot2` and `dplyr` etc
+- Handles `S4` Compressed list columns well (so far)
+  + Uses `vctrs::vec_proxy()` to coerce to S3 lists
+- Reverse coercion also implemented
+
+## `tibble` Coercion 
+
+```{r, echo=FALSE, eval=TRUE}
+gr <- new("GRanges", seqnames = new("Rle", values = structure(2L, levels = c("chr1", 
+"chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", 
+"chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", 
+"chr17", "chr18", "chr19", "chr20", "chr21", "chr22", "chrX", 
+"chrY"), class = "factor"), lengths = 4L, elementMetadata = NULL, 
+    metadata = list()), ranges = new("IRanges", start = c(204732494L, 
+204732666L, 204732666L, 204732666L), width = c(6195L, 4833L, 
+4870L, 4870L), NAMES = NULL, elementType = "ANY", elementMetadata = NULL, 
+    metadata = list()), strand = new("Rle", values = structure(1L, levels = c("+", 
+"-", "*"), class = "factor"), lengths = 4L, elementMetadata = NULL, 
+    metadata = list()), seqinfo = new("Seqinfo", seqnames = c("chr1", 
+"chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", 
+"chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", 
+"chr17", "chr18", "chr19", "chr20", "chr21", "chr22", "chrX", 
+"chrY"), seqlengths = c(249250621L, 243199373L, 198022430L, 191154276L, 
+180915260L, 171115067L, 159138663L, 146364022L, 141213431L, 135534747L, 
+135006516L, 133851895L, 115169878L, 107349540L, 102531392L, 90354753L, 
+81195210L, 78077248L, 59128983L, 63025520L, 48129895L, 51304566L, 
+155270560L, 59373566L), is_circular = c(FALSE, FALSE, FALSE, 
+FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
+FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
+FALSE, FALSE, FALSE), genome = c("GRCh37", "GRCh37", "GRCh37", 
+"GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", 
+"GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", 
+"GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37", "GRCh37"
+)), elementMetadata = new("DFrame", rownames = NULL, nrows = 4L, 
+    elementType = "ANY", elementMetadata = NULL, metadata = list(), 
+    listData = list(gene_name = c("CTLA4", 
+    "CTLA4", "CTLA4", "CTLA4"), 
+        transcript_name = c("CTLA4-205", "CTLA4-201", "CTLA4-204", 
+        "CTLA4-203"))), elementType = "ANY", metadata = list())
+```
+
+Starting with the protein-coding transcripts for *CTLA4*
+
+
+```{r, echo=TRUE}
+gr
+sq <- seqinfo(gr)
+sq
+```
+
+
+## `tibble` Coercion 
+
+Now perform the coercion using `as_tibble()`
+
+```{r, echo = TRUE}
+#| output-location: column
+tbl <- as_tibble(gr)
+tbl
+```
+
+::: {.fragment fragment-index=1}
+
+Coerce back to a `GRanges` uses `colToRanges()`
+
+```{r}
+#| output-location: fragment
+colToRanges(tbl, var = "range", seqinfo = sq)
+```
+
+:::
+
+## *MC() Functions
+
+- Many `GRanges` functions just operate on the range
+    + `reduce`, `intersect`, `setdiff`, `union`
+    
+. . .    
+    
+- `extraChIPs` variants also return the `mcols` element
+    + `reduceMC`, `intersectMC`, `setdiffMC`, `unionMC`
+    + `distinctMC` and `chopMC` replicate `tidyverse` functions
+    
+## `reduceMC()`
+
+Say we wish to find the TSS for CTLA transcripts
+
+```{r}
+gr %>% 
+  resize(fix = 'start', width = 1) 
+```
+
+. . .
+
+<br>
+
+```{r}
+gr %>% 
+  resize(fix = 'start', width = 1) %>% 
+  GenomicRanges::reduce()
+```
+
+## `reduceMC()`
+
+Say we wish to find the TSS for CTLA transcripts
+
+```{r}
+gr %>% 
+  resize(fix = 'start', width = 1) 
+```
+
+<br>
+
+```{r}
+gr %>% 
+  resize(fix = 'start', width = 1) %>% 
+  reduceMC()
+```
+
+    
+## `intersectMC()`
+
+- Let's say we have a ChIP-Seq peak $\implies$ we can find the intersecting range
+
+```{r}
+peak <- GRanges("chr2:204732401-204732600", seqinfo = sq)
+intersect(gr, peak, ignore.strand = TRUE)
+```
+
+. . .
+
+<br>
+
+```{r}
+intersectMC(gr, peak, ignore.strand = TRUE)
+```
+
+. . .
+
+::: {style="font-size: 80%;"}
+<br>
+
+- NB: This is different to `subsetByOverlaps()` $\implies$ would return the entire initial range
+- Only the `mcols` from the *query range* are returned
+
+:::
+
+## `setdiffMC()`
+
+- Here we can *chop out* ranges
+- Find the region of CTLA4 not covered by the 3 shorter transcripts
+
+```{r}
+gr
+```
+
+. . .
+
+<br>
+
+```{r}
+setdiffMC(gr[1], gr[2:4])
+```
+
+
+::: {style="font-size: 80%;"}
+<br>
+
+- Again, we retain the `mcols` information
+
+:::
+
+
+## `distinctMC()`
+
+- Very handy after a `plyranges::join_overlap_*()` with multiple matches
+
+```{r}
+meth <- GRanges(c("chr2:204732499", "chr2:204732562"), seqinfo = sq)
+meth$prop_methylated <- c(0.2, 0.99)
+meth
+```
+
+- The join will expand to both methylated sites
+
+```{r}
+peak %>% 
+  plyranges::join_overlap_left(meth) 
+```
+
+## `distinctMC()`
+
+- Very handy after a `plyranges::join_overlap_*()` with multiple matches
+
+```{r}
+meth <- GRanges(c("chr2:204732499", "chr2:204732562"), seqinfo = sq)
+meth$prop_methylated <- c(0.2, 0.99)
+meth
+```
+
+- We can just keep the first mapping after sorting by some parameter
+
+```{r}
+peak %>% 
+  plyranges::join_overlap_left(meth) %>% 
+  arrange(1/(prop_methylated)) %>% 
+  distinctMC(.keep_all = TRUE)
+```
+
+## `chopMC()`
+
+- Wraps `tidyr::chop()`
+    + Chops by any specified column
+    + Always includes the range as part of the `chop()`
+
+```{r}
+peak %>% 
+  plyranges::join_overlap_left(meth) %>% 
+  chopMC()
+```
+
+. . .
+
+<br>
+
+![*Thank goodness we're not from New Zealand...*](https://www.filmink.com.au/wp-content/uploads/2019/09/beached.jpg){width="20%" fig-align="left"}
+
+
+# extraChIPs Visualisations {background-color="#3c3c44" background-image=https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png background-size="40%" background-opacity="0.5"}
+
+
+## Visualisations
+
+- `extraChIPs` was written for the `GRAVI` workflow
+- Added functions for common visualisations in the context of ChIP-Seq
+- Commonly use a `SummarizedExperiment` object with multiple 'assays'
+    + Usually have a `rowRanges` element
+- Most plotting function built for `GRanges` and `data.frame`-like objects
+
+## Visualisations
+
+::: {.incremental}
+
+- `plotAssay*()` for inspection of pre-analysed data
+    + `plotAssayDensities()`, `plotAssayPCA()`, `plotAssayRle()`
+- `plotOverlaps()`, `plotPie()` and `plotSplitDonut()` 
+    + Compare sets of ranges using `Venn/UpSet`, Pie or Donut charts
+- `plotProfileHeatmap()`
+    + Visualise binding intensities at multiple sites/samples
+- `plotHFGC()`: plot [**H**]{.underline}iC, [**F**]{.underline}eatures, [**G**]{.underline}enes, [**C**]{.underline}overage
+    + All elements are optional
+    + Define your objects $\implies$ keep running across multiple ranges
+    
+:::
+
+## `plotProfileHeatmap()` {.smaller}
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+1. Provide a set of ranges
+2. Centre & standardise width
+3. Read in data from `BigWigFileList` 
+    + `getProfileData(bwfl, gr)`
+4. Plot data
+
+::: {.fragment}
+
+- Uses `ggplot2` for easy customisation
+    + Top panel plots using `ggside`
+- Still frustratingly slow...
+
+:::
+
+:::
+
+::: {.column width="60%"}
+
+![](images/AR_Up_GATA3_Up_profile_heatmap.png)
+
+:::
+
+::::
+
+## `plotHFCG()`
+
+- Wraps plotting functions from `Gviz`
+- HiC as `GenomicInteractions` object
+- Each Feature track as a `GRanges` within a named list 
+- Each Gene Track as a `GRanges` within a named list
+- Each coverage track is a BigWigFileList
+    + Pass a list of `BigWigFileList` objects for multiple tracks
+    + Coverage tracks can also have `GRanges` to annotate them
+    
+## `plotHFGC()`
+
+![Here I'm checking binding for a DE gene (*C1orf116*)...](images/c1orf116.png){width="75%"}
+
+## `plotSplitDonut()`
+
+
+- Compares two columns from a `GRanges` or `data.frame` object
+- Can set inner & outer palettes separately
+- Huge flexibility in labelling
+- Uses `patchwork` to drive the layout
+- Getting legend positions right is still a bit tricky
+    + (It's a hack...)
+    
+## `plotSplitDonut()`
+
+
+```r
+plotSplitDonut(
+
+  object, inner, outer, scale_by = NULL,
+  r_centre = 0.5, r_inner = 1, r_outer = 1,
+  
+  total_size = 5, total_glue = "{comma(N)}",
+  
+  inner_glue = "{inner} {.data[[inner]]}\n{percent(p,0.1)}",
+  outer_glue = "{outer} {.data[[outer]]}\n{percent(p,0.1)}",
+  inner_label = c("label", "text", "none"),
+  outer_label = c("label", "text", "none"),
+  
+  label_alpha = 1, inner_label_alpha = NULL, outer_label_alpha = NULL,
+  label_size = 3, inner_label_size = NULL, outer_label_size = NULL,
+  min_p = 0.05, inner_min_p = NULL, outer_min_p = NULL,
+  
+  explode_inner = NULL, explode_outer = NULL, explode_query = c("AND", "OR"),
+  explode_x = 0, explode_y = 0, explode_r = 0, nudge_r = 0.5,
+  
+  expand = 0.1,
+  inner_palette = NULL, outer_palette = NULL,
+  inner_legend = TRUE, outer_legend = TRUE,
+  
+  layout = c(main = area(1, 1, 6, 6), lg1 = area(2, 7), lg2 = area(4, 7)), ...
+)
+```
+
+## `plotSplitDonut()` {.smaller}
+
+
+```r
+target <- "GATA3
+merged_results %>% 
+  ...stuff... %>%
+  plotSplitDonut(
+    inner = target, outer = "Region", min_p = 0.01,
+    inner_glue = "{.data[[inner]]}\nn = {comma(n, 1)}\n{percent(p, 0.1)}",
+    outer_glue = "{str_wrap(.data[[outer]], 12)}\nn = {comma(n, 1)}\n{percent(p, 0.1)}",
+    inner_palette = direction_colours, outer_palette = region_colours
+  )
+```
+
+
+![](images/gata3_regions_donut.png){width="75%"}
+
+## `plotSplitDonut()` {.smaller}
+
+```r
+all_windows %>% 
+  ...stuff... %>%
+  plotSplitDonut(
+    inner = colnames(.)[[1]], outer = colnames(.)[[2]], min_p =0.02, 
+    inner_glue = "{inner}\n{.data[[inner]]}\n{percent(p, 0.1)}",
+    outer_glue = "{outer}\n{.data[[outer]]}\n{percent(p, 0.1)}",
+    explode_inner = "Down|Up", explode_outer = "Down|Up", explode_r = 0.4,
+    explode_query = "OR", nudge_r = 0.5,
+    inner_palette = colours$direction, outer_palette = colours$direction
+  ) %>% .[[1]]
+```
+
+![](images/ar_gata3_donut.png){width="70%"}
+
+## `plotOverlaps()`
+
+- Calls 1) `ComplexUpset::upset()` or 2) `VennDiagram::draw.*wise.venn()`
+
+```r
+ex <- list(x = letters[1:5], y = letters[c(6:15, 26)], z = letters[c(2, 10:25)])
+```
+::: {.panel-tabset}
+
+### Venn Diagram
+
+```r
+plotOverlaps(ex, type = "venn", set_col = 1:3, alpha = 0.3)
+```
+
+![](https://steveped.github.io/extraChIPs/reference/plotOverlaps-methods-2.png){width="65%"}
+
+
+### UpSet Plot
+
+```r
+plotOverlaps(ex, type = "upset", set_col = 1:3, labeller = stringr::str_to_title)
+```
+
+![](https://steveped.github.io/extraChIPs/reference/plotOverlaps-methods-3.png){width="65%"}
+
+
+:::
+
+# Differential Binding {background-color="#3c3c44" background-image=https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png background-size="40%" background-opacity="0.5"}
+
+## Differential Binding
+
+- Forms a key part of the `GRAVI` workflow
+- `GRAVI` is to run multiple ChIP targets
+    + Need a method which is robust when automatically deployed
+    + Normalisation becomes important
+- Can handle targets which are:
+    + Cytoplasmic $\rightarrow$ Nuclear
+    + Partially Bound $\rightarrow$ Increasingly Bound
+    + Just relocated on the DNA
+    
+## DRMCRL Data
+
+Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
+
+- AR shifts to nucleus with DHT-treatment
+- AR relocates ER on the chromosome
+- Does AR bring some/any GATA3 to the nucleus with it?
+
+. . .
+
+- How does this relate to H3K27ac signal changes
+    + Much broader peaks to transcription factors
+
+. . .
+
+**Can I develop a differential signal workflow for all situations?**
+
+## DiffBind
+
+- Is the most common method for ChIP-Seq analysis [@DiffBind]
+- Uses defined peaks (e.g. macs2 consensus peaks)
+    + Re-centres peaks when loading
+    + Fixed width across all peaks (e.g. all 501bp)
+- Defaults to:
+    + Library Size Normalisation, i.e `log(counts/lib.size) ~ X`
+    + `DESeq2` (just like RNA-Seq)
+    + Can also use `edgeR` & choose alternative normalisation
+
+## csaw
+
+- Developed by Gordon Smyth & Aaron Lun [@csaw]
+- Uses sliding windows
+    + Avoids bias from defined peaks [@chip-windows]
+    + Regions defined independently of signal
+- After counting $\implies$ throw away low/no signal windows
+
+. . .
+
+1. No normalisation method by default (we choose)
+2. Statistical Test on remaining windows (`edgeR::glmQLF()`)
+3. Summarise tests across overlapping windows $\implies$ merged region 
+    + Tests/p-values are clearly dependent
+
+::: {.notes}
+- This strategy allows for adaptive differential sites to be detected with varying width
+- Extremely relevant for H3K27ac data where maximal signal yields poor results
+:::
+
+
+## Merging Windows
+
+`csaw` offers multiple options
+
+1. Take window with highest signal as representative of entire region
+2. Choose the window with the most extreme logFC
+    + Often low signal windows
+3. Choose lowest p-value
+    + Needs careful adjustment after merging
+4. Use Simes' Method to merge all $p$-values
+    + Chooses logFC from lowest p-value as representative
+
+## `extraChIPs`: Window Merging
+
+- All `csaw` methods wrapped for slightly different output structure
+- Merge using *harmonic-mean p-value* [@Wilson2019-ln]
+    + $p^* =\frac{\sum_{i=1}^Iw_i}{\sum_i^I\frac{w_i}{p_i}}$
+    + $p^* =\frac{I}{\sum_i^I1/p_i}$ if no weights provided or all $W-i$ are equal
+- Robust to dependence
+    + Controls FDR within a set of tests
+    + Can also produce strict FWER controlled version for complete dataset
+- Can return weighted-mean of logFC & logCPM $wt_i = 1/p_i$
+- Outperforms Simes and other methods
+
+::: {.notes}
+- Also relevant to BODL for methylation data
+- Tested `comb-p`
+    + Need to fix distance for ACF
+    + Impacts regions with gaps, but within distance
+:::
+
+
+## Normalisation
+
+- Library Size only lacks significant power
+- TMM/RLE are both ok if overall signal is the same in all treatments
+- Is there a general method for automating in a workflow ?
+
+. . .
+
+1. Calculate `logCPM`
+    + Normalises by library size
+2. Smooth Quantile Normalisation [@qsmooth]
+    + Generalisation of quantile normalisation within groups
+3. `limma-trend` [@Law2014-xq] using normalised logPCM
+4. Merge Windows using Harmonic Mean $p$-value (`extraChIPs`)
+    
+## Smooth Quantile Normalisation
+
+- Quantile Normalisation was standard practice for microarrays
+- Reduces technical variability between samples
+- Smooth-QN allows for treatment groups
+- Normalisation uses weights to determine areas of signal which diverge between groups
+
+## SQN
+
+::: {.panel-tabset}
+
+### AR
+
+::: columns
+::: {.column width="60%"}
+
+![The Cytoplasmic-Nuclear Shift is clear](images/ar_densities.png){width="100%" fig-align="left"}
+
+:::
+
+::: {.column width="40%"}
+
+![Low weights = different distributions](images/ar_weights.png){width="100%" fig-align="left}
+
+:::
+:::
+
+### ER
+
+::: columns
+::: {.column width="60%"}
+
+![Looks like replicate variability](images/er_densities.png){width="100%" fig-align="left"}
+
+:::
+
+::: {.column width="40%"}
+
+![High weights = same distributions](images/er_weights.png){width="100%" fig-align="left}
+
+:::
+:::
+
+
+### GATA3
+
+::: columns
+::: {.column width="60%"}
+
+![Not so sure any is being brought to the nucleus](images/gata3_densities.png){width="100%" fig-align="left"}
+
+:::
+
+::: {.column width="40%"}
+
+![Mostly similar distributions](images/gata3_weights.png){width="100%" fig-align="left"}
+
+:::
+:::
+
+### H3K27ac
+
+::: columns
+::: {.column width="60%"}
+
+![There's an outlier sample](images/h3k27ac_densities.png){width="100%" fig-align="left"}
+
+:::
+
+::: {.column width="40%"}
+
+![Mostly the same distributions](images/h3k27ac_weights.png){width="100%" fig-align="left}
+
+:::
+:::
+
+
+:::
+
+## SQN: PCA
+
+::: {.panel-tabset}
+
+### AR
+
+![Not much change on the PCA](images/ar_pca.png){width="80%" fig-align="left"}
+
+### ER
+
+![Now **treatment groups** are the biggest source of variability](images/er_pca.png){width="80%" fig-align="left"}
+
+### GATA3
+
+![Now **treatment groups** are the biggest source of variability](images/gata3_pca.png){width="80%" fig-align="left"}
+
+### H3K27ac
+
+![Some rotation overall](images/h3k27ac_pca.png){width="80%" fig-align="left"}
+
+:::
+
+## SQN
+
+- Looks like reducing replicate variability should yield more power
+    + Should be a clear improvement over library size alone
+- `limma-trend` similar to `voom`
+    + Uses logCPM
+    + Manages mean-variance relationship
+- SQN appears viable even when no real difference between groups
+    + Doesn't seem to introduce any artefacts
+. . .
+
+- Could TMM also be applied within groups?
+
+## Method Comparison
+
+Performed a comparison using
+
+1. LSQL: Library Size $\rightarrow$ `edgeR::glmQLF()`
+2. TMM: (across all samples) $\rightarrow$  `edgeR::glmQLF()`
+3. TMM-Groups: (within groups) $\rightarrow$  `edgeR::glmQLF()`
+4. SQLT: Smooth Quantile Normalisation $\rightarrow$ `limma-trend`
+
+. . .
+
+Performed using 
+
+1. $H_0$ logFC = 0
+2. $H_0$ |logFC| < $\log_2 1.2$ [@McCarthy2009-qf]
+
+. . .
+
+All merged results using harmonic mean 
+
+## Overall Results
+
+::: {.panel-tabset}
+
+### AR
+
+![Group-based methods are best](images/ar_all_upset.png){width="80%"}
+
+### ER
+
+![Group-based methods are best](images/er_all_upset.png){width="80%"}
+
+### GATA3
+
+![Group-based methods are best](images/gata3_all_upset.png){width="80%"}
+
+### H3K27ac
+
+
+![Group-based methods are best](images/h3k27ac_all_upset.png){width="80%"}
+
+:::
+
+## Directional Results
+
+::: {.panel-tabset}
+
+### AR
+
+![TMM decreasing sites are obviously errors](images/ar_dir_upset.png){width="60%" fig-align="left"}
+
+
+### ER
+
+![LSQL (Library Size Only) found no down sites. Group-based normalisation is best](images/er_dir_upset.png){width="60%" fig-align="left"}
+
+:::
+
+::: {.notes}
+- DRMCRL know experimentally that ER is lost from many sites [@Hickey2021-mz]
+- Finally can see them in ChIP-Seq
+:::
+
+## All Good So Far
+
+- Group-based strategies looked best where expected
+- How do the methods compare when using  $H_0$ |logFC| < $\log_2 1.2$
+- Known to control the FDR better than *post-hoc* filtering
+
+. . .
+
+- There was a [**drastic**]{.underline} difference
+    + SQLT lost significant power compared to TMM-groups
+    + Had been near-identical so far
+
+## GATA3
+
+::: {.panel-tabset}
+
+### $H_0$: logFC = 0
+
+![](images/gata3_dir_upset.png){width="60%" fig-align="left"}
+
+### Range-based $H_0$
+
+![](images/gata3-treat-upset.png){width="60%" fig-align="left"}
+
+:::
+
+::: {.notes}
+Take the time to highlight TMM-Groups and SQLT
+:::
+
+## MA Plots
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![SQLT](images/gata3_ma-sqlt.png){fig-align="left"}
+
+:::
+
+::: {.column width="50%"}
+
+![TMM-Groups](images/gata3_ma-tmm-groups.png){fig-align="left"}
+
+:::
+
+::::
+
+Note 1) the potential bias and 2) the differences on the y-axis scale
+
+## logFC Comparison
+
+::: {.panel-tabset}
+
+### AR
+
+![Clear upwards bias in TMM logFC estimates](images/ar_compare-logfc.png){width="60%" fig-align="left"}
+
+### ER
+
+![Clear upwards bias in TMM logFC estimates. Almost looks curved](images/er_compare-logfc.png){width="60%" fig-align="left"}
+
+### GATA3
+
+![Clear upwards bias in TMM logFC estimates with a weird lump in the middle](images/gata3_compare-logfc.png){width="60%" fig-align="left"}
+
+### H3K27ac
+
+![Clear upwards bias in TMM logFC estimates **at both ends**](images/h3k27ac_compare-logfc.png){width="60%" fig-align="left"}
+
+:::
+
+## Additional Comments
+
+- All MA plots showed an upwards bias
+    + Was less pronounced in all SQLT analyses (inc. others not shown)
+- Need to compare RNA-Seq results
+    + `limma-trend` Vs `GLM-QLF` (& `DeSeq2`?)
+    + No idea where this originates
+
+## References
+
+::: {#refs}
+:::
