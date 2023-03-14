@@ -618,13 +618,17 @@ Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
 
 - All `csaw` methods wrapped for slightly different output structure
 - Merge using *harmonic-mean p-value* [@Wilson2019-ln]
-    + $p^* =\frac{\sum_{i=1}^Iw_i}{\sum_i^I\frac{w_i}{p_i}}$
-    + $p^* =\frac{I}{\sum_i^I1/p_i}$ if no weights provided or all $W-i$ are equal
+    + $p^* =\frac{\sum_{i=1}^Iw_i}{\sum_i^Iw_i p_i^{-1}}$
+    + $p^* =\frac{I}{\sum_i^Ip_i^{-1}}$ if no weights provided or all $w_i$ are equal
 - Robust to dependence
     + Controls FDR within a set of tests
     + Can also produce strict FWER controlled version for complete dataset
-- Can return weighted-mean of logFC & logCPM $wt_i = 1/p_i$
-- Outperforms Simes and other methods
+- Outperforms Simes' and other methods
+
+. . .
+
+- Return weighted-mean of logFC/logCPM using $p_i^{-1}$ for weights
+    + e.g. $\widehat{\text{logFC}} = \frac{\sum_i^Ip_i^{-1}\text{logFC}_i}{\sum_i^Ip_1^{-1}}$
 
 ::: {.notes}
 - Also relevant to BODL for methylation data
@@ -638,12 +642,13 @@ Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
 
 - Library Size only lacks significant power
 - TMM/RLE are both ok if overall signal is the same in all treatments
+- DRMCRL data has pooled input [~~normalise to input~~]{.fragment .fade-in}
 - Is there a general method for automating in a workflow ?
 
-. . .
+## Normalisation
 
 1. Calculate `logCPM`
-    + Normalises by library size
+    + Effectively normalises by library size
 2. Smooth Quantile Normalisation [@qsmooth]
     + Generalisation of quantile normalisation within groups
 3. `limma-trend` [@Law2014-xq] using normalised logPCM
@@ -652,9 +657,19 @@ Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
 ## Smooth Quantile Normalisation
 
 - Quantile Normalisation was standard practice for microarrays
-- Reduces technical variability between samples
+    + Gives all samples the identical distribution
+    + Reduces *technical variability* between samples
+    
+. . .
+
 - Smooth-QN allows for treatment groups
-- Normalisation uses weights to determine areas of signal which diverge between groups
+- Uses weights to determine areas which diverge between groups
+
+. . .
+
+- `quantro` [@Hicks2015-ee] provides a test for 
+    a. Difference in distribution means ($F$-test)
+    b. Difference in overall distributions (permuted)
 
 ## SQN
 
@@ -665,13 +680,13 @@ Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
 ::: columns
 ::: {.column width="60%"}
 
-![The Cytoplasmic-Nuclear Shift is clear](images/ar_densities.png){width="100%" fig-align="left"}
+![The Cytoplasmic-Nuclear Shift is clear.<br>(quantro: $p_{med} = 0.002$; $p_{dist} < 5e4$)](images/ar_densities.png){width="100%" fig-align="left"}
 
 :::
 
 ::: {.column width="40%"}
 
-![Low weights = different distributions](images/ar_weights.png){width="100%" fig-align="left}
+![Low weights = different distributions](images/ar_weights.png){width="100%" fig-align="left"}
 
 :::
 :::
@@ -681,13 +696,13 @@ Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
 ::: columns
 ::: {.column width="60%"}
 
-![Looks like replicate variability](images/er_densities.png){width="100%" fig-align="left"}
+![Looks like replicate variability.<br>(quantro: $p_{med} = 0.91$; $p_{dist} = 0.42$)](images/er_densities.png){width="100%" fig-align="left"}
 
 :::
 
 ::: {.column width="40%"}
 
-![High weights = same distributions](images/er_weights.png){width="100%" fig-align="left}
+![High weights = same distributions](images/er_weights.png){width="100%" fig-align="left"}
 
 :::
 :::
@@ -698,7 +713,7 @@ Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
 ::: columns
 ::: {.column width="60%"}
 
-![Not so sure any is being brought to the nucleus](images/gata3_densities.png){width="100%" fig-align="left"}
+![Is any being brought to the nucleus?<br>(quantro: $p_{med} = 0.65$; $p_{dist} < 5e4$)](images/gata3_densities.png){width="100%" fig-align="left"}
 
 :::
 
@@ -714,13 +729,13 @@ Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
 ::: columns
 ::: {.column width="60%"}
 
-![There's an outlier sample](images/h3k27ac_densities.png){width="100%" fig-align="left"}
+![There's an outlier sample.<br>(quantro: $p_{med} = 0.84$; $p_{dist} < 0.50$)](images/h3k27ac_densities.png){width="100%" fig-align="left"}
 
 :::
 
 ::: {.column width="40%"}
 
-![Mostly the same distributions](images/h3k27ac_weights.png){width="100%" fig-align="left}
+![Mostly the same distributions](images/h3k27ac_weights.png){width="100%" fig-align="left"}
 
 :::
 :::
@@ -746,7 +761,7 @@ Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
 
 ### H3K27ac
 
-![Some rotation overall](images/h3k27ac_pca.png){width="80%" fig-align="left"}
+![Some rotation...](images/h3k27ac_pca.png){width="80%" fig-align="left"}
 
 :::
 
@@ -789,20 +804,20 @@ All merged results using harmonic mean
 
 ### AR
 
-![Group-based methods are best](images/ar_all_upset.png){width="80%"}
+![Group-based methods are best. TMM clearly inappropriate](images/ar_all_upset.png){width="80%"}
 
 ### ER
 
-![Group-based methods are best](images/er_all_upset.png){width="80%"}
+![Library-Size lacks significant power](images/er_all_upset.png){width="80%"}
 
 ### GATA3
 
-![Group-based methods are best](images/gata3_all_upset.png){width="80%"}
+![Library-Size again lacks power](images/gata3_all_upset.png){width="80%"}
 
 ### H3K27ac
 
 
-![Group-based methods are best](images/h3k27ac_all_upset.png){width="80%"}
+![Smooth Quantile now loses out](images/h3k27ac_all_upset.png){width="80%"}
 
 :::
 
@@ -819,6 +834,10 @@ All merged results using harmonic mean
 
 ![LSQL (Library Size Only) found no down sites. Group-based normalisation is best](images/er_dir_upset.png){width="60%" fig-align="left"}
 
+### H3K27ac
+
+![SQLT seems to have about half the power<br>Similar but far less pronounced in 2 other datasets](images/h3k27ac_dir_upset.png){width="60%" fig-align="left"}
+
 :::
 
 ::: {.notes}
@@ -826,9 +845,11 @@ All merged results using harmonic mean
 - Finally can see them in ChIP-Seq
 :::
 
+
 ## All Good So Far
 
 - Group-based strategies looked best where expected
+    + SQLT appears poor for H3K27ac (??)
 - How do the methods compare when using  $H_0$ |logFC| < $\log_2 1.2$
 - Known to control the FDR better than *post-hoc* filtering
 
@@ -836,7 +857,7 @@ All merged results using harmonic mean
 
 - There was a [**drastic**]{.underline} difference
     + SQLT lost significant power compared to TMM-groups
-    + Had been near-identical so far
+    + Had been near-identical / competitive so far
 
 ## GATA3
 
@@ -844,11 +865,11 @@ All merged results using harmonic mean
 
 ### $H_0$: logFC = 0
 
-![](images/gata3_dir_upset.png){width="60%" fig-align="left"}
+![SQLT has the most decreasing sites<br>Less competitive for increasing](images/gata3_dir_upset.png){width="60%" fig-align="left"}
 
 ### Range-based $H_0$
 
-![](images/gata3-treat-upset.png){width="60%" fig-align="left"}
+![SQLT now has only 40 down sites (from 1672)](images/gata3-treat-upset.png){width="60%" fig-align="left"}
 
 :::
 
@@ -876,6 +897,10 @@ Take the time to highlight TMM-Groups and SQLT
 
 Note 1) the potential bias and 2) the differences on the y-axis scale
 
+::: {.notes}
+At the top end, the average shift for TMM-Groups is around a 30% increase in signal
+:::
+
 ## logFC Comparison
 
 ::: {.panel-tabset}
@@ -898,10 +923,15 @@ Note 1) the potential bias and 2) the differences on the y-axis scale
 
 :::
 
+::: {.notes}
+The curve in H3K27ac is not seen in ZR-75 of MDA-MB-453
+:::
+
 ## Additional Comments
 
 - All MA plots showed an upwards bias
     + Was less pronounced in all SQLT analyses (inc. others not shown)
+- Is this somehow connected to DHT?
 - Need to compare RNA-Seq results
     + `limma-trend` Vs `GLM-QLF` (& `DeSeq2`?)
     + No idea where this originates
