@@ -475,8 +475,8 @@ Stephen (Stevie) Pederson
 <ul>
 <li>Known since I was a small child, but the 1970s were a very different time. Tried really hard to be a ‘normal’ person</li>
 <li>Sought professional help about 5 years ago &amp; first heard the term Non-Binary and found the language to describe my experience</li>
-<li>Many noticed how happy I was after the Hub closed, but this was not because the Hub closed at all</li>
 <li>Took the time out of the spotlight to start exploring a more variable and more honest presentation</li>
+<li>Many noticed how happy I was after the Hub closed, but this was not because the Hub closed at all</li>
 <li>Spoke to Jimmy after the Hub closed, never expecting to work together again. How do I manage the Adelaide research community when I’m out?</li>
 <li>Had always been scared of revealing this. Would I be kicked out of my school teaching roles? How would it impact the relationship with my PhD supervisor? How would DVCR cope?</li>
 <li>Now my line manager knows &amp; TKI have a long history of supporting the transgender community, it was now or never. That fear no longer existed!</li>
@@ -498,7 +498,7 @@ Stephen (Stevie) Pederson
       }</style></aside>
 </section>
 <section>
-<section id="extrachips" class="title-slide slide level1 center" data-background-color="#3c3c44" data-background-image="https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png" data-background-size="40%" data-background-opacity="0.5">
+<section id="extrachips" class="title-slide slide level1 center" data-background-color="#3c3c44" data-background-image="https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png" data-background-size="40%" data-background-opacity="0.3">
 <h1>extraChIPs</h1>
 <div class="cell">
 
@@ -509,18 +509,17 @@ Stephen (Stevie) Pederson
 <ol type="1">
 <li>A walk-through of the package
 <ul>
-<li>Significant useage well beyond ChIP-Seq data</li>
+<li>Usage well beyond ChIP-Seq data</li>
 </ul></li>
 <li>Approaches to detection of Differential ChIP-Seq Signal</li>
-<li>Some recent oddness</li>
 </ol>
 </section></section>
 <section>
-<section id="extrachips-utility-functions" class="title-slide slide level1 center" data-background-color="#3c3c44" data-background-image="https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png" data-background-size="40%" data-background-opacity="0.5">
-<h1>extraChIPs Utility Functions</h1>
+<section id="utility-functions" class="title-slide slide level1 center" data-background-color="#3c3c44" data-background-image="https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png" data-background-size="40%" data-background-opacity="0.3">
+<h1>Utility Functions</h1>
 
 </section>
-<section id="utility-functions" class="slide level2">
+<section id="utility-functions-1" class="slide level2">
 <h2>Utility Functions</h2>
 <ul>
 <li>Genomic Ranges objects (<code>GRanges</code>) are analogous to bed files</li>
@@ -603,11 +602,13 @@ Stephen (Stevie) Pederson
 <section id="tibble-coercion-2" class="slide level2">
 <h2><code>tibble</code> Coercion</h2>
 <p>Now perform the coercion using <code>as_tibble()</code></p>
-<div class="cell columns column-output-location">
-<div class="column">
+<div class="cell columns column-output-location quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="column quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(gr)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
+</div>
+<div class="column fragment quarto-layout-cell" style="flex-basis: 66.7%;justify-content: center;">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   range                      gene_name transcript_name
@@ -616,6 +617,7 @@ Stephen (Stevie) Pederson
 2 chr2:204732666-204737498:+ CTLA4     CTLA4-201      
 3 chr2:204732666-204737535:+ CTLA4     CTLA4-204      
 4 chr2:204732666-204737535:+ CTLA4     CTLA4-203      </code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -656,6 +658,11 @@ Stephen (Stevie) Pederson
 </ul></li>
 </ul>
 </div>
+<div class="fragment">
+<ul>
+<li>There is a performance overhead…</li>
+</ul>
+</div>
 </section>
 <section id="reducemc" class="slide level2">
 <h2><code>reduceMC()</code></h2>
@@ -676,7 +683,7 @@ Stephen (Stevie) Pederson
 </div>
 </div>
 <div class="fragment">
-<p><br></p>
+<p><br> <code>reduce</code> will only return the ranges</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>gr <span class="sc">%&gt;%</span> </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resize</span>(<span class="at">fix =</span> <span class="st">'start'</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
@@ -711,7 +718,7 @@ Stephen (Stevie) Pederson
   seqinfo: 24 sequences from GRCh37 genome</code></pre>
 </div>
 </div>
-<p><br></p>
+<p><br> <code>reduceMC()</code> returns the <code>mcols</code> as well</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>gr <span class="sc">%&gt;%</span> </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resize</span>(<span class="at">fix =</span> <span class="st">'start'</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
@@ -729,12 +736,23 @@ Stephen (Stevie) Pederson
 </section>
 <section id="intersectmc" class="slide level2">
 <h2><code>intersectMC()</code></h2>
+<div class="cell">
+
+</div>
 <ul>
-<li>Let’s say we have a ChIP-Seq peak <span class="math inline">\(\implies\)</span> we can find the intersecting range</li>
+<li>Find the intersecting range for a ChIP-Seq peak</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>peak <span class="ot">&lt;-</span> <span class="fu">GRanges</span>(<span class="st">"chr2:204732401-204732600"</span>, <span class="at">seqinfo =</span> sq)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">intersect</span>(gr, peak, <span class="at">ignore.strand =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>peak</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 1 range and 0 metadata columns:
+      seqnames              ranges strand
+         &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt;
+  [1]     chr2 204732401-204732600      *
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">intersect</span>(gr, peak, <span class="at">ignore.strand =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 1 range and 0 metadata columns:
       seqnames              ranges strand
@@ -745,9 +763,8 @@ Stephen (Stevie) Pederson
 </div>
 </div>
 <div class="fragment">
-<p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">intersectMC</span>(gr, peak, <span class="at">ignore.strand =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">intersectMC</span>(gr, peak, <span class="at">ignore.strand =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 1 range and 2 metadata columns:
       seqnames              ranges strand |   gene_name transcript_name
@@ -760,9 +777,8 @@ Stephen (Stevie) Pederson
 </div>
 <div class="fragment">
 <div style="font-size: 80%;">
-<p><br></p>
 <ul>
-<li>NB: This is different to <code>subsetByOverlaps()</code> <span class="math inline">\(\implies\)</span> would return the entire initial range</li>
+<li>NB: <code>subsetByOverlaps()</code> would return the entire initial range</li>
 <li>Only the <code>mcols</code> from the <em>query range</em> are returned</li>
 </ul>
 </div>
@@ -775,7 +791,7 @@ Stephen (Stevie) Pederson
 <li>Find the region of CTLA4 not covered by the 3 shorter transcripts</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>gr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 4 ranges and 2 metadata columns:
       seqnames              ranges strand |   gene_name transcript_name
@@ -791,7 +807,7 @@ Stephen (Stevie) Pederson
 <div class="fragment">
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setdiffMC</span>(gr[<span class="dv">1</span>], gr[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setdiffMC</span>(gr[<span class="dv">1</span>], gr[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 2 ranges and 2 metadata columns:
       seqnames              ranges strand |   gene_name transcript_name
@@ -812,13 +828,14 @@ Stephen (Stevie) Pederson
 </section>
 <section id="distinctmc" class="slide level2">
 <h2><code>distinctMC()</code></h2>
+<div class="cell">
+
+</div>
 <ul>
-<li>Very handy after a <code>plyranges::join_overlap_*()</code> with multiple matches</li>
+<li>Very handy after a <code>plyranges::join_*()</code> with multiple matches</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>meth <span class="ot">&lt;-</span> <span class="fu">GRanges</span>(<span class="fu">c</span>(<span class="st">"chr2:204732499"</span>, <span class="st">"chr2:204732562"</span>), <span class="at">seqinfo =</span> sq)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>meth<span class="sc">$</span>prop_methylated <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.99</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>meth</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>meth</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 2 ranges and 1 metadata column:
       seqnames    ranges strand | prop_methylated
@@ -833,8 +850,8 @@ Stephen (Stevie) Pederson
 <li>The join will expand to both methylated sites</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>peak <span class="sc">%&gt;%</span> </span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  plyranges<span class="sc">::</span><span class="fu">join_overlap_left</span>(meth) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>peak <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  plyranges<span class="sc">::</span><span class="fu">join_overlap_left</span>(meth) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 2 ranges and 1 metadata column:
       seqnames              ranges strand | prop_methylated
@@ -849,12 +866,10 @@ Stephen (Stevie) Pederson
 <section id="distinctmc-1" class="slide level2">
 <h2><code>distinctMC()</code></h2>
 <ul>
-<li>Very handy after a <code>plyranges::join_overlap_*()</code> with multiple matches</li>
+<li>Very handy after a <code>plyranges::join_*()</code> with multiple matches</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>meth <span class="ot">&lt;-</span> <span class="fu">GRanges</span>(<span class="fu">c</span>(<span class="st">"chr2:204732499"</span>, <span class="st">"chr2:204732562"</span>), <span class="at">seqinfo =</span> sq)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>meth<span class="sc">$</span>prop_methylated <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.99</span>)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>meth</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>meth</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 2 ranges and 1 metadata column:
       seqnames    ranges strand | prop_methylated
@@ -869,10 +884,10 @@ Stephen (Stevie) Pederson
 <li>We can just keep the first mapping after sorting by some parameter</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>peak <span class="sc">%&gt;%</span> </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  plyranges<span class="sc">::</span><span class="fu">join_overlap_left</span>(meth) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="dv">1</span><span class="sc">/</span>(prop_methylated)) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinctMC</span>(<span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>peak <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  plyranges<span class="sc">::</span><span class="fu">join_overlap_left</span>(meth) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="dv">1</span><span class="sc">/</span>(prop_methylated)) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinctMC</span>(<span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 1 range and 1 metadata column:
       seqnames              ranges strand | prop_methylated
@@ -893,9 +908,9 @@ Stephen (Stevie) Pederson
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>peak <span class="sc">%&gt;%</span> </span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  plyranges<span class="sc">::</span><span class="fu">join_overlap_left</span>(meth) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chopMC</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>peak <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  plyranges<span class="sc">::</span><span class="fu">join_overlap_left</span>(meth) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chopMC</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 1 range and 1 metadata column:
       seqnames              ranges strand | prop_methylated
@@ -916,8 +931,8 @@ Stephen (Stevie) Pederson
 </div>
 </section></section>
 <section>
-<section id="extrachips-visualisations" class="title-slide slide level1 center" data-background-color="#3c3c44" data-background-image="https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png" data-background-size="40%" data-background-opacity="0.5">
-<h1>extraChIPs Visualisations</h1>
+<section id="visualisation" class="title-slide slide level1 center" data-background-color="#3c3c44" data-background-image="https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png" data-background-size="40%" data-background-opacity="0.3">
+<h1>Visualisation</h1>
 
 </section>
 <section id="visualisations" class="slide level2">
@@ -929,29 +944,39 @@ Stephen (Stevie) Pederson
 <ul>
 <li>Usually have a <code>rowRanges</code> element</li>
 </ul></li>
-<li>Most plotting function built for <code>GRanges</code> and <code>data.frame</code>-like objects</li>
+<li>Most plotting functions built for <code>GRanges</code> / <code>data.frame</code>-like objects</li>
 </ul>
 </section>
 <section id="visualisations-1" class="slide level2">
 <h2>Visualisations</h2>
-<div>
 <ul>
-<li class="fragment"><code>plotAssay*()</code> for inspection of pre-analysed data
+<li><code>plotAssay*()</code> for inspection of pre-analysed data
 <ul>
-<li class="fragment"><code>plotAssayDensities()</code>, <code>plotAssayPCA()</code>, <code>plotAssayRle()</code></li>
+<li><code>plotAssayDensities()</code>, <code>plotAssayPCA()</code>, <code>plotAssayRle()</code></li>
 </ul></li>
-<li class="fragment"><code>plotOverlaps()</code>, <code>plotPie()</code> and <code>plotSplitDonut()</code>
+</ul>
+<div class="fragment">
 <ul>
-<li class="fragment">Compare sets of ranges using <code>Venn/UpSet</code>, Pie or Donut charts</li>
+<li><code>plotOverlaps()</code>, <code>plotPie()</code> and <code>plotSplitDonut()</code>
+<ul>
+<li>Compare sets of ranges using <code>Venn/UpSet</code>, Pie or Donut charts</li>
 </ul></li>
-<li class="fragment"><code>plotProfileHeatmap()</code>
+</ul>
+</div>
+<div class="fragment">
 <ul>
-<li class="fragment">Visualise binding intensities at multiple sites/samples</li>
+<li><code>plotProfileHeatmap()</code>
+<ul>
+<li>Visualise binding intensities at multiple sites/samples</li>
 </ul></li>
-<li class="fragment"><code>plotHFGC()</code>: plot <u><strong>H</strong></u>iC, <u><strong>F</strong></u>eatures, <u><strong>G</strong></u>enes, <u><strong>C</strong></u>overage
+</ul>
+</div>
+<div class="fragment">
 <ul>
-<li class="fragment">All elements are optional</li>
-<li class="fragment">Define your objects <span class="math inline">\(\implies\)</span> keep running across multiple ranges</li>
+<li><code>plotHFGC()</code>: plot <u><strong>H</strong></u>iC, <u><strong>F</strong></u>eatures, <u><strong>G</strong></u>enes, <u><strong>C</strong></u>overage
+<ul>
+<li>All elements are optional</li>
+<li>Define your objects <span class="math inline">\(\implies\)</span> keep running across multiple ranges</li>
 </ul></li>
 </ul>
 </div>
@@ -1001,6 +1026,26 @@ Stephen (Stevie) Pederson
 <h2><code>plotHFGC()</code></h2>
 
 <img data-src="images/c1orf116.png" style="width:75.0%" class="r-stretch quarto-figure-center"><p class="caption">Here I’m checking binding for a DE gene (<em>C1orf116</em>)…</p></section>
+<section id="plotpie" class="slide level2">
+<h2><code>plotPie()</code></h2>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPie</span>(consensus_peaks, <span class="at">fill =</span> <span class="st">"region"</span>) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colours<span class="sc">$</span>regions) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="images/er-region-pie.png" class="r-stretch quarto-figure-left"><p class="caption">AR binding sites mapped to genomic regions</p><aside class="notes">
+<p>Probably need to revise given the code in <code>plotSplitDonut()</code></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="plotsplitdonut" class="slide level2">
 <h2><code>plotSplitDonut()</code></h2>
 <ul>
@@ -1008,87 +1053,76 @@ Stephen (Stevie) Pederson
 <li>Can set inner &amp; outer palettes separately</li>
 <li>Huge flexibility in labelling</li>
 <li>Uses <code>patchwork</code> to drive the layout</li>
-<li>Getting legend positions right is still a bit tricky
-<ul>
-<li>(It’s a hack…)</li>
-</ul></li>
+<li>Getting legend positions right is still a bit tricky (i.e.&nbsp;hacky…)</li>
 </ul>
 </section>
 <section id="plotsplitdonut-1" class="slide level2">
 <h2><code>plotSplitDonut()</code></h2>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotSplitDonut</span>(</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  object, inner, outer, <span class="at">scale_by =</span> <span class="cn">NULL</span>,</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">r_centre =</span> <span class="fl">0.5</span>, <span class="at">r_inner =</span> <span class="dv">1</span>, <span class="at">r_outer =</span> <span class="dv">1</span>,</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">total_size =</span> <span class="dv">5</span>, <span class="at">total_glue =</span> <span class="st">"{comma(N)}"</span>,</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">inner_glue =</span> <span class="st">"{inner} {.data[[inner]]}</span><span class="sc">\n</span><span class="st">{percent(p,0.1)}"</span>,</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">outer_glue =</span> <span class="st">"{outer} {.data[[outer]]}</span><span class="sc">\n</span><span class="st">{percent(p,0.1)}"</span>,</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">inner_label =</span> <span class="fu">c</span>(<span class="st">"label"</span>, <span class="st">"text"</span>, <span class="st">"none"</span>),</span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">outer_label =</span> <span class="fu">c</span>(<span class="st">"label"</span>, <span class="st">"text"</span>, <span class="st">"none"</span>),</span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">label_alpha =</span> <span class="dv">1</span>, <span class="at">inner_label_alpha =</span> <span class="cn">NULL</span>, <span class="at">outer_label_alpha =</span> <span class="cn">NULL</span>,</span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">label_size =</span> <span class="dv">3</span>, <span class="at">inner_label_size =</span> <span class="cn">NULL</span>, <span class="at">outer_label_size =</span> <span class="cn">NULL</span>,</span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">min_p =</span> <span class="fl">0.05</span>, <span class="at">inner_min_p =</span> <span class="cn">NULL</span>, <span class="at">outer_min_p =</span> <span class="cn">NULL</span>,</span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">explode_inner =</span> <span class="cn">NULL</span>, <span class="at">explode_outer =</span> <span class="cn">NULL</span>, <span class="at">explode_query =</span> <span class="fu">c</span>(<span class="st">"AND"</span>, <span class="st">"OR"</span>),</span>
-<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">explode_x =</span> <span class="dv">0</span>, <span class="at">explode_y =</span> <span class="dv">0</span>, <span class="at">explode_r =</span> <span class="dv">0</span>, <span class="at">nudge_r =</span> <span class="fl">0.5</span>,</span>
-<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">expand =</span> <span class="fl">0.1</span>,</span>
-<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">inner_palette =</span> <span class="cn">NULL</span>, <span class="at">outer_palette =</span> <span class="cn">NULL</span>,</span>
-<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">inner_legend =</span> <span class="cn">TRUE</span>, <span class="at">outer_legend =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">layout =</span> <span class="fu">c</span>(<span class="at">main =</span> <span class="fu">area</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">6</span>), <span class="at">lg1 =</span> <span class="fu">area</span>(<span class="dv">2</span>, <span class="dv">7</span>), <span class="at">lg2 =</span> <span class="fu">area</span>(<span class="dv">4</span>, <span class="dv">7</span>)), ...</span>
-<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotSplitDonut</span>(</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  object, inner, outer, <span class="at">scale_by =</span> <span class="cn">NULL</span>,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">r_centre =</span> <span class="fl">0.5</span>, <span class="at">r_inner =</span> <span class="dv">1</span>, <span class="at">r_outer =</span> <span class="dv">1</span>,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">total_size =</span> <span class="dv">5</span>, <span class="at">total_glue =</span> <span class="st">"{comma(N)}"</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">inner_glue =</span> <span class="st">"{inner} {.data[[inner]]}</span><span class="sc">\n</span><span class="st">{percent(p,0.1)}"</span>,</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">outer_glue =</span> <span class="st">"{outer} {.data[[outer]]}</span><span class="sc">\n</span><span class="st">{percent(p,0.1)}"</span>,</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">inner_label =</span> <span class="fu">c</span>(<span class="st">"label"</span>, <span class="st">"text"</span>, <span class="st">"none"</span>),</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">outer_label =</span> <span class="fu">c</span>(<span class="st">"label"</span>, <span class="st">"text"</span>, <span class="st">"none"</span>),</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">label_alpha =</span> <span class="dv">1</span>, <span class="at">inner_label_alpha =</span> <span class="cn">NULL</span>, <span class="at">outer_label_alpha =</span> <span class="cn">NULL</span>,</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">label_size =</span> <span class="dv">3</span>, <span class="at">inner_label_size =</span> <span class="cn">NULL</span>, <span class="at">outer_label_size =</span> <span class="cn">NULL</span>,</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">min_p =</span> <span class="fl">0.05</span>, <span class="at">inner_min_p =</span> <span class="cn">NULL</span>, <span class="at">outer_min_p =</span> <span class="cn">NULL</span>,</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">explode_inner =</span> <span class="cn">NULL</span>, <span class="at">explode_outer =</span> <span class="cn">NULL</span>, <span class="at">explode_query =</span> <span class="fu">c</span>(<span class="st">"AND"</span>, <span class="st">"OR"</span>),</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">explode_x =</span> <span class="dv">0</span>, <span class="at">explode_y =</span> <span class="dv">0</span>, <span class="at">explode_r =</span> <span class="dv">0</span>, <span class="at">nudge_r =</span> <span class="fl">0.5</span>,</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">expand =</span> <span class="fl">0.1</span>,</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">inner_palette =</span> <span class="cn">NULL</span>, <span class="at">outer_palette =</span> <span class="cn">NULL</span>,</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">inner_legend =</span> <span class="cn">TRUE</span>, <span class="at">outer_legend =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">layout =</span> <span class="fu">c</span>(<span class="at">main =</span> <span class="fu">area</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">6</span>), <span class="at">lg1 =</span> <span class="fu">area</span>(<span class="dv">2</span>, <span class="dv">7</span>), <span class="at">lg2 =</span> <span class="fu">area</span>(<span class="dv">4</span>, <span class="dv">7</span>)), ...</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Need to add <code>label</code> &amp; tweak how label size is set globally</li>
+</ul>
 </section>
 <section id="plotsplitdonut-2" class="slide level2 smaller">
 <h2><code>plotSplitDonut()</code></h2>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>target <span class="ot">&lt;-</span> <span class="st">"GATA3</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="st">merged_results %&gt;% </span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="st">  ...stuff... %&gt;%</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="st">  plotSplitDonut(</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="st">    inner = target, outer = "</span>Region<span class="st">", min_p = 0.01,</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="st">    inner_glue = "</span>{.data[[inner]]}\nn <span class="ot">=</span> {<span class="fu">comma</span>(n, <span class="dv">1</span>)}\n{<span class="fu">percent</span>(p, <span class="fl">0.1</span>)}<span class="st">",</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="st">    outer_glue = "</span>{<span class="fu">str_wrap</span>(.data[[outer]], <span class="dv">12</span>)}\nn <span class="ot">=</span> {<span class="fu">comma</span>(n, <span class="dv">1</span>)}\n{<span class="fu">percent</span>(p, <span class="fl">0.1</span>)}<span class="st">",</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="st">    inner_palette = direction_colours, outer_palette = region_colours</span></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="st">  )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>target <span class="ot">&lt;-</span> <span class="st">"GATA3</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="st">merged_results %&gt;% </span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="st">  plotSplitDonut(</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="st">    inner = target, outer = "</span>Region<span class="st">", min_p = 0.01,</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="st">    inner_glue = "</span>{.data[[inner]]}\nn <span class="ot">=</span> {<span class="fu">comma</span>(n, <span class="dv">1</span>)}\n{<span class="fu">percent</span>(p, <span class="fl">0.1</span>)}<span class="st">",</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="st">    outer_glue = "</span>{<span class="fu">str_wrap</span>(.data[[outer]], <span class="dv">12</span>)}\nn <span class="ot">=</span> {<span class="fu">comma</span>(n, <span class="dv">1</span>)}\n{<span class="fu">percent</span>(p, <span class="fl">0.1</span>)}<span class="st">",</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="st">    inner_palette = direction_colours, outer_palette = region_colours</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="st">  )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <img data-src="images/gata3_regions_donut.png" style="width:75.0%" class="r-stretch"></section>
 <section id="plotsplitdonut-3" class="slide level2 smaller">
 <h2><code>plotSplitDonut()</code></h2>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>all_windows <span class="sc">%&gt;%</span> </span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  ...stuff... <span class="sc">%&gt;%</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotSplitDonut</span>(</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">inner =</span> <span class="fu">colnames</span>(.)[[<span class="dv">1</span>]], <span class="at">outer =</span> <span class="fu">colnames</span>(.)[[<span class="dv">2</span>]], <span class="at">min_p =</span><span class="fl">0.02</span>, </span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">inner_glue =</span> <span class="st">"{inner}</span><span class="sc">\n</span><span class="st">{.data[[inner]]}</span><span class="sc">\n</span><span class="st">{percent(p, 0.1)}"</span>,</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">outer_glue =</span> <span class="st">"{outer}</span><span class="sc">\n</span><span class="st">{.data[[outer]]}</span><span class="sc">\n</span><span class="st">{percent(p, 0.1)}"</span>,</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">explode_inner =</span> <span class="st">"Down|Up"</span>, <span class="at">explode_outer =</span> <span class="st">"Down|Up"</span>, <span class="at">explode_r =</span> <span class="fl">0.4</span>,</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">explode_query =</span> <span class="st">"OR"</span>, <span class="at">nudge_r =</span> <span class="fl">0.5</span>,</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">inner_palette =</span> colours<span class="sc">$</span>direction, <span class="at">outer_palette =</span> colours<span class="sc">$</span>direction</span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> .[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>all_windows <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotSplitDonut</span>(</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">inner =</span> <span class="fu">colnames</span>(.)[[<span class="dv">1</span>]], <span class="at">outer =</span> <span class="fu">colnames</span>(.)[[<span class="dv">2</span>]], <span class="at">min_p =</span><span class="fl">0.02</span>, </span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">inner_glue =</span> <span class="st">"{inner}</span><span class="sc">\n</span><span class="st">{.data[[inner]]}</span><span class="sc">\n</span><span class="st">{percent(p, 0.1)}"</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">outer_glue =</span> <span class="st">"{outer}</span><span class="sc">\n</span><span class="st">{.data[[outer]]}</span><span class="sc">\n</span><span class="st">{percent(p, 0.1)}"</span>,</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">explode_inner =</span> <span class="st">"Down|Up"</span>, <span class="at">explode_outer =</span> <span class="st">"Down|Up"</span>, <span class="at">explode_r =</span> <span class="fl">0.4</span>,</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">explode_query =</span> <span class="st">"OR"</span>, <span class="at">nudge_r =</span> <span class="fl">0.5</span>,</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">inner_palette =</span> colours<span class="sc">$</span>direction, <span class="at">outer_palette =</span> colours<span class="sc">$</span>direction</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">inner_legend =</span> <span class="cn">FALSE</span>, <span class="at">outer_legend =</span> <span class="cn">FALSE</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <img data-src="images/ar_gata3_donut.png" style="width:70.0%" class="r-stretch"></section>
-<section id="plotoverlaps" class="slide level2">
+<section id="plotoverlaps" class="slide level2 smaller">
 <h2><code>plotOverlaps()</code></h2>
 <ul>
 <li>Calls 1) <code>ComplexUpset::upset()</code> or 2) <code>VennDiagram::draw.*wise.venn()</code></li>
+<li>Size-scaled Venn Diagrams are tricky in <code>R</code>…</li>
 </ul>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>ex <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">x =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">y =</span> letters[<span class="fu">c</span>(<span class="dv">6</span><span class="sc">:</span><span class="dv">15</span>, <span class="dv">26</span>)], <span class="at">z =</span> letters[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">10</span><span class="sc">:</span><span class="dv">25</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Venn Diagram</a></li><li><a href="#tabset-1-2">UpSet Plot</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1">
-<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotOverlaps</span>(ex, <span class="at">type =</span> <span class="st">"venn"</span>, <span class="at">set_col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img data-src="https://steveped.github.io/extraChIPs/reference/plotOverlaps-methods-2.png" style="width:65.0%"></p>
-</div>
-<div id="tabset-1-2">
-<div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotOverlaps</span>(ex, <span class="at">type =</span> <span class="st">"upset"</span>, <span class="at">set_col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">labeller =</span> stringr<span class="sc">::</span>str_to_title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img data-src="https://steveped.github.io/extraChIPs/reference/plotOverlaps-methods-3.png" style="width:65.0%"></p>
-</div>
-</div>
-</div>
-</section></section>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>ex <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">x =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">y =</span> letters[<span class="fu">c</span>(<span class="dv">6</span><span class="sc">:</span><span class="dv">15</span>, <span class="dv">26</span>)], <span class="at">z =</span> letters[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">10</span><span class="sc">:</span><span class="dv">25</span>)])</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotOverlaps</span>(ex, <span class="at">type =</span> <span class="st">"upset"</span>, <span class="at">set_col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">labeller =</span> stringr<span class="sc">::</span>str_to_title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="https://steveped.github.io/extraChIPs/reference/plotOverlaps-methods-3.png" style="width:65.0%" class="r-stretch"></section></section>
 <section>
 <section id="differential-binding" class="title-slide slide level1 center" data-background-color="#3c3c44" data-background-image="https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png" data-background-size="40%" data-background-opacity="0.5">
 <h1>Differential Binding</h1>
@@ -1106,9 +1140,10 @@ Stephen (Stevie) Pederson
 <li>Can handle targets which are:
 <ul>
 <li>Cytoplasmic <span class="math inline">\(\rightarrow\)</span> Nuclear</li>
-<li>Partially Bound <span class="math inline">\(\rightarrow\)</span> Increasingly Bound</li>
+<li>Partially sequestered <span class="math inline">\(\rightarrow\)</span> More able to bind</li>
 <li>Just relocated on the DNA</li>
 </ul></li>
+<li>Also robust for H3K27ac marks etc</li>
 </ul>
 </section>
 <section id="drmcrl-data" class="slide level2">
@@ -1138,7 +1173,7 @@ Stephen (Stevie) Pederson
 <li>Uses defined peaks (e.g.&nbsp;macs2 consensus peaks)
 <ul>
 <li>Re-centres peaks when loading</li>
-<li>Fixed width across all peaks (e.g.&nbsp;all 501bp)</li>
+<li><em>Fixed width across all peaks</em> (e.g.&nbsp;all 501bp)</li>
 </ul></li>
 <li>Defaults to:
 <ul>
@@ -1154,16 +1189,16 @@ Stephen (Stevie) Pederson
 <li>Developed by Gordon Smyth &amp; Aaron Lun <span class="citation" data-cites="csaw">(<a href="#/references" role="doc-biblioref" onclick="">Lun and Smyth 2016</a>)</span></li>
 <li>Uses sliding windows
 <ul>
-<li>Avoids bias from defined peaks <span class="citation" data-cites="chip-windows">(<a href="#/references" role="doc-biblioref" onclick="">Lun and Smyth 2014</a>)</span></li>
+<li>Avoids bias from counting within defined peaks <span class="citation" data-cites="chip-windows">(<a href="#/references" role="doc-biblioref" onclick="">Lun and Smyth 2014</a>)</span></li>
 <li>Regions defined independently of signal</li>
 </ul></li>
-<li>After counting <span class="math inline">\(\implies\)</span> throw away low/no signal windows</li>
+<li>After counting across genome <span class="math inline">\(\implies\)</span> throw away low/no signal windows</li>
 </ul>
 <div class="fragment">
 <ol type="1">
 <li>No normalisation method by default (we choose)</li>
 <li>Statistical Test on remaining windows (<code>edgeR::glmQLF()</code>)</li>
-<li>Summarise tests across overlapping windows <span class="math inline">\(\implies\)</span> merged region
+<li>Summarise tests across overlapping windows <span class="math inline">\(\implies\)</span> <u><em>merged region</em></u>
 <ul>
 <li>Tests/p-values are clearly dependent</li>
 </ul></li>
@@ -1184,6 +1219,16 @@ Stephen (Stevie) Pederson
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</div>
+</section>
+<section id="an-example" class="slide level2">
+<h2>An Example</h2>
+<div class="r-stack">
+<p><img data-src="images/ar_diffbind_example.png" class="fragment" style="width:70.0%"></p>
+<p><img data-src="images/ar_csaw_example.png" class="fragment" style="width:70.0%"></p>
+</div>
+<div class="fragment">
+<p>Use the maximal signal window?</p>
 </div>
 </section>
 <section id="merging-windows" class="slide level2">
@@ -1211,21 +1256,20 @@ Stephen (Stevie) Pederson
 <li>All <code>csaw</code> methods wrapped for slightly different output structure</li>
 <li>Merge using <em>harmonic-mean p-value</em> <span class="citation" data-cites="Wilson2019-ln">(<a href="#/references" role="doc-biblioref" onclick="">Wilson 2019</a>)</span>
 <ul>
-<li><span class="math inline">\(p^* =\frac{\sum_{i=1}^Iw_i}{\sum_i^Iw_i p_i^{-1}}\)</span></li>
-<li><span class="math inline">\(p^* =\frac{I}{\sum_i^Ip_i^{-1}}\)</span> if no weights provided or all <span class="math inline">\(w_i\)</span> are equal</li>
+<li><span class="math inline">\(\text{hmp} =\frac{n}{\sum_i^np_i^{-1}}\)</span> if no weights provided</li>
+<li><span class="math inline">\(\text{hmp} =\frac{\sum_{i=1}^nw_i}{\sum_i^nw_i p_i^{-1}}\)</span> if weights provided</li>
 </ul></li>
 <li>Robust to dependence
 <ul>
 <li>Controls FDR within a set of tests</li>
 <li>Can also produce strict FWER controlled version for complete dataset</li>
 </ul></li>
-<li>Outperforms Simes’ and other methods</li>
 </ul>
 <div class="fragment">
 <ul>
 <li>Return weighted-mean of logFC/logCPM using <span class="math inline">\(p_i^{-1}\)</span> for weights
 <ul>
-<li>e.g.&nbsp;<span class="math inline">\(\widehat{\text{logFC}} = \frac{\sum_i^Ip_i^{-1}\text{logFC}_i}{\sum_i^Ip_1^{-1}}\)</span></li>
+<li>e.g.&nbsp;<span class="math inline">\(\widehat{\text{logFC}} = \frac{\sum_i^np_i^{-1}\text{logFC}_i}{\sum_i^np_1^{-1}}\)</span></li>
 </ul></li>
 </ul>
 <aside class="notes">
@@ -1250,6 +1294,23 @@ Stephen (Stevie) Pederson
       }</style></aside>
 </div>
 </section>
+<section id="extrachips-window-merging-1" class="slide level2">
+<h2><code>extraChIPs</code>: Window Merging</h2>
+<ul>
+<li>Outperforms Simes’ consistently</li>
+</ul>
+
+<img data-src="images/gata3_hmp_simes.png" class="r-stretch"></section>
+<section id="results-example-1" class="slide level2">
+<h2>Results Example 1</h2>
+<p>A H3K27ac site unique to harmonic mean</p>
+
+<img data-src="images/h3k27ac_unique-to-hmp.png" class="r-stretch"></section>
+<section id="results-example-2" class="slide level2">
+<h2>Results Example 2</h2>
+<p>A H3K27ac site unique to <em>maximal signal</em></p>
+
+<img data-src="images/h3k27ac_unique-to-smax.png" class="r-stretch"></section>
 <section id="normalisation" class="slide level2">
 <h2>Normalisation</h2>
 <ul>
@@ -1302,9 +1363,9 @@ Stephen (Stevie) Pederson
 <section id="sqn" class="slide level2">
 <h2>SQN</h2>
 <div class="panel-tabset">
-<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">AR</a></li><li><a href="#tabset-2-2">ER</a></li><li><a href="#tabset-2-3">GATA3</a></li><li><a href="#tabset-2-4">H3K27ac</a></li></ul>
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">AR</a></li><li><a href="#tabset-1-2">ER</a></li><li><a href="#tabset-1-3">GATA3</a></li><li><a href="#tabset-1-4">H3K27ac</a></li></ul>
 <div class="tab-content">
-<div id="tabset-2-1">
+<div id="tabset-1-1">
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="quarto-figure quarto-figure-left">
@@ -1323,7 +1384,7 @@ Stephen (Stevie) Pederson
 </div>
 </div>
 </div>
-<div id="tabset-2-2">
+<div id="tabset-1-2">
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="quarto-figure quarto-figure-left">
@@ -1342,7 +1403,7 @@ Stephen (Stevie) Pederson
 </div>
 </div>
 </div>
-<div id="tabset-2-3">
+<div id="tabset-1-3">
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="quarto-figure quarto-figure-left">
@@ -1361,7 +1422,7 @@ Stephen (Stevie) Pederson
 </div>
 </div>
 </div>
-<div id="tabset-2-4">
+<div id="tabset-1-4">
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="quarto-figure quarto-figure-left">
@@ -1386,9 +1447,9 @@ Stephen (Stevie) Pederson
 <section id="sqn-pca" class="slide level2">
 <h2>SQN: PCA</h2>
 <div class="panel-tabset">
-<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">AR</a></li><li><a href="#tabset-3-2">ER</a></li><li><a href="#tabset-3-3">GATA3</a></li><li><a href="#tabset-3-4">H3K27ac</a></li></ul>
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">AR</a></li><li><a href="#tabset-2-2">ER</a></li><li><a href="#tabset-2-3">GATA3</a></li><li><a href="#tabset-2-4">H3K27ac</a></li></ul>
 <div class="tab-content">
-<div id="tabset-3-1">
+<div id="tabset-2-1">
 <div class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/ar_pca.png" style="width:80.0%"></p>
@@ -1396,7 +1457,7 @@ Stephen (Stevie) Pederson
 </figure>
 </div>
 </div>
-<div id="tabset-3-2">
+<div id="tabset-2-2">
 <div class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/er_pca.png" style="width:80.0%"></p>
@@ -1404,7 +1465,7 @@ Stephen (Stevie) Pederson
 </figure>
 </div>
 </div>
-<div id="tabset-3-3">
+<div id="tabset-2-3">
 <div class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/gata3_pca.png" style="width:80.0%"></p>
@@ -1412,7 +1473,7 @@ Stephen (Stevie) Pederson
 </figure>
 </div>
 </div>
-<div id="tabset-3-4">
+<div id="tabset-2-4">
 <div class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/h3k27ac_pca.png" style="width:80.0%"></p>
@@ -1465,9 +1526,9 @@ Stephen (Stevie) Pederson
 <section id="overall-results" class="slide level2">
 <h2>Overall Results</h2>
 <div class="panel-tabset">
-<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">AR</a></li><li><a href="#tabset-4-2">ER</a></li><li><a href="#tabset-4-3">GATA3</a></li><li><a href="#tabset-4-4">H3K27ac</a></li></ul>
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">AR</a></li><li><a href="#tabset-3-2">ER</a></li><li><a href="#tabset-3-3">GATA3</a></li><li><a href="#tabset-3-4">H3K27ac</a></li></ul>
 <div class="tab-content">
-<div id="tabset-4-1">
+<div id="tabset-3-1">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/ar_all_upset.png" style="width:80.0%"></p>
@@ -1475,7 +1536,7 @@ Stephen (Stevie) Pederson
 </figure>
 </div>
 </div>
-<div id="tabset-4-2">
+<div id="tabset-3-2">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/er_all_upset.png" style="width:80.0%"></p>
@@ -1483,7 +1544,7 @@ Stephen (Stevie) Pederson
 </figure>
 </div>
 </div>
-<div id="tabset-4-3">
+<div id="tabset-3-3">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/gata3_all_upset.png" style="width:80.0%"></p>
@@ -1491,7 +1552,7 @@ Stephen (Stevie) Pederson
 </figure>
 </div>
 </div>
-<div id="tabset-4-4">
+<div id="tabset-3-4">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/h3k27ac_all_upset.png" style="width:80.0%"></p>
@@ -1505,9 +1566,9 @@ Stephen (Stevie) Pederson
 <section id="directional-results" class="slide level2">
 <h2>Directional Results</h2>
 <div class="panel-tabset">
-<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">AR</a></li><li><a href="#tabset-5-2">ER</a></li><li><a href="#tabset-5-3">H3K27ac</a></li></ul>
+<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">AR</a></li><li><a href="#tabset-4-2">ER</a></li><li><a href="#tabset-4-3">H3K27ac</a></li></ul>
 <div class="tab-content">
-<div id="tabset-5-1">
+<div id="tabset-4-1">
 <div class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/ar_dir_upset.png" style="width:60.0%"></p>
@@ -1515,7 +1576,7 @@ Stephen (Stevie) Pederson
 </figure>
 </div>
 </div>
-<div id="tabset-5-2">
+<div id="tabset-4-2">
 <div class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/er_dir_upset.png" style="width:60.0%"></p>
@@ -1523,7 +1584,7 @@ Stephen (Stevie) Pederson
 </figure>
 </div>
 </div>
-<div id="tabset-5-3">
+<div id="tabset-4-3">
 <div class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/h3k27ac_dir_upset.png" style="width:60.0%"></p>
@@ -1573,9 +1634,9 @@ Stephen (Stevie) Pederson
 <section id="gata3-3" class="slide level2">
 <h2>GATA3</h2>
 <div class="panel-tabset">
-<ul id="tabset-6" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-6-1"><span class="math inline">\(H_0\)</span>: logFC = 0</a></li><li><a href="#tabset-6-2">Range-based <span class="math inline">\(H_0\)</span></a></li></ul>
+<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1"><span class="math inline">\(H_0\)</span>: logFC = 0</a></li><li><a href="#tabset-5-2">Range-based <span class="math inline">\(H_0\)</span></a></li></ul>
 <div class="tab-content">
-<div id="tabset-6-1">
+<div id="tabset-5-1">
 <div class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/gata3_dir_upset.png" style="width:60.0%"></p>
@@ -1583,7 +1644,7 @@ Stephen (Stevie) Pederson
 </figure>
 </div>
 </div>
-<div id="tabset-6-2">
+<div id="tabset-5-2">
 <div class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/gata3-treat-upset.png" style="width:60.0%"></p>
@@ -1644,9 +1705,9 @@ Stephen (Stevie) Pederson
 <section id="logfc-comparison" class="slide level2">
 <h2>logFC Comparison</h2>
 <div class="panel-tabset">
-<ul id="tabset-7" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-7-1">AR</a></li><li><a href="#tabset-7-2">ER</a></li><li><a href="#tabset-7-3">GATA3</a></li><li><a href="#tabset-7-4">H3K27ac</a></li></ul>
+<ul id="tabset-6" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-6-1">AR</a></li><li><a href="#tabset-6-2">ER</a></li><li><a href="#tabset-6-3">GATA3</a></li><li><a href="#tabset-6-4">H3K27ac</a></li></ul>
 <div class="tab-content">
-<div id="tabset-7-1">
+<div id="tabset-6-1">
 <div class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/ar_compare-logfc.png" style="width:60.0%"></p>
@@ -1654,7 +1715,7 @@ Stephen (Stevie) Pederson
 </figure>
 </div>
 </div>
-<div id="tabset-7-2">
+<div id="tabset-6-2">
 <div class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/er_compare-logfc.png" style="width:60.0%"></p>
@@ -1662,7 +1723,7 @@ Stephen (Stevie) Pederson
 </figure>
 </div>
 </div>
-<div id="tabset-7-3">
+<div id="tabset-6-3">
 <div class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/gata3_compare-logfc.png" style="width:60.0%"></p>
@@ -1670,7 +1731,7 @@ Stephen (Stevie) Pederson
 </figure>
 </div>
 </div>
-<div id="tabset-7-4">
+<div id="tabset-6-4">
 <div class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/h3k27ac_compare-logfc.png" style="width:60.0%"></p>

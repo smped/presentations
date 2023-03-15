@@ -75,8 +75,8 @@ But first...
 ::: {.notes}
 - Known since I was a small child, but the 1970s were a very different time. Tried really hard to be a 'normal' person
 - Sought professional help about 5 years ago & first heard the term Non-Binary and found the language to describe my experience
-- Many noticed how happy I was after the Hub closed, but this was not because the Hub closed at all
 - Took the time out of the spotlight to start exploring a more variable and more honest presentation 
+- Many noticed how happy I was after the Hub closed, but this was not because the Hub closed at all
 - Spoke to Jimmy after the Hub closed, never expecting to work together again. How do I manage the Adelaide research community when I'm out?
 - Had always been scared of revealing this. Would I be kicked out of my school teaching roles? How would it impact the relationship with my PhD supervisor? How would DVCR cope?
 - Now my line manager knows & TKI have a long history of supporting the transgender community, it was now or never. That fear no longer existed!
@@ -86,7 +86,7 @@ But first...
 - Still trying to figure out how to wrangle my digital footprint (github, Twitter etc)
 :::
 
-# extraChIPs {background-color="#3c3c44" background-image=https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png background-size="40%" background-opacity="0.5"}
+# extraChIPs {background-color="#3c3c44" background-image=https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png background-size="40%" background-opacity="0.3"}
 
 ```{r setup, echo=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
@@ -100,11 +100,10 @@ library(GenomicRanges)
 ## extraChIPs
 
 1. A walk-through of the package
-    + Significant useage well beyond ChIP-Seq data
+    + Usage well beyond ChIP-Seq data
 2. Approaches to detection of Differential ChIP-Seq Signal
-3. Some recent oddness
 
-# extraChIPs Utility Functions {background-color="#3c3c44" background-image=https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png background-size="40%" background-opacity="0.5"}
+# Utility Functions {background-color="#3c3c44" background-image=https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png background-size="40%" background-opacity="0.3"}
 
 ## Utility Functions
 
@@ -192,7 +191,8 @@ sq
 Now perform the coercion using `as_tibble()`
 
 ```{r, echo = TRUE}
-#| output-location: column
+#| output-location: column-fragment
+#| layout: [[3,6], [1]]
 tbl <- as_tibble(gr)
 tbl
 ```
@@ -219,6 +219,11 @@ colToRanges(tbl, var = "range", seqinfo = sq)
     + `reduceMC`, `intersectMC`, `setdiffMC`, `unionMC`
     + `distinctMC` and `chopMC` replicate `tidyverse` functions
     
+    
+. . .
+
+- There is a performance overhead... 
+    
 ## `reduceMC()`
 
 Say we wish to find the TSS for CTLA transcripts
@@ -230,7 +235,7 @@ gr %>%
 
 . . .
 
-<br>
+<br> `reduce` will only return the ranges
 
 ```{r}
 gr %>% 
@@ -247,7 +252,7 @@ gr %>%
   resize(fix = 'start', width = 1) 
 ```
 
-<br>
+<br> `reduceMC()` returns the `mcols` as well
 
 ```{r}
 gr %>% 
@@ -258,16 +263,19 @@ gr %>%
     
 ## `intersectMC()`
 
-- Let's say we have a ChIP-Seq peak $\implies$ we can find the intersecting range
+```{r, echo=FALSE}
+peak <- GRanges("chr2:204732401-204732600", seqinfo = sq)
+```
+
+
+- Find the intersecting range for a ChIP-Seq peak
 
 ```{r}
-peak <- GRanges("chr2:204732401-204732600", seqinfo = sq)
+peak
 intersect(gr, peak, ignore.strand = TRUE)
 ```
 
 . . .
-
-<br>
 
 ```{r}
 intersectMC(gr, peak, ignore.strand = TRUE)
@@ -276,9 +284,8 @@ intersectMC(gr, peak, ignore.strand = TRUE)
 . . .
 
 ::: {style="font-size: 80%;"}
-<br>
 
-- NB: This is different to `subsetByOverlaps()` $\implies$ would return the entire initial range
+- NB: `subsetByOverlaps()` would return the entire initial range
 - Only the `mcols` from the *query range* are returned
 
 :::
@@ -311,11 +318,15 @@ setdiffMC(gr[1], gr[2:4])
 
 ## `distinctMC()`
 
-- Very handy after a `plyranges::join_overlap_*()` with multiple matches
-
-```{r}
+```{r, echo=FALSE}
 meth <- GRanges(c("chr2:204732499", "chr2:204732562"), seqinfo = sq)
 meth$prop_methylated <- c(0.2, 0.99)
+```
+
+
+- Very handy after a `plyranges::join_*()` with multiple matches
+
+```{r}
 meth
 ```
 
@@ -328,11 +339,9 @@ peak %>%
 
 ## `distinctMC()`
 
-- Very handy after a `plyranges::join_overlap_*()` with multiple matches
+- Very handy after a `plyranges::join_*()` with multiple matches
 
 ```{r}
-meth <- GRanges(c("chr2:204732499", "chr2:204732562"), seqinfo = sq)
-meth$prop_methylated <- c(0.2, 0.99)
 meth
 ```
 
@@ -364,7 +373,7 @@ peak %>%
 ![*Thank goodness we're not from New Zealand...*](https://www.filmink.com.au/wp-content/uploads/2019/09/beached.jpg){width="20%" fig-align="left"}
 
 
-# extraChIPs Visualisations {background-color="#3c3c44" background-image=https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png background-size="40%" background-opacity="0.5"}
+# Visualisation {background-color="#3c3c44" background-image=https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png background-size="40%" background-opacity="0.3"}
 
 
 ## Visualisations
@@ -373,23 +382,31 @@ peak %>%
 - Added functions for common visualisations in the context of ChIP-Seq
 - Commonly use a `SummarizedExperiment` object with multiple 'assays'
     + Usually have a `rowRanges` element
-- Most plotting function built for `GRanges` and `data.frame`-like objects
+- Most plotting functions built for `GRanges` / `data.frame`-like objects
 
 ## Visualisations
 
-::: {.incremental}
 
 - `plotAssay*()` for inspection of pre-analysed data
     + `plotAssayDensities()`, `plotAssayPCA()`, `plotAssayRle()`
+    
+. . .    
+    
 - `plotOverlaps()`, `plotPie()` and `plotSplitDonut()` 
     + Compare sets of ranges using `Venn/UpSet`, Pie or Donut charts
+    
+. . .     
+    
 - `plotProfileHeatmap()`
     + Visualise binding intensities at multiple sites/samples
+
+
+. . .
+    
 - `plotHFGC()`: plot [**H**]{.underline}iC, [**F**]{.underline}eatures, [**G**]{.underline}enes, [**C**]{.underline}overage
     + All elements are optional
     + Define your objects $\implies$ keep running across multiple ranges
     
-:::
 
 ## `plotProfileHeatmap()` {.smaller}
 
@@ -435,6 +452,23 @@ peak %>%
 
 ![Here I'm checking binding for a DE gene (*C1orf116*)...](images/c1orf116.png){width="75%"}
 
+## `plotPie()`
+
+
+```r
+plotPie(consensus_peaks, fill = "region") +
+  scale_fill_manual(values = colours$regions) +
+  theme(legend.position = "none")
+```
+
+
+![AR binding sites mapped to genomic regions](images/er-region-pie.png){fig-width="60%" fig-align="left"}
+
+::: {.notes}
+Probably need to revise given the code in `plotSplitDonut()`
+:::
+
+
 ## `plotSplitDonut()`
 
 
@@ -442,8 +476,7 @@ peak %>%
 - Can set inner & outer palettes separately
 - Huge flexibility in labelling
 - Uses `patchwork` to drive the layout
-- Getting legend positions right is still a bit tricky
-    + (It's a hack...)
+- Getting legend positions right is still a bit tricky (i.e. hacky...)
     
 ## `plotSplitDonut()`
 
@@ -476,13 +509,14 @@ plotSplitDonut(
 )
 ```
 
+- Need to add `label` & tweak how label size is set globally
+
 ## `plotSplitDonut()` {.smaller}
 
 
 ```r
 target <- "GATA3
 merged_results %>% 
-  ...stuff... %>%
   plotSplitDonut(
     inner = target, outer = "Region", min_p = 0.01,
     inner_glue = "{.data[[inner]]}\nn = {comma(n, 1)}\n{percent(p, 0.1)}",
@@ -498,7 +532,6 @@ merged_results %>%
 
 ```r
 all_windows %>% 
-  ...stuff... %>%
   plotSplitDonut(
     inner = colnames(.)[[1]], outer = colnames(.)[[2]], min_p =0.02, 
     inner_glue = "{inner}\n{.data[[inner]]}\n{percent(p, 0.1)}",
@@ -506,39 +539,24 @@ all_windows %>%
     explode_inner = "Down|Up", explode_outer = "Down|Up", explode_r = 0.4,
     explode_query = "OR", nudge_r = 0.5,
     inner_palette = colours$direction, outer_palette = colours$direction
-  ) %>% .[[1]]
+    inner_legend = FALSE, outer_legend = FALSE
+  ) 
 ```
 
 ![](images/ar_gata3_donut.png){width="70%"}
 
-## `plotOverlaps()`
+## `plotOverlaps()` {.smaller}
 
 - Calls 1) `ComplexUpset::upset()` or 2) `VennDiagram::draw.*wise.venn()`
+- Size-scaled Venn Diagrams are tricky in `R`...
 
 ```r
 ex <- list(x = letters[1:5], y = letters[c(6:15, 26)], z = letters[c(2, 10:25)])
-```
-::: {.panel-tabset}
-
-### Venn Diagram
-
-```r
-plotOverlaps(ex, type = "venn", set_col = 1:3, alpha = 0.3)
-```
-
-![](https://steveped.github.io/extraChIPs/reference/plotOverlaps-methods-2.png){width="65%"}
-
-
-### UpSet Plot
-
-```r
 plotOverlaps(ex, type = "upset", set_col = 1:3, labeller = stringr::str_to_title)
 ```
 
 ![](https://steveped.github.io/extraChIPs/reference/plotOverlaps-methods-3.png){width="65%"}
 
-
-:::
 
 # Differential Binding {background-color="#3c3c44" background-image=https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png background-size="40%" background-opacity="0.5"}
 
@@ -550,8 +568,9 @@ plotOverlaps(ex, type = "upset", set_col = 1:3, labeller = stringr::str_to_title
     + Normalisation becomes important
 - Can handle targets which are:
     + Cytoplasmic $\rightarrow$ Nuclear
-    + Partially Bound $\rightarrow$ Increasingly Bound
+    + Partially sequestered $\rightarrow$ More able to bind
     + Just relocated on the DNA
+- Also robust for H3K27ac marks etc
     
 ## DRMCRL Data
 
@@ -575,7 +594,7 @@ Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
 - Is the most common method for ChIP-Seq analysis [@DiffBind]
 - Uses defined peaks (e.g. macs2 consensus peaks)
     + Re-centres peaks when loading
-    + Fixed width across all peaks (e.g. all 501bp)
+    + *Fixed width across all peaks* (e.g. all 501bp)
 - Defaults to:
     + Library Size Normalisation, i.e `log(counts/lib.size) ~ X`
     + `DESeq2` (just like RNA-Seq)
@@ -585,15 +604,15 @@ Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
 
 - Developed by Gordon Smyth & Aaron Lun [@csaw]
 - Uses sliding windows
-    + Avoids bias from defined peaks [@chip-windows]
+    + Avoids bias from counting within defined peaks [@chip-windows]
     + Regions defined independently of signal
-- After counting $\implies$ throw away low/no signal windows
+- After counting across genome $\implies$ throw away low/no signal windows
 
 . . .
 
 1. No normalisation method by default (we choose)
 2. Statistical Test on remaining windows (`edgeR::glmQLF()`)
-3. Summarise tests across overlapping windows $\implies$ merged region 
+3. Summarise tests across overlapping windows $\implies$ [*merged region*]{.underline}
     + Tests/p-values are clearly dependent
 
 ::: {.notes}
@@ -601,6 +620,20 @@ Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
 - Extremely relevant for H3K27ac data where maximal signal yields poor results
 :::
 
+## An Example
+
+::: {.r-stack}
+
+![](images/ar_diffbind_example.png){.fragment width="70%"}
+
+![](images/ar_csaw_example.png){.fragment width="70%"}
+
+
+:::
+
+. . .
+
+Use the maximal signal window?
 
 ## Merging Windows
 
@@ -618,17 +651,16 @@ Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
 
 - All `csaw` methods wrapped for slightly different output structure
 - Merge using *harmonic-mean p-value* [@Wilson2019-ln]
-    + $p^* =\frac{\sum_{i=1}^Iw_i}{\sum_i^Iw_i p_i^{-1}}$
-    + $p^* =\frac{I}{\sum_i^Ip_i^{-1}}$ if no weights provided or all $w_i$ are equal
+    + $\text{hmp} =\frac{n}{\sum_i^np_i^{-1}}$ if no weights provided 
+    + $\text{hmp} =\frac{\sum_{i=1}^nw_i}{\sum_i^nw_i p_i^{-1}}$ if weights provided
 - Robust to dependence
     + Controls FDR within a set of tests
     + Can also produce strict FWER controlled version for complete dataset
-- Outperforms Simes' and other methods
 
 . . .
 
 - Return weighted-mean of logFC/logCPM using $p_i^{-1}$ for weights
-    + e.g. $\widehat{\text{logFC}} = \frac{\sum_i^Ip_i^{-1}\text{logFC}_i}{\sum_i^Ip_1^{-1}}$
+    + e.g. $\widehat{\text{logFC}} = \frac{\sum_i^np_i^{-1}\text{logFC}_i}{\sum_i^np_1^{-1}}$
 
 ::: {.notes}
 - Also relevant to BODL for methylation data
@@ -637,6 +669,23 @@ Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
     + Impacts regions with gaps, but within distance
 :::
 
+## `extraChIPs`: Window Merging
+
+- Outperforms Simes' consistently
+
+![](images/gata3_hmp_simes.png)
+
+## Results Example 1
+
+An H3K27ac site unique to harmonic mean
+
+![](images/h3k27ac_unique-to-hmp.png)
+
+## Results Example 2
+
+An H3K27ac site unique to *maximal signal*
+
+![](images/h3k27ac_unique-to-smax.png)
 
 ## Normalisation
 
