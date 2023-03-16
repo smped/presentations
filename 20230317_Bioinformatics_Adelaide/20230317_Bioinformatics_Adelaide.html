@@ -427,7 +427,7 @@ Stephen (Stevie) Pederson
 <h2>Who Am I</h2>
 <h3 id="professionally">Professionally</h3>
 <ul>
-<li>2022- Postdoctoral Bioinformatician: Black Ochre Data Laboratories</li>
+<li>2022- Post-doctoral Bioinformatician: Black Ochre Data Laboratories</li>
 <li>2020-2022 Dame Roma Mitchell Cancer Research Laboratories</li>
 <li>2014-2020 Bioinformatics Hub, University of Adelaide</li>
 <li>2008-2018 PhD Candidate, Barry Immunology Group</li>
@@ -437,7 +437,7 @@ Stephen (Stevie) Pederson
 <!-- -->
 <h3 id="research-interests">Research Interests</h3>
 <ul>
-<li>Transcriptomics, Gene Regulation</li>
+<li>Transcriptomics, Gene Regulation, Applied Statistics</li>
 <li>R programming, Bioconductor Nerd</li>
 </ul>
 </div>
@@ -513,6 +513,16 @@ Stephen (Stevie) Pederson
 </ul></li>
 <li>Approaches to detection of Differential ChIP-Seq Signal</li>
 </ol>
+<div class="fragment">
+<ul>
+<li><code>extraChIPs</code> currently up on Bioconductor</li>
+<li>Latest version is currently only on github</li>
+<li>Bioconductor 3.17 Release on 26<sup>th</sup> April
+<ul>
+<li>R 4.3.0 on Friday 21<sup>st</sup> April</li>
+</ul></li>
+</ul>
+</div>
 </section></section>
 <section>
 <section id="utility-functions" class="title-slide slide level1 center" data-background-color="#3c3c44" data-background-image="https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png" data-background-size="40%" data-background-opacity="0.3">
@@ -608,7 +618,7 @@ Stephen (Stevie) Pederson
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(gr)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="column fragment quarto-layout-cell" style="flex-basis: 66.7%;justify-content: center;">
+<div class="column quarto-layout-cell" style="flex-basis: 66.7%;justify-content: center;">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   range                      gene_name transcript_name
@@ -625,8 +635,6 @@ Stephen (Stevie) Pederson
 <p>Coerce back to a <code>GRanges</code> uses <code>colToRanges()</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colToRanges</span>(tbl, <span class="at">var =</span> <span class="st">"range"</span>, <span class="at">seqinfo =</span> sq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 4 ranges and 2 metadata columns:
       seqnames              ranges strand |   gene_name transcript_name
@@ -660,7 +668,7 @@ Stephen (Stevie) Pederson
 </div>
 <div class="fragment">
 <ul>
-<li>There is a performance overhead…</li>
+<li>There is a performance overhead… 😞</li>
 </ul>
 </div>
 </section>
@@ -903,8 +911,8 @@ Stephen (Stevie) Pederson
 <ul>
 <li>Wraps <code>tidyr::chop()</code>
 <ul>
-<li>Chops by any specified column</li>
-<li>Always includes the range as part of the <code>chop()</code></li>
+<li>Chops by any specified column, always including the range</li>
+<li>Could then run <code>vapply()</code> on the column to summarise</li>
 </ul></li>
 </ul>
 <div class="cell">
@@ -1000,7 +1008,7 @@ Stephen (Stevie) Pederson
 <ul>
 <li>Top panel plots using <code>ggside</code></li>
 </ul></li>
-<li>Still frustratingly slow…</li>
+<li>Still frustratingly slow… 😞</li>
 </ul>
 </div>
 </div><div class="column" style="width:60%;">
@@ -1033,7 +1041,10 @@ Stephen (Stevie) Pederson
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <img data-src="images/er-region-pie.png" class="r-stretch quarto-figure-left"><p class="caption">AR binding sites mapped to genomic regions</p><aside class="notes">
-<p>Probably need to revise given the code in <code>plotSplitDonut()</code></p>
+<ul>
+<li>Probably need to revise given the code in <code>plotSplitDonut()</code></li>
+<li>I came up with some great tricks for the labels</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1124,11 +1135,40 @@ Stephen (Stevie) Pederson
 
 <img data-src="https://steveped.github.io/extraChIPs/reference/plotOverlaps-methods-3.png" style="width:65.0%" class="r-stretch"></section></section>
 <section>
-<section id="differential-binding" class="title-slide slide level1 center" data-background-color="#3c3c44" data-background-image="https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png" data-background-size="40%" data-background-opacity="0.5">
-<h1>Differential Binding</h1>
+<section id="differential-chip-signal" class="title-slide slide level1 center" data-background-color="#3c3c44" data-background-image="https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png" data-background-size="40%" data-background-opacity="0.5">
+<h1>Differential ChIP Signal</h1>
 
 </section>
-<section id="differential-binding-1" class="slide level2">
+<section id="chip-seq" class="slide level2">
+<h2>ChIP-Seq</h2>
+<ul>
+<li>A protein of interest is:
+<ol type="1">
+<li>Cross-linked to DNA</li>
+<li>Immuno-Precipitated using antibody for ChIP target</li>
+<li>Cross-links reversed <span class="math inline">\(\implies\)</span> DNA sequenced</li>
+</ol></li>
+<li>Sequences should be enriched for DNA-bound regions</li>
+<li>ChIP targets can be transcription factors, histone marks (e.g.&nbsp;H3K27ac)
+<ul>
+<li>TFs are generally shorter (300-500bp) regions</li>
+<li>Histone marks can be far broader (&gt;1kb)</li>
+</ul></li>
+<li>Can be quantitative or have informative sequences</li>
+</ul>
+</section>
+<section id="differential-signalbinding" class="slide level2">
+<h2>Differential Signal/Binding</h2>
+<ul>
+<li>Looking for increase/decrease in binding (or signal) at a genomic region</li>
+<li>Fundamentally different to RNA-Seq:
+<ol type="1">
+<li>Only 0/1/2 fragments per cell</li>
+<li>Increase in signal <span class="math inline">\(\implies\)</span> Target bound in more cells at that site</li>
+</ol></li>
+</ul>
+</section>
+<section id="differential-binding" class="slide level2">
 <h2>Differential Binding</h2>
 <ul>
 <li>Forms a key part of the <code>GRAVI</code> workflow</li>
@@ -1151,7 +1191,7 @@ Stephen (Stevie) Pederson
 <p>Usually <em>DHT Vs Veh</em> or <em>E2+DHT Vs E2</em></p>
 <ul>
 <li>AR shifts to nucleus with DHT-treatment</li>
-<li>AR relocates ER on the chromosome</li>
+<li>AR relocates ER on the chromosome <span class="citation" data-cites="Hickey2021-mz">(<a href="#/references" role="doc-biblioref" onclick="">Hickey et al. 2021</a>)</span></li>
 <li>Does AR bring some/any GATA3 to the nucleus with it?</li>
 </ul>
 <div class="fragment">
@@ -1159,6 +1199,7 @@ Stephen (Stevie) Pederson
 <li>How does this relate to H3K27ac signal changes
 <ul>
 <li>Much broader peaks to transcription factors</li>
+<li>Include Differential H3K27ac signal alongside AR/ER/GATA3</li>
 </ul></li>
 </ul>
 </div>
@@ -1182,6 +1223,19 @@ Stephen (Stevie) Pederson
 <li>Can also use <code>edgeR</code> &amp; choose alternative normalisation</li>
 </ul></li>
 </ul>
+<aside class="notes">
+<p>Their custom objects are difficult to work with. You can’t even subset them. Very easy to not do the analysis you think you’re doing</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="csaw" class="slide level2">
 <h2>csaw</h2>
@@ -1190,7 +1244,7 @@ Stephen (Stevie) Pederson
 <li>Uses sliding windows
 <ul>
 <li>Avoids bias from counting within defined peaks <span class="citation" data-cites="chip-windows">(<a href="#/references" role="doc-biblioref" onclick="">Lun and Smyth 2014</a>)</span></li>
-<li>Regions defined independently of signal</li>
+<li>Regions defined <em>independently of signal</em></li>
 </ul></li>
 <li>After counting across genome <span class="math inline">\(\implies\)</span> throw away low/no signal windows</li>
 </ul>
@@ -1201,6 +1255,7 @@ Stephen (Stevie) Pederson
 <li>Summarise tests across overlapping windows <span class="math inline">\(\implies\)</span> <u><em>merged region</em></u>
 <ul>
 <li>Tests/p-values are clearly dependent</li>
+<li>Can end up with tighter and broader regions than DiffBind</li>
 </ul></li>
 </ol>
 <aside class="notes">
@@ -1254,6 +1309,9 @@ Stephen (Stevie) Pederson
 <h2><code>extraChIPs</code>: Window Merging</h2>
 <ul>
 <li>All <code>csaw</code> methods wrapped for slightly different output structure</li>
+</ul>
+<div class="fragment">
+<ul>
 <li>Merge using <em>harmonic-mean p-value</em> <span class="citation" data-cites="Wilson2019-ln">(<a href="#/references" role="doc-biblioref" onclick="">Wilson 2019</a>)</span>
 <ul>
 <li><span class="math inline">\(\text{hmp} =\frac{n}{\sum_i^np_i^{-1}}\)</span> if no weights provided</li>
@@ -1265,6 +1323,7 @@ Stephen (Stevie) Pederson
 <li>Can also produce strict FWER controlled version for complete dataset</li>
 </ul></li>
 </ul>
+</div>
 <div class="fragment">
 <ul>
 <li>Return weighted-mean of logFC/logCPM using <span class="math inline">\(p_i^{-1}\)</span> for weights
@@ -1301,39 +1360,95 @@ Stephen (Stevie) Pederson
 </ul>
 
 <img data-src="images/gata3_hmp_simes.png" class="r-stretch"></section>
-<section id="results-example-1" class="slide level2">
+<section id="results-example-1" class="slide level2 smaller">
 <h2>Results Example 1</h2>
-<p>A H3K27ac site unique to harmonic mean</p>
-
-<img data-src="images/h3k27ac_unique-to-hmp.png" class="r-stretch"></section>
-<section id="results-example-2" class="slide level2">
-<h2>Results Example 2</h2>
-<p>A H3K27ac site unique to <em>maximal signal</em></p>
-
-<img data-src="images/h3k27ac_unique-to-smax.png" class="r-stretch"></section>
-<section id="normalisation" class="slide level2">
-<h2>Normalisation</h2>
+<div class="columns">
+<div class="column" style="width:75%;">
+<p>A ~3kb H3K27ac region unique to harmonic mean</p>
+<p><img data-src="images/h3k27ac_unique-to-hmp.png"></p>
+</div><div class="column" style="width:25%;">
+<p><br><br></p>
 <ul>
-<li>Library Size only lacks significant power</li>
+<li><span class="math inline">\(-\log_{10}p\)</span> in the top panel
+<ul>
+<li>Dashed line is <span class="math inline">\(-\log_{10}(\text{hmp})\)</span><br><br></li>
+</ul></li>
+<li>Average Signal is the middle panel
+<ul>
+<li>Dashed line is weighted mean<br><br></li>
+</ul></li>
+<li>logFC in bottom panel
+<ul>
+<li>Dashed line is weighted mean</li>
+</ul></li>
+<li>Vertical line is maximal signal</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="results-example-2" class="slide level2 smaller">
+<h2>Results Example 2</h2>
+<div class="columns">
+<div class="column" style="width:75%;">
+<p>Another ~3kb H3K27ac region unique to <em>maximal signal</em></p>
+<p><img data-src="images/h3k27ac_unique-to-smax.png"></p>
+</div><div class="column" style="width:25%;">
+<p><br><br><br></p>
+<ul>
+<li>All returned values are <em>representative</em></li>
+<li>Taken at point of maximal signal</li>
+<li>Still a strong method</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="normalisation-methods" class="slide level2">
+<h2>Normalisation Methods</h2>
+<ul>
+<li><em>Library Size only</em> lacks significant power
+<ul>
+<li>No attempt to handle technical variability</li>
+</ul></li>
 <li>TMM/RLE are both ok if overall signal is the same in all treatments</li>
-<li>DRMCRL data has pooled input <span class="fragment fade-in"><del>normalise to input</del></span></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>DRMCRL data has pooled input<span class="fragment fade-in">: <del>normalise to input</del></span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>Is there a general method for automating in a workflow ?</li>
 </ul>
+</div>
 </section>
-<section id="normalisation-1" class="slide level2">
-<h2>Normalisation</h2>
+<section id="my-suggestionl-sqlt" class="slide level2">
+<h2>My SuggestionL SQLT</h2>
 <ol type="1">
 <li>Calculate <code>logCPM</code>
 <ul>
 <li>Effectively normalises by library size</li>
 </ul></li>
+</ol>
+<div class="fragment">
+<ol start="2" type="1">
 <li>Smooth Quantile Normalisation <span class="citation" data-cites="qsmooth">(<a href="#/references" role="doc-biblioref" onclick="">Stephanie C. Hicks et al. 2018</a>)</span>
 <ul>
 <li>Generalisation of quantile normalisation within groups</li>
+<li>Reduces technical variability</li>
 </ul></li>
-<li><code>limma-trend</code> <span class="citation" data-cites="Law2014-xq">(<a href="#/references" role="doc-biblioref" onclick="">Law et al. 2014</a>)</span> using normalised logPCM</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li><code>limma-trend</code> <span class="citation" data-cites="Law2014-xq">(<a href="#/references" role="doc-biblioref" onclick="">Law et al. 2014</a>)</span> using normalised logCPM</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="4" type="1">
 <li>Merge Windows using Harmonic Mean <span class="math inline">\(p\)</span>-value (<code>extraChIPs</code>)</li>
 </ol>
+</div>
 </section>
 <section id="smooth-quantile-normalisation" class="slide level2">
 <h2>Smooth Quantile Normalisation</h2>
@@ -1346,15 +1461,18 @@ Stephen (Stevie) Pederson
 </ul>
 <div class="fragment">
 <ul>
-<li>Smooth-QN allows for treatment groups</li>
+<li>Smooth-QN allows for treatment groups
+<ul>
 <li>Uses weights to determine areas which diverge between groups</li>
+<li>Fits a weighted average of expected values</li>
+</ul></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
 <li><code>quantro</code> <span class="citation" data-cites="Hicks2015-ee">(<a href="#/references" role="doc-biblioref" onclick="">Stephanie C. Hicks and Irizarry 2015</a>)</span> provides a test for
 <ol type="a">
-<li>Difference in distribution means (<span class="math inline">\(F\)</span>-test)</li>
+<li>Difference in distribution medians (<span class="math inline">\(F\)</span>-test)</li>
 <li>Difference in overall distributions (permuted)</li>
 </ol></li>
 </ul>
@@ -1428,7 +1546,7 @@ Stephen (Stevie) Pederson
 <div class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/h3k27ac_densities.png" style="width:100.0%"></p>
-<p></p><figcaption>There’s an outlier sample.<br>(quantro: <span class="math inline">\(p_{med} = 0.84\)</span>; <span class="math inline">\(p_{dist} &lt; 0.50\)</span>)</figcaption><p></p>
+<p></p><figcaption>There’s an outlier sample.<br>(quantro: <span class="math inline">\(p_{med} = 0.84\)</span>; <span class="math inline">\(p_{dist} = 0.49\)</span>)</figcaption><p></p>
 </figure>
 </div>
 </div><div class="column" style="width:40%;">
@@ -1487,9 +1605,9 @@ Stephen (Stevie) Pederson
 <section id="sqn-1" class="slide level2">
 <h2>SQN</h2>
 <ul>
-<li>Looks like reducing replicate variability should yield more power
+<li>Reducing replicate variability should yield more power
 <ul>
-<li>Should be a clear improvement over library size alone</li>
+<li>Should be a clear improvement over library size alone?</li>
 </ul></li>
 <li><code>limma-trend</code> similar to <code>voom</code>
 <ul>
@@ -1498,10 +1616,14 @@ Stephen (Stevie) Pederson
 </ul></li>
 <li>SQN appears viable even when no real difference between groups
 <ul>
-<li>Doesn’t seem to introduce any artefacts . . .</li>
+<li>Doesn’t seem to introduce any artefacts</li>
 </ul></li>
+</ul>
+<div class="fragment">
+<ul>
 <li>Could TMM also be applied within groups?</li>
 </ul>
+</div>
 </section>
 <section id="method-comparison" class="slide level2">
 <h2>Method Comparison</h2>
@@ -1510,8 +1632,13 @@ Stephen (Stevie) Pederson
 <li>LSQL: Library Size <span class="math inline">\(\rightarrow\)</span> <code>edgeR::glmQLF()</code></li>
 <li>TMM: (across all samples) <span class="math inline">\(\rightarrow\)</span> <code>edgeR::glmQLF()</code></li>
 <li>TMM-Groups: (within groups) <span class="math inline">\(\rightarrow\)</span> <code>edgeR::glmQLF()</code></li>
-<li>SQLT: Smooth Quantile Normalisation <span class="math inline">\(\rightarrow\)</span> <code>limma-trend</code></li>
 </ol>
+<div class="fragment">
+<ol start="4" type="1">
+<li>LT: logCPM <span class="math inline">\(\implies\)</span> <code>limma-trend</code></li>
+<li>SQLT: qsmooth <span class="math inline">\(\rightarrow\)</span> <code>limma-trend</code></li>
+</ol>
+</div>
 <div class="fragment">
 <p>Performed using</p>
 <ol type="1">
@@ -1580,7 +1707,7 @@ Stephen (Stevie) Pederson
 <div class="quarto-figure quarto-figure-left">
 <figure>
 <p><img data-src="images/er_dir_upset.png" style="width:60.0%"></p>
-<p></p><figcaption>LSQL (Library Size Only) found no down sites. Group-based normalisation is best</figcaption><p></p>
+<p></p><figcaption>LSQL (Library Size Only) found no down sites. No clarity on TMM vs TMM-Groups</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1596,7 +1723,7 @@ Stephen (Stevie) Pederson
 </div>
 <aside class="notes">
 <ul>
-<li>DRMCRL know experimentally that ER is lost from many sites <span class="citation" data-cites="Hickey2021-mz">(<a href="#/references" role="doc-biblioref" onclick="">Hickey et al. 2021</a>)</span></li>
+<li>DRMCRL know experimentally that ER is lost from many sites</li>
 <li>Finally can see them in ChIP-Seq</li>
 </ul>
 <style type="text/css">
@@ -1618,40 +1745,55 @@ Stephen (Stevie) Pederson
 <ul>
 <li>SQLT appears poor for H3K27ac (??)</li>
 </ul></li>
-<li>How do the methods compare when using <span class="math inline">\(H_0\)</span> |logFC| &lt; <span class="math inline">\(\log_2 1.2\)</span></li>
-<li>Known to control the FDR better than <em>post-hoc</em> filtering</li>
+<li>How do the methods compare when using <code>treat</code> <span class="citation" data-cites="McCarthy2009-qf">(<a href="#/references" role="doc-biblioref" onclick="">McCarthy and Smyth 2009</a>)</span>
+<ul>
+<li><span class="math inline">\(H_0\)</span> |logFC| &lt; <span class="math inline">\(\log_2 1.2\)</span></li>
+</ul></li>
+<li>Known to control the FDR better than <em>post-hoc</em> filtering using logFC</li>
 </ul>
 <div class="fragment">
 <ul>
 <li>There was a <u><strong>drastic</strong></u> difference
 <ul>
 <li>SQLT lost significant power compared to TMM-groups</li>
-<li>Had been near-identical / competitive so far</li>
+<li>Had been competitive so far</li>
 </ul></li>
 </ul>
 </div>
 </section>
-<section id="gata3-3" class="slide level2">
+<section id="gata3-3" class="slide level2 smaller">
 <h2>GATA3</h2>
-<div class="panel-tabset">
-<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1"><span class="math inline">\(H_0\)</span>: logFC = 0</a></li><li><a href="#tabset-5-2">Range-based <span class="math inline">\(H_0\)</span></a></li></ul>
-<div class="tab-content">
-<div id="tabset-5-1">
+<h4 id="h_0-logfc-0"><span class="math inline">\(H_0\)</span>: logFC = 0</h4>
+<div class="columns">
+<div class="column" style="width:70%;">
 <div class="quarto-figure quarto-figure-left">
 <figure>
-<p><img data-src="images/gata3_dir_upset.png" style="width:60.0%"></p>
-<p></p><figcaption>SQLT has the most decreasing sites<br>Less competitive for increasing</figcaption><p></p>
+<p><img data-src="images/gata3_dir_upset.png" style="width:100.0%"></p>
 </figure>
 </div>
+</div><div class="column" style="width:30%;">
+<ul>
+<li>SQLT has the most decreasing sites</li>
+<li>Less competitive for increasing</li>
+</ul>
 </div>
-<div id="tabset-5-2">
+</div>
+</section>
+<section id="gata3-4" class="slide level2 smaller">
+<h2>GATA3</h2>
+<h4 id="range-based-h_0">Range-based <span class="math inline">\(H_0\)</span></h4>
+<div class="columns">
+<div class="column" style="width:70%;">
 <div class="quarto-figure quarto-figure-left">
 <figure>
-<p><img data-src="images/gata3-treat-upset.png" style="width:60.0%"></p>
-<p></p><figcaption>SQLT now has only 40 down sites (from 1672)</figcaption><p></p>
+<p><img data-src="images/gata3-treat-upset.png" style="width:100.0%"></p>
 </figure>
 </div>
-</div>
+</div><div class="column" style="width:30%;">
+<ul>
+<li>SQLT now has only 40 down sites (from 1672)</li>
+<li>TMM Groups only dropped from 686 to 143</li>
+</ul>
 </div>
 </div>
 <aside class="notes">
@@ -1668,107 +1810,152 @@ Stephen (Stevie) Pederson
           display:block!important;
       }</style></aside>
 </section>
-<section id="ma-plots" class="slide level2">
-<h2>MA Plots</h2>
+<section id="ma-plots-gata3" class="slide level2 smaller">
+<h2>MA Plots: GATA3</h2>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:70%;">
 <div class="quarto-figure quarto-figure-left">
 <figure>
-<p><img data-src="images/gata3_ma-sqlt.png"></p>
-<p></p><figcaption>SQLT</figcaption><p></p>
+<p><img data-src="images/gata3_ma-windows.png"></p>
 </figure>
 </div>
-</div><div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-left">
-<figure>
-<p><img data-src="images/gata3_ma-tmm-groups.png"></p>
-<p></p><figcaption>TMM-Groups</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Note 1) the potential bias and 2) the differences on the y-axis scale</p>
-<aside class="notes">
-<p>At the top end, the average shift for TMM-Groups is around a 30% increase in signal</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="logfc-comparison" class="slide level2">
-<h2>logFC Comparison</h2>
-<div class="panel-tabset">
-<ul id="tabset-6" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-6-1">AR</a></li><li><a href="#tabset-6-2">ER</a></li><li><a href="#tabset-6-3">GATA3</a></li><li><a href="#tabset-6-4">H3K27ac</a></li></ul>
-<div class="tab-content">
-<div id="tabset-6-1">
-<div class="quarto-figure quarto-figure-left">
-<figure>
-<p><img data-src="images/ar_compare-logfc.png" style="width:60.0%"></p>
-<p></p><figcaption>Clear upwards bias in TMM logFC estimates</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div id="tabset-6-2">
-<div class="quarto-figure quarto-figure-left">
-<figure>
-<p><img data-src="images/er_compare-logfc.png" style="width:60.0%"></p>
-<p></p><figcaption>Clear upwards bias in TMM logFC estimates. Almost looks curved</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div id="tabset-6-3">
-<div class="quarto-figure quarto-figure-left">
-<figure>
-<p><img data-src="images/gata3_compare-logfc.png" style="width:60.0%"></p>
-<p></p><figcaption>Clear upwards bias in TMM logFC estimates with a weird lump in the middle</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div id="tabset-6-4">
-<div class="quarto-figure quarto-figure-left">
-<figure>
-<p><img data-src="images/h3k27ac_compare-logfc.png" style="width:60.0%"></p>
-<p></p><figcaption>Clear upwards bias in TMM logFC estimates <strong>at both ends</strong></figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<aside class="notes">
-<p>The curve in H3K27ac is not seen in ZR-75 of MDA-MB-453</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="additional-comments" class="slide level2">
-<h2>Additional Comments</h2>
+</div><div class="column" style="width:30%;">
+<p><br><br></p>
 <ul>
-<li>All MA plots showed an upwards bias
+<li>Small positive bias in Library Size only (LSQL &amp; LT)</li>
+<li>Small positive bias in TMM &amp; TMM-Groups
 <ul>
-<li>Was less pronounced in all SQLT analyses (inc. others not shown)</li>
+<li>Is this why more gained sites?</li>
 </ul></li>
-<li>Is this somehow connected to DHT?</li>
-<li>Need to compare RNA-Seq results
+<li>No apparent bias in SQLT
 <ul>
-<li><code>limma-trend</code> Vs <code>GLM-QLF</code> (&amp; <code>DeSeq2</code>?)</li>
-<li>No idea where this originates</li>
+<li>Is ‘under-performance’ actually good?</li>
+</ul></li>
+<li>SQLT also appears more range-restricted</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="ma-plots-h3k27ac" class="slide level2 smaller">
+<h2>MA Plots: H3K27ac</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/h3k27ac-window-ma.png"></p>
+</figure>
+</div>
+</div><div class="column" style="width:30%;">
+<p><br><br></p>
+<ul>
+<li>Bias in all methods bar SQLT</li>
+<li>Most likely due to outlier sample</li>
+<li>Doesn’t quite explain the results
+<ul>
+<li>Difference was mainly in Gains</li>
 </ul></li>
 </ul>
+</div>
+</div>
+</section>
+<section id="logfc-comparison-lsql-vs-lt" class="slide level2 smaller">
+<h2>logFC Comparison: LSQL Vs LT</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/gata3_logfc_libsize.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:30%;">
+<p><br><br></p>
+<ul>
+<li>Estimates from GLM-QL model are consistently higher</li>
+<li>Far more so in the lowest signal quartile</li>
+<li>Similar patterns in most datasets</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="logfc-comparison-sqlt-vs-tmm-groups" class="slide level2 smaller">
+<h2>logFC Comparison: SQLT Vs TMM-Groups</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="images/gata3_compare-logfc.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:30%;">
+<p><br><br></p>
+<ul>
+<li>Effect is even more pronounced for estimates using within-group normalisation</li>
+<li>Do I need to change the <code>treat</code> threshold?
+<ul>
+<li>Does GLM-20% = SQLT-18% in high quartile</li>
+<li>Does GLM-20% = SQLT-10% in the low quartile?</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="final-thoughts" class="slide level2">
+<h2>Final Thoughts</h2>
+<ul>
+<li>Not all estimates of logFC are the same
+<ul>
+<li>Becomes important when using <code>treat</code></li>
+<li>20% in GLM-QL <span class="math inline">\(\neq\)</span> 20% under <code>voom</code> or <code>limma-trend</code></li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>GLM-QL approaches will give more significance <em>at the low end</em>
+<ul>
+<li>Is that what we really want?</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>May well be the same for RNA-Seq
+<ul>
+<li>Is it the <code>prior.counts</code> restricting the range for logCPM?</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="final-thoughts-1" class="slide level2">
+<h2>Final Thoughts</h2>
+<ul>
+<li>Within group normalisation was effective (quantro <span class="math inline">\(p &lt; \alpha\)</span>)
+<ul>
+<li>Within groups also helped for ‘different distribution’ datasets</li>
+<li>All-Sample TMM normalisation otherwise?</li>
+<li>Some bias was evident at the window level</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>SQLT might still be viable
+<ul>
+<li>Didn’t appear to disadvantage if not required</li>
+<li>Reduced technical variability nicely (PCA)</li>
+<li>Less bias at the window-level</li>
+<li>More likely to capture higher-signal results</li>
+<li>Fewer sites <span class="fragment fade-in"><span class="math inline">\(\implies\)</span> but is this good?</span></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="final-thoughts-2" class="slide level2">
+<h2>Final Thoughts</h2>
+<ul>
+<li>Harmonic Mean <span class="math inline">\(p\)</span> still looks really good</li>
+</ul>
+<div class="fragment">
+<p>(Did I mention my 100x speed-up?)</p>
+</div>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>

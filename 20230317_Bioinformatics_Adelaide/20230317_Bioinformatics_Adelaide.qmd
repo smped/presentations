@@ -25,7 +25,7 @@ format:
 
 ### Professionally
 
-- 2022- Postdoctoral Bioinformatician: Black Ochre Data Laboratories
+- 2022- Post-doctoral Bioinformatician: Black Ochre Data Laboratories
 - 2020-2022 Dame Roma Mitchell Cancer Research Laboratories
 - 2014-2020 Bioinformatics Hub, University of Adelaide
 - 2008-2018 PhD Candidate, Barry Immunology Group
@@ -35,7 +35,7 @@ format:
 
 ### Research Interests
 
-- Transcriptomics, Gene Regulation
+- Transcriptomics, Gene Regulation, Applied Statistics
 - R programming, Bioconductor Nerd
 
 :::
@@ -102,6 +102,13 @@ library(GenomicRanges)
 1. A walk-through of the package
     + Usage well beyond ChIP-Seq data
 2. Approaches to detection of Differential ChIP-Seq Signal
+
+. . .
+
+- `extraChIPs` currently up on Bioconductor
+- Latest version is currently only on github
+- Bioconductor 3.17 Release on 26^th^ April
+    + R 4.3.0 on Friday 21^st^ April
 
 # Utility Functions {background-color="#3c3c44" background-image=https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png background-size="40%" background-opacity="0.3"}
 
@@ -191,7 +198,7 @@ sq
 Now perform the coercion using `as_tibble()`
 
 ```{r, echo = TRUE}
-#| output-location: column-fragment
+#| output-location: column
 #| layout: [[3,6], [1]]
 tbl <- as_tibble(gr)
 tbl
@@ -202,7 +209,7 @@ tbl
 Coerce back to a `GRanges` uses `colToRanges()`
 
 ```{r}
-#| output-location: fragment
+#| output-location: default
 colToRanges(tbl, var = "range", seqinfo = sq)
 ```
 
@@ -222,7 +229,7 @@ colToRanges(tbl, var = "range", seqinfo = sq)
     
 . . .
 
-- There is a performance overhead... 
+- There is a performance overhead... &#128542;
     
 ## `reduceMC()`
 
@@ -357,8 +364,8 @@ peak %>%
 ## `chopMC()`
 
 - Wraps `tidyr::chop()`
-    + Chops by any specified column
-    + Always includes the range as part of the `chop()`
+    + Chops by any specified column, always including the range
+    + Could then run `vapply()` on the column to summarise
 
 ```{r}
 peak %>% 
@@ -424,7 +431,7 @@ peak %>%
 
 - Uses `ggplot2` for easy customisation
     + Top panel plots using `ggside`
-- Still frustratingly slow...
+- Still frustratingly slow... &#128542;
 
 :::
 
@@ -465,7 +472,8 @@ plotPie(consensus_peaks, fill = "region") +
 ![AR binding sites mapped to genomic regions](images/er-region-pie.png){fig-width="60%" fig-align="left"}
 
 ::: {.notes}
-Probably need to revise given the code in `plotSplitDonut()`
+- Probably need to revise given the code in `plotSplitDonut()`
+- I came up with some great tricks for the labels
 :::
 
 
@@ -558,7 +566,26 @@ plotOverlaps(ex, type = "upset", set_col = 1:3, labeller = stringr::str_to_title
 ![](https://steveped.github.io/extraChIPs/reference/plotOverlaps-methods-3.png){width="65%"}
 
 
-# Differential Binding {background-color="#3c3c44" background-image=https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png background-size="40%" background-opacity="0.5"}
+# Differential ChIP Signal {background-color="#3c3c44" background-image=https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png background-size="40%" background-opacity="0.5"}
+
+## ChIP-Seq
+
+- A protein of interest is:
+    1. Cross-linked to DNA
+    2. Immuno-Precipitated using antibody for ChIP target
+    3. Cross-links reversed $\implies$ DNA sequenced
+- Sequences should be enriched for DNA-bound regions
+- ChIP targets can be transcription factors, histone marks (e.g. H3K27ac)
+    + TFs are generally shorter (300-500bp) regions
+    + Histone marks can be far broader (>1kb)
+- Can be quantitative or have informative sequences
+
+## Differential Signal/Binding
+
+- Looking for increase/decrease in binding (or signal) at a genomic region
+- Fundamentally different to RNA-Seq:
+    1. Only 0/1/2 fragments per cell
+    2. Increase in signal $\implies$ Target bound in more cells at that site
 
 ## Differential Binding
 
@@ -577,13 +604,14 @@ plotOverlaps(ex, type = "upset", set_col = 1:3, labeller = stringr::str_to_title
 Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
 
 - AR shifts to nucleus with DHT-treatment
-- AR relocates ER on the chromosome
+- AR relocates ER on the chromosome [@Hickey2021-mz]
 - Does AR bring some/any GATA3 to the nucleus with it?
 
 . . .
 
 - How does this relate to H3K27ac signal changes
     + Much broader peaks to transcription factors
+    + Include Differential H3K27ac signal alongside AR/ER/GATA3
 
 . . .
 
@@ -600,12 +628,17 @@ Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
     + `DESeq2` (just like RNA-Seq)
     + Can also use `edgeR` & choose alternative normalisation
 
+::: {.notes}
+Their custom objects are difficult to work with. You can't even subset them.
+Very easy to not do the analysis you think you're doing
+:::
+
 ## csaw
 
 - Developed by Gordon Smyth & Aaron Lun [@csaw]
 - Uses sliding windows
     + Avoids bias from counting within defined peaks [@chip-windows]
-    + Regions defined independently of signal
+    + Regions defined *independently of signal*
 - After counting across genome $\implies$ throw away low/no signal windows
 
 . . .
@@ -614,6 +647,7 @@ Usually *DHT Vs Veh* or  *E2+DHT Vs E2*
 2. Statistical Test on remaining windows (`edgeR::glmQLF()`)
 3. Summarise tests across overlapping windows $\implies$ [*merged region*]{.underline}
     + Tests/p-values are clearly dependent
+    + Can end up with tighter and broader regions than DiffBind
 
 ::: {.notes}
 - This strategy allows for adaptive differential sites to be detected with varying width
@@ -650,6 +684,9 @@ Use the maximal signal window?
 ## `extraChIPs`: Window Merging
 
 - All `csaw` methods wrapped for slightly different output structure
+
+. . .
+
 - Merge using *harmonic-mean p-value* [@Wilson2019-ln]
     + $\text{hmp} =\frac{n}{\sum_i^np_i^{-1}}$ if no weights provided 
     + $\text{hmp} =\frac{\sum_{i=1}^nw_i}{\sum_i^nw_i p_i^{-1}}$ if weights provided
@@ -675,32 +712,83 @@ Use the maximal signal window?
 
 ![](images/gata3_hmp_simes.png)
 
-## Results Example 1
+## Results Example 1 {.smaller}
 
-An H3K27ac site unique to harmonic mean
+:::: {.columns}
+
+::: {.column width="75%"}
+
+A ~3kb H3K27ac region unique to harmonic mean
 
 ![](images/h3k27ac_unique-to-hmp.png)
+:::
 
-## Results Example 2
+::: {.column width="25%"}
+<br><br>
 
-An H3K27ac site unique to *maximal signal*
+- $-\log_{10}p$ in the top panel
+    + Dashed line is $-\log_{10}(\text{hmp})$<br><br>
+- Average Signal is the middle panel
+    + Dashed line is weighted mean<br><br>
+- logFC in bottom panel
+    + Dashed line is weighted mean
+- Vertical line is maximal signal
+:::
+::::
+
+
+## Results Example 2 {.smaller}
+
+:::: {.columns}
+
+::: {.column width="75%"}
+
+Another ~3kb H3K27ac region unique to *maximal signal*
 
 ![](images/h3k27ac_unique-to-smax.png)
 
-## Normalisation
+:::
 
-- Library Size only lacks significant power
+::: {.column width="25%"}
+<br><br><br>
+
+- All returned values are *representative*
+- Taken at point of maximal signal
+- Still a strong method
+:::
+::::
+
+## Normalisation Methods
+
+- *Library Size only* lacks significant power
+    + No attempt to handle technical variability
 - TMM/RLE are both ok if overall signal is the same in all treatments
-- DRMCRL data has pooled input [~~normalise to input~~]{.fragment .fade-in}
+
+. . .
+
+- DRMCRL data has pooled input[: ~~normalise to input~~]{.fragment .fade-in}
+
+. . .
+
 - Is there a general method for automating in a workflow ?
 
-## Normalisation
+## My SuggestionL SQLT
 
 1. Calculate `logCPM`
     + Effectively normalises by library size
+
+. . .
+
 2. Smooth Quantile Normalisation [@qsmooth]
     + Generalisation of quantile normalisation within groups
-3. `limma-trend` [@Law2014-xq] using normalised logPCM
+    + Reduces technical variability
+
+. . .
+
+3. `limma-trend` [@Law2014-xq] using normalised logCPM
+
+. . .
+
 4. Merge Windows using Harmonic Mean $p$-value (`extraChIPs`)
     
 ## Smooth Quantile Normalisation
@@ -712,12 +800,13 @@ An H3K27ac site unique to *maximal signal*
 . . .
 
 - Smooth-QN allows for treatment groups
-- Uses weights to determine areas which diverge between groups
+    + Uses weights to determine areas which diverge between groups
+    + Fits a weighted average of expected values
 
 . . .
 
 - `quantro` [@Hicks2015-ee] provides a test for 
-    a. Difference in distribution means ($F$-test)
+    a. Difference in distribution medians ($F$-test)
     b. Difference in overall distributions (permuted)
 
 ## SQN
@@ -778,7 +867,7 @@ An H3K27ac site unique to *maximal signal*
 ::: columns
 ::: {.column width="60%"}
 
-![There's an outlier sample.<br>(quantro: $p_{med} = 0.84$; $p_{dist} < 0.50$)](images/h3k27ac_densities.png){width="100%" fig-align="left"}
+![There's an outlier sample.<br>(quantro: $p_{med} = 0.84$; $p_{dist} = 0.49$)](images/h3k27ac_densities.png){width="100%" fig-align="left"}
 
 :::
 
@@ -816,13 +905,14 @@ An H3K27ac site unique to *maximal signal*
 
 ## SQN
 
-- Looks like reducing replicate variability should yield more power
-    + Should be a clear improvement over library size alone
+- Reducing replicate variability should yield more power
+    + Should be a clear improvement over library size alone?
 - `limma-trend` similar to `voom`
     + Uses logCPM
     + Manages mean-variance relationship
 - SQN appears viable even when no real difference between groups
     + Doesn't seem to introduce any artefacts
+
 . . .
 
 - Could TMM also be applied within groups?
@@ -834,7 +924,11 @@ Performed a comparison using
 1. LSQL: Library Size $\rightarrow$ `edgeR::glmQLF()`
 2. TMM: (across all samples) $\rightarrow$  `edgeR::glmQLF()`
 3. TMM-Groups: (within groups) $\rightarrow$  `edgeR::glmQLF()`
-4. SQLT: Smooth Quantile Normalisation $\rightarrow$ `limma-trend`
+
+. . .
+
+4. LT: logCPM $\implies$ `limma-trend`
+5. SQLT: qsmooth $\rightarrow$ `limma-trend`
 
 . . .
 
@@ -881,7 +975,7 @@ All merged results using harmonic mean
 
 ### ER
 
-![LSQL (Library Size Only) found no down sites. Group-based normalisation is best](images/er_dir_upset.png){width="60%" fig-align="left"}
+![LSQL (Library Size Only) found no down sites. No clarity on TMM vs TMM-Groups](images/er_dir_upset.png){width="60%" fig-align="left"}
 
 ### H3K27ac
 
@@ -890,7 +984,7 @@ All merged results using harmonic mean
 :::
 
 ::: {.notes}
-- DRMCRL know experimentally that ER is lost from many sites [@Hickey2021-mz]
+- DRMCRL know experimentally that ER is lost from many sites
 - Finally can see them in ChIP-Seq
 :::
 
@@ -899,91 +993,189 @@ All merged results using harmonic mean
 
 - Group-based strategies looked best where expected
     + SQLT appears poor for H3K27ac (??)
-- How do the methods compare when using  $H_0$ |logFC| < $\log_2 1.2$
-- Known to control the FDR better than *post-hoc* filtering
+- How do the methods compare when using `treat` [@McCarthy2009-qf]
+    + $H_0$ |logFC| < $\log_2 1.2$
+- Known to control the FDR better than *post-hoc* filtering using logFC
 
 . . .
 
 - There was a [**drastic**]{.underline} difference
     + SQLT lost significant power compared to TMM-groups
-    + Had been near-identical / competitive so far
+    + Had been competitive so far
 
-## GATA3
+## GATA3 {.smaller}
 
-::: {.panel-tabset}
-
-### $H_0$: logFC = 0
-
-![SQLT has the most decreasing sites<br>Less competitive for increasing](images/gata3_dir_upset.png){width="60%" fig-align="left"}
-
-### Range-based $H_0$
-
-![SQLT now has only 40 down sites (from 1672)](images/gata3-treat-upset.png){width="60%" fig-align="left"}
-
-:::
-
-::: {.notes}
-Take the time to highlight TMM-Groups and SQLT
-:::
-
-## MA Plots
+#### $H_0$: logFC = 0
 
 :::: {.columns}
 
-::: {.column width="50%"}
+::: {.column width="70%"}
 
-![SQLT](images/gata3_ma-sqlt.png){fig-align="left"}
+![](images/gata3_dir_upset.png){width="100%" fig-align="left"}
 
 :::
 
-::: {.column width="50%"}
+::: {.column width="30%"}
 
-![TMM-Groups](images/gata3_ma-tmm-groups.png){fig-align="left"}
+- SQLT has the most decreasing sites
+- Less competitive for increasing
 
 :::
 
 ::::
 
-Note 1) the potential bias and 2) the differences on the y-axis scale
+## GATA3 {.smaller}
+
+#### Range-based $H_0$
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+![](images/gata3-treat-upset.png){width="100%" fig-align="left"}
+
+:::
+
+::: {.column width="30%"}
+
+- SQLT now has only 40 down sites (from 1672)
+- TMM Groups only dropped from 686 to 143
+
+:::
+
+::::
 
 ::: {.notes}
-At the top end, the average shift for TMM-Groups is around a 30% increase in signal
+Take the time to highlight TMM-Groups and SQLT
 :::
 
-## logFC Comparison
+## MA Plots: GATA3 {.smaller}
 
-::: {.panel-tabset}
+:::: {.columns}
 
-### AR
+::: {.column width="70%"}
 
-![Clear upwards bias in TMM logFC estimates](images/ar_compare-logfc.png){width="60%" fig-align="left"}
-
-### ER
-
-![Clear upwards bias in TMM logFC estimates. Almost looks curved](images/er_compare-logfc.png){width="60%" fig-align="left"}
-
-### GATA3
-
-![Clear upwards bias in TMM logFC estimates with a weird lump in the middle](images/gata3_compare-logfc.png){width="60%" fig-align="left"}
-
-### H3K27ac
-
-![Clear upwards bias in TMM logFC estimates **at both ends**](images/h3k27ac_compare-logfc.png){width="60%" fig-align="left"}
+![](images/gata3_ma-windows.png){fig-align="left"}
 
 :::
 
-::: {.notes}
-The curve in H3K27ac is not seen in ZR-75 of MDA-MB-453
+::: {.column width="30%"}
+<br><br>
+
+- Small positive bias in Library Size only (LSQL & LT)
+- Small positive bias in TMM & TMM-Groups
+    + Is this why more gained sites?
+- No apparent bias in SQLT
+    + Is 'under-performance' actually good?
+- SQLT also appears more range-restricted
+
 :::
 
-## Additional Comments
+::::
 
-- All MA plots showed an upwards bias
-    + Was less pronounced in all SQLT analyses (inc. others not shown)
-- Is this somehow connected to DHT?
-- Need to compare RNA-Seq results
-    + `limma-trend` Vs `GLM-QLF` (& `DeSeq2`?)
-    + No idea where this originates
+## MA Plots: H3K27ac {.smaller}
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+![](images/h3k27ac-window-ma.png){fig-align="left"}
+
+:::
+
+::: {.column width="30%"}
+<br><br>
+
+- Bias in all methods bar SQLT
+- Most likely due to outlier sample
+- Doesn't quite explain the results
+    + Difference was mainly in Gains
+
+:::
+
+::::
+
+
+## logFC Comparison: LSQL Vs LT {.smaller}
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+![](images/gata3_logfc_libsize.png){width="100%" fig-align="left"}
+:::
+
+::: {.column width="30%"}
+<br><br>
+
+- Estimates from GLM-QL model are consistently higher
+- Far more so in the lowest signal quartile
+- Similar patterns in most datasets
+
+:::
+
+::::
+
+## logFC Comparison: SQLT Vs TMM-Groups {.smaller}
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+![](images/gata3_compare-logfc.png){width="100%" fig-align="left"}
+:::
+
+::: {.column width="30%"}
+<br><br>
+
+- Effect is even more pronounced for estimates using within-group normalisation
+- Do I need to change the `treat` threshold?
+    - Does GLM-20% = SQLT-18% in high quartile
+    - Does GLM-20% = SQLT-10% in the low quartile?
+
+:::
+
+::::
+
+## Final Thoughts
+
+- Not all estimates of logFC are the same
+    + Becomes important when using `treat`
+    + 20% in GLM-QL $\neq$ 20% under `voom` or `limma-trend`
+    
+. . .    
+    
+- GLM-QL approaches will give more significance *at the low end*
+    + Is that what we really want?
+
+. . .
+
+- May well be the same for RNA-Seq
+    + Is it the `prior.counts` restricting the range for logCPM?
+
+## Final Thoughts
+
+- Within group normalisation was effective (quantro $p < \alpha$)
+    - Within groups also helped for 'different distribution' datasets
+    - All-Sample TMM normalisation otherwise?
+    - Some bias was evident at the window level
+    
+. . .    
+    
+- SQLT might still be viable
+    + Didn't appear to disadvantage if not required
+    + Reduced technical variability nicely (PCA)
+    + Less bias at the window-level
+    + More likely to capture higher-signal results
+    + Fewer sites [$\implies$ but is this good?]{.fragment .fade-in}
+
+## Final Thoughts
+
+- Harmonic Mean $p$ still looks really good
+
+. . .
+
+(Did I mention my 100x speed-up?)
 
 ## References
 
