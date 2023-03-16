@@ -40,6 +40,11 @@ format:
 
 :::
 
+::: {.notes}
+Currently working in Indigenous Health on Kaurna Land.
+Double the privilege
+:::
+
 ## Bioconductor Packages
 
 
@@ -73,15 +78,16 @@ But first...
 ::::
 
 ::: {.notes}
+- Going as Stevie is definitely not at attempt to be cool.
 - Known since I was a small child, but the 1970s were a very different time. Tried really hard to be a 'normal' person
 - Sought professional help about 5 years ago & first heard the term Non-Binary and found the language to describe my experience
 - Took the time out of the spotlight to start exploring a more variable and more honest presentation 
-- Many noticed how happy I was after the Hub closed, but this was not because the Hub closed at all
+- Many noticed how happy I was after the Hub closed, but I wanted to ensure people knew this wasn't anything to do with the closure of the Hub
 - Spoke to Jimmy after the Hub closed, never expecting to work together again. How do I manage the Adelaide research community when I'm out?
 - Had always been scared of revealing this. Would I be kicked out of my school teaching roles? How would it impact the relationship with my PhD supervisor? How would DVCR cope?
-- Now my line manager knows & TKI have a long history of supporting the transgender community, it was now or never. That fear no longer existed!
+- Now my line manager knows & TKI have a long history of supporting the transgender community, I realised the moment had presented itself. That fear no longer existed!
 - Been really quite amazing to realise how many others have siblings, children, friends, grand-children going through similar. And to find the other trans/NB members of the bioinformatics community
-- I feel like an idiot asking to be called Stevie, but am very appreciative of the kindness it represents
+- I feel like an idiot asking to be called Stevie, but am **very appreciative of the kindness it represents**
 - Don't consider Steve to be a 'dead-name', but more a slowly receding name
 - Still trying to figure out how to wrangle my digital footprint (github, Twitter etc)
 :::
@@ -690,6 +696,11 @@ Use the maximal signal window?
 - Merge using *harmonic-mean p-value* [@Wilson2019-ln]
     + $\text{hmp} =\frac{n}{\sum_i^np_i^{-1}}$ if no weights provided 
     + $\text{hmp} =\frac{\sum_{i=1}^nw_i}{\sum_i^nw_i p_i^{-1}}$ if weights provided
+    + Actually uses the *asymptotically exact* harmonic mean
+    + Spent the weekend getting a 100x speed up from `harmonicmeanp`
+    
+## `extraChIPs`: Window Merging
+
 - Robust to dependence
     + Controls FDR within a set of tests
     + Can also produce strict FWER controlled version for complete dataset
@@ -704,6 +715,7 @@ Use the maximal signal window?
 - Tested `comb-p`
     + Need to fix distance for ACF
     + Impacts regions with gaps, but within distance
+- Returned values just feel like an elegant solution
 :::
 
 ## `extraChIPs`: Window Merging
@@ -737,7 +749,7 @@ A ~3kb H3K27ac region unique to harmonic mean
 ::::
 
 
-## Results Example 2 {.smaller}
+## Results Example 2 {.smaller visibility="hidden"}
 
 :::: {.columns}
 

@@ -441,6 +441,19 @@ Stephen (Stevie) Pederson
 <li>R programming, Bioconductor Nerd</li>
 </ul>
 </div>
+<aside class="notes">
+<p>Currently working in Indigenous Health on Kaurna Land. Double the privilege</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="bioconductor-packages" class="slide level2">
 <h2>Bioconductor Packages</h2>
@@ -473,15 +486,16 @@ Stephen (Stevie) Pederson
 </div>
 <aside class="notes">
 <ul>
+<li>Going as Stevie is definitely not at attempt to be cool.</li>
 <li>Known since I was a small child, but the 1970s were a very different time. Tried really hard to be a ‘normal’ person</li>
 <li>Sought professional help about 5 years ago &amp; first heard the term Non-Binary and found the language to describe my experience</li>
 <li>Took the time out of the spotlight to start exploring a more variable and more honest presentation</li>
-<li>Many noticed how happy I was after the Hub closed, but this was not because the Hub closed at all</li>
+<li>Many noticed how happy I was after the Hub closed, but I wanted to ensure people knew this wasn’t anything to do with the closure of the Hub</li>
 <li>Spoke to Jimmy after the Hub closed, never expecting to work together again. How do I manage the Adelaide research community when I’m out?</li>
 <li>Had always been scared of revealing this. Would I be kicked out of my school teaching roles? How would it impact the relationship with my PhD supervisor? How would DVCR cope?</li>
-<li>Now my line manager knows &amp; TKI have a long history of supporting the transgender community, it was now or never. That fear no longer existed!</li>
+<li>Now my line manager knows &amp; TKI have a long history of supporting the transgender community, I realised the moment had presented itself. That fear no longer existed!</li>
 <li>Been really quite amazing to realise how many others have siblings, children, friends, grand-children going through similar. And to find the other trans/NB members of the bioinformatics community</li>
-<li>I feel like an idiot asking to be called Stevie, but am very appreciative of the kindness it represents</li>
+<li>I feel like an idiot asking to be called Stevie, but am <strong>very appreciative of the kindness it represents</strong></li>
 <li>Don’t consider Steve to be a ‘dead-name’, but more a slowly receding name</li>
 <li>Still trying to figure out how to wrangle my digital footprint (github, Twitter etc)</li>
 </ul>
@@ -1316,14 +1330,21 @@ Stephen (Stevie) Pederson
 <ul>
 <li><span class="math inline">\(\text{hmp} =\frac{n}{\sum_i^np_i^{-1}}\)</span> if no weights provided</li>
 <li><span class="math inline">\(\text{hmp} =\frac{\sum_{i=1}^nw_i}{\sum_i^nw_i p_i^{-1}}\)</span> if weights provided</li>
+<li>Actually uses the <em>asymptotically exact</em> harmonic mean</li>
+<li>Spent the weekend getting a 100x speed up from <code>harmonicmeanp</code></li>
 </ul></li>
+</ul>
+</div>
+</section>
+<section id="extrachips-window-merging-1" class="slide level2">
+<h2><code>extraChIPs</code>: Window Merging</h2>
+<ul>
 <li>Robust to dependence
 <ul>
 <li>Controls FDR within a set of tests</li>
 <li>Can also produce strict FWER controlled version for complete dataset</li>
 </ul></li>
 </ul>
-</div>
 <div class="fragment">
 <ul>
 <li>Return weighted-mean of logFC/logCPM using <span class="math inline">\(p_i^{-1}\)</span> for weights
@@ -1339,6 +1360,7 @@ Stephen (Stevie) Pederson
 <li>Need to fix distance for ACF</li>
 <li>Impacts regions with gaps, but within distance</li>
 </ul></li>
+<li>Returned values just feel like an elegant solution</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1353,7 +1375,7 @@ Stephen (Stevie) Pederson
       }</style></aside>
 </div>
 </section>
-<section id="extrachips-window-merging-1" class="slide level2">
+<section id="extrachips-window-merging-2" class="slide level2">
 <h2><code>extraChIPs</code>: Window Merging</h2>
 <ul>
 <li>Outperforms Simes’ consistently</li>
@@ -1386,22 +1408,7 @@ Stephen (Stevie) Pederson
 </div>
 </div>
 </section>
-<section id="results-example-2" class="slide level2 smaller">
-<h2>Results Example 2</h2>
-<div class="columns">
-<div class="column" style="width:75%;">
-<p>Another ~3kb H3K27ac region unique to <em>maximal signal</em></p>
-<p><img data-src="images/h3k27ac_unique-to-smax.png"></p>
-</div><div class="column" style="width:25%;">
-<p><br><br><br></p>
-<ul>
-<li>All returned values are <em>representative</em></li>
-<li>Taken at point of maximal signal</li>
-<li>Still a strong method</li>
-</ul>
-</div>
-</div>
-</section>
+
 <section id="normalisation-methods" class="slide level2">
 <h2>Normalisation Methods</h2>
 <ul>
