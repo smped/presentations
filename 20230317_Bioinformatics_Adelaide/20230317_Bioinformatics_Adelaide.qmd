@@ -78,18 +78,12 @@ But first...
 ::::
 
 ::: {.notes}
-- Going as Stevie is definitely not at attempt to be cool.
-- Known since I was a small child, but the 1970s were a very different time. Tried really hard to be a 'normal' person
-- Sought professional help about 5 years ago & first heard the term Non-Binary and found the language to describe my experience
-- Took the time out of the spotlight to start exploring a more variable and more honest presentation 
-- Many noticed how happy I was after the Hub closed, but I wanted to ensure people knew this wasn't anything to do with the closure of the Hub
-- Spoke to Jimmy after the Hub closed, never expecting to work together again. How do I manage the Adelaide research community when I'm out?
-- Had always been scared of revealing this. Would I be kicked out of my school teaching roles? How would it impact the relationship with my PhD supervisor? How would DVCR cope?
-- Now my line manager knows & TKI have a long history of supporting the transgender community, I realised the moment had presented itself. That fear no longer existed!
-- Been really quite amazing to realise how many others have siblings, children, friends, grand-children going through similar. And to find the other trans/NB members of the bioinformatics community
-- I feel like an idiot asking to be called Stevie, but am **very appreciative of the kindness it represents**
-- Don't consider Steve to be a 'dead-name', but more a slowly receding name
-- Still trying to figure out how to wrangle my digital footprint (github, Twitter etc)
+- Going as Stevie is definitely not at attempt to be cool but more connected to me slowly emerging as a Non-Binary person
+- It's been an ongoing thing I've wrangled since early childhood, but just wanted to reassure people that my looking unusually happy a couple of years ago wasn't connected to the closure of the Bioinformatics Hub. Instead, it was very much connected to realising there is now language to describe my experience of gender, and that was quite a revelation for me
+- I sat down & discussed things with Jimmy as a friend and former colleague a couple of years ago, and found myself in the quite unexpected position of being offered a job with him mid last year. Given I'd have a boss who knew and supported this side of me, the fear of revealing myself and finding myself in an untenable professional environment was gone and I knew that one of those rare moments had presented itself where I could move forward instead of staying hidden & caught by indecision.
+- I'm really grateful for the support & kindness I've been shown and very much appreciate so many people making the adjustment.
+I know it's really challenging and am still struggling to figure out what to do with my digital footprint. I don't really consider Steve to be a deadname, but more of a slowly diminishing name. Whilst I do prefer They/Them pronouns, I really do understand that making the adjustment can be really hard
+- It's also been really brilliant to connect with the other Trans/Non-Binary bioinformaticians around Australia, and to realise how many people have kids, siblings and other family members going through similar journeys
 :::
 
 # extraChIPs {background-color="#3c3c44" background-image=https://github.com/steveped/stickers/raw/main/extraChIPs_sticker.png background-size="40%" background-opacity="0.3"}
