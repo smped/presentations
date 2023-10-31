@@ -1,0 +1,173 @@
+---
+title: "ALIGN Capacity Building"
+subtitle: "The What, Why and How of Transcriptomics"
+author: "Dr Stevie Pederson (They/Them)"
+affiliation: "Black Ochre Data Labs"
+date: "2023-08-02"
+date-format: long
+title-slide-attributes:
+    data-background-color: "#3c3c44"
+    data-background-opacity: "20%"
+    data-background-size: "35%"
+    data-background-position: "50% 50%"
+editor: source
+format: 
+  revealjs:
+    bibliography: references.bib
+    theme: [custom.scss]
+    code-line-numbers: false
+    width: 1024
+    height: 768
+    sansfont: Times New Roman
+    logo: assets/bodl_logo_white_background.jpg
+---
+
+##
+
+::: {.columns}
+
+::: {.column width="35%"}
+
+### Acknowledgement of Country
+
+:::
+
+::: {.column width="65%"}
+
+I would like to acknowledge that today I'm presenting this topic from Kaurna Country.<br><br>
+
+I acknowledge the deep feelings of attachment and relationship of the Kaurna people to their Place.<br><br>
+
+I also pay respects to the cultural authority of Aboriginal and Torres Strait Islander peoples from other areas of Australia online today, and pay my respects to Elders past, present and emerging. 
+
+
+:::
+
+:::
+
+::: {.notes}
+I also wish to express my gratitude for being involved in this space, and an awareness of the trust that has been placed in me
+:::
+
+## Who Am I? 
+
+- Oldest person in Black Ochre Data Labs but still an ECR
+
+. . .
+
+- Unintentionally took the "winding path" approach to my PhD (2008-2018)
+    + Undertaken in a T Cell  / Autoimmunity Research Group
+    + Developed a novel Bayesian Statistical model for alternate transcript detection (using microarrays)
+
+. . . 
+
+- Co-ordinator of the University of Adelaide Bioinformatics Hub (2014-2020)
+    + Analysed dozens of RNA-Seq datasets (+ more)
+    + Developed multiple training workshops and undergrad/postgrad courses
+
+. . .     
+    
+- Massive R nerd (5 Bioconductor packages)
+    
+
+::: {.notes}
+- PhD was working in a T cell group looking at autoimmune disease
+- Developed a Bayesian model for detection of alternate transcript expression
+- Am the lead developer for two Bioconductor packages and have contributed to 3 more
+- Currently sit on the Community Advisory Boards for Bioconductor
+
+:::
+
+## Who Am I? 
+
+- First discovered microarray data and R in 2002
+    + Most statistical understanding has been learned through this lens
+    + Primary training is in biology (e.g. genetics, biochemistry)
+
+. . .
+
+- Majority of experience in bulk tissue (i.e. not single-cell)
+
+. . .
+
+- Also spent two years researching ER-dependent Breast Cancers
+    + Looking at Transcription Factors (ChIP-Seq)
+    + Data Integration (RNA-Seq, ChIP-Seq, HiC etc)
+
+::: {.notes}
+- Statistical training has been very different to epidemiology & study design
+:::
+
+# Why Transcriptomics? {background-color="#3c3c44"}
+
+## Why?
+
+- Transcriptomics is essentially the analysis of RNA
+- Provides insight into a **highly dynamic** component of biology
+- Long history of identifying biomarkers and establishing mechanisms
+    - Is essentially a hypothesis-generating step
+    - Often need to test hypotheses using conventional experimental approaches
+    
+## Why?
+
+PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
+
+. . .
+
+- Key focus is Type 2 Diabetes and complications (CVD and CKD)
+
+. . .
+
+- Whole blood $\implies$ large immune component ("white blood cells")
+- Can we see markers of the different stages of Type 2 Diabetes <br>(i.e. complications developing)
+    
+. . . 
+    
+- By integrating with other -omics layers:
+    + Can we establish clear hypotheses into underlying mechanisms? <br>$\implies$ clinical intervention
+    
+# How Does Biology Even Work? {background-color="#3c3c44"}
+
+## DNA
+
+Maybe
+
+<iframe src="https://giphy.com/embed/2G5llPaffwvio" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/microscope-fluorescence-mitosis-2G5llPaffwvio">via GIPHY</a></p>
+
+::: {.notes}
+- Most of us a familiar with DNA
+- We all have our own unique DNA, passed down from our parents
+- DNA lives in the nucleus of most cells
+- Chromosomes replicate and divide with cell division
+:::
+
+## DNA
+
+::: {.notes}
+- Beyond cell division, DNA just hangs out, chillin' in every nucleus
+- Is a largely static and stable molecule
+- Lots of activity on it and around it (methylation, transcription factors, 3D conformation etc)
+- Can almost be considered as a giant set of personalised instructions
+
+![taken from https://courses.lumenlearning.com/suny-ap1/chapter/the-nucleus-and-dna-replication/](assets/0321_DNA_Macrostructure.jpg)
+
+:::
+
+## DNA
+
+::: {.notes}
+- We all share many common sequence runs in our DNA, but at some positions we may tend to differ
+- These are known as 'variants' but in reality this variation is what we refer to as 'genetic diversity'
+- 
+:::
+
+
+Might be a handy image
+
+<iframe src="https://giphy.com/embed/mRI1hW0ZBVUly" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/biology-primer-mRI1hW0ZBVUly">via GIPHY</a></p>
+
+##
+
+Also good 
+
+<iframe src="https://giphy.com/embed/3o7TKLC8zBUd7eEteE" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/animation-design-motion-3o7TKLC8zBUd7eEteE">via GIPHY</a></p>
