@@ -118,21 +118,46 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
 
 . . .
 
+- Multiple 'omics layers: DNA (Genomics), DNA-methylation (EpiGenomics), protein (Proteomics) etc
+
+. . .
+
 - Whole blood $\implies$ large immune component ("white blood cells")
 - Can we see markers of the different stages of Type 2 Diabetes <br>(i.e. complications developing)
     
 . . . 
-    
+
 - By integrating with other -omics layers:
     + Can we establish clear hypotheses into underlying mechanisms? <br>$\implies$ clinical intervention
+    
+::: {.notes}
+- Also have lipidomics, metabolomics, retinal scans, ECGs, imflammatory markers
+:::
     
 # How Does Biology Even Work? {background-color="#3c3c44"}
 
 ## DNA
 
-Maybe
+::: {.columns}
 
-<iframe src="https://giphy.com/embed/2G5llPaffwvio" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/microscope-fluorescence-mitosis-2G5llPaffwvio">via GIPHY</a></p>
+::: {.column width='44%'}
+
+- Most are familiar with DNA
+- Directly inherited from parents<br>$\implies$ unique people
+- Same in every cell
+- Stays in the nucleus
+- Generally static
+    + Until cell division
+
+:::
+
+::: {.column width='56%'}
+
+![Image created using www.biorender.com](assets/cell_structure.png){width="1000px"}
+
+:::
+
+:::
 
 ::: {.notes}
 - Most of us a familiar with DNA
@@ -140,6 +165,32 @@ Maybe
 - DNA lives in the nucleus of most cells
 - Chromosomes replicate and divide with cell division
 :::
+
+## DNA
+
+- Each chromosome is a string of millions of sub-molecules:
+    + i.e. nucleotides: A, C, G, T
+    + Double-stranded molecule, i.e. double helix
+    
+. . .    
+    
+- Changes in individual positions (or larger groups of positions) are uniquely ours
+    + Inherited from parents (+ a few spontaneous changes)
+    
+. . .    
+    
+- We often refer to these unique positions as *variants*
+    + Single nucleotides (SNVs), missing/extra nucleotides (InDels) 
+    + Larger structural variants (SVs) and repetitive elements (REs)
+- Collections of variants within a population $\implies$ *genetic diversity*
+
+::: {.notes}
+- Full names for bases Adenine, Cytosine, Guanine, Thymine
+- I have a mutation in my haemoglobin not shared by either parent
+    + My HbA1c cannot be measured, wheareas both of theirs can
+    + My blood responds poorly to low-oxygen situations: like respiratory infections
+:::
+
 
 ## DNA
 
