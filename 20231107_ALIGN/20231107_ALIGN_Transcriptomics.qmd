@@ -16,10 +16,18 @@ format:
     bibliography: references.bib
     theme: [custom.scss]
     code-line-numbers: false
-    width: 1024
-    height: 768
+    width: 1280
+    height: 720
     sansfont: Times New Roman
     logo: assets/bodl_logo_white_background.jpg
+    slide-number: c/t
+knitr: 
+  opts_chunk: 
+    echo: true
+    include: true
+    warning: false
+    message: false
+    fig.align: left
 ---
 
 ##
@@ -75,12 +83,12 @@ I also wish to express my gratitude for being involved in this space, and an awa
 - Developed a Bayesian model for detection of alternate transcript expression
 - Am the lead developer for two Bioconductor packages and have contributed to 3 more
 - Currently sit on the Community Advisory Boards for Bioconductor
-
+- Also working on my 6th package
 :::
 
 ## Who Am I? 
 
-- First discovered microarray data and R in 2002
+- First discovered microarrays and R in 2002
     + Most statistical understanding has been learned through this lens
     + Primary training is in biology (e.g. genetics, biochemistry)
 
@@ -91,7 +99,7 @@ I also wish to express my gratitude for being involved in this space, and an awa
 . . .
 
 - Also spent two years researching ER-dependent Breast Cancers
-    + Looking at Transcription Factors (ChIP-Seq)
+    + Looking at Transcription Factors and DNA state (ChIP-Seq)
     + Data Integration (RNA-Seq, ChIP-Seq, HiC etc)
 
 ::: {.notes}
@@ -128,7 +136,7 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
 . . . 
 
 - By integrating with other -omics layers:
-    + Can we establish clear hypotheses into underlying mechanisms? <br>$\implies$ clinical intervention
+    + Can we establish clear hypotheses into underlying mechanisms? <br>[$\implies$ clinical intervention]{.fragment .fade-in}
     
 ::: {.notes}
 - Also have lipidomics, metabolomics, retinal scans, ECGs, imflammatory markers
@@ -136,26 +144,32 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
     
 # How Does Biology Even Work? {background-color="#3c3c44"}
 
+::: {.notes}
+- If only any of us could answer this question
+- As soon as we think we understand something, we find the exception
+- So much redundancy built-in + so much complexity
+:::
+
 ## DNA
 
 ::: {.columns}
-
-::: {.column width='44%'}
-
-- Most are familiar with DNA
-- Directly inherited from parents<br>$\implies$ unique people
-- Same in every cell
-- Stays in the nucleus
-- Generally static
-    + Until cell division
-
-:::
 
 ::: {.column width='56%'}
 
 ![Image created using www.biorender.com](assets/cell_structure.png){width="1000px"}
 
 :::
+
+::: {.column width='44%'}
+
+- Most are familiar with DNA
+- Directly inherited from parents<br>$\implies$ unique people
+- Stays in the nucleus
+- The same in every cell [(roughly)]{.fragment .fade-in}
+- Generally static [(until cell division)]{.fragment .fade-in}
+
+:::
+
 
 :::
 
@@ -168,57 +182,196 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
 
 ## DNA
 
-- Each chromosome is a string of millions of sub-molecules:
-    + i.e. nucleotides: A, C, G, T
-    + Double-stranded molecule, i.e. double helix
+::: {.columns}
+
+::: {.column width="55%"}
     
-. . .    
+![Made using www.biorender.com](assets/dna_breakdown.png){fig-align="left"}
+
+:::
+
+::: {.column width="45%"}
+
+Each chromosome is a string of millions of nucleotides
+
+- 4 nucleotides (or bases): A, C, G, T
+- Double-stranded molecule, i.e. double helix
+    + Adds incredible stability 
+    + Provides error handling mechanism
+- Amazing amount of 3D structure & packaging
+
+::: {.fragment}
+- Only forms the classic ![](assets/sister_chromatids.jpg){width="4%"} shape during cell division
+:::
+
+:::
+
+:::
+
+::: {.notes}
+- Full names for bases Adenine, Cytosine, Guanine, Thymine
+- All chromosomes in a human cell would be about 2m long if stretched out
+- The sequence is static, but a lot happens to the DNA and to package the DNA
+- Essentially the same static molecule having things done to it
+:::
+
+## DNA
+
+We often think of there being [**one unique reference sequence**]{.underline}
+
+- This is very far from reality 
+- Each copy of Chromosome 1 is different to the other copy within each of us
+- Same for all other chromosomes (1-22 + X)
+- Scale this out to millions of people...
+- Some regions are relatively invariant (needed for survival)
     
-- Changes in individual positions (or larger groups of positions) are uniquely ours
+## DNA
+    
+- Unique combinations of bases are ours and ours alone, for each of us
     + Inherited from parents (+ a few spontaneous changes)
     
 . . .    
     
-- We often refer to these unique positions as *variants*
+- We often refer to these unique sequences as *variants*
     + Single nucleotides (SNVs), missing/extra nucleotides (InDels) 
     + Larger structural variants (SVs) and repetitive elements (REs)
+    
+. . .    
+    
 - Collections of variants within a population $\implies$ *genetic diversity*
 
 ::: {.notes}
-- Full names for bases Adenine, Cytosine, Guanine, Thymine
+- There are large runs of DNA which rarely change between individuals
 - I have a mutation in my haemoglobin not shared by either parent
-    + My HbA1c cannot be measured, wheareas both of theirs can
+    + My HbA1c cannot be measured, whereas both of theirs can
+    + Was reported to me as a serious discovery during a public health study (NWHS)
     + My blood responds poorly to low-oxygen situations: like respiratory infections
+    + Also no plans to climb Mt Everest
+- Having "variants" implicitly ties back to this idea of a single reference
 :::
 
 
-## DNA
+
+## The Central Dogma of Biology
+
+::: {.columns}
+
+::: {.column width="40%"}
+<br>
+<iframe src="https://giphy.com/embed/mRI1hW0ZBVUly" width="450px" height="450px" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/biology-primer-mRI1hW0ZBVUly">via GIPHY</a></p>
+
+:::
+
+::: {.column width="60%"}
+
+DNA is essentially a giant book of instructions
+
+
+::: {.fragment}
+
+- Some regions are known as genes
+    + These are *transcribed* into RNA
+    + Many RNA types (mRNA + miRNA, ncRNA, rRNA etc)
+    
+:::
+
+::: {.fragment}
+    
+- mRNA molecules are *translated into proteins*
+
+:::
+
+::: {.fragment}
+
+- Proteins *do stuff* i.e. pretty much everything
+   + Keratin $\implies$ Hair structure
+   + Haemoglobin $\implies$ Oxygen transport
+   + Antibodies $\implies$ Detect alien molecules
+   
+:::
+
+:::
+
+:::
 
 ::: {.notes}
-- Beyond cell division, DNA just hangs out, chillin' in every nucleus
-- Is a largely static and stable molecule
-- Lots of activity on it and around it (methylation, transcription factors, 3D conformation etc)
-- Can almost be considered as a giant set of personalised instructions
-
-![taken from https://courses.lumenlearning.com/suny-ap1/chapter/the-nucleus-and-dna-replication/](assets/0321_DNA_Macrostructure.jpg)
-
+- DNA can almost be considered as a giant set of personalised instructions
+- Most regions have some kind of function $\implies$ some help determine structure
+    + Others are transcribed
+- Transcribed regions (i.e. RNA) is known as the **Transcriptome**
+- Also enzymes which breakdown food are proteins
 :::
 
-## DNA
+## Proteins
+
+Proteins are the molecular machines that run our bodies
+
+. . .
+
+- Incredibly dynamic system
+    + Some are stable
+    + Some degrade rapidly
+
+. . .
+
+- Proteins can be heavily modified
+    + Phosphorylation, Sumoylation, Ubiquitination etc
+- Can be single molecules or bind to multiple partners
+
+. . .
+
+- Different functions or activities for every state
+
+## Proteins
+
+*Proteomics* is the study of proteins
+
+. . . 
+
+- Is very limited technique
+    + Tens of Thousands exist 
+    + Can usually only identify hundreds (maybe 1-2000) from a sample
+    
+. . .    
+    
+- We don't understand much of the complexity
+    + Single modifications can have huge consequences
+
+. . .
+
+- Still a very immature field
+    + Technology is extremely variable and rapidly developing
 
 ::: {.notes}
-- We all share many common sequence runs in our DNA, but at some positions we may tend to differ
-- These are known as 'variants' but in reality this variation is what we refer to as 'genetic diversity'
-- 
+- Proteomics is still really immature but can still shed important light on underlying biology
+- Being difficult study makes it harder for us to study $\implies$ we often look elsewhere that's easier
+- This is where transcriptomics comes in
 :::
 
+## Transcriptomics
 
-Might be a handy image
+*Transcriptomics is the study of RNA molecules within a cell or tissue*
 
-<iframe src="https://giphy.com/embed/mRI1hW0ZBVUly" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/biology-primer-mRI1hW0ZBVUly">via GIPHY</a></p>
+. . .
 
-##
+- Common early assumption $\implies$ mRNA abundance reflects protein levels
+    + Is sometimes true ...
+    + Also no information about protein modifications
+    
+. . .    
+    
+- Many other types of RNA play key roles
+    + miRNAs degrade their target mRNAs
+    + lncRNAs can silence chromosomal regions (e.g. *XIST*)
 
-Also good 
+. . .
 
-<iframe src="https://giphy.com/embed/3o7TKLC8zBUd7eEteE" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/animation-design-motion-3o7TKLC8zBUd7eEteE">via GIPHY</a></p>
+- Shows an early *visible response to stimuli*
+- Also represents a *stable state* of the cell
+
+::: {.notes}
+- Despite many mRNAs representing an intermediary state, this reveals a lot of information about the cell, e.g. what it's responding to, how it's maintaining itself
+- Great examples of rapid transcriptional response are in T cells which encouter their target antigen
+    + Huge & rapid transcriptional consequences
+- Many of the functional RNAs also provide vital insights, but these are often poorly understood
+:::

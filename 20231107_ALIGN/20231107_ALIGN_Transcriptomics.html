@@ -397,6 +397,7 @@ Dr Stevie Pederson (They/Them)
 <li>Developed a Bayesian model for detection of alternate transcript expression</li>
 <li>Am the lead developer for two Bioconductor packages and have contributed to 3 more</li>
 <li>Currently sit on the Community Advisory Boards for Bioconductor</li>
+<li>Also working on my 6th package</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -414,7 +415,7 @@ Dr Stevie Pederson (They/Them)
 <section id="who-am-i-1" class="slide level2">
 <h2>Who Am I?</h2>
 <ul>
-<li>First discovered microarray data and R in 2002
+<li>First discovered microarrays and R in 2002
 <ul>
 <li>Most statistical understanding has been learned through this lens</li>
 <li>Primary training is in biology (e.g.&nbsp;genetics, biochemistry)</li>
@@ -429,7 +430,7 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>Also spent two years researching ER-dependent Breast Cancers
 <ul>
-<li>Looking at Transcription Factors (ChIP-Seq)</li>
+<li>Looking at Transcription Factors and DNA state (ChIP-Seq)</li>
 <li>Data Integration (RNA-Seq, ChIP-Seq, HiC etc)</li>
 </ul></li>
 </ul>
@@ -490,7 +491,7 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>By integrating with other -omics layers:
 <ul>
-<li>Can we establish clear hypotheses into underlying mechanisms? <br><span class="math inline">\(\implies\)</span> clinical intervention</li>
+<li>Can we establish clear hypotheses into underlying mechanisms? <br><span class="fragment fade-in"><span class="math inline">\(\implies\)</span> clinical intervention</span></li>
 </ul></li>
 </ul>
 <aside class="notes">
@@ -513,29 +514,42 @@ Dr Stevie Pederson (They/Them)
 <section>
 <section id="how-does-biology-even-work" class="title-slide slide level1 center" data-background-color="#3c3c44">
 <h1>How Does Biology Even Work?</h1>
-
+<aside class="notes">
+<ul>
+<li>If only any of us could answer this question</li>
+<li>As soon as we think we understand something, we find the exception</li>
+<li>So much redundancy built-in + so much complexity</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="dna" class="slide level2">
 <h2>DNA</h2>
 <div class="columns">
-<div class="column" style="width:44%;">
-<ul>
-<li>Most are familiar with DNA</li>
-<li>Directly inherited from parents<br><span class="math inline">\(\implies\)</span> unique people</li>
-<li>Same in every cell</li>
-<li>Stays in the nucleus</li>
-<li>Generally static
-<ul>
-<li>Until cell division</li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:56%;">
+<div class="column" style="width:56%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="assets/cell_structure.png" width="2000"></p>
+<p><img data-src="assets/cell_structure.png" width="1000"></p>
 <figcaption>Image created using www.biorender.com</figcaption>
 </figure>
 </div>
+</div><div class="column" style="width:44%;">
+<ul>
+<li>Most are familiar with DNA</li>
+<li>Directly inherited from parents<br><span class="math inline">\(\implies\)</span> unique people</li>
+<li>Stays in the nucleus</li>
+<li>The same in every cell <span class="fragment fade-in">(roughly)</span></li>
+<li>Generally static <span class="fragment fade-in">(until cell division)</span></li>
+</ul>
 </div>
 </div>
 <aside class="notes">
@@ -559,38 +573,94 @@ Dr Stevie Pederson (They/Them)
 </section>
 <section id="dna-1" class="slide level2">
 <h2>DNA</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="assets/dna_breakdown.png"></p>
+<figcaption>Made using www.biorender.com</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:45%;">
+<p>Each chromosome is a string of millions of nucleotides</p>
 <ul>
-<li>Each chromosome is a string of millions of sub-molecules:
+<li>4 nucleotides (or bases): A, C, G, T</li>
+<li>Double-stranded molecule, i.e.&nbsp;double helix
 <ul>
-<li>i.e.&nbsp;nucleotides: A, C, G, T</li>
-<li>Double-stranded molecule, i.e.&nbsp;double helix</li>
+<li>Adds incredible stability</li>
+<li>Provides error handling mechanism</li>
 </ul></li>
+<li>Amazing amount of 3D structure &amp; packaging</li>
 </ul>
 <div class="fragment">
 <ul>
-<li>Changes in individual positions (or larger groups of positions) are uniquely ours
+<li>Only forms the classic <img data-src="assets/sister_chromatids.jpg" style="width:4.0%"> shape during cell division</li>
+</ul>
+</div>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>Full names for bases Adenine, Cytosine, Guanine, Thymine</li>
+<li>All chromosomes in a human cell would be about 2m long if stretched out</li>
+<li>The sequence is static, but a lot happens to the DNA and to package the DNA</li>
+<li>Essentially the same static molecule having things done to it</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="dna-2" class="slide level2">
+<h2>DNA</h2>
+<p>We often think of there being <u><strong>one unique reference sequence</strong></u></p>
+<ul>
+<li>This is very far from reality</li>
+<li>Each copy of Chromosome 1 is different to the other copy within each of us</li>
+<li>Same for all other chromosomes (1-22 + X)</li>
+<li>Scale this out to millions of people…</li>
+<li>Some regions are relatively invariant (needed for survival)</li>
+</ul>
+</section>
+<section id="dna-3" class="slide level2">
+<h2>DNA</h2>
+<ul>
+<li>Unique combinations of bases are ours and ours alone, for each of us
 <ul>
 <li>Inherited from parents (+ a few spontaneous changes)</li>
 </ul></li>
 </ul>
-</div>
 <div class="fragment">
 <ul>
-<li>We often refer to these unique positions as <em>variants</em>
+<li>We often refer to these unique sequences as <em>variants</em>
 <ul>
 <li>Single nucleotides (SNVs), missing/extra nucleotides (InDels)</li>
 <li>Larger structural variants (SVs) and repetitive elements (REs)</li>
 </ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>Collections of variants within a population <span class="math inline">\(\implies\)</span> <em>genetic diversity</em></li>
 </ul>
 <aside class="notes">
 <ul>
-<li>Full names for bases Adenine, Cytosine, Guanine, Thymine</li>
+<li>There are large runs of DNA which rarely change between individuals</li>
 <li>I have a mutation in my haemoglobin not shared by either parent
 <ul>
-<li>My HbA1c cannot be measured, wheareas both of theirs can</li>
+<li>My HbA1c cannot be measured, whereas both of theirs can</li>
+<li>Was reported to me as a serious discovery during a public health study (NWHS)</li>
 <li>My blood responds poorly to low-oxygen situations: like respiratory infections</li>
+<li>Also no plans to climb Mt Everest</li>
 </ul></li>
+<li>Having “variants” implicitly ties back to this idea of a single reference</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -605,70 +675,187 @@ Dr Stevie Pederson (They/Them)
       }</style></aside>
 </div>
 </section>
-<section id="dna-2" class="slide level2">
-<h2>DNA</h2>
-<aside class="notes">
-<ul>
-<li>Beyond cell division, DNA just hangs out, chillin’ in every nucleus</li>
-<li>Is a largely static and stable molecule</li>
-<li>Lots of activity on it and around it (methylation, transcription factors, 3D conformation etc)</li>
-<li>Can almost be considered as a giant set of personalised instructions</li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/0321_DNA_Macrostructure.jpg"></p>
-<figcaption>taken from https://courses.lumenlearning.com/suny-ap1/chapter/the-nucleus-and-dna-replication/</figcaption>
-</figure>
-</div>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="dna-3" class="slide level2">
-<h2>DNA</h2>
-<aside class="notes">
-<ul>
-<li>We all share many common sequence runs in our DNA, but at some positions we may tend to differ</li>
-<li>These are known as ‘variants’ but in reality this variation is what we refer to as ‘genetic diversity’</li>
-<li></li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-<p>Might be a handy image</p>
-<iframe src="https://giphy.com/embed/mRI1hW0ZBVUly" width="480" height="480" frameborder="0" class="giphy-embed" allowfullscreen="">
-</iframe>
+<section id="the-central-dogma-of-biology" class="slide level2">
+<h2>The Central Dogma of Biology</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<br> <iframe src="https://giphy.com/embed/mRI1hW0ZBVUly" width="450px" height="450px" frameborder="0" class="giphy-embed" allowfullscreen=""></iframe>
 <p>
 <a href="https://giphy.com/gifs/biology-primer-mRI1hW0ZBVUly">via GIPHY</a>
 </p>
+</div><div class="column" style="width:60%;">
+<p>DNA is essentially a giant book of instructions</p>
+<div class="fragment">
+<ul>
+<li>Some regions are known as genes
+<ul>
+<li>These are <em>transcribed</em> into RNA</li>
+<li>Many RNA types (mRNA + miRNA, ncRNA, rRNA etc)</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>mRNA molecules are <em>translated into proteins</em></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Proteins <em>do stuff</em> i.e.&nbsp;pretty much everything
+<ul>
+<li>Keratin <span class="math inline">\(\implies\)</span> Hair structure</li>
+<li>Haemoglobin <span class="math inline">\(\implies\)</span> Oxygen transport</li>
+<li>Antibodies <span class="math inline">\(\implies\)</span> Detect alien molecules</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>DNA can almost be considered as a giant set of personalised instructions</li>
+<li>Most regions have some kind of function <span class="math inline">\(\implies\)</span> some help determine structure
+<ul>
+<li>Others are transcribed</li>
+</ul></li>
+<li>Transcribed regions (i.e.&nbsp;RNA) is known as the <strong>Transcriptome</strong></li>
+<li>Also enzymes which breakdown food are proteins</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="section-1" class="slide level2">
-<h2></h2>
-<p>Also good</p>
-<iframe src="https://giphy.com/embed/3o7TKLC8zBUd7eEteE" width="480" height="480" frameborder="0" class="giphy-embed" allowfullscreen="">
-</iframe>
-<p>
-<a href="https://giphy.com/gifs/animation-design-motion-3o7TKLC8zBUd7eEteE">via GIPHY</a>
-</p>
+<section id="proteins" class="slide level2">
+<h2>Proteins</h2>
+<p>Proteins are the molecular machines that run our bodies</p>
+<div class="fragment">
+<ul>
+<li>Incredibly dynamic system
+<ul>
+<li>Some are stable</li>
+<li>Some degrade rapidly</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Proteins can be heavily modified
+<ul>
+<li>Phosphorylation, Sumoylation, Ubiquitination etc</li>
+</ul></li>
+<li>Can be single molecules or bind to multiple partners</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Different functions or activities for every state</li>
+</ul>
+</div>
+</section>
+<section id="proteins-1" class="slide level2">
+<h2>Proteins</h2>
+<p><em>Proteomics</em> is the study of proteins</p>
+<div class="fragment">
+<ul>
+<li>Is very limited technique
+<ul>
+<li>Tens of Thousands exist</li>
+<li>Can usually only identify hundreds (maybe 1-2000) from a sample</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>We don’t understand much of the complexity
+<ul>
+<li>Single modifications can have huge consequences</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Still a very immature field
+<ul>
+<li>Technology is extremely variable and rapidly developing</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Proteomics is still really immature but can still shed important light on underlying biology</li>
+<li>Being difficult study makes it harder for us to study <span class="math inline">\(\implies\)</span> we often look elsewhere that’s easier</li>
+<li>This is where transcriptomics comes in</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="transcriptomics" class="slide level2">
+<h2>Transcriptomics</h2>
+<p><em>Transcriptomics is the study of RNA molecules within a cell or tissue</em></p>
+<div class="fragment">
+<ul>
+<li>Common early assumption <span class="math inline">\(\implies\)</span> mRNA abundance reflects protein levels
+<ul>
+<li>Is sometimes true …</li>
+<li>Also no information about protein modifications</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Many other types of RNA play key roles
+<ul>
+<li>miRNAs degrade their target mRNAs</li>
+<li>lncRNAs can silence chromosomal regions (e.g.&nbsp;<em>XIST</em>)</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Shows an early <em>visible response to stimuli</em></li>
+<li>Also represents a <em>stable state</em> of the cell</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Despite many mRNAs representing an intermediary state, this reveals a lot of information about the cell, e.g.&nbsp;what it’s responding to, how it’s maintaining itself</li>
+<li>Great examples of rapid transcriptional response are in T cells which encouter their target antigen
+<ul>
+<li>Huge &amp; rapid transcriptional consequences</li>
+</ul></li>
+<li>Many of the functional RNAs also provide vital insights, but these are often poorly understood</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<p><img src="assets/bodl_logo_white_background.jpg" class="slide-logo"></p>
+<div class="footer footer-default">
 
-<img src="assets/bodl_logo_white_background.jpg" class="slide-logo r-stretch"><div class="footer footer-default">
-
+</div>
 </div>
 </section></section>
     </div>
@@ -723,7 +910,7 @@ Dr Stevie Pederson (They/Them)
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -848,9 +1035,9 @@ Dr Stevie Pederson (They/Them)
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1024,
+        width: 1280,
 
-        height: 768,
+        height: 720,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
@@ -882,6 +1069,44 @@ Dr Stevie Pederson (They/Them)
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
