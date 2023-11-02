@@ -360,6 +360,7 @@ Proteins are the molecular machines that run our bodies
 - Proteomics is still really immature but can still shed important light on underlying biology
 - Most proteomic data is produced using Mass Spectrometry
     + Fragments the proteins and we detect spectra mass on mass & charge spectra
+- Some tissues are dominated by a small set of proteins (e.g. albumin in blood is >70% of all protein)
 - Being difficult study makes it harder for us to study $\implies$ we often look elsewhere that's easier
 - This is where transcriptomics comes in
 :::
@@ -554,10 +555,12 @@ Labelled cDNA binds complementary target
 
 . . .
     
-- Mature RNA transcripts may be short (8nt) or long (109,224nt)
+- Mature RNA transcripts may be short (8nt) or long (350,375nt)
 
 ::: {.notes}
-- Transcribed RNA (pre-processing) can be up to 305,000 nucleotides (*TTN*)
+- Transcribed RNA (pre-processing) can be up to 350,000 nucleotides
+- Longest transcript is *XACT* (lncRNA)
+- Shortest codes for a 2aa component of the T cell receptor
 :::
 
 
@@ -581,4 +584,34 @@ How do we put this all back together and quantify?
 - "Use the Force" might be really hard to figure out, but "Use the Force Luke" might be easier
 :::
 
-## Alignment
+## Bulk RNA Sequencing
+
+![](assets/bd020139.f1.jpeg)
+
+## Two Approaches To Alignment
+
+::: {.columns}
+
+::: {.column width="40%"}
+![](assets/alignment.jpeg)
+:::
+
+::: {.column width="60%"}
+1. Alignment to a reference genome
+    - Most align to one location $\implies$ can see where <span style="color:#769b79;">&#10003;</span>
+    - Brilliant for gene-level abundances <span style="color:#769b79;">&#10003;</span>
+    - Not helpful for transcript-level estimates <span style="color:red;">&#10007;</span>
+
+::: {.fragment}
+
+2. Alignment to a reference transcriptome
+    - Obtain transcript & gene-level estimates <span style="color:#769b79;">&#10003;</span>
+    - Many exons shared with multiple transcripts
+    - Many reads align to multiple transcripts $\implies$ significant uncertainty
+    - Can manage this uncertainty in modelling <span style="color:#769b79;">&#10003;</span>
+    - Don't know where each read has aligned <span style="color:red;">&#10007;</span>
+:::
+
+:::
+
+:::

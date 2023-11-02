@@ -813,6 +813,7 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>Fragments the proteins and we detect spectra mass on mass &amp; charge spectra</li>
 </ul></li>
+<li>Some tissues are dominated by a small set of proteins (e.g.&nbsp;albumin in blood is &gt;70% of all protein)</li>
 <li>Being difficult study makes it harder for us to study <span class="math inline">\(\implies\)</span> we often look elsewhere that’s easier</li>
 <li>This is where transcriptomics comes in</li>
 </ul>
@@ -1104,11 +1105,13 @@ Dr Stevie Pederson (They/Them)
 </div>
 <div class="fragment">
 <ul>
-<li>Mature RNA transcripts may be short (8nt) or long (109,224nt)</li>
+<li>Mature RNA transcripts may be short (8nt) or long (350,375nt)</li>
 </ul>
 <aside class="notes">
 <ul>
-<li>Transcribed RNA (pre-processing) can be up to 305,000 nucleotides (<em>TTN</em>)</li>
+<li>Transcribed RNA (pre-processing) can be up to 350,000 nucleotides</li>
+<li>Longest transcript is <em>XACT</em> (lncRNA)</li>
+<li>Shortest codes for a 2aa component of the T cell receptor</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1159,10 +1162,40 @@ Dr Stevie Pederson (They/Them)
       }</style></aside>
 </div>
 </section>
-<section id="alignment" class="slide level2">
-<h2>Alignment</h2>
+<section id="bulk-rna-sequencing-2" class="slide level2">
+<h2>Bulk RNA Sequencing</h2>
 
-<img src="assets/bodl_logo_white_background.jpg" class="slide-logo r-stretch"><div class="footer footer-default">
+<img data-src="assets/bd020139.f1.jpeg" class="r-stretch"></section>
+<section id="two-approaches-to-alignment" class="slide level2">
+<h2>Two Approaches To Alignment</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><img data-src="assets/alignment.jpeg"></p>
+</div><div class="column" style="width:60%;">
+<ol type="1">
+<li>Alignment to a reference genome
+<ul>
+<li>Most align to one location <span class="math inline">\(\implies\)</span> can see where <span style="color:#769b79;">✓</span></li>
+<li>Brilliant for gene-level abundances <span style="color:#769b79;">✓</span></li>
+<li>Not helpful for transcript-level estimates <span style="color:red;">✗</span></li>
+</ul></li>
+</ol>
+<div class="fragment">
+<ol start="2" type="1">
+<li>Alignment to a reference transcriptome
+<ul>
+<li>Obtain transcript &amp; gene-level estimates <span style="color:#769b79;">✓</span></li>
+<li>Many exons shared with multiple transcripts</li>
+<li>Many reads align to multiple transcripts <span class="math inline">\(\implies\)</span> significant uncertainty</li>
+<li>Can manage this uncertainty in modelling <span style="color:#769b79;">✓</span></li>
+<li>Don’t know where each read has aligned <span style="color:red;">✗</span></li>
+</ul></li>
+</ol>
+</div>
+</div>
+</div>
+<p><img src="assets/bodl_logo_white_background.jpg" class="slide-logo"></p>
+<div class="footer footer-default">
 
 </div>
 </section></section>
