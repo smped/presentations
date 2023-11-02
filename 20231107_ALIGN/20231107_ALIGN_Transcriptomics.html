@@ -548,8 +548,12 @@ Dr Stevie Pederson (They/Them)
 <li>Directly inherited from parents<br><span class="math inline">\(\implies\)</span> unique people</li>
 <li>Stays in the nucleus</li>
 <li>The same in every cell <span class="fragment fade-in">(roughly)</span></li>
+</ul>
+<div class="fragment">
+<ul>
 <li>Generally static <span class="fragment fade-in">(until cell division)</span></li>
 </ul>
+</div>
 </div>
 </div>
 <aside class="notes">
@@ -623,11 +627,18 @@ Dr Stevie Pederson (They/Them)
 <p>We often think of there being <u><strong>one unique reference sequence</strong></u></p>
 <ul>
 <li>This is very far from reality</li>
-<li>Each copy of Chromosome 1 is different to the other copy within each of us</li>
+<li>Each copy of Chromosome 1 is different to the other copy within each of us
+<ul>
+<li>Both copies are (essentially) the same between all of our cells</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
 <li>Same for all other chromosomes (1-22 + X)</li>
 <li>Scale this out to millions of people…</li>
 <li>Some regions are relatively invariant (needed for survival)</li>
 </ul>
+</div>
 </section>
 <section id="dna-3" class="slide level2">
 <h2>DNA</h2>
@@ -641,7 +652,8 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>We often refer to these unique sequences as <em>variants</em>
 <ul>
-<li>Single nucleotides (SNVs), missing/extra nucleotides (InDels)</li>
+<li>Single nucleotides (SNVs)</li>
+<li>Missing or extra nucleotides (InDels)</li>
 <li>Larger structural variants (SVs) and repetitive elements (REs)</li>
 </ul></li>
 </ul>
@@ -740,8 +752,15 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>Incredibly dynamic system
 <ul>
-<li>Some are stable</li>
-<li>Some degrade rapidly</li>
+<li>Some are stable <span class="math inline">\(\implies\)</span> Some degrade rapidly</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Each cell-type (e.g.&nbsp;neuron, skin cell) will make a different set of proteins
+<ul>
+<li>Some structural proteins may be common between unrelated cell-types</li>
 </ul></li>
 </ul>
 </div>
@@ -790,6 +809,10 @@ Dr Stevie Pederson (They/Them)
 <aside class="notes">
 <ul>
 <li>Proteomics is still really immature but can still shed important light on underlying biology</li>
+<li>Most proteomic data is produced using Mass Spectrometry
+<ul>
+<li>Fragments the proteins and we detect spectra mass on mass &amp; charge spectra</li>
+</ul></li>
 <li>Being difficult study makes it harder for us to study <span class="math inline">\(\implies\)</span> we often look elsewhere that’s easier</li>
 <li>This is where transcriptomics comes in</li>
 </ul>
@@ -805,16 +828,54 @@ Dr Stevie Pederson (They/Them)
           display:block!important;
       }</style></aside>
 </div>
+</section></section>
+<section>
+<section id="what-is-transcripomics" class="title-slide slide level1 center" data-background-color="#3c3c44">
+<h1>What is Transcripomics?</h1>
+
 </section>
 <section id="transcriptomics" class="slide level2">
 <h2>Transcriptomics</h2>
 <p><em>Transcriptomics is the study of RNA molecules within a cell or tissue</em></p>
 <div class="fragment">
 <ul>
+<li>Not all genes are expressed in every cell
+<ul>
+<li>~60,000 annotated genes in the genome</li>
+<li>~10-15,000 detectable genes in a given cell-type</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Transcriptomes are <em>cell-type specific</em>
+<ul>
+<li>Related cell-types will often have great similarity, e.g.&nbsp;T-cell sub-types</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Often take a cell-line (or cell-type) and expose to a treatment
+<ul>
+<li>Low variability <span class="math inline">\(\implies\)</span> treatment response is easy(ish) to spot</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="transcriptomics-1" class="slide level2">
+<h2>Transcriptomics</h2>
+<ul>
+<li>Transcriptomics is often an abundance-focussed analysis
+<ul>
+<li>Differential Gene Expression</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
 <li>Common early assumption <span class="math inline">\(\implies\)</span> mRNA abundance reflects protein levels
 <ul>
 <li>Is sometimes true …</li>
-<li>Also no information about protein modifications</li>
 </ul></li>
 </ul>
 </div>
@@ -835,7 +896,11 @@ Dr Stevie Pederson (They/Them)
 <aside class="notes">
 <ul>
 <li>Despite many mRNAs representing an intermediary state, this reveals a lot of information about the cell, e.g.&nbsp;what it’s responding to, how it’s maintaining itself</li>
-<li>Great examples of rapid transcriptional response are in T cells which encouter their target antigen
+<li>Some genes are transcribed without protein product
+<ul>
+<li>Enables rapid response if protein is needed quickly</li>
+</ul></li>
+<li>Great examples of rapid transcriptional response are in T cells which encounter their target antigen or see pro-inflammatory cytokines
 <ul>
 <li>Huge &amp; rapid transcriptional consequences</li>
 </ul></li>
@@ -852,10 +917,253 @@ Dr Stevie Pederson (They/Them)
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-<p><img src="assets/bodl_logo_white_background.jpg" class="slide-logo"></p>
-<div class="footer footer-default">
-
 </div>
+</section>
+<section id="what-is-an-rna-transcript" class="slide level2">
+<h2>What is an RNA transcript?</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ul>
+<li>All known transcribed regions are defined as genes
+<ul>
+<li>Transcribed from DNA <span class="math inline">\(\implies\)</span> start to finish</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>From the larger transcript:
+<ul>
+<li>Introns are <em>spliced</em> out</li>
+<li>Exons form <em>mature transcript</em></li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column" style="width:60%;">
+<p><img data-src="assets/splicing.png"></p>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li>Most genes are transcribed into multiple <strong>transcripts</strong></li>
+<li>Different transcripts <span class="math inline">\(\implies\)</span> Different proteins (or even other RNA)</li>
+</ul>
+</div>
+<aside class="notes">
+<ul>
+<li>This is really where the name transcriptomics has developed</li>
+<li>Represents far greater complexity than just gene-level abundances</li>
+<li>Some genes even have multiple start sites</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="sec14l2-a-random-example" class="slide level2">
+<h2><em>SEC14L2</em>: A Random Example</h2>
+
+<img data-src="assets/sec14l2.png" width="1100" class="r-stretch"><aside class="notes">
+<p>I was looking at this one the other day:</p>
+<ul>
+<li>The canonical gene for <em>SEC14L2</em> is shown at the top, as is the canonical gene for <em>MTFP1</em></li>
+<li><em>SEC14L2</em> has 4 start sites &amp; multiple combinations identified</li>
+<li><em>MTFP1</em> has one start site, with a few combinations</li>
+<li>New discoveries show a start site halfway down <em>SEC14L2</em> but with some of <em>MTFP1</em> at the end</li>
+<li>What do we call this?</li>
+<li>Also, if you start on the other DNA strand and go in the other direction, you get <em>RNF215</em>, which also has another start site</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="how-do-we-study-transcriptomics" class="title-slide slide level1 center" data-background-color="#3c3c44">
+<h1>How Do We Study Transcriptomics</h1>
+
+</section>
+<section id="early-gene-expression-approaches" class="slide level2">
+<h2>Early Gene Expression Approaches</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>The first high-throughput platform was Microarrays
+<ul>
+<li>3’ Arrays (Affymetrix)</li>
+</ul></li>
+<li>Gene-centric approach
+<ul>
+<li>Could analyse 10-15,000 genes</li>
+</ul></li>
+<li>Many statistical tools developed in this context
+<ul>
+<li><code>limma</code> has been maintained by Gordon Smyth (WEHI) for &gt;20years</li>
+</ul></li>
+</ul>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://s3.amazonaws.com/static.wd7.us/2/22/Affymetrix-microarray.jpg"></p>
+<figcaption>Image courtesy of Affymetrix</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>The 20yrs younger nerd got excited by this technology</li>
+<li>Limma stands for linear models for microarrays</li>
+<li>Still heavily used in modern approaches</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="microarrays" class="slide level2">
+<h2>Microarrays</h2>
+<div class="columns">
+<div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/affy_design.png"></p>
+<figcaption>Image courtesy of Affymetrix</figcaption>
+</figure>
+</div>
+<p>Known sequences at known locations</p>
+</div><div class="column">
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://s3.amazonaws.com/iphonecde/_GNCHIP3.GIF"></p>
+<figcaption>Image courtesy of Affymetrix</figcaption>
+</figure>
+</div>
+<p>Labelled cDNA binds complementary target</p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>Known sequences were placed at specific co-ordinates</li>
+<li>RNA was converted to cDNA (more stable) labelled with fluorophores</li>
+<li>cDNA binds to perfectly matching complementary sequence</li>
+<li>Laser excites fluorophores: brighter signal <span class="math inline">\(\implies\)</span> more original RNA</li>
+<li>Were indirectly measuring RNA abundance</li>
+<li>RNA degrades from one-specific end (i.e.&nbsp;3’) so probes targets 3’ end of a gene for intact RNA</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="bulk-rna-sequencing" class="slide level2">
+<h2>Bulk RNA Sequencing</h2>
+<ul>
+<li>Modern approaches involve sequencing the transcriptome
+<ul>
+<li>Short Reads (Illumina) &lt; 300bases: Quantitative</li>
+<li>Long Reads (Nanopore, PacBio); Semi-Quantitative</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Short reads still dominate
+<ul>
+<li>Used in the PROPHECY transcriptomics layer</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Mature RNA transcripts may be short (8nt) or long (109,224nt)</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Transcribed RNA (pre-processing) can be up to 305,000 nucleotides (<em>TTN</em>)</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="bulk-rna-sequencing-1" class="slide level2">
+<h2>Bulk RNA Sequencing</h2>
+<ul>
+<li>All cells from each sample (or tissue) are lysed and RNA extracted</li>
+<li>RNA is fragmented (250-500bp)
+<ul>
+<li>RNA Quality is assessed (RIN Score)</li>
+</ul></li>
+<li>RNA fragments are prepared for sequencing (library preparation)
+<ul>
+<li>Converted to cDNA</li>
+<li>Add sequencing adapters</li>
+<li>PCR amplification</li>
+</ul></li>
+<li>Sequencing</li>
+</ul>
+<div class="fragment">
+<p>How do we put this all back together and quantify?</p>
+<aside class="notes">
+<ul>
+<li>Imagine chopping up the screen-plays to all 9 Star Wars movies then having to figure out where it came from?</li>
+<li>“Use the Force” might be really hard to figure out, but “Use the Force Luke” might be easier</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="alignment" class="slide level2">
+<h2>Alignment</h2>
+
+<img src="assets/bodl_logo_white_background.jpg" class="slide-logo r-stretch"><div class="footer footer-default">
+
 </div>
 </section></section>
     </div>

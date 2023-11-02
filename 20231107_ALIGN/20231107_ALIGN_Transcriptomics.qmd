@@ -166,7 +166,12 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
 - Directly inherited from parents<br>$\implies$ unique people
 - Stays in the nucleus
 - The same in every cell [(roughly)]{.fragment .fade-in}
+
+::: {.fragment}
+
 - Generally static [(until cell division)]{.fragment .fade-in}
+
+:::
 
 :::
 
@@ -221,6 +226,10 @@ We often think of there being [**one unique reference sequence**]{.underline}
 
 - This is very far from reality 
 - Each copy of Chromosome 1 is different to the other copy within each of us
+    + Both copies are (essentially) the same between all of our cells
+    
+. . .    
+    
 - Same for all other chromosomes (1-22 + X)
 - Scale this out to millions of people...
 - Some regions are relatively invariant (needed for survival)
@@ -233,7 +242,8 @@ We often think of there being [**one unique reference sequence**]{.underline}
 . . .    
     
 - We often refer to these unique sequences as *variants*
-    + Single nucleotides (SNVs), missing/extra nucleotides (InDels) 
+    + Single nucleotides (SNVs)
+    + Missing or extra nucleotides (InDels) 
     + Larger structural variants (SVs) and repetitive elements (REs)
     
 . . .    
@@ -309,8 +319,12 @@ Proteins are the molecular machines that run our bodies
 . . .
 
 - Incredibly dynamic system
-    + Some are stable
-    + Some degrade rapidly
+    + Some are stable $\implies$ Some degrade rapidly
+    
+. . .
+
+- Each cell-type (e.g. neuron, skin cell) will make a different set of proteins
+    + Some structural proteins may be common between unrelated cell-types
 
 . . .
 
@@ -344,9 +358,13 @@ Proteins are the molecular machines that run our bodies
 
 ::: {.notes}
 - Proteomics is still really immature but can still shed important light on underlying biology
+- Most proteomic data is produced using Mass Spectrometry
+    + Fragments the proteins and we detect spectra mass on mass & charge spectra
 - Being difficult study makes it harder for us to study $\implies$ we often look elsewhere that's easier
 - This is where transcriptomics comes in
 :::
+
+# What is Transcripomics? {background-color="#3c3c44"}
 
 ## Transcriptomics
 
@@ -354,9 +372,29 @@ Proteins are the molecular machines that run our bodies
 
 . . .
 
+- Not all genes are expressed in every cell
+    + ~60,000 annotated genes in the genome
+    + ~10-15,000 detectable genes in a given cell-type
+    
+. . .
+
+- Transcriptomes are *cell-type specific*
+    + Related cell-types will often have great similarity, e.g. T-cell sub-types
+    
+. . .
+
+- Often take a cell-line (or cell-type) and expose to a treatment
+    + Low variability $\implies$ treatment response is easy(ish) to spot
+
+## Transcriptomics
+
+- Transcriptomics is often an abundance-focussed analysis
+    + Differential Gene Expression
+
+. . .    
+    
 - Common early assumption $\implies$ mRNA abundance reflects protein levels
     + Is sometimes true ...
-    + Also no information about protein modifications
     
 . . .    
     
@@ -371,7 +409,176 @@ Proteins are the molecular machines that run our bodies
 
 ::: {.notes}
 - Despite many mRNAs representing an intermediary state, this reveals a lot of information about the cell, e.g. what it's responding to, how it's maintaining itself
-- Great examples of rapid transcriptional response are in T cells which encouter their target antigen
+- Some genes are transcribed without protein product
+    + Enables rapid response if protein is needed quickly
+- Great examples of rapid transcriptional response are in T cells which encounter their target antigen or see pro-inflammatory cytokines
     + Huge & rapid transcriptional consequences
 - Many of the functional RNAs also provide vital insights, but these are often poorly understood
 :::
+
+## What is an RNA transcript?
+
+::: {.columns}
+
+::: {.column width="40%"}
+
+
+- All known transcribed regions are defined as genes
+    + Transcribed from DNA $\implies$ start to finish
+
+::: {.fragment}
+
+- From the larger transcript:
+    + Introns are *spliced* out
+    + Exons form *mature transcript*
+    
+:::
+    
+:::
+
+::: {.column width="60%"}
+
+![](assets/splicing.png)
+
+:::
+
+:::
+
+::: {.fragment}
+
+- Most genes are transcribed into multiple **transcripts**
+- Different transcripts $\implies$ Different proteins (or even other RNA)
+
+:::
+
+::: {.notes}
+- This is really where the name transcriptomics has developed
+- Represents far greater complexity than just gene-level abundances
+- Some genes even have multiple start sites
+:::
+
+## *SEC14L2*: A Random Example
+
+![](assets/sec14l2.png){width="1100px"}
+
+::: {.notes}
+I was looking at this one the other day:
+
+- The canonical gene for *SEC14L2* is shown at the top, as is the canonical gene for *MTFP1*
+- *SEC14L2* has 4 start sites & multiple combinations identified
+- *MTFP1* has one start site, with a few combinations
+- New discoveries show a start site halfway down *SEC14L2* but with some of *MTFP1* at the end
+- What do we call this?
+- Also, if you start on the other DNA strand and go in the other direction, you get *RNF215*, which also has another start site
+
+:::
+
+# How Do We Study Transcriptomics {background-color="#3c3c44"}
+
+## Early Gene Expression Approaches
+
+::: {.columns}
+
+::: {.column}
+
+- The first high-throughput platform was Microarrays
+    + 3' Arrays (Affymetrix)
+- Gene-centric approach
+    + Could analyse 10-15,000 genes
+- Many statistical tools developed in this context
+    + `limma` has been maintained by Gordon Smyth (WEHI) for >20years
+  
+    
+:::
+
+::: {.column}
+
+![Image courtesy of Affymetrix](https://s3.amazonaws.com/static.wd7.us/2/22/Affymetrix-microarray.jpg)
+
+:::
+
+:::
+
+::: {.notes}
+- The 20yrs younger nerd got excited by this technology
+- Limma stands for linear models for microarrays
+- Still heavily used in modern approaches
+:::
+
+## Microarrays
+
+::: {.columns}
+
+::: {.column}
+
+![Image courtesy of Affymetrix](assets/affy_design.png)
+
+Known sequences at known locations
+
+:::
+
+::: {.column}
+
+::: {.fragment}
+
+![Image courtesy of Affymetrix](https://s3.amazonaws.com/iphonecde/_GNCHIP3.GIF)
+
+Labelled cDNA binds complementary target
+
+:::
+
+:::
+
+:::
+
+::: {.notes}
+
+- Known sequences were placed at specific co-ordinates
+- RNA was converted to cDNA (more stable) labelled with fluorophores
+- cDNA binds to perfectly matching complementary sequence
+- Laser excites fluorophores: brighter signal $\implies$ more original RNA
+- Were indirectly measuring RNA abundance
+- RNA degrades from one-specific end (i.e. 3') so probes targets 3' end of a gene for intact RNA
+:::
+
+## Bulk RNA Sequencing
+
+- Modern approaches involve sequencing the transcriptome
+    + Short Reads (Illumina) < 300bases: Quantitative
+    + Long Reads (Nanopore, PacBio); Semi-Quantitative
+
+. . .
+
+- Short reads still dominate
+    + Used in the PROPHECY transcriptomics layer
+
+. . .
+    
+- Mature RNA transcripts may be short (8nt) or long (109,224nt)
+
+::: {.notes}
+- Transcribed RNA (pre-processing) can be up to 305,000 nucleotides (*TTN*)
+:::
+
+
+## Bulk RNA Sequencing
+
+- All cells from each sample (or tissue) are lysed and RNA extracted
+- RNA is fragmented (250-500bp)
+    + RNA Quality is assessed (RIN Score)
+- RNA fragments are prepared for sequencing (library preparation)
+    + Converted to cDNA
+    + Add sequencing adapters
+    + PCR amplification
+- Sequencing
+
+. . .
+
+How do we put this all back together and quantify?
+
+::: {.notes}
+- Imagine chopping up the screen-plays to all 9 Star Wars movies then having to figure out where it came from?
+- "Use the Force" might be really hard to figure out, but "Use the Force Luke" might be easier
+:::
+
+## Alignment
