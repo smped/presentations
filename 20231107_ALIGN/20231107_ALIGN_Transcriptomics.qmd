@@ -668,17 +668,178 @@ How do we put this all back together and quantify?
 
 ## Limitations
 
+- Both approaches use 1 reference sequence $\implies$ linear reference
+- If 1 of each of our chromosomes matched exactly $\implies$ the other copy won't
+
+. . .
+
+- Current reference genome is GRCh38
+    + Transcripts are sequences derived from this
+    + Anchored to GRCh38 using co-ordinates
+    
+. . .    
+    
+- Includes 517 extra sequences (scaffolds, patches, haplotypes)
+    + Do not exist in reality
+    + Some genes have transcripts defined on scaffolds + chromsomes
+
+::: {.notes}
+- Reality is that no copies of either chromosome match the existing reference
+    + 93% of GRCh38 is taken from 11 individuals
+- GRC is the Genome Reference Consortium
+    + Numbering didn't start at GRCh1 $\implies$ GRCh37 took over from hg19
+    + hg1 was release in 2000
+- Extra sequences are bits they know exist, but don't know what to do with
+:::
+
+## How Do We Manage Diversity?
+
+Given that no real person matches the reference genome
+
+. . .
+
+- Can we improve the reference in general?
+- Can we improve for a given study cohort
+
+. . .
+
+Two emerging approaches
+
+. . .
+
+1. Modify a linear reference using representative variants
+2. Align to a *reference graph* which represents appropriate diversity
+
+## Modifying a Reference
+
+- Tools exist for modifying a reference genome
+    + Unable to analyse at the transcript level $\implies$ only gene-leve
+    
+. . .
+
+- Developing the software to produce a variant-modified transcriptome
+    + Will enable counts ate the transcript-level
+
+. . .
+
+- Current approach uses 1000 Genomes Project variants
+    + Shown to significantly improve mappings in other datasets
+    + Poorly representative of Australian Indigenous variation
+
+::: {.notes}
+- We're currently discussing how we manage this for the PROPHECY dataset
+- How do we define improvement
+- How do we manage data access between -omics layers
+:::
 
 
-## Alternative Approaches
+## Graph Based Approaches
 
-- Reference graphs
+::: {.columns}
+
+::: {.column width="55%"}
+
+- Telomere-to-telomere (T2T) assemblies contain no scaffolds
+    + Just chr1-22, X, Y & MT
+- Individual assemblies $\implies$ *haplotype resolved*
+    + Separate out both copies of chr1 etc
+    
+::: {.fragment fragment-index=1}
+
+- Can construct a reference graph
+    + Shared sequences between chromosome pairs are joined
+    + Variation represented as bubbles
+
+:::
+
+::: {.fragment fragment-index=3}
+- For >1 individual would be a *pangenome graph*
+:::
+
+:::
+
+::: {.column width="45%"}
+
+::: {.fragment fragment-index=2}
+
+![Sibbesen, J et al, *Haplotype-aware pantranscriptome analyses using spliced pangenome graphs* Nat Methods, 2023](assets/reference_graph.png){fig-align="left"}
+:::
+
+:::
+
+:::
+
+::: {.notes}
+- Beyond my expertise of experience
+- Currently have a student learning the tools
+- Hardip is actively working in this space with NCIG
+:::
+
+## Graph Based Approaches
+
+- A reference pan-genome is now available[^1]
+    + Contains 47 haplotype resolved diploid T2T assemblies
+    + Representative of diversity?
+    
+. . .
+    
+- Explicitly align to the *complete set of diversity* [(in the reference)]{.fragment}
+  
+. . .
+
+- <span style="color:red;"> Are the days of the linear reference dead? &#128561;</span>
+
+. . .
+
+- How will this impact the PROPHECY transcriptomics layer?
+    + e.g. How do we integrate annotated regulatory elements from a linear reference
+
+[^1]: Liao W et al, *A draft human pangenome reference* Nature, 2023
+
+::: {.notes}
+- This is an area of active discussion amongst the Black Ochre Data Labs
+- How will these approaches impact integration across layers?
+- How will it impact our ability to access existing resources, all based on linear genomes
+- Monica's work, using a public, non-Indigenous T2D dataset will help us understand how known genes behave under this new approach
+:::
+
 
 ## Long Reads
 
-- Great for identification of novel transcripts
-- Uses circularisation
+::: {.columns}
 
+::: {.column width="60%"}
+
+- Short read technology has <span style="color:#769b79;">&#8681;&#8681;&#8681;</span> error rates
+- Long reads have <span style="color:red;">&#8679;&#8679;&#8679;</span> error rates
+
+::: {.fragment fragment-index=1}
+
+- Reads are circularised <br>$\implies$ errors corrected by repeat reads
+
+:::
+
+::: {.fragment fragment-index=2}
+
+
+- Great for identification of novel transcripts <br>$\implies$ difficult to quantify
+    + Creation of a custom reference transcriptome
+    + Challenging to refer back to functional annotations in reference
+    
+:::
+    
+:::
+
+::: {.column width="40%"}
+
+::: {.fragment fragment-index=1}
+
+![Peccoud J et al, *Untangling Heteroplasmy, Structure, and Evolution of an Atypical Mitochondrial Genome by PacBio Sequencing* Genetics 2017](assets/m_269fig2.jpeg)
+:::
+
+:::
+
+:::
 
 # How Do We Make Key Discoveries? {background-color="#3c3c44"}
 

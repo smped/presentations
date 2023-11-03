@@ -1288,19 +1288,251 @@ Dr Stevie Pederson (They/Them)
 </section>
 <section id="limitations" class="slide level2">
 <h2>Limitations</h2>
-</section>
-<section id="alternative-approaches" class="slide level2">
-<h2>Alternative Approaches</h2>
 <ul>
-<li>Reference graphs</li>
+<li>Both approaches use 1 reference sequence <span class="math inline">\(\implies\)</span> linear reference</li>
+<li>If 1 of each of our chromosomes matched exactly <span class="math inline">\(\implies\)</span> the other copy won’t</li>
 </ul>
+<div class="fragment">
+<ul>
+<li>Current reference genome is GRCh38
+<ul>
+<li>Transcripts are sequences derived from this</li>
+<li>Anchored to GRCh38 using co-ordinates</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Includes 517 extra sequences (scaffolds, patches, haplotypes)
+<ul>
+<li>Do not exist in reality</li>
+<li>Some genes have transcripts defined on scaffolds + chromsomes</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Reality is that no copies of either chromosome match the existing reference
+<ul>
+<li>93% of GRCh38 is taken from 11 individuals</li>
+</ul></li>
+<li>GRC is the Genome Reference Consortium
+<ul>
+<li>Numbering didn’t start at GRCh1 <span class="math inline">\(\implies\)</span> GRCh37 took over from hg19</li>
+<li>hg1 was release in 2000</li>
+</ul></li>
+<li>Extra sequences are bits they know exist, but don’t know what to do with</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
 </section>
+<section id="how-do-we-manage-diversity" class="slide level2">
+<h2>How Do We Manage Diversity?</h2>
+<p>Given that no real person matches the reference genome</p>
+<div class="fragment">
+<ul>
+<li>Can we improve the reference in general?</li>
+<li>Can we improve for a given study cohort</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Two emerging approaches</p>
+</div>
+<div class="fragment">
+<ol type="1">
+<li>Modify a linear reference using representative variants</li>
+<li>Align to a <em>reference graph</em> which represents appropriate diversity</li>
+</ol>
+</div>
+</section>
+<section id="modifying-a-reference" class="slide level2">
+<h2>Modifying a Reference</h2>
+<ul>
+<li>Tools exist for modifying a reference genome
+<ul>
+<li>Unable to analyse at the transcript level <span class="math inline">\(\implies\)</span> only gene-leve</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Developing the software to produce a variant-modified transcriptome
+<ul>
+<li>Will enable counts ate the transcript-level</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Current approach uses 1000 Genomes Project variants
+<ul>
+<li>Shown to significantly improve mappings in other datasets</li>
+<li>Poorly representative of Australian Indigenous variation</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>We’re currently discussing how we manage this for the PROPHECY dataset</li>
+<li>How do we define improvement</li>
+<li>How do we manage data access between -omics layers</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="graph-based-approaches" class="slide level2">
+<h2>Graph Based Approaches</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ul>
+<li>Telomere-to-telomere (T2T) assemblies contain no scaffolds
+<ul>
+<li>Just chr1-22, X, Y &amp; MT</li>
+</ul></li>
+<li>Individual assemblies <span class="math inline">\(\implies\)</span> <em>haplotype resolved</em>
+<ul>
+<li>Separate out both copies of chr1 etc</li>
+</ul></li>
+</ul>
+<div class="fragment" data-fragment-index="1">
+<ul>
+<li>Can construct a reference graph
+<ul>
+<li>Shared sequences between chromosome pairs are joined</li>
+<li>Variation represented as bubbles</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="3">
+<ul>
+<li>For &gt;1 individual would be a <em>pangenome graph</em></li>
+</ul>
+</div>
+</div><div class="column" style="width:45%;">
+<div class="fragment" data-fragment-index="2">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="assets/reference_graph.png"></p>
+<figcaption>Sibbesen, J et al, <em>Haplotype-aware pantranscriptome analyses using spliced pangenome graphs</em> Nat Methods, 2023</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>Beyond my expertise of experience</li>
+<li>Currently have a student learning the tools</li>
+<li>Hardip is actively working in this space with NCIG</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="graph-based-approaches-1" class="slide level2">
+<h2>Graph Based Approaches</h2>
+<ul>
+<li>A reference pan-genome is now available<sup>1</sup>
+<ul>
+<li>Contains 47 haplotype resolved diploid T2T assemblies</li>
+<li>Representative of diversity?</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Explicitly align to the <em>complete set of diversity</em> <span class="fragment">(in the reference)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span style="color:red;"> Are the days of the linear reference dead? 😱</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>How will this impact the PROPHECY transcriptomics layer?
+<ul>
+<li>e.g.&nbsp;How do we integrate annotated regulatory elements from a linear reference</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>This is an area of active discussion amongst the Black Ochre Data Labs</li>
+<li>How will these approaches impact integration across layers?</li>
+<li>How will it impact our ability to access existing resources, all based on linear genomes</li>
+<li>Monica’s work, using a public, non-Indigenous T2D dataset will help us understand how known genes behave under this new approach</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Liao W et al, <em>A draft human pangenome reference</em> Nature, 2023</p></li></ol></aside></section>
 <section id="long-reads" class="slide level2">
 <h2>Long Reads</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
 <ul>
-<li>Great for identification of novel transcripts</li>
-<li>Uses circularisation</li>
+<li>Short read technology has <span style="color:#769b79;">⇩⇩⇩</span> error rates</li>
+<li>Long reads have <span style="color:red;">⇧⇧⇧</span> error rates</li>
 </ul>
+<div class="fragment" data-fragment-index="1">
+<ul>
+<li>Reads are circularised <br><span class="math inline">\(\implies\)</span> errors corrected by repeat reads</li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="2">
+<ul>
+<li>Great for identification of novel transcripts <br><span class="math inline">\(\implies\)</span> difficult to quantify
+<ul>
+<li>Creation of a custom reference transcriptome</li>
+<li>Challenging to refer back to functional annotations in reference</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="fragment" data-fragment-index="1">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/m_269fig2.jpeg"></p>
+<figcaption>Peccoud J et al, <em>Untangling Heteroplasmy, Structure, and Evolution of an Atypical Mitochondrial Genome by PacBio Sequencing</em> Genetics 2017</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="how-do-we-make-key-discoveries" class="title-slide slide level1 center" data-background-color="#3c3c44">
@@ -1326,6 +1558,7 @@ Dr Stevie Pederson (They/Them)
 
 </div>
 </section></section>
+
     </div>
   </div>
 
