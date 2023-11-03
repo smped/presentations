@@ -327,7 +327,7 @@
 
 <section id="title-slide" data-background-color="#3c3c44" data-background-opacity="20%" data-background-position="50% 50%" data-background-size="35%" class="quarto-title-block center">
   <h1 class="title">ALIGN Capacity Building</h1>
-  <p class="subtitle">The What, Why and How of Transcriptomics</p>
+  <p class="subtitle">The Why, What and How of Transcriptomics</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -745,6 +745,25 @@ Dr Stevie Pederson (They/Them)
           display:block!important;
       }</style></aside>
 </section>
+<section id="the-central-dogma" class="slide level2">
+<h2>The Central Dogma</h2>
+
+<img data-src="assets/crick_dogma_note.png" class="r-stretch quarto-figure-center"><p class="caption">From Frances Crick, <em>Ideas on Protein Synthesis</em>, Unpublished Note, Wellcome Library, 1956</p><aside class="notes">
+<ul>
+<li>Interestingly, Crick’s perspective on the the Central Dogma wasn’t that RNA must be translated into protein, but was more about the direction of information loss</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="proteins" class="slide level2">
 <h2>Proteins</h2>
 <p>Proteins are the molecular machines that run our bodies</p>
@@ -761,6 +780,7 @@ Dr Stevie Pederson (They/Them)
 <li>Each cell-type (e.g.&nbsp;neuron, skin cell) will make a different set of proteins
 <ul>
 <li>Some structural proteins may be common between unrelated cell-types</li>
+<li>Many proteins exist <em>outside</em> of cells</li>
 </ul></li>
 </ul>
 </div>
@@ -769,14 +789,26 @@ Dr Stevie Pederson (They/Them)
 <li>Proteins can be heavily modified
 <ul>
 <li>Phosphorylation, Sumoylation, Ubiquitination etc</li>
-</ul></li>
 <li>Can be single molecules or bind to multiple partners</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
+</ul></li>
 <li>Different functions or activities for every state</li>
 </ul>
+<aside class="notes">
+<ul>
+<li>Another key feature of proteins which sets them apart from DNA &amp; RNA is their role outside cells</li>
+<li>By dogma, Nucleic Acids don’t</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
 <section id="proteins-1" class="slide level2">
@@ -840,7 +872,7 @@ Dr Stevie Pederson (They/Them)
 <p><em>Transcriptomics is the study of RNA molecules within a cell or tissue</em></p>
 <div class="fragment">
 <ul>
-<li>Not all genes are expressed in every cell
+<li>Not all genes are transcribed (i.e.&nbsp;expressed) in every cell
 <ul>
 <li>~60,000 annotated genes in the genome</li>
 <li>~10-15,000 detectable genes in a given cell-type</li>
@@ -869,33 +901,21 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>Transcriptomics is often an abundance-focussed analysis
 <ul>
-<li>Differential Gene Expression</li>
+<li>Represents a <em>stable state</em> of a cell</li>
+<li>Differential Gene Expression <span class="fragment fade-in"><span class="math inline">\(\implies\)</span> <em>detectable response to stimuli</em></span></li>
 </ul></li>
 </ul>
 <div class="fragment">
 <ul>
+<li>Traditionally focussed on mRNA</li>
 <li>Common early assumption <span class="math inline">\(\implies\)</span> mRNA abundance reflects protein levels
 <ul>
 <li>Is sometimes true …</li>
 </ul></li>
 </ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Many other types of RNA play key roles
-<ul>
-<li>miRNAs degrade their target mRNAs</li>
-<li>lncRNAs can silence chromosomal regions (e.g.&nbsp;<em>XIST</em>)</li>
-</ul></li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Shows an early <em>visible response to stimuli</em></li>
-<li>Also represents a <em>stable state</em> of the cell</li>
-</ul>
 <aside class="notes">
 <ul>
+<li>RNA molecules which are translated into proteins are generally referred to as messenger RNA (mRNA)</li>
 <li>Despite many mRNAs representing an intermediary state, this reveals a lot of information about the cell, e.g.&nbsp;what it’s responding to, how it’s maintaining itself</li>
 <li>Some genes are transcribed without protein product
 <ul>
@@ -905,7 +925,6 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>Huge &amp; rapid transcriptional consequences</li>
 </ul></li>
-<li>Many of the functional RNAs also provide vital insights, but these are often poorly understood</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -920,19 +939,62 @@ Dr Stevie Pederson (They/Them)
       }</style></aside>
 </div>
 </section>
+<section id="transcriptomics-2" class="slide level2">
+<h2>Transcriptomics</h2>
+<p>Our classic viewpoint is DNA <span class="math inline">\(\implies\)</span> mRNA <span class="math inline">\(\implies\)</span> Protein</p>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div>
+<ul>
+<li class="fragment">Many other types of RNA play key roles
+<ul>
+<li class="fragment">miRNAs bind to and degrade target mRNAs</li>
+<li class="fragment">lncRNAs form highly complex structures <br><span class="math inline">\(\implies\)</span>can silence chromosomal regions (e.g.&nbsp;<em>XIST</em>)</li>
+<li class="fragment">rRNAs form key units of ribosomes <br><span class="math inline">\(\implies\)</span> protein translation</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column" style="width:45%;">
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://github.com/UofABioinformaticsHub/transcriptomics_applications/blob/master/lectures/figures/Xist.png?raw=true"></p>
+<figcaption>A 2kb region of Xist. Taken from Fang et al., “Probing Xist RNA Structure in Cells Using Targeted Structure-Seq”</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<ul>
+<li>Many of the functional RNAs also provide vital insights, but these are often poorly understood</li>
+<li>We generally ignore Ribosomal RNAs, and given they make up ~80% of RNA in a cell, we need to manage these</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="what-is-an-rna-transcript" class="slide level2">
 <h2>What is an RNA transcript?</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <ul>
-<li>All known transcribed regions are defined as genes
+<li>Known transcribed regions are defined as genes
 <ul>
 <li>Transcribed from DNA <span class="math inline">\(\implies\)</span> start to finish</li>
 </ul></li>
 </ul>
 <div class="fragment">
 <ul>
-<li>From the larger transcript:
+<li>From the complete RNA transcript:
 <ul>
 <li>Introns are <em>spliced</em> out</li>
 <li>Exons form <em>mature transcript</em></li>
@@ -940,20 +1002,32 @@ Dr Stevie Pederson (They/Them)
 </ul>
 </div>
 </div><div class="column" style="width:60%;">
-<p><img data-src="assets/splicing.png"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/splicing2.png"></p>
+<figcaption>Image courtesy of National Human Genome Research Institute</figcaption>
+</figure>
+</div>
 </div>
 </div>
 <div class="fragment">
 <ul>
-<li>Most genes are transcribed into multiple <strong>transcripts</strong></li>
-<li>Different transcripts <span class="math inline">\(\implies\)</span> Different proteins (or even other RNA)</li>
+<li>~38% of genes (~24,000) are transcribed into multiple <strong>transcripts</strong></li>
+<li>Different transcripts <span class="math inline">\(\implies\)</span> Different proteins (or lncRNA)</li>
 </ul>
 </div>
 <aside class="notes">
 <ul>
+<li>This definition of a gene is quite different to the original <em>‘unit of inheritance’</em></li>
+<li>It’s probably worth noting that from a DNA-structural perspective, introns &amp; exons are just long sequences
+<ul>
+<li>Splice junctions are defined by core sequence motifs, not any 3D structure like appears here</li>
+</ul></li>
 <li>This is really where the name transcriptomics has developed</li>
 <li>Represents far greater complexity than just gene-level abundances</li>
 <li>Some genes even have multiple start sites</li>
+<li>The key point is we have one gene, multiple transcripts, multiple proteins then multiple modifications of multiple proteins</li>
+<li>Transcriptomics reflects a key inflection point in the development of informational complexity</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -979,6 +1053,7 @@ Dr Stevie Pederson (They/Them)
 <li>New discoveries show a start site halfway down <em>SEC14L2</em> but with some of <em>MTFP1</em> at the end</li>
 <li>What do we call this?</li>
 <li>Also, if you start on the other DNA strand and go in the other direction, you get <em>RNF215</em>, which also has another start site</li>
+<li>I sometimes think that if we knew what we know know, our entire way of defining genes etc might be completely different</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1176,15 +1251,15 @@ Dr Stevie Pederson (They/Them)
 <li>Alignment to a reference genome
 <ul>
 <li>Most align to one location <span class="math inline">\(\implies\)</span> can see where <span style="color:#769b79;">✓</span></li>
-<li>Brilliant for gene-level abundances <span style="color:#769b79;">✓</span></li>
-<li>Not helpful for transcript-level estimates <span style="color:red;">✗</span></li>
+<li>Brilliant for gene-level counts <span style="color:#769b79;">✓</span></li>
+<li>Not helpful for transcript-level <span style="color:red;">✗</span></li>
 </ul></li>
 </ol>
 <div class="fragment">
 <ol start="2" type="1">
 <li>Alignment to a reference transcriptome
 <ul>
-<li>Obtain transcript &amp; gene-level estimates <span style="color:#769b79;">✓</span></li>
+<li>Obtain transcript &amp; gene-level counts <span style="color:#769b79;">✓</span></li>
 <li>Many exons shared with multiple transcripts</li>
 <li>Many reads align to multiple transcripts <span class="math inline">\(\implies\)</span> significant uncertainty</li>
 <li>Can manage this uncertainty in modelling <span style="color:#769b79;">✓</span></li>
@@ -1194,8 +1269,60 @@ Dr Stevie Pederson (They/Them)
 </div>
 </div>
 </div>
-<p><img src="assets/bodl_logo_white_background.jpg" class="slide-logo"></p>
-<div class="footer footer-default">
+<aside class="notes">
+<ul>
+<li>Aligning to a linear reference uses conventional aligners (Burrows-Wheeler transform)</li>
+<li>Aligning to a transcriptome incorporates graph-based strategies</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="limitations" class="slide level2">
+<h2>Limitations</h2>
+</section>
+<section id="alternative-approaches" class="slide level2">
+<h2>Alternative Approaches</h2>
+<ul>
+<li>Reference graphs</li>
+</ul>
+</section>
+<section id="long-reads" class="slide level2">
+<h2>Long Reads</h2>
+<ul>
+<li>Great for identification of novel transcripts</li>
+<li>Uses circularisation</li>
+</ul>
+</section></section>
+<section>
+<section id="how-do-we-make-key-discoveries" class="title-slide slide level1 center" data-background-color="#3c3c44">
+<h1>How Do We Make Key Discoveries?</h1>
+
+</section>
+<section id="differential-gene-expression" class="slide level2">
+<h2>Differential Gene Expression</h2>
+<ul>
+<li>Batch effects, GC bias etc</li>
+</ul>
+</section>
+<section id="pathway-functional-analysis" class="slide level2">
+<h2>Pathway &amp; Functional Analysis</h2>
+</section>
+<section id="wgcna" class="slide level2">
+<h2>WGCNA</h2>
+</section>
+<section id="mix-omics" class="slide level2">
+<h2>Mix-Omics</h2>
+
+<img src="assets/bodl_logo_white_background.jpg" class="slide-logo r-stretch"><div class="footer footer-default">
 
 </div>
 </section></section>

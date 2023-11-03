@@ -1,6 +1,6 @@
 ---
 title: "ALIGN Capacity Building"
-subtitle: "The What, Why and How of Transcriptomics"
+subtitle: "The Why, What and How of Transcriptomics"
 author: "Dr Stevie Pederson (They/Them)"
 affiliation: "Black Ochre Data Labs"
 date: "2023-08-02"
@@ -312,6 +312,14 @@ DNA is essentially a giant book of instructions
 - Also enzymes which breakdown food are proteins
 :::
 
+## The Central Dogma
+
+![From Frances Crick, *Ideas on Protein Synthesis*, Unpublished Note, Wellcome Library, 1956](assets/crick_dogma_note.png)
+
+::: {.notes}
+- Interestingly, Crick's perspective on the the Central Dogma wasn't that RNA must be translated into protein, but was more about the direction of information loss
+:::
+
 ## Proteins
 
 Proteins are the molecular machines that run our bodies
@@ -325,16 +333,20 @@ Proteins are the molecular machines that run our bodies
 
 - Each cell-type (e.g. neuron, skin cell) will make a different set of proteins
     + Some structural proteins may be common between unrelated cell-types
+    + Many proteins exist *outside* of cells
 
 . . .
 
 - Proteins can be heavily modified
     + Phosphorylation, Sumoylation, Ubiquitination etc
-- Can be single molecules or bind to multiple partners
-
-. . .
-
+    + Can be single molecules or bind to multiple partners
 - Different functions or activities for every state
+
+
+::: {.notes}
+- Another key feature of proteins which sets them apart from DNA & RNA is their role outside cells
+- By dogma, Nucleic Acids don't
+:::
 
 ## Proteins
 
@@ -373,7 +385,7 @@ Proteins are the molecular machines that run our bodies
 
 . . .
 
-- Not all genes are expressed in every cell
+- Not all genes are transcribed (i.e. expressed) in every cell
     + ~60,000 annotated genes in the genome
     + ~10-15,000 detectable genes in a given cell-type
     
@@ -390,31 +402,59 @@ Proteins are the molecular machines that run our bodies
 ## Transcriptomics
 
 - Transcriptomics is often an abundance-focussed analysis
-    + Differential Gene Expression
+    + Represents a *stable state* of a cell
+    + Differential Gene Expression [$\implies$ *detectable response to stimuli*]{.fragment .fade-in}
 
 . . .    
-    
+  
+- Traditionally focussed on mRNA
 - Common early assumption $\implies$ mRNA abundance reflects protein levels
     + Is sometimes true ...
     
-. . .    
     
-- Many other types of RNA play key roles
-    + miRNAs degrade their target mRNAs
-    + lncRNAs can silence chromosomal regions (e.g. *XIST*)
-
-. . .
-
-- Shows an early *visible response to stimuli*
-- Also represents a *stable state* of the cell
-
 ::: {.notes}
+- RNA molecules which are translated into proteins are generally referred to as messenger RNA (mRNA)
 - Despite many mRNAs representing an intermediary state, this reveals a lot of information about the cell, e.g. what it's responding to, how it's maintaining itself
 - Some genes are transcribed without protein product
     + Enables rapid response if protein is needed quickly
 - Great examples of rapid transcriptional response are in T cells which encounter their target antigen or see pro-inflammatory cytokines
     + Huge & rapid transcriptional consequences
+:::
+    
+## Transcriptomics
+    
+Our classic viewpoint is DNA $\implies$ mRNA $\implies$ Protein
+
+::: {.columns}
+   
+::: {.column width="55%"}
+
+::: {.incremental}
+    
+- Many other types of RNA play key roles
+    + miRNAs bind to and degrade target mRNAs
+    + lncRNAs form highly complex structures <br>$\implies$can silence chromosomal regions (e.g. *XIST*)
+    + rRNAs form key units of ribosomes <br>$\implies$ protein translation
+
+:::
+
+:::
+
+::: {.column width="45%"}
+
+::: {.fragment}
+
+![A 2kb region of Xist. Taken from Fang et al., “Probing Xist RNA Structure in Cells Using Targeted Structure-Seq”](https://github.com/UofABioinformaticsHub/transcriptomics_applications/blob/master/lectures/figures/Xist.png?raw=true)
+
+:::
+
+:::
+
+:::
+
+::: {.notes}
 - Many of the functional RNAs also provide vital insights, but these are often poorly understood
+- We generally ignore Ribosomal RNAs, and given they make up ~80% of RNA in a cell, we need to manage these
 :::
 
 ## What is an RNA transcript?
@@ -424,12 +464,12 @@ Proteins are the molecular machines that run our bodies
 ::: {.column width="40%"}
 
 
-- All known transcribed regions are defined as genes
+- Known transcribed regions are defined as genes
     + Transcribed from DNA $\implies$ start to finish
 
 ::: {.fragment}
 
-- From the larger transcript:
+- From the complete RNA transcript:
     + Introns are *spliced* out
     + Exons form *mature transcript*
     
@@ -439,7 +479,7 @@ Proteins are the molecular machines that run our bodies
 
 ::: {.column width="60%"}
 
-![](assets/splicing.png)
+![Image courtesy of National Human Genome Research Institute](assets/splicing2.png)
 
 :::
 
@@ -447,15 +487,20 @@ Proteins are the molecular machines that run our bodies
 
 ::: {.fragment}
 
-- Most genes are transcribed into multiple **transcripts**
-- Different transcripts $\implies$ Different proteins (or even other RNA)
+- ~38% of genes (~24,000) are transcribed into multiple **transcripts**
+- Different transcripts $\implies$ Different proteins (or lncRNA)
 
 :::
 
 ::: {.notes}
+- This definition of a gene is quite different to the original *'unit of inheritance'*
+- It's probably worth noting that from a DNA-structural perspective, introns & exons are just long sequences
+    + Splice junctions are defined by core sequence motifs, not any 3D structure like appears here 
 - This is really where the name transcriptomics has developed
 - Represents far greater complexity than just gene-level abundances
 - Some genes even have multiple start sites
+- The key point is we have one gene, multiple transcripts, multiple proteins then multiple modifications of multiple proteins
+- Transcriptomics reflects a key inflection point in the development of informational complexity
 :::
 
 ## *SEC14L2*: A Random Example
@@ -471,7 +516,7 @@ I was looking at this one the other day:
 - New discoveries show a start site halfway down *SEC14L2* but with some of *MTFP1* at the end
 - What do we call this?
 - Also, if you start on the other DNA strand and go in the other direction, you get *RNF215*, which also has another start site
-
+- I sometimes think that if we knew what we know know, our entire way of defining genes etc might be completely different
 :::
 
 # How Do We Study Transcriptomics {background-color="#3c3c44"}
@@ -599,13 +644,13 @@ How do we put this all back together and quantify?
 ::: {.column width="60%"}
 1. Alignment to a reference genome
     - Most align to one location $\implies$ can see where <span style="color:#769b79;">&#10003;</span>
-    - Brilliant for gene-level abundances <span style="color:#769b79;">&#10003;</span>
-    - Not helpful for transcript-level estimates <span style="color:red;">&#10007;</span>
+    - Brilliant for gene-level counts <span style="color:#769b79;">&#10003;</span>
+    - Not helpful for transcript-level <span style="color:red;">&#10007;</span>
 
 ::: {.fragment}
 
 2. Alignment to a reference transcriptome
-    - Obtain transcript & gene-level estimates <span style="color:#769b79;">&#10003;</span>
+    - Obtain transcript & gene-level counts <span style="color:#769b79;">&#10003;</span>
     - Many exons shared with multiple transcripts
     - Many reads align to multiple transcripts $\implies$ significant uncertainty
     - Can manage this uncertainty in modelling <span style="color:#769b79;">&#10003;</span>
@@ -615,3 +660,37 @@ How do we put this all back together and quantify?
 :::
 
 :::
+
+::: {.notes}
+- Aligning to a linear reference uses conventional aligners (Burrows-Wheeler transform)
+- Aligning to a transcriptome incorporates graph-based strategies
+:::
+
+## Limitations
+
+
+
+## Alternative Approaches
+
+- Reference graphs
+
+## Long Reads
+
+- Great for identification of novel transcripts
+- Uses circularisation
+
+
+# How Do We Make Key Discoveries? {background-color="#3c3c44"}
+
+## Differential Gene Expression
+
+- Batch effects, GC bias etc
+
+## Pathway & Functional Analysis
+
+## WGCNA
+
+## Mix-Omics
+
+
+
