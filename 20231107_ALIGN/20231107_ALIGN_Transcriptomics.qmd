@@ -3,7 +3,7 @@ title: "ALIGN Capacity Building"
 subtitle: "The Why, What and How of Transcriptomics"
 author: "Dr Stevie Pederson (They/Them)"
 affiliation: "Black Ochre Data Labs"
-date: "2023-08-02"
+date: "2023-11-07"
 date-format: long
 title-slide-attributes:
     data-background-color: "#3c3c44"
@@ -42,7 +42,7 @@ knitr:
 
 ::: {.column width="65%"}
 
-I would like to acknowledge that today I'm presenting this topic from Kaurna Country.<br><br>
+I would like to acknowledge that I'm presenting today from Kaurna Country.<br><br>
 
 I acknowledge the deep feelings of attachment and relationship of the Kaurna people to their Place.<br><br>
 
@@ -126,7 +126,7 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
 
 . . .
 
-- Multiple 'omics layers: DNA (Genomics), DNA-methylation (EpiGenomics), protein (Proteomics) etc
+- Multiple 'omics layers: DNA (Genomics), DNA-methylation (Epigenomics), protein (Proteomics), metabolites (Metabolomics) etc
 
 . . .
 
@@ -162,9 +162,9 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
 
 ::: {.column width='44%'}
 
-- Most are familiar with DNA
+- Most are familiar with DNA and cells
+- DNA stays in the nucleus
 - Directly inherited from parents<br>$\implies$ unique people
-- Stays in the nucleus
 - The same in every cell [(roughly)]{.fragment .fade-in}
 
 ::: {.fragment}
@@ -173,15 +173,19 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
 
 :::
 
+::: {.fragment}
+- Lots of interaction with other molecules: DNA-methylation, Histones etc
+:::
+
 :::
 
 
 :::
 
 ::: {.notes}
-- Most of us a familiar with DNA
+- Most of us a familiar with DNA and the idea that our bodies are made of trillions of cells (28-36 trillion)
 - We all have our own unique DNA, passed down from our parents
-- DNA lives in the nucleus of most cells
+- DNA lives in the nucleus of most cells (not RBC)
 - Chromosomes replicate and divide with cell division
 :::
 
@@ -227,11 +231,12 @@ We often think of there being [**one unique reference sequence**]{.underline}
 - This is very far from reality 
 - Each copy of Chromosome 1 is different to the other copy within each of us
     + Both copies are (essentially) the same between all of our cells
+    + No value judgements on similarity to reference $\implies$ just who we are
     
 . . .    
     
 - Same for all other chromosomes (1-22 + X)
-- Scale this out to millions of people...
+- Scale this out to billions of people...
 - Some regions are relatively invariant (needed for survival)
     
 ## DNA
@@ -252,12 +257,13 @@ We often think of there being [**one unique reference sequence**]{.underline}
 
 ::: {.notes}
 - There are large runs of DNA which rarely change between individuals
-- I have a mutation in my haemoglobin not shared by either parent
+- I have a mutation in one of my haemoglobin not shared by either parent
     + My HbA1c cannot be measured, whereas both of theirs can
-    + Was reported to me as a serious discovery during a public health study (NWHS)
+    + Was communicated to me as a reportable discovery during a public health study (NWHS, 20 years ago)
     + My blood responds poorly to low-oxygen situations: like respiratory infections
     + Also no plans to climb Mt Everest
 - Having "variants" implicitly ties back to this idea of a single reference
+    + Not mutations at all!!! Just diversity
 :::
 
 
@@ -280,14 +286,15 @@ DNA is essentially a giant book of instructions
 ::: {.fragment}
 
 - Some regions are known as genes
-    + These are *transcribed* into RNA
-    + Many RNA types (mRNA + miRNA, ncRNA, rRNA etc)
+    + *Transcribed* into RNA
+    + Many RNA types (mRNA, miRNA, ncRNA, rRNA etc)
     
 :::
 
 ::: {.fragment}
     
 - mRNA molecules are *translated into proteins*
+    + Groups of three bases encode a single amino acid
 
 :::
 
@@ -296,7 +303,7 @@ DNA is essentially a giant book of instructions
 - Proteins *do stuff* i.e. pretty much everything
    + Keratin $\implies$ Hair structure
    + Haemoglobin $\implies$ Oxygen transport
-   + Antibodies $\implies$ Detect alien molecules
+   + Antibodies $\implies$ Detect "alien" molecules
    
 :::
 
@@ -309,12 +316,15 @@ DNA is essentially a giant book of instructions
 - Most regions have some kind of function $\implies$ some help determine structure
     + Others are transcribed
 - Transcribed regions (i.e. RNA) is known as the **Transcriptome**
+- Groups of 3 bases are known as codons and these code for amino acids
+    + Amino acids are key structural element of proteins
+    + Each amino acid can have multiple codons (or codes)
 - Also enzymes which breakdown food are proteins
 :::
 
 ## The Central Dogma
 
-![From Frances Crick, *Ideas on Protein Synthesis*, Unpublished Note, Wellcome Library, 1956](assets/crick_dogma_note.png)
+![From Frances Crick, *Ideas on Protein Synthesis*, Unpublished Note, Wellcome Library, 1956](assets/crick_dogma_note.png){fig-align="left"}
 
 ::: {.notes}
 - Interestingly, Crick's perspective on the the Central Dogma wasn't that RNA must be translated into protein, but was more about the direction of information loss
@@ -327,13 +337,13 @@ Proteins are the molecular machines that run our bodies
 . . .
 
 - Incredibly dynamic system
-    + Some are stable $\implies$ Some degrade rapidly
+    + Some are stable $\implies$ some degrade rapidly
+    + Some exist only within cells $\implies$ some are exported
     
 . . .
 
 - Each cell-type (e.g. neuron, skin cell) will make a different set of proteins
     + Some structural proteins may be common between unrelated cell-types
-    + Many proteins exist *outside* of cells
 
 . . .
 
@@ -344,8 +354,13 @@ Proteins are the molecular machines that run our bodies
 
 
 ::: {.notes}
+- Proteins DO THINGS
+    + Stomach enzymes like pepsin digest other proteins, others like lactase cut sugars
+    + Cell surface receptors (ACE2)
 - Another key feature of proteins which sets them apart from DNA & RNA is their role outside cells
-- By dogma, Nucleic Acids don't
+- A common structural protein is Actin
+- By dogma, Nucleic Acids don't exist outside cells (apart from when they do)
+    + tRNA-mRNA molecules are extracellular signalling molecules in plants
 :::
 
 ## Proteins
@@ -365,7 +380,7 @@ Proteins are the molecular machines that run our bodies
 
 . . .
 
-- Still a very immature field
+- Compared to DNA/RNA sequencing is a very immature field
     + Technology is extremely variable and rapidly developing
 
 ::: {.notes}
@@ -398,7 +413,7 @@ Proteins are the molecular machines that run our bodies
 
 - Often take a cell-line (or cell-type) and expose to a treatment
     + Low variability $\implies$ treatment response is easy(ish) to spot
-
+    
 ## Transcriptomics
 
 - Transcriptomics is often an abundance-focussed analysis
@@ -429,32 +444,55 @@ Our classic viewpoint is DNA $\implies$ mRNA $\implies$ Protein
    
 ::: {.column width="55%"}
 
-::: {.incremental}
+:::: {.fragment fragment-index=1}
     
-- Many other types of RNA play key roles
-    + miRNAs bind to and degrade target mRNAs
-    + lncRNAs form highly complex structures <br>$\implies$can silence chromosomal regions (e.g. *XIST*)
-    + rRNAs form key units of ribosomes <br>$\implies$ protein translation
+Many other types of RNA play key roles
 
-:::
+- miRNAs bind to and degrade target mRNAs
+
+::::
+
+:::: {.fragment fragment-index=2}
+
+- lncRNAs form highly complex structures <br>$\implies$can silence chromosomal regions (e.g. *XIST*)[^1]
+
+::::
+
+:::: {.fragment fragment-index=3}
+
+- rRNAs are key components of ribosomes
+
+::::
+
+:::: {.fragment fragment-index=4}
+
+- tRNAs interact with ribosomes <br>$\implies$ translate mRNA into proteins[^2]
+
+::::
 
 :::
 
 ::: {.column width="45%"}
 
-::: {.fragment}
+:::: {.r-stack}
 
-![A 2kb region of Xist. Taken from Fang et al., “Probing Xist RNA Structure in Cells Using Targeted Structure-Seq”](https://github.com/UofABioinformaticsHub/transcriptomics_applications/blob/master/lectures/figures/Xist.png?raw=true)
+![](https://github.com/UofABioinformaticsHub/transcriptomics_applications/blob/master/lectures/figures/Xist.png?raw=true){.fragment width="85%" fragment-index=2 .fade-in-then-out}
+
+![](https://cdn.pfizer.com/pfizercom/20191227_trna.gif){.fragment width="85%" fragment-index=5}
+
+::::
 
 :::
 
 :::
 
-:::
+[^1]: Taken from Fang et al., “Probing Xist RNA Structure in Cells Using Targeted Structure-Seq”
+[^2]: Animation courtesy of www.pfizer.com
 
 ::: {.notes}
 - Many of the functional RNAs also provide vital insights, but these are often poorly understood
 - We generally ignore Ribosomal RNAs, and given they make up ~80% of RNA in a cell, we need to manage these
+- tRNAs are generally not interesting either (expect when forming dicistronic tRNA-mRNA)
 :::
 
 ## What is an RNA transcript?
@@ -488,7 +526,7 @@ Our classic viewpoint is DNA $\implies$ mRNA $\implies$ Protein
 ::: {.fragment}
 
 - ~38% of genes (~24,000) are transcribed into multiple **transcripts**
-- Different transcripts $\implies$ Different proteins (or lncRNA)
+- Different transcripts $\implies$ Different proteins (or lncRNA etc)
 
 :::
 
@@ -603,6 +641,8 @@ Labelled cDNA binds complementary target
 - Mature RNA transcripts may be short (8nt) or long (350,375nt)
 
 ::: {.notes}
+- Bulk RNA-Seq really has become the more correct term now that we have single-cell RNA-seq
+    + Just means we have RNA from multiple cells
 - Transcribed RNA (pre-processing) can be up to 350,000 nucleotides
 - Longest transcript is *XACT* (lncRNA)
 - Shortest codes for a 2aa component of the T cell receptor
@@ -652,7 +692,7 @@ How do we put this all back together and quantify?
 2. Alignment to a reference transcriptome
     - Obtain transcript & gene-level counts <span style="color:#769b79;">&#10003;</span>
     - Many exons shared with multiple transcripts
-    - Many reads align to multiple transcripts $\implies$ significant uncertainty
+    - Reads align to multiple transcripts $\implies$ uncertainty
     - Can manage this uncertainty in modelling <span style="color:#769b79;">&#10003;</span>
     - Don't know where each read has aligned <span style="color:red;">&#10007;</span>
 :::
@@ -681,7 +721,7 @@ How do we put this all back together and quantify?
     
 - Includes 517 extra sequences (scaffolds, patches, haplotypes)
     + Do not exist in reality
-    + Some genes have transcripts defined on scaffolds + chromsomes
+    + Some genes have transcripts defined on scaffolds not chromsomes
 
 ::: {.notes}
 - Reality is that no copies of either chromosome match the existing reference
@@ -713,12 +753,12 @@ Two emerging approaches
 ## Modifying a Reference
 
 - Tools exist for modifying a reference genome
-    + Unable to analyse at the transcript level $\implies$ only gene-leve
+    + Unable to analyse at the transcript level $\implies$ only gene-level
     
 . . .
 
-- Developing the software to produce a variant-modified transcriptome
-    + Will enable counts ate the transcript-level
+- BODL is developing the software to produce a variant-modified transcriptome
+    + Will enable counts at the transcript-level + uncertainty measures
 
 . . .
 
@@ -752,7 +792,7 @@ Two emerging approaches
 
 :::
 
-::: {.fragment fragment-index=3}
+::: {.fragment fragment-index=2}
 - For >1 individual would be a *pangenome graph*
 :::
 
@@ -760,7 +800,7 @@ Two emerging approaches
 
 ::: {.column width="45%"}
 
-::: {.fragment fragment-index=2}
+::: {.fragment fragment-index=1}
 
 ![Sibbesen, J et al, *Haplotype-aware pantranscriptome analyses using spliced pangenome graphs* Nat Methods, 2023](assets/reference_graph.png){fig-align="left"}
 :::
@@ -777,7 +817,7 @@ Two emerging approaches
 
 ## Graph Based Approaches
 
-- A reference pan-genome is now available[^1]
+- A reference pan-genome is now available[^3]
     + Contains 47 haplotype resolved diploid T2T assemblies
     + Representative of diversity?
     
@@ -794,7 +834,7 @@ Two emerging approaches
 - How will this impact the PROPHECY transcriptomics layer?
     + e.g. How do we integrate annotated regulatory elements from a linear reference
 
-[^1]: Liao W et al, *A draft human pangenome reference* Nature, 2023
+[^3]: Liao W et al, *A draft human pangenome reference* Nature, 2023
 
 ::: {.notes}
 - This is an area of active discussion amongst the Black Ochre Data Labs
@@ -845,13 +885,71 @@ Two emerging approaches
 
 ## Differential Gene Expression
 
-- Batch effects, GC bias etc
+Once we have counts (gene or transcript-level)
+
+- Identify any technical issues (GC bias, failed samples etc)
+- Fit standard statistical models
+    + Fairly simple in small Treatment vs Control comparisons
+    + Less straightforward with large, complex designs
+    
+. . .
+
+- Sequencing generally done in batches of $\leq$ 96 $\implies$ batch effects
+    + Is identifiable technical noise which masks true biology
+    + Llead to <span style="color:red;">&#8679;</span> false discoveries <span style="color:red">&#8681;</span> true discoveries
+    + Active area of development for large cohort studies (Terry Speed)
+    
+
+<!-- - Batch effects, GC bias etc -->
+
+::: {.notes}
+- Most analysis uses Negative Binomial models (like Poisson with more flexibility in variance modelling)
+- For simple comparisons we often assume effect size (change in expression) is only relevant if large enough
+    + This is not as easy in complex models
+    + These ar also observational studies $\implies$ we get what we get
+    + We will find correlations between expression patterns and predictor variables $\implies$ doesn't elucisdate mechanism
+- 96-well plates are used in sample preparation
+    + Lots of downstream protocols developed based on this, just like Roman chariot wheels determined train-track width
+    + Key strategies for managing batch effects are
+        + using consistent reagents from the same batch
+        + including technical replicates across batches 
+        + control RNA-sequences with known concentrations
+:::
+
+## Differential Gene Expression
+
+::: {.columns}
+
+::: {.column}
+![Example MA plot](https://github.com/DRMCRL/MDA-MB-453_DHT-RNASeq/blob/master/docs/figure/dge_analysis.Rmd/plotMA-1.png?raw=true)
+:::
+
+::: {.column}
+![Example Volcano plot](https://github.com/DRMCRL/MDA-MB-453_DHT-RNASeq/blob/master/docs/figure/dge_analysis.Rmd/plotVolcano-1.png?raw=true){width="80%"}
+:::
+
+:::
 
 ## Pathway & Functional Analysis
 
+- Look for biologically relevant signals in the set of DE genes
+    + Enriched pathways, common transcription factors etc
+    + Drug target signals
+- Compare to public datasets (if appropriate)
+
+::: {.notes}
+- Often just fancy versions of Fisher's Exact Test
+- Correlations to known treatments or perturbations can be informative
+:::
+
 ## WGCNA
+
+
+
+
+## eQTL and tWAS
 
 ## Mix-Omics
 
-
+- Supervised vs unsupervised
 
