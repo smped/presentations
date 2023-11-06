@@ -69,9 +69,9 @@ I also wish to express my gratitude for being involved in this space, and an awa
 
 . . . 
 
-- Co-ordinator of the University of Adelaide Bioinformatics Hub (2014-2020)
+- Coordinator of the University of Adelaide Bioinformatics Hub (2014-2020)
     + Analysed dozens of RNA-Seq datasets (+ more)
-    + Developed multiple training workshops and undergrad/postgrad courses
+    + Developed multiple training workshops and undergrad/postgraduate courses
 
 . . .     
     
@@ -100,7 +100,7 @@ I also wish to express my gratitude for being involved in this space, and an awa
 
 - Also spent two years researching ER-dependent Breast Cancers
     + Looking at Transcription Factors and DNA state (ChIP-Seq)
-    + Data Integration (RNA-Seq, ChIP-Seq, HiC etc)
+    + Data Integration (RNA-Seq, ChIP-Seq, HiC etc.)
 
 ::: {.notes}
 - Statistical training has been very different to epidemiology & study design
@@ -139,7 +139,7 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
     + Can we establish clear hypotheses into underlying mechanisms? <br>[$\implies$ clinical intervention]{.fragment .fade-in}
     
 ::: {.notes}
-- Also have lipidomics, metabolomics, retinal scans, ECGs, imflammatory markers
+- Also have lipidomics, metabolomics, retinal scans, ECGs, inflammatory markers
 :::
     
 # How Does Biology Even Work? {background-color="#3c3c44"}
@@ -174,7 +174,7 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
 :::
 
 ::: {.fragment}
-- Lots of interaction with other molecules: DNA-methylation, Histones etc
+- Lots of interaction with other molecules: DNA-methylation, Histones etc.
 :::
 
 :::
@@ -287,7 +287,7 @@ DNA is essentially a giant book of instructions
 
 - Some regions are known as genes
     + *Transcribed* into RNA
-    + Many RNA types (mRNA, miRNA, ncRNA, rRNA etc)
+    + Many RNA types (mRNA, miRNA, ncRNA, rRNA etc.)
     
 :::
 
@@ -348,7 +348,7 @@ Proteins are the molecular machines that run our bodies
 . . .
 
 - Proteins can be heavily modified
-    + Phosphorylation, Sumoylation, Ubiquitination etc
+    + Phosphorylation, Sumoylation, Ubiquitination etc.
     + Can be single molecules or bind to multiple partners
 - Different functions or activities for every state
 
@@ -429,7 +429,7 @@ Proteins are the molecular machines that run our bodies
     
 ::: {.notes}
 - RNA molecules which are translated into proteins are generally referred to as messenger RNA (mRNA)
-- Despite many mRNAs representing an intermediary state, this reveals a lot of information about the cell, e.g. what it's responding to, how it's maintaining itself
+- Despite many mRNA representing an intermediary state, this reveals a lot of information about the cell, e.g. what it's responding to, how it's maintaining itself
 - Some genes are transcribed without protein product
     + Enables rapid response if protein is needed quickly
 - Great examples of rapid transcriptional response are in T cells which encounter their target antigen or see pro-inflammatory cytokines
@@ -448,25 +448,25 @@ Our classic viewpoint is DNA $\implies$ mRNA $\implies$ Protein
     
 Many other types of RNA play key roles
 
-- miRNAs bind to and degrade target mRNAs
+- miRNA bind to and degrade target mRNA
 
 ::::
 
 :::: {.fragment fragment-index=2}
 
-- lncRNAs form highly complex structures <br>$\implies$can silence chromosomal regions (e.g. *XIST*)[^1]
+- lncRNA form highly complex structures <br>$\implies$can silence chromosomal regions (e.g. *XIST*)[^1]
 
 ::::
 
 :::: {.fragment fragment-index=3}
 
-- rRNAs are key components of ribosomes
+- rRNA are key components of ribosomes
 
 ::::
 
 :::: {.fragment fragment-index=4}
 
-- tRNAs interact with ribosomes <br>$\implies$ translate mRNA into proteins[^2]
+- tRNA interact with ribosomes <br>$\implies$ translate mRNA into proteins[^2]
 
 ::::
 
@@ -490,9 +490,9 @@ Many other types of RNA play key roles
 [^2]: Animation courtesy of www.pfizer.com
 
 ::: {.notes}
-- Many of the functional RNAs also provide vital insights, but these are often poorly understood
-- We generally ignore Ribosomal RNAs, and given they make up ~80% of RNA in a cell, we need to manage these
-- tRNAs are generally not interesting either (expect when forming dicistronic tRNA-mRNA)
+- Many of the functional RNA also provide vital insights, but these are often poorly understood
+- We generally ignore Ribosomal RNA, and given they make up ~80% of RNA in a cell, we need to manage these
+- tRNA are generally not interesting either (expect when forming dicistronic tRNA-mRNA)
 :::
 
 ## What is an RNA transcript?
@@ -526,7 +526,7 @@ Many other types of RNA play key roles
 ::: {.fragment}
 
 - ~38% of genes (~24,000) are transcribed into multiple **transcripts**
-- Different transcripts $\implies$ Different proteins (or lncRNA etc)
+- Different transcripts $\implies$ Different proteins (or lncRNA etc.)
 
 :::
 
@@ -554,7 +554,7 @@ I was looking at this one the other day:
 - New discoveries show a start site halfway down *SEC14L2* but with some of *MTFP1* at the end
 - What do we call this?
 - Also, if you start on the other DNA strand and go in the other direction, you get *RNF215*, which also has another start site
-- I sometimes think that if we knew what we know know, our entire way of defining genes etc might be completely different
+- I sometimes think that if we knew what we know know, our entire way of defining genes etc. might be completely different
 :::
 
 # How Do We Study Transcriptomics {background-color="#3c3c44"}
@@ -721,7 +721,7 @@ How do we put this all back together and quantify?
     
 - Includes 517 extra sequences (scaffolds, patches, haplotypes)
     + Do not exist in reality
-    + Some genes have transcripts defined on scaffolds not chromsomes
+    + Some genes have transcripts defined on scaffolds not chromosomes
 
 ::: {.notes}
 - Reality is that no copies of either chromosome match the existing reference
@@ -782,7 +782,7 @@ Two emerging approaches
 - Telomere-to-telomere (T2T) assemblies contain no scaffolds
     + Just chr1-22, X, Y & MT
 - Individual assemblies $\implies$ *haplotype resolved*
-    + Separate out both copies of chr1 etc
+    + Separate out both copies of chr1 etc.
     
 ::: {.fragment fragment-index=1}
 
@@ -887,8 +887,8 @@ Two emerging approaches
 
 Once we have counts (gene or transcript-level)
 
-- Identify any technical issues (GC bias, failed samples etc)
-- Fit standard statistical models
+- Identify any technical issues (GC bias, failed samples etc.)
+- Fit standard statistical models (GLM)
     + Fairly simple in small Treatment vs Control comparisons
     + Less straightforward with large, complex designs
     
@@ -896,7 +896,7 @@ Once we have counts (gene or transcript-level)
 
 - Sequencing generally done in batches of $\leq$ 96 $\implies$ batch effects
     + Is identifiable technical noise which masks true biology
-    + Llead to <span style="color:red;">&#8679;</span> false discoveries <span style="color:red">&#8681;</span> true discoveries
+    + Lead to <span style="color:red;">&#8679;</span> false discoveries <span style="color:red">&#8681;</span> true discoveries
     + Active area of development for large cohort studies (Terry Speed)
     
 
@@ -907,7 +907,7 @@ Once we have counts (gene or transcript-level)
 - For simple comparisons we often assume effect size (change in expression) is only relevant if large enough
     + This is not as easy in complex models
     + These ar also observational studies $\implies$ we get what we get
-    + We will find correlations between expression patterns and predictor variables $\implies$ doesn't elucisdate mechanism
+    + We will find correlations between expression patterns and predictor variables $\implies$ doesn't elucidate mechanism
 - 96-well plates are used in sample preparation
     + Lots of downstream protocols developed based on this, just like Roman chariot wheels determined train-track width
     + Key strategies for managing batch effects are
@@ -921,35 +921,215 @@ Once we have counts (gene or transcript-level)
 ::: {.columns}
 
 ::: {.column}
-![Example MA plot](https://github.com/DRMCRL/MDA-MB-453_DHT-RNASeq/blob/master/docs/figure/dge_analysis.Rmd/plotMA-1.png?raw=true)
+![*Typical MA plot* (Pederson, unpublished)](https://github.com/DRMCRL/MDA-MB-453_DHT-RNASeq/blob/master/docs/figure/dge_analysis.Rmd/plotMA-1.png?raw=true)
 :::
 
 ::: {.column}
-![Example Volcano plot](https://github.com/DRMCRL/MDA-MB-453_DHT-RNASeq/blob/master/docs/figure/dge_analysis.Rmd/plotVolcano-1.png?raw=true){width="80%"}
+![*Typical Volcano plot* (Pederson, unpublished)](https://github.com/DRMCRL/MDA-MB-453_DHT-RNASeq/blob/master/docs/figure/dge_analysis.Rmd/plotVolcano-1.png?raw=true){width="80%"}
 :::
 
+:::
+
+## Network approaches
+
+- DGE takes "significantly DE" genes and joins to try & form a story
+    + i.e. big changes in a few genes $\implies$ biological consequences
+    
+. . .
+
+- Network approaches look for larger shifts amongst correlated genes
+    + i.e. small changes across an entire pathway $\implies$ biological consequences
+- Far more flexibility with parameters $\implies$ *reproducibility*?
+    + Recent research is improving this markedly
+
+## WGCNA
+
+::: {.columns}
+
+::: {.column}
+
+- Multiple approaches with WGCNA the biggest player
+    + Form correlation network
+    + Identify modules within correlation network
+    + Compare to predictor variables
+    + Identify underlying biology
+:::
+
+::: {.column}
+![Image from Huang, J et al, *Analysis of functional hub genes identifies CDC45 as an oncogene in non-small cell lung cancer - a short report* Cellular Oncology, 2019](assets/13402_2019_438_Fig1_HTML.png){width="70%"}
+:::
+
+:::
+
+::: {.notes}
+- WGCNA is Weighted Gene Correlation Network Analysis
+- The top panel shows a dendrogram based on correlations with modules at the bottom
+- The bottom panel compares modules to predictor variable
+:::
+
+## Supervised Approaches
+
+- Principal Component Analysis (PCA) is an un-supervised approach
+    + mainly used for QC & visualisation in transcriptomics
+    
+. . .
+
+- Projection onto Latent Space (PLS) is a *supervised* approach
+    + Maximises correlations with predictor variables
+    + Alternative approach to identifying groups of correlated genes
+
+. . .
+
+- No $p$-values &#128561; $\implies$ How can we ever publish?
+
+::: {.notes}
+- PLS is also known as Partial Least Squares
+    + Supported & enabled by mix-omics (Kim-Anh Le Cao)
+    + Excellent support for integration of multi-omics data
+:::
+
+## eQTL and TWAS
+
+- Expression Quantitative Trait Loci (eQTL)
+    + If RNA abundance is a quantitative trait $\implies$ which variants are associated with this?
+    + Is there an association with phenotype (e.g. CVD development)
+    
+. . .
+
+- Transcriptome-Wide Association Studies (TWAS)
+    + Integrates analysis eQTL with GWAS
+
+## scRNA-Seq 
+
+::: {.columns}
+
+::: {.column}
+
+- Retains the connection between transcript and cell-of-origin
+- Huge numbers of 'failure to detect' expression (i.e. zero counts)
+- Uses clustering to identify cell types
+- Pseudo-bulk clusters for DGE analysis
+
+:::
+
+::: {.column}
+![Image from: Amezquita, R et al *OSCA: Orchestrating Single Cell analysis with Bioconductor* Bioconductor, 2022](https://bioconductor.org/books/3.15/OSCA.basic/reduced-dimensions_files/figure-html/tsne-brain-1.png)
+:::
+
+:::
+
+## Spatial Transcriptomics
+
+- Cells are held in place $\implies$ transcripts identified within a region
+- The current hot area in transcriptomics  $\implies$ Nature Methods "Method of the Year, 2020"
+- Single-cell resolution is arguably here
+
+![](assets/716c1856c750044a946968defe719a56.jpg)   
+
+    
+::: {.notes}
+- Neither technique applicable to PROPHECY Datasets $\implies$ don't really address initial questions
 :::
 
 ## Pathway & Functional Analysis
 
-- Look for biologically relevant signals in the set of DE genes
-    + Enriched pathways, common transcription factors etc
+::: {.columns}
+
+::: {.column}
+
+- Look for biologically relevant signals in DE genes or network modules
+    + Enriched pathways
+    + Common transcription factors
     + Drug target signals
 - Compare to public datasets (if appropriate)
+
+::: {.fragment}
+
+- Interpretation is key
+    + Researchers love to invent stories & patterns
+
+:::
+
+:::
+
+::: {.column}
+    
+![*Enriched pathways combining RNA-Seq with AR and H3K27ac ChIP-seq* (Pederson, Unpublished)](https://smped.github.io/GRAVI_PRJNA509779/assets/AR_E2_E2DHT-H3K27ac_E2_E2DHT/AR_Up-H3K27ac_Up_rnaseq_network.png)
+
+:::
+
+:::
 
 ::: {.notes}
 - Often just fancy versions of Fisher's Exact Test
 - Correlations to known treatments or perturbations can be informative
+- Famous story of a transcriptomic dataset, where the values and gene labels were out by one
+    + (Keith Baggerley & Duke University)
+    + Even though the biology was nonsense, researchers still saw patterns & explanations
 :::
 
-## WGCNA
+## Acknowledgements {.smaller}
+
+<br>
+
+::: {.columns}
+
+::: {.column width="30%"}
+#### TKI / BODL Nerds
+
+- Alex Brown
+- Jimmy Breen
+- Sam Buckberry
+- Liza Kretzschmar
+- Yassine Souilmi
+- Bastien Llamas
+- Holly Martin
+- Claudia Floreani
+- Natasha Howard
+- Anelle du Preez
+- Kaashifah Bruce
+- Amanda Satour-Richards
+- Justine Clarke
+- Katharine Brown
+:::
+
+::: {.column width="30%"}
+#### NCIG
+
+- Hardip Patel
+
+#### ALIGN
+- Johanna Barclay 
+- Annalee Stearne
+- Louise Lyons
+
+#### Students
+- Nhi Hin
+- Jacqueline Rehn
+- Nora Liu
+- Lachlan Baer
+- Megan Monaghan
+- Monica Guilhaus
+
+:::
+
+::: {.column width="30%"}
+
+#### Bioinformatics Hub
+- David Adelson
+- Gary Glonek
+- Dan Kortschak
+- Nathan Watson-Haigh
+- Rick Tearle
+- Hien To
+:::
+
+:::
 
 
 
 
-## eQTL and tWAS
 
-## Mix-Omics
 
-- Supervised vs unsupervised
+
 
