@@ -347,7 +347,7 @@ Dr Stevie Pederson (They/Them)
 </div><div class="column" style="width:65%;">
 <p>I would like to acknowledge that I’m presenting today from Kaurna Country.<br><br></p>
 <p>I acknowledge the deep feelings of attachment and relationship of the Kaurna people to their Place.<br><br></p>
-<p>I also pay respects to the cultural authority of Aboriginal and Torres Strait Islander peoples from other areas of Australia online today, and pay my respects to Elders past, present and emerging.</p>
+<p>I also pay my respects to the cultural authority of Aboriginal and Torres Strait Islander peoples from other areas of Australia online today, and pay my respects to Elders past, present and emerging.</p>
 </div>
 </div>
 <aside class="notes">
@@ -371,19 +371,19 @@ Dr Stevie Pederson (They/Them)
 </ul>
 <div class="fragment">
 <ul>
-<li>Unintentionally took the “winding path” approach to my PhD (2008-2018)
+<li>Coordinator of the University of Adelaide Bioinformatics Hub (2014-2020)
 <ul>
-<li>Undertaken in a T Cell / Autoimmunity Research Group</li>
-<li>Developed a novel Bayesian Statistical model for alternate transcript detection (using microarrays)</li>
+<li>Analysed dozens of RNA-Seq datasets (+ more)</li>
+<li>Developed multiple training workshops and undergrad/postgraduate courses</li>
 </ul></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Coordinator of the University of Adelaide Bioinformatics Hub (2014-2020)
+<li>Unintentionally took the “winding path” approach to my PhD (2008-2018)
 <ul>
-<li>Analysed dozens of RNA-Seq datasets (+ more)</li>
-<li>Developed multiple training workshops and undergrad/postgraduate courses</li>
+<li>Undertaken in a T Cell / Autoimmunity Research Group</li>
+<li>Developed a novel Bayesian Statistical model for alternate transcript detection (using microarrays)</li>
 </ul></li>
 </ul>
 </div>
@@ -418,6 +418,7 @@ Dr Stevie Pederson (They/Them)
 <li>First discovered microarrays and R in 2002
 <ul>
 <li>Most statistical understanding has been learned through this lens</li>
+<li>Very different to epidemioogy, study design etc</li>
 <li>Primary training is in biology (e.g.&nbsp;genetics, biochemistry)</li>
 </ul></li>
 </ul>
@@ -496,7 +497,12 @@ Dr Stevie Pederson (They/Them)
 </ul>
 <aside class="notes">
 <ul>
+<li>I’m primarily responsible for the analysis of the transcriptomics layer of PROPHECY
+<ul>
+<li>Anelle, Tash Howard, Jimmy, Alex etc all play pivotal roles as well (sample management, sample collection, finalising protocols, data security etc)</li>
+</ul></li>
 <li>Also have lipidomics, metabolomics, retinal scans, ECGs, inflammatory markers</li>
+<li>Shall we call retinal scans retinomics?</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -519,6 +525,7 @@ Dr Stevie Pederson (They/Them)
 <li>If only any of us could answer this question</li>
 <li>As soon as we think we understand something, we find the exception</li>
 <li>So much redundancy built-in + so much complexity</li>
+<li>To understand transcriptomics, we do need to revisit the basics</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -567,6 +574,10 @@ Dr Stevie Pederson (They/Them)
 <li>We all have our own unique DNA, passed down from our parents</li>
 <li>DNA lives in the nucleus of most cells (not RBC)</li>
 <li>Chromosomes replicate and divide with cell division</li>
+<li>Is generally static, but a huge amount happens to it &amp; around it
+<ul>
+<li>Statis in terms of the sequence doesn’t change and the molecule is heavily protected and preserved</li>
+</ul></li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -610,8 +621,11 @@ Dr Stevie Pederson (They/Them)
 </div>
 <aside class="notes">
 <ul>
+<li>DNA is made of a sugar-phosphate backbone with different baes (or nucleotides) attached
+<ul>
 <li>Full names for bases Adenine, Cytosine, Guanine, Thymine</li>
-<li>All chromosomes in a human cell would be about 2m long if stretched out</li>
+</ul></li>
+<li>Heavily packaged ⇒ all chromosomes in a human cell would be about 2m long if stretched out</li>
 <li>The sequence is static, but a lot happens to the DNA and to package the DNA</li>
 <li>Essentially the same static molecule having things done to it</li>
 </ul>
@@ -629,7 +643,7 @@ Dr Stevie Pederson (They/Them)
 </section>
 <section id="dna-2" class="slide level2">
 <h2>DNA</h2>
-<p>We often think of there being <u><strong>one unique reference sequence</strong></u></p>
+<p>We often think of there being <u><strong>one unique, ideal reference sequence</strong></u></p>
 <ul>
 <li>This is very far from reality</li>
 <li>Each copy of Chromosome 1 is different to the other copy within each of us
@@ -678,6 +692,9 @@ Dr Stevie Pederson (They/Them)
 <li>My blood responds poorly to low-oxygen situations: like respiratory infections</li>
 <li>Also no plans to climb Mt Everest</li>
 </ul></li>
+</ul>
+<p>[Click]</p>
+<ul>
 <li>Having “variants” implicitly ties back to this idea of a single reference
 <ul>
 <li>Not mutations at all!!! Just diversity</li>
@@ -706,7 +723,6 @@ Dr Stevie Pederson (They/Them)
 </p>
 </div><div class="column" style="width:60%;">
 <p>DNA is essentially a giant book of instructions</p>
-<div class="fragment">
 <ul>
 <li>Some regions are known as genes
 <ul>
@@ -714,7 +730,6 @@ Dr Stevie Pederson (They/Them)
 <li>Many RNA types (mRNA, miRNA, ncRNA, rRNA etc.)</li>
 </ul></li>
 </ul>
-</div>
 <div class="fragment">
 <ul>
 <li>mRNA molecules are <em>translated into proteins</em>
@@ -749,25 +764,7 @@ Dr Stevie Pederson (They/Them)
 <li>Each amino acid can have multiple codons (or codes)</li>
 </ul></li>
 <li>Also enzymes which breakdown food are proteins</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="the-central-dogma" class="slide level2">
-<h2>The Central Dogma</h2>
-
-<img data-src="assets/crick_dogma_note.png" class="r-stretch quarto-figure-left"><p class="caption">From Frances Crick, <em>Ideas on Protein Synthesis</em>, Unpublished Note, Wellcome Library, 1956</p><aside class="notes">
-<ul>
-<li>Interestingly, Crick’s perspective on the the Central Dogma wasn’t that RNA must be translated into protein, but was more about the direction of information loss</li>
+<li>The initial idea of the Central Dogma (Crick, 1956) relates to information flow, not that RNA must be converted into proteins</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -789,7 +786,7 @@ Dr Stevie Pederson (They/Them)
 <li>Incredibly dynamic system
 <ul>
 <li>Some are stable <span class="math inline">\(\implies\)</span> some degrade rapidly</li>
-<li>Some exist only within cells <span class="math inline">\(\implies\)</span> some are exported</li>
+<li>Some exist only within cells <span class="math inline">\(\implies\)</span> some are exported/imported</li>
 </ul></li>
 </ul>
 </div>
@@ -821,7 +818,7 @@ Dr Stevie Pederson (They/Them)
 <li>A common structural protein is Actin</li>
 <li>By dogma, Nucleic Acids don’t exist outside cells (apart from when they do)
 <ul>
-<li>tRNA-mRNA molecules are extracellular signalling molecules in plants</li>
+<li>dicistronic tRNA-mRNA molecules are extracellular signalling molecules in plants</li>
 </ul></li>
 </ul>
 <style type="text/css">
@@ -870,6 +867,7 @@ Dr Stevie Pederson (They/Them)
 <li>Most proteomic data is produced using Mass Spectrometry
 <ul>
 <li>Fragments the proteins and we detect spectra mass on mass &amp; charge spectra</li>
+<li>Still no “one” technology that dominates the field</li>
 </ul></li>
 <li>Some tissues are dominated by a small set of proteins (e.g.&nbsp;albumin in blood is &gt;70% of all protein)</li>
 <li>Being difficult study makes it harder for us to study <span class="math inline">\(\implies\)</span> we often look elsewhere that’s easier</li>
@@ -928,7 +926,7 @@ Dr Stevie Pederson (They/Them)
 <li>Transcriptomics is often an abundance-focussed analysis
 <ul>
 <li>Represents a <em>stable state</em> of a cell</li>
-<li>Differential Gene Expression <span class="fragment fade-in"><span class="math inline">\(\implies\)</span> <em>detectable response to stimuli</em></span></li>
+<li>Differential Gene Expression <span class="fragment fade-in"><span class="math inline">\(\implies\)</span> <em>abundance changes in response to stimuli</em></span></li>
 </ul></li>
 </ul>
 <div class="fragment">
@@ -942,7 +940,10 @@ Dr Stevie Pederson (They/Them)
 <aside class="notes">
 <ul>
 <li>RNA molecules which are translated into proteins are generally referred to as messenger RNA (mRNA)</li>
-<li>Despite many mRNA representing an intermediary state, this reveals a lot of information about the cell, e.g.&nbsp;what it’s responding to, how it’s maintaining itself</li>
+<li>Despite many mRNA representing an intermediary state between DNA &amp; protein, this reveals a lot of information about the cell
+<ul>
+<li>e.g.&nbsp;what it’s responding to, how it’s maintaining itself</li>
+</ul></li>
 <li>Some genes are transcribed without protein product
 <ul>
 <li>Enables rapid response if protein is needed quickly</li>
@@ -1030,8 +1031,8 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>From the complete RNA transcript:
 <ul>
-<li>Introns are <em>spliced</em> out</li>
 <li>Exons form <em>mature transcript</em></li>
+<li>Introns are <em>spliced</em> out</li>
 </ul></li>
 </ul>
 </div>
@@ -1074,32 +1075,6 @@ Dr Stevie Pederson (They/Them)
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</section>
-<section id="sec14l2-a-random-example" class="slide level2">
-<h2><em>SEC14L2</em>: A Random Example</h2>
-
-<img data-src="assets/sec14l2.png" width="1100" class="r-stretch"><aside class="notes">
-<p>I was looking at this one the other day:</p>
-<ul>
-<li>The canonical gene for <em>SEC14L2</em> is shown at the top, as is the canonical gene for <em>MTFP1</em></li>
-<li><em>SEC14L2</em> has 4 start sites &amp; multiple combinations identified</li>
-<li><em>MTFP1</em> has one start site, with a few combinations</li>
-<li>New discoveries show a start site halfway down <em>SEC14L2</em> but with some of <em>MTFP1</em> at the end</li>
-<li>What do we call this?</li>
-<li>Also, if you start on the other DNA strand and go in the other direction, you get <em>RNF215</em>, which also has another start site</li>
-<li>I sometimes think that if we knew what we know know, our entire way of defining genes etc. might be completely different</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section></section>
 <section>
 <section id="how-do-we-study-transcriptomics" class="title-slide slide level1 center" data-background-color="#3c3c44">
@@ -1118,6 +1093,7 @@ Dr Stevie Pederson (They/Them)
 <li>Gene-centric approach
 <ul>
 <li>Could analyse 10-15,000 genes</li>
+<li>Abundance only analysis</li>
 </ul></li>
 <li>Many statistical tools developed in this context
 <ul>
@@ -1222,8 +1198,8 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>Just means we have RNA from multiple cells</li>
 </ul></li>
-<li>Transcribed RNA (pre-processing) can be up to 350,000 nucleotides</li>
-<li>Longest transcript is <em>XACT</em> (lncRNA)</li>
+<li>Transcribed RNA (pre-processing) can be up to 450,000 nucleotides</li>
+<li>Longest mature transcript is <em>XACT</em> (lncRNA)</li>
 <li>Shortest codes for a 2aa component of the T cell receptor</li>
 </ul>
 <style type="text/css">
@@ -1259,7 +1235,7 @@ Dr Stevie Pederson (They/Them)
 <p>How do we put this all back together and quantify?</p>
 <aside class="notes">
 <ul>
-<li>Imagine chopping up the screen-plays to all 9 Star Wars movies then having to figure out where it came from?</li>
+<li>Imagine chopping up the screen-plays to all Star Wars movies then having to figure out where it came from?</li>
 <li>“Use the Force” might be really hard to figure out, but “Use the Force Luke” might be easier</li>
 </ul>
 <style type="text/css">
@@ -1290,6 +1266,7 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>Most align to one location <span class="math inline">\(\implies\)</span> can see where <span style="color:#769b79;">✓</span></li>
 <li>Brilliant for gene-level counts <span style="color:#769b79;">✓</span></li>
+<li>Can call variants (allelic bias) <span style="color:#769b79;">✓</span></li>
 <li>Not helpful for transcript-level <span style="color:red;">✗</span></li>
 </ul></li>
 </ol>
@@ -1298,10 +1275,11 @@ Dr Stevie Pederson (They/Them)
 <li>Alignment to a reference transcriptome
 <ul>
 <li>Obtain transcript &amp; gene-level counts <span style="color:#769b79;">✓</span></li>
-<li>Many exons shared with multiple transcripts</li>
-<li>Reads align to multiple transcripts <span class="math inline">\(\implies\)</span> uncertainty</li>
-<li>Can manage this uncertainty in modelling <span style="color:#769b79;">✓</span></li>
-<li>Don’t know where each read has aligned <span style="color:red;">✗</span></li>
+<li>Many exons shared with multiple transcripts <br><span class="math inline">\(\implies\)</span> can model uncertainty <span style="color:#769b79;">✓</span></li>
+<li>Don’t know where each read has aligned <span style="color:red;">✗</span>
+<ul>
+<li>No variant calling</li>
+</ul></li>
 </ul></li>
 </ol>
 </div>
@@ -1311,6 +1289,10 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>Aligning to a linear reference uses conventional aligners (Burrows-Wheeler transform)</li>
 <li>Aligning to a transcriptome incorporates graph-based strategies</li>
+<li>Modern transcriptome alignments (salmon , kallisto) include uncertainty about which transcript a read comes from
+<ul>
+<li>Can manage this using modelling strategies</li>
+</ul></li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1410,7 +1392,7 @@ Dr Stevie Pederson (They/Them)
 </div>
 <div class="fragment">
 <ul>
-<li>Current approach uses 1000 Genomes Project variants
+<li>Current testing uses 1000 Genomes Project variants
 <ul>
 <li>Shown to significantly improve mappings in other datasets</li>
 <li>Poorly representative of Australian Indigenous variation</li>
@@ -1495,7 +1477,7 @@ Dr Stevie Pederson (They/Them)
 <section id="graph-based-approaches-1" class="slide level2">
 <h2>Graph Based Approaches</h2>
 <ul>
-<li>A reference pan-genome is now available<sup>1</sup>
+<li>A reference pan-genome graph is now available<sup>1</sup>
 <ul>
 <li>Contains 47 haplotype resolved diploid T2T assemblies</li>
 <li>Representative of diversity?</li>
@@ -1537,41 +1519,7 @@ Dr Stevie Pederson (They/Them)
           display:block!important;
       }</style></aside>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn3"><p>Liao W et al, <em>A draft human pangenome reference</em> Nature, 2023</p></li></ol></aside></section>
-<section id="long-reads" class="slide level2">
-<h2>Long Reads</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<ul>
-<li>Short read technology has <span style="color:#769b79;">⇩⇩⇩</span> error rates</li>
-<li>Long reads have <span style="color:red;">⇧⇧⇧</span> error rates</li>
-</ul>
-<div class="fragment" data-fragment-index="1">
-<ul>
-<li>Reads are circularised <br><span class="math inline">\(\implies\)</span> errors corrected by repeat reads</li>
-</ul>
-</div>
-<div class="fragment" data-fragment-index="2">
-<ul>
-<li>Great for identification of novel transcripts <br><span class="math inline">\(\implies\)</span> difficult to quantify
-<ul>
-<li>Creation of a custom reference transcriptome</li>
-<li>Challenging to refer back to functional annotations in reference</li>
-</ul></li>
-</ul>
-</div>
-</div><div class="column" style="width:40%;">
-<div class="fragment" data-fragment-index="1">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/m_269fig2.jpeg"></p>
-<figcaption>Peccoud J et al, <em>Untangling Heteroplasmy, Structure, and Evolution of an Atypical Mitochondrial Genome by PacBio Sequencing</em> Genetics 2017</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</section></section>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>Liao W et al, <em>A draft human pangenome reference</em> Nature, 2023</p></li></ol></aside></section></section>
 <section>
 <section id="how-do-we-make-key-discoveries" class="title-slide slide level1 center" data-background-color="#3c3c44">
 <h1>How Do We Make Key Discoveries?</h1>
@@ -1650,6 +1598,21 @@ Dr Stevie Pederson (They/Them)
 </div>
 </div>
 </div>
+<aside class="notes">
+<ul>
+<li>In the context of more complex models, less useful plots</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="network-approaches" class="slide level2">
 <h2>Network approaches</h2>
@@ -1717,14 +1680,15 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>Principal Component Analysis (PCA) is an un-supervised approach
 <ul>
-<li>mainly used for QC &amp; visualisation in transcriptomics</li>
+<li>Components maximises variance</li>
+<li>Mainly used for QC &amp; visualisation in transcriptomics</li>
 </ul></li>
 </ul>
 <div class="fragment">
 <ul>
 <li>Projection onto Latent Space (PLS) is a <em>supervised</em> approach
 <ul>
-<li>Maximises correlations with predictor variables</li>
+<li>Components maximise covariance with predictor variables</li>
 <li>Alternative approach to identifying groups of correlated genes</li>
 </ul></li>
 </ul>
@@ -1779,7 +1743,7 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>Retains the connection between transcript and cell-of-origin</li>
 <li>Huge numbers of ‘failure to detect’ expression (i.e.&nbsp;zero counts)</li>
-<li>Uses clustering to identify cell types</li>
+<li>Uses clustering to identify cell types within a sample</li>
 <li>Pseudo-bulk clusters for DGE analysis</li>
 </ul>
 </div><div class="column">
@@ -1819,7 +1783,7 @@ Dr Stevie Pederson (They/Them)
 <section id="pathway-functional-analysis" class="slide level2">
 <h2>Pathway &amp; Functional Analysis</h2>
 <div class="columns">
-<div class="column">
+<div class="column" style="width:45%;">
 <ul>
 <li>Look for biologically relevant signals in DE genes or network modules
 <ul>
@@ -1827,17 +1791,17 @@ Dr Stevie Pederson (They/Them)
 <li>Common transcription factors</li>
 <li>Drug target signals</li>
 </ul></li>
-<li>Compare to public datasets (if appropriate)</li>
+<li>Compare to public datasets <br>(if appropriate)</li>
 </ul>
 <div class="fragment">
 <ul>
 <li>Interpretation is key
 <ul>
-<li>Researchers love to invent stories &amp; patterns</li>
+<li>Researchers love to invent stories</li>
 </ul></li>
 </ul>
 </div>
-</div><div class="column">
+</div><div class="column" style="width:55%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="https://smped.github.io/GRAVI_PRJNA509779/assets/AR_E2_E2DHT-H3K27ac_E2_E2DHT/AR_Up-H3K27ac_Up_rnaseq_network.png"></p>
@@ -1850,6 +1814,10 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>Often just fancy versions of Fisher’s Exact Test</li>
 <li>Correlations to known treatments or perturbations can be informative</li>
+<li>Lots of redundancy in pathways &amp; gene set collections
+<ul>
+<li>Often use networks to identify “communities” of highly similar gene-sets</li>
+</ul></li>
 <li>Famous story of a transcriptomic dataset, where the values and gene labels were out by one
 <ul>
 <li>(Keith Baggerley &amp; Duke University)</li>
@@ -1922,8 +1890,92 @@ Dr Stevie Pederson (They/Them)
 </ul>
 </div>
 </div>
+</section></section>
+<section>
+<section id="additional-material" class="title-slide slide level1 center" data-background-color="#3c3c44">
+<h1>Additional Material</h1>
 
-<img src="assets/bodl_logo_white_background.jpg" class="slide-logo r-stretch"><div class="footer footer-default">
+</section>
+<section id="the-central-dogma" class="slide level2">
+<h2>The Central Dogma</h2>
+
+<img data-src="assets/crick_dogma_note.png" class="r-stretch quarto-figure-left"><p class="caption">From Frances Crick, <em>Ideas on Protein Synthesis</em>, Unpublished Note, Wellcome Library, 1956</p><aside class="notes">
+<ul>
+<li>Interestingly, Crick’s perspective on the the Central Dogma wasn’t that RNA must be translated into protein, but was more about the direction of information loss</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="sec14l2-a-random-example" class="slide level2">
+<h2><em>SEC14L2</em>: A Random Example</h2>
+
+<img data-src="assets/sec14l2.png" width="1100" class="r-stretch"><aside class="notes">
+<p>I was looking at this one the other day:</p>
+<ul>
+<li>The canonical gene for <em>SEC14L2</em> is shown at the top, as is the canonical gene for <em>MTFP1</em></li>
+<li><em>SEC14L2</em> has 4 start sites &amp; multiple combinations identified</li>
+<li><em>MTFP1</em> has one start site, with a few combinations</li>
+<li>New discoveries show a start site halfway down <em>SEC14L2</em> but with some of <em>MTFP1</em> at the end</li>
+<li>What do we call this?</li>
+<li>Also, if you start on the other DNA strand and go in the other direction, you get <em>RNF215</em>, which also has another start site</li>
+<li>I sometimes think that if we knew what we know know, our entire way of defining genes etc. might be completely different</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="long-reads" class="slide level2">
+<h2>Long Reads</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li>Short read technology has <span style="color:#769b79;">⇩⇩⇩</span> error rates</li>
+<li>Long reads have <span style="color:red;">⇧⇧⇧</span> error rates</li>
+</ul>
+<div class="fragment" data-fragment-index="1">
+<ul>
+<li>Reads are circularised <br><span class="math inline">\(\implies\)</span> errors corrected by repeat reads</li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="2">
+<ul>
+<li>Great for identification of novel transcripts <br><span class="math inline">\(\implies\)</span> difficult to quantify
+<ul>
+<li>Creation of a custom reference transcriptome</li>
+<li>Challenging to refer back to functional annotations in reference</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="fragment" data-fragment-index="1">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/m_269fig2.jpeg"></p>
+<figcaption>Peccoud J et al, <em>Untangling Heteroplasmy, Structure, and Evolution of an Atypical Mitochondrial Genome by PacBio Sequencing</em> Genetics 2017</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><img src="assets/bodl_logo_white_background.jpg" class="slide-logo"></p>
+<div class="footer footer-default">
 
 </div>
 </section></section>

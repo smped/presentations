@@ -46,7 +46,7 @@ I would like to acknowledge that I'm presenting today from Kaurna Country.<br><b
 
 I acknowledge the deep feelings of attachment and relationship of the Kaurna people to their Place.<br><br>
 
-I also pay respects to the cultural authority of Aboriginal and Torres Strait Islander peoples from other areas of Australia online today, and pay my respects to Elders past, present and emerging. 
+I also pay my respects to the cultural authority of Aboriginal and Torres Strait Islander peoples from other areas of Australia online today, and pay my respects to Elders past, present and emerging. 
 
 
 :::
@@ -61,17 +61,18 @@ I also wish to express my gratitude for being involved in this space, and an awa
 
 - Oldest person in Black Ochre Data Labs but still an ECR
 
+. . . 
+
+- Coordinator of the University of Adelaide Bioinformatics Hub (2014-2020)
+    + Analysed dozens of RNA-Seq datasets (+ more)
+    + Developed multiple training workshops and undergrad/postgraduate courses
+
 . . .
 
 - Unintentionally took the "winding path" approach to my PhD (2008-2018)
     + Undertaken in a T Cell  / Autoimmunity Research Group
     + Developed a novel Bayesian Statistical model for alternate transcript detection (using microarrays)
 
-. . . 
-
-- Coordinator of the University of Adelaide Bioinformatics Hub (2014-2020)
-    + Analysed dozens of RNA-Seq datasets (+ more)
-    + Developed multiple training workshops and undergrad/postgraduate courses
 
 . . .     
     
@@ -90,6 +91,7 @@ I also wish to express my gratitude for being involved in this space, and an awa
 
 - First discovered microarrays and R in 2002
     + Most statistical understanding has been learned through this lens
+    + Very different to epidemioogy, study design etc
     + Primary training is in biology (e.g. genetics, biochemistry)
 
 . . .
@@ -139,7 +141,10 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
     + Can we establish clear hypotheses into underlying mechanisms? <br>[$\implies$ clinical intervention]{.fragment .fade-in}
     
 ::: {.notes}
+- I'm primarily responsible for the analysis of the transcriptomics layer of PROPHECY
+    + Anelle, Tash Howard, Jimmy, Alex etc all play pivotal roles as well (sample management, sample collection, finalising protocols, data security etc)
 - Also have lipidomics, metabolomics, retinal scans, ECGs, inflammatory markers
+- Shall we call retinal scans retinomics?
 :::
     
 # How Does Biology Even Work? {background-color="#3c3c44"}
@@ -148,6 +153,7 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
 - If only any of us could answer this question
 - As soon as we think we understand something, we find the exception
 - So much redundancy built-in + so much complexity
+- To understand transcriptomics, we do need to revisit the basics
 :::
 
 ## DNA
@@ -187,6 +193,8 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
 - We all have our own unique DNA, passed down from our parents
 - DNA lives in the nucleus of most cells (not RBC)
 - Chromosomes replicate and divide with cell division
+- Is generally static, but a huge amount happens to it & around it
+    + Statis in terms of the sequence doesn't change and the molecule is heavily protected and preserved
 :::
 
 ## DNA
@@ -218,15 +226,16 @@ Each chromosome is a string of millions of nucleotides
 :::
 
 ::: {.notes}
-- Full names for bases Adenine, Cytosine, Guanine, Thymine
-- All chromosomes in a human cell would be about 2m long if stretched out
+- DNA is made of a sugar-phosphate backbone with different baes (or nucleotides) attached
+    + Full names for bases Adenine, Cytosine, Guanine, Thymine
+- Heavily packaged &#8658; all chromosomes in a human cell would be about 2m long if stretched out
 - The sequence is static, but a lot happens to the DNA and to package the DNA
 - Essentially the same static molecule having things done to it
 :::
 
 ## DNA
 
-We often think of there being [**one unique reference sequence**]{.underline}
+We often think of there being [**one unique, ideal reference sequence**]{.underline}
 
 - This is very far from reality 
 - Each copy of Chromosome 1 is different to the other copy within each of us
@@ -262,6 +271,9 @@ We often think of there being [**one unique reference sequence**]{.underline}
     + Was communicated to me as a reportable discovery during a public health study (NWHS, 20 years ago)
     + My blood responds poorly to low-oxygen situations: like respiratory infections
     + Also no plans to climb Mt Everest
+    
+[Click]
+    
 - Having "variants" implicitly ties back to this idea of a single reference
     + Not mutations at all!!! Just diversity
 :::
@@ -283,13 +295,10 @@ We often think of there being [**one unique reference sequence**]{.underline}
 DNA is essentially a giant book of instructions
 
 
-::: {.fragment}
-
 - Some regions are known as genes
     + *Transcribed* into RNA
     + Many RNA types (mRNA, miRNA, ncRNA, rRNA etc.)
     
-:::
 
 ::: {.fragment}
     
@@ -320,14 +329,7 @@ DNA is essentially a giant book of instructions
     + Amino acids are key structural element of proteins
     + Each amino acid can have multiple codons (or codes)
 - Also enzymes which breakdown food are proteins
-:::
-
-## The Central Dogma
-
-![From Frances Crick, *Ideas on Protein Synthesis*, Unpublished Note, Wellcome Library, 1956](assets/crick_dogma_note.png){fig-align="left"}
-
-::: {.notes}
-- Interestingly, Crick's perspective on the the Central Dogma wasn't that RNA must be translated into protein, but was more about the direction of information loss
+- The initial idea of the Central Dogma (Crick, 1956) relates to information flow, not that RNA must be converted into proteins
 :::
 
 ## Proteins
@@ -338,7 +340,7 @@ Proteins are the molecular machines that run our bodies
 
 - Incredibly dynamic system
     + Some are stable $\implies$ some degrade rapidly
-    + Some exist only within cells $\implies$ some are exported
+    + Some exist only within cells $\implies$ some are exported/imported
     
 . . .
 
@@ -360,7 +362,7 @@ Proteins are the molecular machines that run our bodies
 - Another key feature of proteins which sets them apart from DNA & RNA is their role outside cells
 - A common structural protein is Actin
 - By dogma, Nucleic Acids don't exist outside cells (apart from when they do)
-    + tRNA-mRNA molecules are extracellular signalling molecules in plants
+    + dicistronic tRNA-mRNA molecules are extracellular signalling molecules in plants
 :::
 
 ## Proteins
@@ -387,6 +389,7 @@ Proteins are the molecular machines that run our bodies
 - Proteomics is still really immature but can still shed important light on underlying biology
 - Most proteomic data is produced using Mass Spectrometry
     + Fragments the proteins and we detect spectra mass on mass & charge spectra
+    + Still no "one" technology that dominates the field
 - Some tissues are dominated by a small set of proteins (e.g. albumin in blood is >70% of all protein)
 - Being difficult study makes it harder for us to study $\implies$ we often look elsewhere that's easier
 - This is where transcriptomics comes in
@@ -418,7 +421,7 @@ Proteins are the molecular machines that run our bodies
 
 - Transcriptomics is often an abundance-focussed analysis
     + Represents a *stable state* of a cell
-    + Differential Gene Expression [$\implies$ *detectable response to stimuli*]{.fragment .fade-in}
+    + Differential Gene Expression [$\implies$ *abundance changes in response to stimuli*]{.fragment .fade-in}
 
 . . .    
   
@@ -429,7 +432,8 @@ Proteins are the molecular machines that run our bodies
     
 ::: {.notes}
 - RNA molecules which are translated into proteins are generally referred to as messenger RNA (mRNA)
-- Despite many mRNA representing an intermediary state, this reveals a lot of information about the cell, e.g. what it's responding to, how it's maintaining itself
+- Despite many mRNA representing an intermediary state between DNA & protein, this reveals a lot of information about the cell
+    + e.g. what it's responding to, how it's maintaining itself
 - Some genes are transcribed without protein product
     + Enables rapid response if protein is needed quickly
 - Great examples of rapid transcriptional response are in T cells which encounter their target antigen or see pro-inflammatory cytokines
@@ -508,8 +512,8 @@ Many other types of RNA play key roles
 ::: {.fragment}
 
 - From the complete RNA transcript:
-    + Introns are *spliced* out
     + Exons form *mature transcript*
+    + Introns are *spliced* out
     
 :::
     
@@ -541,21 +545,6 @@ Many other types of RNA play key roles
 - Transcriptomics reflects a key inflection point in the development of informational complexity
 :::
 
-## *SEC14L2*: A Random Example
-
-![](assets/sec14l2.png){width="1100px"}
-
-::: {.notes}
-I was looking at this one the other day:
-
-- The canonical gene for *SEC14L2* is shown at the top, as is the canonical gene for *MTFP1*
-- *SEC14L2* has 4 start sites & multiple combinations identified
-- *MTFP1* has one start site, with a few combinations
-- New discoveries show a start site halfway down *SEC14L2* but with some of *MTFP1* at the end
-- What do we call this?
-- Also, if you start on the other DNA strand and go in the other direction, you get *RNF215*, which also has another start site
-- I sometimes think that if we knew what we know know, our entire way of defining genes etc. might be completely different
-:::
 
 # How Do We Study Transcriptomics {background-color="#3c3c44"}
 
@@ -569,6 +558,7 @@ I was looking at this one the other day:
     + 3' Arrays (Affymetrix)
 - Gene-centric approach
     + Could analyse 10-15,000 genes
+    + Abundance only analysis
 - Many statistical tools developed in this context
     + `limma` has been maintained by Gordon Smyth (WEHI) for >20years
   
@@ -643,8 +633,8 @@ Labelled cDNA binds complementary target
 ::: {.notes}
 - Bulk RNA-Seq really has become the more correct term now that we have single-cell RNA-seq
     + Just means we have RNA from multiple cells
-- Transcribed RNA (pre-processing) can be up to 350,000 nucleotides
-- Longest transcript is *XACT* (lncRNA)
+- Transcribed RNA (pre-processing) can be up to 450,000 nucleotides
+- Longest mature transcript is *XACT* (lncRNA)
 - Shortest codes for a 2aa component of the T cell receptor
 :::
 
@@ -665,7 +655,7 @@ Labelled cDNA binds complementary target
 How do we put this all back together and quantify?
 
 ::: {.notes}
-- Imagine chopping up the screen-plays to all 9 Star Wars movies then having to figure out where it came from?
+- Imagine chopping up the screen-plays to all Star Wars movies then having to figure out where it came from?
 - "Use the Force" might be really hard to figure out, but "Use the Force Luke" might be easier
 :::
 
@@ -685,16 +675,16 @@ How do we put this all back together and quantify?
 1. Alignment to a reference genome
     - Most align to one location $\implies$ can see where <span style="color:#769b79;">&#10003;</span>
     - Brilliant for gene-level counts <span style="color:#769b79;">&#10003;</span>
+    - Can call variants (allelic bias) <span style="color:#769b79;">&#10003;</span>
     - Not helpful for transcript-level <span style="color:red;">&#10007;</span>
 
 ::: {.fragment}
 
 2. Alignment to a reference transcriptome
     - Obtain transcript & gene-level counts <span style="color:#769b79;">&#10003;</span>
-    - Many exons shared with multiple transcripts
-    - Reads align to multiple transcripts $\implies$ uncertainty
-    - Can manage this uncertainty in modelling <span style="color:#769b79;">&#10003;</span>
+    - Many exons shared with multiple transcripts <br>$\implies$ can model uncertainty <span style="color:#769b79;">&#10003;</span>
     - Don't know where each read has aligned <span style="color:red;">&#10007;</span>
+        + No variant calling
 :::
 
 :::
@@ -704,6 +694,8 @@ How do we put this all back together and quantify?
 ::: {.notes}
 - Aligning to a linear reference uses conventional aligners (Burrows-Wheeler transform)
 - Aligning to a transcriptome incorporates graph-based strategies
+- Modern transcriptome alignments (salmon , kallisto) include uncertainty about which transcript a read comes from
+    + Can manage this using modelling strategies
 :::
 
 ## Limitations
@@ -762,7 +754,7 @@ Two emerging approaches
 
 . . .
 
-- Current approach uses 1000 Genomes Project variants
+- Current testing uses 1000 Genomes Project variants
     + Shown to significantly improve mappings in other datasets
     + Poorly representative of Australian Indigenous variation
 
@@ -817,7 +809,7 @@ Two emerging approaches
 
 ## Graph Based Approaches
 
-- A reference pan-genome is now available[^3]
+- A reference pan-genome graph is now available[^3]
     + Contains 47 haplotype resolved diploid T2T assemblies
     + Representative of diversity?
     
@@ -844,42 +836,6 @@ Two emerging approaches
 :::
 
 
-## Long Reads
-
-::: {.columns}
-
-::: {.column width="60%"}
-
-- Short read technology has <span style="color:#769b79;">&#8681;&#8681;&#8681;</span> error rates
-- Long reads have <span style="color:red;">&#8679;&#8679;&#8679;</span> error rates
-
-::: {.fragment fragment-index=1}
-
-- Reads are circularised <br>$\implies$ errors corrected by repeat reads
-
-:::
-
-::: {.fragment fragment-index=2}
-
-
-- Great for identification of novel transcripts <br>$\implies$ difficult to quantify
-    + Creation of a custom reference transcriptome
-    + Challenging to refer back to functional annotations in reference
-    
-:::
-    
-:::
-
-::: {.column width="40%"}
-
-::: {.fragment fragment-index=1}
-
-![Peccoud J et al, *Untangling Heteroplasmy, Structure, and Evolution of an Atypical Mitochondrial Genome by PacBio Sequencing* Genetics 2017](assets/m_269fig2.jpeg)
-:::
-
-:::
-
-:::
 
 # How Do We Make Key Discoveries? {background-color="#3c3c44"}
 
@@ -930,6 +886,11 @@ Once we have counts (gene or transcript-level)
 
 :::
 
+::: {.notes}
+- In the context of more complex models, less useful plots
+:::
+
+
 ## Network approaches
 
 - DGE takes "significantly DE" genes and joins to try & form a story
@@ -970,12 +931,13 @@ Once we have counts (gene or transcript-level)
 ## Supervised Approaches
 
 - Principal Component Analysis (PCA) is an un-supervised approach
-    + mainly used for QC & visualisation in transcriptomics
+    + Components maximises variance
+    + Mainly used for QC & visualisation in transcriptomics
     
 . . .
 
 - Projection onto Latent Space (PLS) is a *supervised* approach
-    + Maximises correlations with predictor variables
+    + Components maximise covariance with predictor variables
     + Alternative approach to identifying groups of correlated genes
 
 . . .
@@ -1007,7 +969,7 @@ Once we have counts (gene or transcript-level)
 
 - Retains the connection between transcript and cell-of-origin
 - Huge numbers of 'failure to detect' expression (i.e. zero counts)
-- Uses clustering to identify cell types
+- Uses clustering to identify cell types within a sample
 - Pseudo-bulk clusters for DGE analysis
 
 :::
@@ -1035,24 +997,24 @@ Once we have counts (gene or transcript-level)
 
 ::: {.columns}
 
-::: {.column}
+::: {.column width="45%"}
 
 - Look for biologically relevant signals in DE genes or network modules
     + Enriched pathways
     + Common transcription factors
     + Drug target signals
-- Compare to public datasets (if appropriate)
+- Compare to public datasets <br>(if appropriate)
 
 ::: {.fragment}
 
 - Interpretation is key
-    + Researchers love to invent stories & patterns
+    + Researchers love to invent stories
 
 :::
 
 :::
 
-::: {.column}
+::: {.column width="55%"}
     
 ![*Enriched pathways combining RNA-Seq with AR and H3K27ac ChIP-seq* (Pederson, Unpublished)](https://smped.github.io/GRAVI_PRJNA509779/assets/AR_E2_E2DHT-H3K27ac_E2_E2DHT/AR_Up-H3K27ac_Up_rnaseq_network.png)
 
@@ -1063,6 +1025,9 @@ Once we have counts (gene or transcript-level)
 ::: {.notes}
 - Often just fancy versions of Fisher's Exact Test
 - Correlations to known treatments or perturbations can be informative
+- Lots of redundancy in pathways & gene set collections
+    + Often use networks to identify "communities" of highly similar gene-sets
+    
 - Famous story of a transcriptomic dataset, where the values and gene labels were out by one
     + (Keith Baggerley & Duke University)
     + Even though the biology was nonsense, researchers still saw patterns & explanations
@@ -1126,10 +1091,67 @@ Once we have counts (gene or transcript-level)
 
 :::
 
+# Additional Material  {background-color="#3c3c44"}
+
+## The Central Dogma
+
+![From Frances Crick, *Ideas on Protein Synthesis*, Unpublished Note, Wellcome Library, 1956](assets/crick_dogma_note.png){fig-align="left"}
+
+::: {.notes}
+- Interestingly, Crick's perspective on the the Central Dogma wasn't that RNA must be translated into protein, but was more about the direction of information loss
+:::
 
 
+## *SEC14L2*: A Random Example
+
+![](assets/sec14l2.png){width="1100px"}
+
+::: {.notes}
+I was looking at this one the other day:
+
+- The canonical gene for *SEC14L2* is shown at the top, as is the canonical gene for *MTFP1*
+- *SEC14L2* has 4 start sites & multiple combinations identified
+- *MTFP1* has one start site, with a few combinations
+- New discoveries show a start site halfway down *SEC14L2* but with some of *MTFP1* at the end
+- What do we call this?
+- Also, if you start on the other DNA strand and go in the other direction, you get *RNF215*, which also has another start site
+- I sometimes think that if we knew what we know know, our entire way of defining genes etc. might be completely different
+:::
 
 
+## Long Reads
+
+::: {.columns}
+
+::: {.column width="60%"}
+
+- Short read technology has <span style="color:#769b79;">&#8681;&#8681;&#8681;</span> error rates
+- Long reads have <span style="color:red;">&#8679;&#8679;&#8679;</span> error rates
+
+::: {.fragment fragment-index=1}
+
+- Reads are circularised <br>$\implies$ errors corrected by repeat reads
+
+:::
+
+::: {.fragment fragment-index=2}
 
 
+- Great for identification of novel transcripts <br>$\implies$ difficult to quantify
+    + Creation of a custom reference transcriptome
+    + Challenging to refer back to functional annotations in reference
+    
+:::
+    
+:::
 
+::: {.column width="40%"}
+
+::: {.fragment fragment-index=1}
+
+![Peccoud J et al, *Untangling Heteroplasmy, Structure, and Evolution of an Atypical Mitochondrial Genome by PacBio Sequencing* Genetics 2017](assets/m_269fig2.jpeg)
+:::
+
+:::
+
+:::
