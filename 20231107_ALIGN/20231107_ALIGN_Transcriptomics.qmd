@@ -54,18 +54,13 @@ I also pay my respects to the cultural authority of Aboriginal and Torres Strait
 :::
 
 ::: {.notes}
-I also wish to express my gratitude for being involved in this space, and an awareness of the trust that has been placed in me
+I also wish to express how grateful I am for the opportunity to be involved in this space.
+I'm acutely aware of the trust that has been placed in me and am very pleased to be surrounded by so many wise & experienced researchers
 :::
 
 ## Who Am I? 
 
-- Oldest person in Black Ochre Data Labs but still an ECR
-
-. . . 
-
-- Coordinator of the University of Adelaide Bioinformatics Hub (2014-2020)
-    + Analysed dozens of RNA-Seq datasets (+ more)
-    + Developed multiple training workshops and undergrad/postgraduate courses
+- Oldest of the nerds in Black Ochre Data Labs but still an ECR
 
 . . .
 
@@ -73,6 +68,11 @@ I also wish to express my gratitude for being involved in this space, and an awa
     + Undertaken in a T Cell  / Autoimmunity Research Group
     + Developed a novel Bayesian Statistical model for alternate transcript detection (using microarrays)
 
+. . . 
+
+- Coordinator of the University of Adelaide Bioinformatics Hub (2014-2020)
+    + Analysed dozens of RNA-Seq datasets (+ more)
+    + Developed multiple training workshops and undergrad/postgraduate courses
 
 . . .     
     
@@ -80,6 +80,7 @@ I also wish to express my gratitude for being involved in this space, and an awa
     
 
 ::: {.notes}
+- I had a career in music before retraining through my 30s and 40s
 - PhD was working in a T cell group looking at autoimmune disease
 - Developed a Bayesian model for detection of alternate transcript expression
 - Am the lead developer for two Bioconductor packages and have contributed to 3 more
@@ -91,7 +92,7 @@ I also wish to express my gratitude for being involved in this space, and an awa
 
 - First discovered microarrays and R in 2002
     + Most statistical understanding has been learned through this lens
-    + Very different to epidemioogy, study design etc
+    + Very different to epidemiology, study design etc
     + Primary training is in biology (e.g. genetics, biochemistry)
 
 . . .
@@ -105,6 +106,7 @@ I also wish to express my gratitude for being involved in this space, and an awa
     + Data Integration (RNA-Seq, ChIP-Seq, HiC etc.)
 
 ::: {.notes}
+- First exposure to bioinformatics was an undergraduate summer scholarship in summer of 2002-2003
 - Statistical training has been very different to epidemiology & study design
 :::
 
@@ -113,6 +115,7 @@ I also wish to express my gratitude for being involved in this space, and an awa
 ## Why?
 
 - Transcriptomics is essentially the analysis of RNA
+- High-throughput viewpoint
 - Provides insight into a **highly dynamic** component of biology
 - Long history of identifying biomarkers and establishing mechanisms
     - Is essentially a hypothesis-generating step
@@ -138,7 +141,7 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
 . . . 
 
 - By integrating with other -omics layers:
-    + Can we establish clear hypotheses into underlying mechanisms? <br>[$\implies$ clinical intervention]{.fragment .fade-in}
+    + Can we refine our hypotheses into underlying mechanisms? <br>[$\implies$ clinical intervention]{.fragment .fade-in}
     
 ::: {.notes}
 - I'm primarily responsible for the analysis of the transcriptomics layer of PROPHECY
@@ -153,7 +156,7 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
 - If only any of us could answer this question
 - As soon as we think we understand something, we find the exception
 - So much redundancy built-in + so much complexity
-- To understand transcriptomics, we do need to revisit the basics
+- To understand transcriptomics, we do need to spend a little little looking at the things around transcripomics which can provide a strong context
 :::
 
 ## DNA
@@ -194,7 +197,7 @@ PROPHECY $\implies$ Preventing Renal OPHtalmic Events in CommunitY
 - DNA lives in the nucleus of most cells (not RBC)
 - Chromosomes replicate and divide with cell division
 - Is generally static, but a huge amount happens to it & around it
-    + Statis in terms of the sequence doesn't change and the molecule is heavily protected and preserved
+    + Static in terms of the sequence doesn't change and the molecule is heavily protected and preserved
 :::
 
 ## DNA
@@ -360,6 +363,7 @@ Proteins are the molecular machines that run our bodies
     + Stomach enzymes like pepsin digest other proteins, others like lactase cut sugars
     + Cell surface receptors (ACE2)
 - Another key feature of proteins which sets them apart from DNA & RNA is their role outside cells
+    + The relationship bertwen a protein and the cell-of-origin is less clear than nucleic acids
 - A common structural protein is Actin
 - By dogma, Nucleic Acids don't exist outside cells (apart from when they do)
     + dicistronic tRNA-mRNA molecules are extracellular signalling molecules in plants
@@ -605,6 +609,12 @@ Labelled cDNA binds complementary target
 
 :::
 
+::: {.fragment}
+
+- We analysed fluorescence NOT sequence data
+
+:::
+
 ::: {.notes}
 
 - Known sequences were placed at specific co-ordinates
@@ -648,13 +658,17 @@ Labelled cDNA binds complementary target
     + Converted to cDNA
     + Add sequencing adapters
     + PCR amplification
-- Sequencing
+    
+. . .    
+    
+- Sequencing $\implies$ ~30-50m reads/sample
 
 . . .
 
 How do we put this all back together and quantify?
 
 ::: {.notes}
+- A complete sequencing run is what we call a library and in RNA-Seq we usually have 30m to 50m reads
 - Imagine chopping up the screen-plays to all Star Wars movies then having to figure out where it came from?
 - "Use the Force" might be really hard to figure out, but "Use the Force Luke" might be easier
 :::
