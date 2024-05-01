@@ -1,0 +1,497 @@
+---
+title: "Alternate References For Transcriptomics"
+subtitle: "Adelaide Bioinformatics Seminars"
+author: "Dr Stevie Pederson (They/Them)"
+affiliation: "Black Ochre Data Labs"
+date: "2024-05-03"
+date-format: long
+title-slide-attributes:
+    data-background-color: "#3D3D40"
+    data-background-opacity: "20%"
+    data-background-size: "35%"
+    data-background-position: "50% 50%"
+editor: source
+format: 
+  revealjs:
+    bibliography: references.bib
+    theme: [bodl.scss]
+    code-line-numbers: false
+    width: 1280
+    height: 720
+    sansfont: Times New Roman
+    logo: assets/bodl_logo_white_background.jpg
+    slide-number: c/t
+include-after: |
+  <script type="text/javascript">
+    Reveal.on('ready', event => {
+      if (event.indexh === 0) {
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+      }
+    });
+    Reveal.addEventListener('slidechanged', (event) => {
+      if (event.indexh === 0) {
+        Reveal.configure({ slideNumber: null });
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+      }
+      if (event.indexh === 1) { 
+        Reveal.configure({ slideNumber: 'c' });
+        document.querySelector("div.has-logo > img.slide-logo").style.display = null;
+      }
+    });
+  </script>    
+knitr: 
+  opts_chunk: 
+    echo: true
+    include: true
+    warning: false
+    message: false
+    fig.align: left
+    fig.width: 8
+    fig.heght: 6
+---
+
+##
+
+::: {.columns}
+
+::: {.column width="35%"}
+
+### Acknowledgement of Country
+
+
+:::
+
+::: {.column width="65%"}
+
+I would like to acknowledge that many of us are meeting today on Kaurna Country.<br><br>
+
+I acknowledge the deep feelings of attachment and relationship of the Kaurna people to their Place.<br><br>
+
+I also pay my respects to the cultural authority of Aboriginal and Torres Strait Islander peoples from other areas of Australia online today, and pay my respects to Elders past, present and emerging. 
+
+
+:::
+
+:::
+
+::: {.notes}
+I also wish to express how grateful I am for the opportunity to be involved in this space.
+I'm acutely aware of the trust that has been placed in me and am very pleased to be surrounded by so many wise & experienced researchers
+:::
+
+## About Me
+
+::: {.columns}
+
+::: {.column width='60%'}
+
+- Postdoctoral Fellow, Black Ochre Data Labs, Indigenous Genomics, Telethon Kids Institute
+
+::: {.fragment fragment-index=1}
+- 2020-2022: Dame Roma Mitchell Cancer Research Labs, University of Adelaide
+:::
+
+::: {.fragment fragment-index=2}
+- 2014-2020: Bioinformatics Hub, University of Adelaide
+:::
+
+::: {.fragment fragment-index=3}
+- 2008-2018: Slowest PhD Student in the world...
+:::
+
+::: {.fragment fragment-index=4}
+- Dec 2002: First used R & `limma`
+:::
+
+::: {.fragment fragment-index=5}
+- 1^st^ Year B.Sc. in 1986 $\implies$ Dropped out in 1987
+:::
+
+:::
+
+::: {.column width='40%'}
+
+::: {.r-stack}
+
+::: {.fragment .fade-out fragment-index=1}
+
+![](assets/TKI.jpg){.absolute top=50 right=50}
+
+:::
+
+::: {.fragment .fade-out fragment-index=4}
+::: {.fragment .fade-in fragment-index=1}
+
+![](assets/UoAlogo.png){.absolute top=50 right=50 width='400px'}
+:::
+:::
+
+::: {.fragment .fade-out fragment-index=5}
+
+![](assets/R_logo.png){.fragment .fade-in fragment-index=4}
+
+:::
+
+::: {.fragment .fade-in fragment-index=5}
+
+![](assets/waterfall.jpg){.absolute top=50 right=50}
+
+:::
+
+:::
+
+:::
+
+:::
+
+::: {.notes}
+- Have primarily worked in bulk transcriptomics (not much scRNA)
+- Lots of ChIP-Seq as well
+- I dropped out to become an influencer & scored a lucrative deal with an umbrella company. Just a bit ahead of my time really
+:::
+
+## Bioconductor Package Developer
+
+
+![](https://github.com/smped/ngsReports/blob/devel/man/figures/ngsReports.png?raw=true){.absolute top=100 left=50 width='250px'}
+
+![](https://github.com/smped/extraChIPs/blob/devel/man/figures/extraChIPs.png?raw=true){.absolute top=400 left=180 width='250px'}
+
+::: {.fragment}
+
+![](https://smped.github.io/motifTestR/reference/figures/favicon.png){.absolute top=100 left=450 width='250px'}
+
+![](https://smped.github.io/transmogR/reference/figures/transmogR.png){.absolute top=400 left=580 width='250px'}
+
+:::
+
+::: {.notes}
+- ngsReports is setup for parsing FastQC & Fastp files across large experiments, as well as lots of other log files (AdapterRemoval, cutadapt, STAR, salmon, bowtie etc)
+    + I still use this most weeks for my own work so it's actively maintained
+- extraChIPs is for ChIP-Seq analysis & integration across ChIP targets
+    + I found DiffBind super-frustrating so wrote this to make my life easier
+    + Also use many of the utility functions very regularly
+- Also very pleased for Dr Nora Liu to have sSNAPPY available on Bioc, which is an enrichment package for challenging clinical samples where you have pre/post treatment
+- Lachlan Baer's package tadar for dealing with differential allelic representation when using CRISPR etc to generate mutants
+
+- Two new packages in Bioc 3.19 (released on Wednesday)
+    + transmogR relates to the main topic for today
+    + motifTesR was a side project, but might be useful for many
+
+:::
+
+## motifTestR
+
+- Was adding motif enrichment testing to the GRAVI workflow
+- Decided to avoid the MEME-Suite &#129327;
+    + Plays badly with `conda`
+    + I struggle to interpret the results
+    + Not R native (although `memes` does wrap some of it)
+    
+. . .
+
+- Particularly interested in motif positions within a set of sequence
+    + Analogous to `centrimo`
+- Added enrichment testing because I could
+
+::: {.notes}
+- The MEME-Suite plays really badly with `conda` and take a huge effort to install correctly
+:::
+
+## motifTestR: Positional Bias
+
+- If no positional bias $\implies$ motifs will match uniformly across the sequence width
+
+::: {.incremental}
+
+1. Break sequences into bins
+2. Assign equal probabilites ($\pi_i$) of matches within bins $i = 1, ... I$
+    + except near boundaries
+3. Test matches in bin $i$ are approximately as predicted by $\pi_i$
+    + `binomial.test()`
+4. Use harmonic mean p-value to obtain a single p-value for each motif
+    + Returns 'enriched sequence regions' where $p_i$ < $HMP(p)$
+
+:::
+
+::: {.notes}
+- Does require all sequences to be the same width
+- Seems to turn up the things I expect to see knowing the data
+- Results are easily interpretable
+- Probs the best shit idea I've ever had
+:::
+
+## motifTestR: Positional Bias
+
+- Can be performed using:
+    a. absolute distance from centre or
+    b. the entire sequence width
+    
+. . .    
+
+- Relies on a single 'best match' per sequence
+    + Also finds motif matches for you
+    + Heavy reliance on `Biostrings`
+    
+. . .
+    
+- 7,000 $\times$ 400bp $\times$ 400 motifs $\implies$ < 30sec (phoenix: 8 cores)
+- 50,000 $\times$ 800bp $\times$ 400 motifs $\implies$ ~2min (phoenix: 8 cores)
+
+## motifTestR: Positional Bias Plots
+
+::: {.columns}
+
+::: {.column width='40%'}
+
+<br>
+
+``` r
+A <- top_matches %>% 
+  plotMatchPos(
+    se = FALSE, abs = TRUE, linewidth = 1/2,
+    binwidth = motif_params$binwidth / 2
+  ) +
+  labs(
+    x = "Distance From Centre", 
+    y = "Proportion", 
+    colour = "Motifs In Cluster"
+  ) +
+  theme(legend.position = "none")
+B <- top_matches %>% 
+  plotMatchPos(
+    type = "cdf", geom = "line", abs = TRUE,
+    linewidth = 1 / 2, binwidth = 1
+  ) +
+  labs(
+    x = "Distance From Centre", 
+    y = "Proportion", 
+    colour = "Representative Motif"
+  )
+A + B
+```
+
+:::
+
+::: {.column width='60%'}
+
+![](assets/plot-smoothed-pos-1.png)
+
+:::
+
+
+:::
+
+::: {.notes}
+- This is set of sequences from AR ChIP-Seq
+- Glucocorticoid Receptor Motif is very concentrated zero the centre (which AR bind)
+- Also picks up ZN770 as being ~150bp from centre
+:::
+
+## motifTestR: Positional Bias Plots
+
+::: {.columns}
+
+::: {.column width='40%'}
+
+<br>
+
+``` r
+top_matches %>% 
+  plotMatchPos(
+    geom = "point", abs =TRUE, use_totals = TRUE,
+    binwidth = 1
+  ) +
+  geom_smooth(
+    se = FALSE, colour = "black", 
+    linewidth = 1/2, method = 'loess'
+  ) +
+  facet_wrap(~name, labeller = as_labeller(lb)) +
+  theme(legend.position = "none") +
+  labs(
+    x = "Distance From Sequence Centre", 
+    y = "Total Matches"
+  )
+```
+
+:::
+
+::: {.column width='60%'}
+
+![](assets/plot-total-pos-matches-1.png)
+
+:::
+
+:::
+
+::: {.notes}
+- The same function can show actual matches (binwidth = 1)
+- Showing counts reveals that ZN770 isn't really common
+:::
+
+
+## motifTestR: Positional Bias Plots
+
+::: {.columns}
+
+::: {.column width='40%'}
+
+<br>
+
+``` r
+motif_list %>% 
+    dplyr::filter(altname %in% top_pos) %>% 
+    to_list() %>% 
+    getPwmMatches(
+      fw_seq, abs = TRUE, best_only = TRUE, 
+      mc.cores = threads
+    ) %>% 
+    plotMatchPos(
+      abs = TRUE, type = "heatmap", 
+      cluster = TRUE, use_totals = TRUE,
+      binwidth = 10
+    ) + 
+    labs(
+    x = "Bin", fill = "Total\n Matches"
+    )
+```
+
+::: {style="font-size:80%;"}
+
+- Clustering & heatmaps can help identify redundancy
+- Also useful for larger sets of matches
+
+:::
+
+:::
+
+::: {.column width='60%'}
+
+![](assets/heatmap-pos-1.png)
+
+:::
+
+:::
+
+## motifTestR: Motif Enrichment
+
+::: {style="font-size: 90%"}
+
+::: {.columns}
+
+::: {.column width='47%'}
+
+1. *Hypergeometric*: Subset A vs Subset B
+    + Specifically for sequences where one subset changes & the other doesn't
+    + Realistically, results are specific to the each BG set
+    
+
+::: {.fragment}
+2. *Poisson*: SetA Vs BG
+    + BG Set >>> Set A
+    + Estimates match rate per sequence in BG $\implies$ `poisson.test()`
+    + Quick(ish) & dirty
+    + Explicitly assumes matches are Poisson
+
+:::
+
+:::
+
+::: {.column width='5%'}
+
+:::
+
+::: {.column width='47%'}
+
+::: {.fragment}
+3. *QuasiPoisson*: SetA Vs BG (In Blocks)
+    + Tests match rate per **block** (i.e. iteration) in BG
+    + Allows for overdispersion
+
+<br>
+:::
+
+::: {.fragment}
+4. *Iterations*: SetA Vs BG (In Blocks)
+    + No distributional assumptions (except CLT)
+    + Derives mean & sd per iteration in BG<br>$\implies$ $Z$-score + p-value
+
+:::
+
+:::
+
+:::
+
+:::
+
+## motifTestR: `makeRMRanges()`
+
+- Added function for obtaining *R*andom *M*atched *R*anges for a test set
+- Relies on a discrete set of features
+    + e.g. promoters, enhancers, etc
+    
+. . .
+
+- Samples RMRanges to exactly match the feature distribution of the test set
+    + Can be sampled in blocks for iterative methods (quasipoisson / iteration)
+
+## motifTestR: Motif Enrichment
+
+::: {.columns}
+
+::: {.column width='70%'}
+
+- Is much, much slower... &#128542;
+
+::: {.fragment fragment-index=1}
+- 7000 $\times$ 400bp $\times$ 400 motifs (quasipoisson):
+    + Using 7000 $\times$ 1000 = 7x10^6^ RMRanges
+    + 7 minutes (phoenix: 8 cores)
+    
+:::
+
+::: {.fragment fragment-index=2}
+- 50,000 $\times$ 800bp $\times$ 400 motifs (quasipoisson):
+    + Using 50,000 $\times$ 1000 = 5x10^7^ RMRanges
+    + 1hr 35min minutes (phoenix: 8 cores)
+    
+    
+:::
+
+::: {.fragment fragment-index=3}
+- Please give it a run & help find bugs etc 
+
+:::
+
+:::
+
+::: {.column width='30%'}
+
+::: {.fragment fragment-index=3}
+<br><br><br><br>
+
+<iframe src="https://giphy.com/embed/6MWahPArixa6I" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/cute-dog-6MWahPArixa6I">via GIPHY</a></p>
+:::
+
+:::
+
+:::
+
+# And Now My Real Talk... {background-color="#3D3D40"}
+
+## Current Research
+
+- PROPHECY (Preventing Renal OPthalmic and Heart Events in CommunitY)
+- Multi-Omics study led by Prof Alex Brown, with Chief Data Scientist A/Prof Jimmy Breen
+
+. . .
+
+- Investigating the very high rates of Diabetes within Indigenous Australians
+    + Also very high rates of complications: CVD & CKD
+    
+. . .
+
+- Is strongly led by Community in partnership with BODL
+    + Hoping to bring benefits of Precision Medicine
+    + New approach to Indigenous Health [$\implies$ listen first]{.fragment}
+
