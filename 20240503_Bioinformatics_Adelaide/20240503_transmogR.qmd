@@ -159,7 +159,13 @@ I'm acutely aware of the trust that has been placed in me and am very pleased to
 
 ::: {.fragment}
 
-![](https://smped.github.io/motifTestR/reference/figures/favicon.png){.absolute top=100 left=450 width='250px'}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/devel/sSNAPPY/sSNAPPY.png){.absolute top=100 left=400 width='250px'}
+
+:::
+
+::: {.fragment}
+
+![](https://smped.github.io/motifTestR/reference/figures/favicon.png){.absolute top=100 left=750 width='250px'}
 
 ![](https://smped.github.io/transmogR/reference/figures/transmogR.png){.absolute top=400 left=580 width='250px'}
 
@@ -207,7 +213,7 @@ I'm acutely aware of the trust that has been placed in me and am very pleased to
 1. Break sequences into bins
 2. Assign equal probabilites ($\pi_i$) of matches within bins $i = 1, ... I$
     + except near boundaries
-3. Test matches in bin $i$ are approximately as predicted by $\pi_i$
+3. Test matches in bin $i$ are as expected using $\pi_i$
     + `binomial.test()`
 4. Use harmonic mean p-value to obtain a single p-value for each motif
     + Returns 'enriched sequence regions' where $p_i$ < $HMP(p)$
@@ -229,14 +235,15 @@ I'm acutely aware of the trust that has been placed in me and am very pleased to
     
 . . .    
 
-- Relies on a single 'best match' per sequence
+- All sequences must be the same length
+- Relies on a single 'best match' per sequence (but also applies weights)
     + Also finds motif matches for you
     + Heavy reliance on `Biostrings`
     
 . . .
     
-- 7,000 $\times$ 400bp $\times$ 400 motifs $\implies$ < 30sec (phoenix: 8 cores)
-- 50,000 $\times$ 800bp $\times$ 400 motifs $\implies$ ~2min (phoenix: 8 cores)
+- 7,000 seq $\times$ 400bp $\times$ 400 motifs $\implies$ < 30sec (phoenix: 8 cores)
+- 50,000 seq $\times$ 800bp $\times$ 400 motifs $\implies$ ~2min (phoenix: 8 cores)
 
 ## motifTestR: Positional Bias Plots
 
@@ -275,7 +282,7 @@ A + B
 
 ::: {.column width='60%'}
 
-![](assets/plot-smoothed-pos-1.png)
+![Sequences were taken from AR ChIP-Seq binding sites](assets/plot-smoothed-pos-1.png)
 
 :::
 
@@ -313,6 +320,10 @@ top_matches %>%
     y = "Total Matches"
   )
 ```
+
+<br>
+
+Show the matches at each position
 
 :::
 
@@ -359,7 +370,7 @@ motif_list %>%
 ::: {style="font-size:80%;"}
 
 - Clustering & heatmaps can help identify redundancy
-- Also useful for larger sets of matches
+- Useful for larger sets of motifs / matches
 
 :::
 
@@ -454,21 +465,24 @@ motif_list %>%
 - 50,000 $\times$ 800bp $\times$ 400 motifs (quasipoisson):
     + Using 50,000 $\times$ 1000 = 5x10^7^ RMRanges
     + 1hr 35min minutes (phoenix: 8 cores)
-    
-    
+
 :::
 
 ::: {.fragment fragment-index=3}
-- Please give it a run & help find bugs etc 
-
+- 400 Vs 6500 $\times$ 400bp $\times$ 400 motifs (hypergeometric):
+    + 35 sec (phoenix: 8 cores)
 :::
+
 
 :::
 
 ::: {.column width='30%'}
 
-::: {.fragment fragment-index=3}
-<br><br><br><br>
+::: {.fragment fragment-index=4}
+
+- This dog wants you to try it...
+
+<br>
 
 <iframe src="https://giphy.com/embed/6MWahPArixa6I" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/cute-dog-6MWahPArixa6I">via GIPHY</a></p>
 :::
@@ -495,3 +509,517 @@ motif_list %>%
     + Hoping to bring benefits of Precision Medicine
     + New approach to Indigenous Health [$\implies$ listen first]{.fragment}
 
+## Life Expectancy Gaps
+
+![Courtesy of A/Prof Jimmy Breen, Black Ochre Data Labs, TKI](assets/life_expectancy.png)
+
+## Mortality From Diabetes
+
+![](assets/mortality.png){width='800px'}
+
+## Why?
+
+- Taking all socio-economic indicators $\implies$ disease risk is still hugely increased for Indigenous Australiams
+- Not only disease risk, but higher rates of profound complications
+
+. . .
+
+- Are there risk alleles?
+    + If so, what are they? How do they contribute to risk?
+- Are there protective alleles?
+
+. . .
+
+- Is there an epigenetic contribution?
+- Additional environmental factors?
+
+## Multi-Omic Approaches
+
+![](assets/prophecy.png){width='1000px'}
+
+## The Transcriptomics Layer
+
+- Whole blood samples
+- Can we capture dynamics of disease / signatures / biomarkers etc?
+- Approach will be classical statistics + network approaches
+
+. . .
+
+- Tried to be excruciatingly careful with design:
+    + plate layout, pooled replicates, globin-depletion, ERCC spike-ins, RIN scores etc
+- Library preps are finally underway
+- Data lands around September
+
+# Why Think About Reference Genomes? {background-color="#3D3D40"}
+
+## Genetic Diversity
+
+- Indigenous Australians are almost totally absent from repositories of genetic variation 
+- $\sim$ 25% of variation within Indigenous Australian populations is unique & poorly characterised [@Easteal2020-fo]
+
+. . .
+
+- If contributing to disease risk and we use a standard reference [$\implies$ will we see it?]{.fragment}
+
+. . .
+
+- Can we bring the reference closer to our participants' genomes?
+
+. . .
+
+- NCIG are very close to a pangenome graph assembled from Indigneous Australians
+    + A little too far off of to be viable yet
+    + Monica Guilhaus doing an amazing job figuring out spliced pan-transcriptome graphs [@Sibbesen2023-md]
+    
+::: {.notes}
+At least one member of our Indigenous Governance groups has said "Why are we even comparing ourselves to any other group. We should compare ourselves to us?
+:::
+
+## Gene-Level Approaches
+
+- *STARconsensus* [@Kaminow2022-dz] enables inclusion of a population-specific consensus variant set
+    + Also possible for personalised genomes
+    + Now has a `diploid` mode for phased, personalised variant sets
+    
+. . .
+
+- Incorporates variants during indexing
+    + Indexes twice (Standard + Modified)
+    + Returns alignment co-ordinates relative to the unmodified reference
+    
+. . .
+
+- Simple to obtain counts using standard methods (e.g. featureCounts)
+
+## The Downside
+
+- Locked into using STAR
+    + In my hands can't align full-length, reference-derived transcripts
+- Counts are gene-level
+
+. . .
+
+- We understand the distribution of counts at the gene level
+    + `edgeR` & `DESeq2`: well established Negative Binomial methods
+    
+. . .
+
+- Transcript-level counts have additional uncertainty
+    + Need to be scaled by an over-dispersion estimate<br>$\implies$ can then be treated as Negative Binomial [@Baldoni2024-zf]
+    + Cannot obtain these from `STAR` + `featureCounts`
+    
+## Transcript-Level Analysis
+
+- `salmon` provides transcript-level counts with overdispersion estimate!
+- Can we modify a reference transcriptome using a set of variants?
+
+::: {.fragment}
+
+<br><br>
+
+<iframe src="https://giphy.com/embed/3ohs2xhB3jP6XfJ4ME" width="480" height="265" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/colbertlateshow-late-show-the-with-stephen-colbert-3ohs2xhB3jP6XfJ4ME">via GIPHY</a></p>
+
+![](https://smped.github.io/transmogR/reference/figures/transmogR.png){.absolute bottom=50 right=100 width='400px'}
+
+:::
+
+## transmogR + salmon
+
+- Takes about 15-20 mins, even on a laptop
+- Modified transcripts can be optionally tagged:
+    + Indicating variant types (`s/i/d`)
+    + Naming the variant set (e.g. `panhuman`)
+- Generally using SNVs + InDels < 50bp
+
+. . .
+
+- I've been using a modified transcriptome & modified genome as the *gentrome*
+    + The genome is used by `salmon` as decoy sequences [@Srivastava2020-tm]
+    
+. . . 
+
+- Indexing for `salmon` still takes a while...
+
+::: {.notes}
+Structural variants really need a new approach like the graph-based ones
+:::
+
+# DBPAInT: Developing Best Practices for the Analysis of Indigenous Transcriptomes  {background-color="#3D3D40"}
+
+::: {.notes}
+Ths is very much work in progress with some results coming in last night
+:::
+
+## The Approach
+
+- STARconsensus: using variants from the wrong population still improves performance [@Kaminow2022-dz]
+
+. . .
+
+1. 1000 Genomes Project Panhuman
+    + alleles found in >50% of unrelated across entire project
+
+. . .
+
+2. 1000 GP AFR Subpopulation
+    + alleles found in >50% of unrelated within the AFR population
+    + most distinct population from the Panhuman
+    
+. . .
+
+3. PROPHECY consensus set
+    + alleles found in > 50% of unrelated members of the study
+    + Used 3 familial steps to define 'unrelated'
+    
+## The Analysis
+
+- 6 female pilot samples
+    + All genomes are y-masked
+
+- Replicating elements of STARconsensus
+- Taking GRCh38 as the worst case $\implies$ changes are improvements?
+    + Four sets of genomic alignments / sample
+    + Personalised variants arriving in the next few days (weeks?)
+    
+. . .
+
+- Also running a `transmogR` + `salmon` analysis
+    + Four sets of transcripomic alignments / sample
+    + Haven't figured out how to do a diploid transcriptome yet...
+    
+::: {.notes}
+Personalised references give the closest to ground truth we can realistically get
+:::
+
+## The Variants
+
+![](assets/ol-all-var-1.png)
+
+::: {.notes}
+- High levels of common variation $\implies$ even the wrong variant set shold be an improvement
+- AFR & PROPHECY have the most uniqueness, but PROPHECY appears closer to the panhuman set
+:::
+
+## PROPHECY Variants Overlapping Exons
+
+![](assets/prophecy-by-trans-1.png)
+
+::: {.notes}
+Taking the variants which overlap exons, how many transcripts are impacted
+:::
+
+## Key Questions
+
+1. Are technical metrics improved?
+2. Does it really make a difference?
+3. Does any difference actually capture the underlying biology?
+
+. . .
+
+- STAR is deterministic for given reference
+    + Change the reference even slightly $\implies$ no guarantees
+    
+. . .
+
+- `salmon` is not deterministic
+
+. . .
+
+- Some of the changes will just be noise, but *how much is noise*?
+
+## Technical Analyses
+
+- No real change to number of reads aligning (`STAR` or `salmon`)
+- Very noticeable changes within alignments
+- (Nearly) all technical metrics appear to be supportive of a variant modified reference
+
+. . .
+
+- First step is to check uniquely aligned reads from STARconsensus...
+
+
+## Uniquely Aligning Reads (STARconsensus)
+
+::: {.columns}
+
+::: {.column}
+
+![All variant sets show an increase in the number of uniquely-aligned reads (10-30,000)](assets/plot-nett-unique-1.png)
+:::
+
+::: {.column}
+
+::: {.fragment}
+
+![PROPHECY shows a very slight increase in the number of CIGAR M-bases per uniquely-aligned read](assets/compare-matching-bases-1.png)
+:::
+
+:::
+
+:::
+
+## However... {.smaller}
+
+::: {.columns}
+
+::: {.column width='65%'}
+
+![](assets/barplot-all-changes-1.png)
+
+:::
+
+::: {.column width='35%'}
+
+- About 1 in 300 reads moves
+- About 30-40,000 reads remain uniquely aligned but in a different location
+
+::: {.fragment}
+- How much is noise?
+- Are the changes shared between samples?
+- Do the changed reads overlap a variant?
+- Where exactly are they moving *from* and *to*?
+:::
+
+:::
+
+:::
+
+## Reads Overlapping Variants
+
+::: {.columns}
+
+::: {.column width='64%'}
+
+![](assets/var-alluvial-1.png){fig-align='left'}
+
+:::
+
+::: {.column width='36%'}
+
+Taking reads where gapped alignments overlap a variant
+
+- chr12 to chr1 shared by all
+- Also chr9 to chr7
+- chrX to chr19 shared by 1, 2, 6
+- chr12 to chr16 shared by 2 $\rightarrow$ 5
+:::
+
+:::
+
+::: {.notes}
+These strike me as patterns which support the underlying biology & diversity within particiapnts
+:::
+
+## Reads Overlapping Variants
+
+::: {.columns}
+
+::: {.column width='60%'}
+![](assets/alluvial-gene-type-1.png){width='600px'}
+:::
+
+::: {.column width='40%'}
+
+Taking all samples combined
+
+- Increase in alignments to protein coding genes
+- Decrease in pseudogenes
+
+:::
+
+:::
+
+## Common Genes Being Impacted
+
+::: {.columns}
+
+::: {.column width='65%'}
+
+![](assets/individual-genes-1.png)
+:::
+
+::: {.column width='35%'}
+
+Taking the 20 most common shifts
+
+- HLA-A
+- HLA-H
+- Ribosomal proteins
+- Histone Proteins
+
+:::
+
+:::
+
+## Quick Summary
+
+- These are only the uniquely-aligned reads from STARconsensus
+    + Don't overlap alignment positions in either reference
+    + Haven't looked at unmapped $\rightarrow$ mapped, or multi-mappers
+- Looks like it may be consistent & true biology?
+- I got these results Wed night so I'm still processing them mentally
+
+## Differential Gene Expression Analysis
+
+::: {.columns}
+
+::: {.column width='60%'}
+
+![](assets/plot-ma-1.png){fig-align="left"}
+
+:::
+
+::: {.column width='40%'}
+
+
+- GRCh38 vs PROPHECY-modified
+- Identical input reads
+- All changes are alignment induced
+
+:::
+
+:::
+
+## Genes Impacted Variably {.smaller}
+
+::: {.columns}
+
+::: {.column width='60%'}
+
+![](assets/plot-variable-1.png){fig-align="left"}
+
+:::
+
+::: {.column width='40%'}
+
+
+
+Taking expression estimates within each reference:
+
+1. Find the difference in counts per gene & sample
+2. Take mean & sd of differences
+
+::: {.fragment}
+
+- Consistent changes will be low-variability, far from zero
+- Inconsistent changes high-variability but near zero
+- Like looking through an MA plot with varibility as 3^rd^ dimension
+
+:::
+
+
+
+:::
+
+:::
+
+# What about `salmon` + `transmogR` {background-color="#3D3D40"}
+
+## Key Differences to STAR
+
+- Only ~30% of reads align uniquely
+    + Largest NH:i tag is ~24,000
+    + 90% of reads align with NH:i < 10
+    
+. . .
+
+- BAM files directly connect read ID to transcript
+    + Makes comparison much simpler
+    
+. . .
+
+- How do the *transcript-level* counts change?
+- How do the *overdispersion* estimates change?
+
+
+## Salmon Metrics
+
+- Increase in Properly-Paired alignments (+3000)
+- PROPHECY has strongest increase in correctly oriented fragments (+10,000 ISF)
+- Decrease in umapped reads (-2000)
+
+. . .
+
+- Minor change in library sizes
+- Similar numbers of detected transcripts (>1 count)
+
+## Overdispersion Estimates
+
+![Looking at how the number of transcripts / gene also impacts these](assets/compare-overdispersions-1.png){fig-align="left"}
+
+## Raw Transcript-Level Counts {visibility="hidden"}
+
+![Comparing raw transcript-level counts. Changes > 100-fold are labelled](assets/compare-trans-counts-raw-1.png)
+
+## Scaled Transcript-Level Counts
+
+![This seems quite acceptable](assets/compare-trans-counts-1.png){fig-align="left"}
+
+## DTE {visibility="hidden"}
+
+![](assets/trans-ma-scaled-1.png){fig-align="left"}
+
+
+## Variable Transcripts
+
+![](assets/trans-variable-1.png){fig-align="left"}
+
+## Tracking Individual Reads
+
+- Can easily track a read & all it's transcripts 
+- Subset data to reads with NH:i $\leq 10$
+- Subset reads to those aligning to a modified transcript either before or after
+
+. . .
+
+- Unique-mappers are far less informative for transcript-level alignments
+- Haven't checked for moves between chromosomes
+    + Transcript & Gene-Level moves are more fine-grained
+
+
+## Tracking Reads Which Change Transcripts
+
+![Reads changing transcript **within** a gene](assets/salmon-moved-within-1.png){fig-align="left"}
+
+::: {.notes}
+The consistency between samples is very encouraging
+:::
+
+## Tracking Reads Which Change Transcripts
+
+![Reads changing transcript to different genes](assets/salmon-moved-across-1.png){fig-align="left"}
+
+::: {.notes}
+- Changes are again very consistent between samples
+- Some similarity to STAR changes, but not the pseudogene story!!!
+:::
+
+## Changing Transcripts: Gene-Level Categories
+
+![Shows a nice decrease in reads mapping nowhere](assets/salmon-moved-gene-alluvial-1.png){fig-align="left"}
+
+::: {.notes}
+A small increase in protein coding genes for some samples
+:::
+
+## Changing Transcripts: Transcript-Level Categories
+
+![Lots of change between but no categories really sing out](assets/salmon-moved-trans-alluvial-1.png){fig-align="left"}
+
+## Where To From Here
+
+- Personalised Variant sets will give us the best estimate of ground-truth
+    + Will run STARconsensus in Diploid mode
+    + Haven't figured out how to do this for `transmogR` + `salmon
+    + Will just choose randomly from Het sites (???)
+
+. . .
+  
+- Running a mini 90-sample cohort to see how it really plays at scale
+    + Previously analysed by Prof Sam El-Osta's team (Monash)
+    + Have a specific subset of complications
+    
+- How will WGCNA modules be impacted?
+- How will true DGE / DTE results be impacted?
+
+## References

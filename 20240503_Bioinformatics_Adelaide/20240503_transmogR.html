@@ -95,7 +95,26 @@
     code span.va { color: #111111; } /* Variable */
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="20240503_transmogR_files/libs/revealjs/dist/theme/quarto.css">
   <link href="20240503_transmogR_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="20240503_transmogR_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -503,7 +522,10 @@ Dr Stevie Pederson (They/Them)
 <p><img data-src="https://github.com/smped/ngsReports/blob/devel/man/figures/ngsReports.png?raw=true" class="absolute" style="top: 100px; left: 50px; width: 250px; "></p>
 <p><img data-src="https://github.com/smped/extraChIPs/blob/devel/man/figures/extraChIPs.png?raw=true" class="absolute" style="top: 400px; left: 180px; width: 250px; "></p>
 <div class="fragment">
-<p><img data-src="https://smped.github.io/motifTestR/reference/figures/favicon.png" class="absolute" style="top: 100px; left: 450px; width: 250px; "></p>
+<p><img data-src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/devel/sSNAPPY/sSNAPPY.png" class="absolute" style="top: 100px; left: 400px; width: 250px; "></p>
+</div>
+<div class="fragment">
+<p><img data-src="https://smped.github.io/motifTestR/reference/figures/favicon.png" class="absolute" style="top: 100px; left: 750px; width: 250px; "></p>
 <p><img data-src="https://smped.github.io/transmogR/reference/figures/transmogR.png" class="absolute" style="top: 400px; left: 580px; width: 250px; "></p>
 </div>
 <aside class="notes">
@@ -585,7 +607,7 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li class="fragment">except near boundaries</li>
 </ul></li>
-<li class="fragment">Test matches in bin <span class="math inline">\(i\)</span> are approximately as predicted by <span class="math inline">\(\pi_i\)</span>
+<li class="fragment">Test matches in bin <span class="math inline">\(i\)</span> are as expected using <span class="math inline">\(\pi_i\)</span>
 <ul>
 <li class="fragment"><code>binomial.test()</code></li>
 </ul></li>
@@ -625,7 +647,8 @@ Dr Stevie Pederson (They/Them)
 </ul>
 <div class="fragment">
 <ul>
-<li>Relies on a single ‘best match’ per sequence
+<li>All sequences must be the same length</li>
+<li>Relies on a single ‘best match’ per sequence (but also applies weights)
 <ul>
 <li>Also finds motif matches for you</li>
 <li>Heavy reliance on <code>Biostrings</code></li>
@@ -634,8 +657,8 @@ Dr Stevie Pederson (They/Them)
 </div>
 <div class="fragment">
 <ul>
-<li>7,000 <span class="math inline">\(\times\)</span> 400bp <span class="math inline">\(\times\)</span> 400 motifs <span class="math inline">\(\implies\)</span> &lt; 30sec (phoenix: 8 cores)</li>
-<li>50,000 <span class="math inline">\(\times\)</span> 800bp <span class="math inline">\(\times\)</span> 400 motifs <span class="math inline">\(\implies\)</span> ~2min (phoenix: 8 cores)</li>
+<li>7,000 seq <span class="math inline">\(\times\)</span> 400bp <span class="math inline">\(\times\)</span> 400 motifs <span class="math inline">\(\implies\)</span> &lt; 30sec (phoenix: 8 cores)</li>
+<li>50,000 seq <span class="math inline">\(\times\)</span> 800bp <span class="math inline">\(\times\)</span> 400 motifs <span class="math inline">\(\implies\)</span> ~2min (phoenix: 8 cores)</li>
 </ul>
 </div>
 </section>
@@ -667,7 +690,12 @@ Dr Stevie Pederson (They/Them)
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>A <span class="sc">+</span> B</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
 <p><img data-src="assets/plot-smoothed-pos-1.png"></p>
+<figcaption>Sequences were taken from AR ChIP-Seq binding sites</figcaption>
+</figure>
+</div>
 </div>
 </div>
 <aside class="notes">
@@ -708,6 +736,8 @@ Dr Stevie Pederson (They/Them)
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Distance From Sequence Centre"</span>, </span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total Matches"</span></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<p>Show the matches at each position</p>
 </div><div class="column" style="width:60%;">
 <p><img data-src="assets/plot-total-pos-matches-1.png"></p>
 </div>
@@ -752,7 +782,7 @@ Dr Stevie Pederson (They/Them)
 <div style="font-size:80%;">
 <ul>
 <li>Clustering &amp; heatmaps can help identify redundancy</li>
-<li>Also useful for larger sets of matches</li>
+<li>Useful for larger sets of motifs / matches</li>
 </ul>
 </div>
 </div><div class="column" style="width:60%;">
@@ -854,12 +884,18 @@ Dr Stevie Pederson (They/Them)
 </div>
 <div class="fragment" data-fragment-index="3">
 <ul>
-<li>Please give it a run &amp; help find bugs etc</li>
+<li>400 Vs 6500 <span class="math inline">\(\times\)</span> 400bp <span class="math inline">\(\times\)</span> 400 motifs (hypergeometric):
+<ul>
+<li>35 sec (phoenix: 8 cores)</li>
+</ul></li>
 </ul>
 </div>
 </div><div class="column" style="width:30%;">
-<div class="fragment" data-fragment-index="3">
-<p><br><br><br><br></p>
+<div class="fragment" data-fragment-index="4">
+<ul>
+<li>This dog wants you to try it…</li>
+</ul>
+<p><br></p>
 <iframe src="https://giphy.com/embed/6MWahPArixa6I" width="480" height="480" frameborder="0" class="giphy-embed" allowfullscreen="">
 </iframe>
 <p>
@@ -896,9 +932,707 @@ Dr Stevie Pederson (They/Them)
 <li>New approach to Indigenous Health <span class="fragment"><span class="math inline">\(\implies\)</span> listen first</span></li>
 </ul></li>
 </ul>
-<p><img src="assets/bodl_logo_white_background.jpg" class="slide-logo"></p>
-<div class="footer footer-default">
+</div>
+</section>
+<section id="life-expectancy-gaps" class="slide level2">
+<h2>Life Expectancy Gaps</h2>
 
+<img data-src="assets/life_expectancy.png" class="r-stretch quarto-figure-center"><p class="caption">Courtesy of A/Prof Jimmy Breen, Black Ochre Data Labs, TKI</p></section>
+<section id="mortality-from-diabetes" class="slide level2">
+<h2>Mortality From Diabetes</h2>
+
+<img data-src="assets/mortality.png" width="800" class="r-stretch"></section>
+<section id="why" class="slide level2">
+<h2>Why?</h2>
+<ul>
+<li>Taking all socio-economic indicators <span class="math inline">\(\implies\)</span> disease risk is still hugely increased for Indigenous Australiams</li>
+<li>Not only disease risk, but higher rates of profound complications</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Are there risk alleles?
+<ul>
+<li>If so, what are they? How do they contribute to risk?</li>
+</ul></li>
+<li>Are there protective alleles?</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Is there an epigenetic contribution?</li>
+<li>Additional environmental factors?</li>
+</ul>
+</div>
+</section>
+<section id="multi-omic-approaches" class="slide level2">
+<h2>Multi-Omic Approaches</h2>
+
+<img data-src="assets/prophecy.png" width="1000" class="r-stretch"></section>
+<section id="the-transcriptomics-layer" class="slide level2">
+<h2>The Transcriptomics Layer</h2>
+<ul>
+<li>Whole blood samples</li>
+<li>Can we capture dynamics of disease / signatures / biomarkers etc?</li>
+<li>Approach will be classical statistics + network approaches</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Tried to be excruciatingly careful with design:
+<ul>
+<li>plate layout, pooled replicates, globin-depletion, ERCC spike-ins, RIN scores etc</li>
+</ul></li>
+<li>Library preps are finally underway</li>
+<li>Data lands around September</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="why-think-about-reference-genomes" class="title-slide slide level1 center" data-background-color="#3D3D40">
+<h1>Why Think About Reference Genomes?</h1>
+
+</section>
+<section id="genetic-diversity" class="slide level2">
+<h2>Genetic Diversity</h2>
+<ul>
+<li>Indigenous Australians are almost totally absent from repositories of genetic variation</li>
+<li><span class="math inline">\(\sim\)</span> 25% of variation within Indigenous Australian populations is unique &amp; poorly characterised <span class="citation" data-cites="Easteal2020-fo">(<a href="#/references" role="doc-biblioref" onclick="">Easteal et al. 2020</a>)</span></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>If contributing to disease risk and we use a standard reference <span class="fragment"><span class="math inline">\(\implies\)</span> will we see it?</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Can we bring the reference closer to our participants’ genomes?</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>NCIG are very close to a pangenome graph assembled from Indigneous Australians
+<ul>
+<li>A little too far off of to be viable yet</li>
+<li>Monica Guilhaus doing an amazing job figuring out spliced pan-transcriptome graphs <span class="citation" data-cites="Sibbesen2023-md">(<a href="#/references" role="doc-biblioref" onclick="">Sibbesen et al. 2023</a>)</span></li>
+</ul></li>
+</ul>
+<aside class="notes">
+<p>At least one member of our Indigenous Governance groups has said “Why are we even comparing ourselves to any other group. We should compare ourselves to us?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="gene-level-approaches" class="slide level2">
+<h2>Gene-Level Approaches</h2>
+<ul>
+<li><em>STARconsensus</em> <span class="citation" data-cites="Kaminow2022-dz">(<a href="#/references" role="doc-biblioref" onclick="">Kaminow et al. 2022</a>)</span> enables inclusion of a population-specific consensus variant set
+<ul>
+<li>Also possible for personalised genomes</li>
+<li>Now has a <code>diploid</code> mode for phased, personalised variant sets</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Incorporates variants during indexing
+<ul>
+<li>Indexes twice (Standard + Modified)</li>
+<li>Returns alignment co-ordinates relative to the unmodified reference</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Simple to obtain counts using standard methods (e.g.&nbsp;featureCounts)</li>
+</ul>
+</div>
+</section>
+<section id="the-downside" class="slide level2">
+<h2>The Downside</h2>
+<ul>
+<li>Locked into using STAR
+<ul>
+<li>In my hands can’t align full-length, reference-derived transcripts</li>
+</ul></li>
+<li>Counts are gene-level</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>We understand the distribution of counts at the gene level
+<ul>
+<li><code>edgeR</code> &amp; <code>DESeq2</code>: well established Negative Binomial methods</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Transcript-level counts have additional uncertainty
+<ul>
+<li>Need to be scaled by an over-dispersion estimate<br><span class="math inline">\(\implies\)</span> can then be treated as Negative Binomial <span class="citation" data-cites="Baldoni2024-zf">(<a href="#/references" role="doc-biblioref" onclick="">Baldoni et al. 2024</a>)</span></li>
+<li>Cannot obtain these from <code>STAR</code> + <code>featureCounts</code></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="transcript-level-analysis" class="slide level2">
+<h2>Transcript-Level Analysis</h2>
+<ul>
+<li><code>salmon</code> provides transcript-level counts with overdispersion estimate!</li>
+<li>Can we modify a reference transcriptome using a set of variants?</li>
+</ul>
+<div class="fragment">
+<p><br><br></p>
+<iframe src="https://giphy.com/embed/3ohs2xhB3jP6XfJ4ME" width="480" height="265" frameborder="0" class="giphy-embed" allowfullscreen="">
+</iframe>
+<p>
+<a href="https://giphy.com/gifs/colbertlateshow-late-show-the-with-stephen-colbert-3ohs2xhB3jP6XfJ4ME">via GIPHY</a>
+</p>
+<p><img data-src="https://smped.github.io/transmogR/reference/figures/transmogR.png" class="absolute" style="bottom: 50px; right: 100px; width: 400px; "></p>
+</div>
+</section>
+<section id="transmogr-salmon" class="slide level2">
+<h2>transmogR + salmon</h2>
+<ul>
+<li>Takes about 15-20 mins, even on a laptop</li>
+<li>Modified transcripts can be optionally tagged:
+<ul>
+<li>Indicating variant types (<code>s/i/d</code>)</li>
+<li>Naming the variant set (e.g.&nbsp;<code>panhuman</code>)</li>
+</ul></li>
+<li>Generally using SNVs + InDels &lt; 50bp</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>I’ve been using a modified transcriptome &amp; modified genome as the <em>gentrome</em>
+<ul>
+<li>The genome is used by <code>salmon</code> as decoy sequences <span class="citation" data-cites="Srivastava2020-tm">(<a href="#/references" role="doc-biblioref" onclick="">Srivastava et al. 2020</a>)</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Indexing for <code>salmon</code> still takes a while…</li>
+</ul>
+<aside class="notes">
+<p>Structural variants really need a new approach like the graph-based ones</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section></section>
+<section>
+<section id="dbpaint-developing-best-practices-for-the-analysis-of-indigenous-transcriptomes" class="title-slide slide level1 center" data-background-color="#3D3D40">
+<h1>DBPAInT: Developing Best Practices for the Analysis of Indigenous Transcriptomes</h1>
+<aside class="notes">
+<p>Ths is very much work in progress with some results coming in last night</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-approach" class="slide level2">
+<h2>The Approach</h2>
+<ul>
+<li>STARconsensus: using variants from the wrong population still improves performance <span class="citation" data-cites="Kaminow2022-dz">(<a href="#/references" role="doc-biblioref" onclick="">Kaminow et al. 2022</a>)</span></li>
+</ul>
+<div class="fragment">
+<ol type="1">
+<li>1000 Genomes Project Panhuman
+<ul>
+<li>alleles found in &gt;50% of unrelated across entire project</li>
+</ul></li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li>1000 GP AFR Subpopulation
+<ul>
+<li>alleles found in &gt;50% of unrelated within the AFR population</li>
+<li>most distinct population from the Panhuman</li>
+</ul></li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li>PROPHECY consensus set
+<ul>
+<li>alleles found in &gt; 50% of unrelated members of the study</li>
+<li>Used 3 familial steps to define ‘unrelated’</li>
+</ul></li>
+</ol>
+</div>
+</section>
+<section id="the-analysis" class="slide level2">
+<h2>The Analysis</h2>
+<ul>
+<li>6 female pilot samples
+<ul>
+<li>All genomes are y-masked</li>
+</ul></li>
+<li>Replicating elements of STARconsensus</li>
+<li>Taking GRCh38 as the worst case <span class="math inline">\(\implies\)</span> changes are improvements?
+<ul>
+<li>Four sets of genomic alignments / sample</li>
+<li>Personalised variants arriving in the next few days (weeks?)</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Also running a <code>transmogR</code> + <code>salmon</code> analysis
+<ul>
+<li>Four sets of transcripomic alignments / sample</li>
+<li>Haven’t figured out how to do a diploid transcriptome yet…</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<p>Personalised references give the closest to ground truth we can realistically get</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="the-variants" class="slide level2">
+<h2>The Variants</h2>
+
+<img data-src="assets/ol-all-var-1.png" class="r-stretch"><aside class="notes">
+<ul>
+<li>High levels of common variation <span class="math inline">\(\implies\)</span> even the wrong variant set shold be an improvement</li>
+<li>AFR &amp; PROPHECY have the most uniqueness, but PROPHECY appears closer to the panhuman set</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="prophecy-variants-overlapping-exons" class="slide level2">
+<h2>PROPHECY Variants Overlapping Exons</h2>
+
+<img data-src="assets/prophecy-by-trans-1.png" class="r-stretch"><aside class="notes">
+<p>Taking the variants which overlap exons, how many transcripts are impacted</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="key-questions" class="slide level2">
+<h2>Key Questions</h2>
+<ol type="1">
+<li>Are technical metrics improved?</li>
+<li>Does it really make a difference?</li>
+<li>Does any difference actually capture the underlying biology?</li>
+</ol>
+<div class="fragment">
+<ul>
+<li>STAR is deterministic for given reference
+<ul>
+<li>Change the reference even slightly <span class="math inline">\(\implies\)</span> no guarantees</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><code>salmon</code> is not deterministic</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Some of the changes will just be noise, but <em>how much is noise</em>?</li>
+</ul>
+</div>
+</section>
+<section id="technical-analyses" class="slide level2">
+<h2>Technical Analyses</h2>
+<ul>
+<li>No real change to number of reads aligning (<code>STAR</code> or <code>salmon</code>)</li>
+<li>Very noticeable changes within alignments</li>
+<li>(Nearly) all technical metrics appear to be supportive of a variant modified reference</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>First step is to check uniquely aligned reads from STARconsensus…</li>
+</ul>
+</div>
+</section>
+<section id="uniquely-aligning-reads-starconsensus" class="slide level2">
+<h2>Uniquely Aligning Reads (STARconsensus)</h2>
+<div class="columns">
+<div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/plot-nett-unique-1.png"></p>
+<figcaption>All variant sets show an increase in the number of uniquely-aligned reads (10-30,000)</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/compare-matching-bases-1.png"></p>
+<figcaption>PROPHECY shows a very slight increase in the number of CIGAR M-bases per uniquely-aligned read</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="however" class="slide level2 smaller">
+<h2>However…</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
+<p><img data-src="assets/barplot-all-changes-1.png"></p>
+</div><div class="column" style="width:35%;">
+<ul>
+<li>About 1 in 300 reads moves</li>
+<li>About 30-40,000 reads remain uniquely aligned but in a different location</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>How much is noise?</li>
+<li>Are the changes shared between samples?</li>
+<li>Do the changed reads overlap a variant?</li>
+<li>Where exactly are they moving <em>from</em> and <em>to</em>?</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="reads-overlapping-variants" class="slide level2">
+<h2>Reads Overlapping Variants</h2>
+<div class="columns">
+<div class="column" style="width:64%;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="assets/var-alluvial-1.png"></p>
+</figure>
+</div>
+</div><div class="column" style="width:36%;">
+<p>Taking reads where gapped alignments overlap a variant</p>
+<ul>
+<li>chr12 to chr1 shared by all</li>
+<li>Also chr9 to chr7</li>
+<li>chrX to chr19 shared by 1, 2, 6</li>
+<li>chr12 to chr16 shared by 2 <span class="math inline">\(\rightarrow\)</span> 5</li>
+</ul>
+</div>
+</div>
+<aside class="notes">
+<p>These strike me as patterns which support the underlying biology &amp; diversity within particiapnts</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="reads-overlapping-variants-1" class="slide level2">
+<h2>Reads Overlapping Variants</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="assets/alluvial-gene-type-1.png" width="600"></p>
+</div><div class="column" style="width:40%;">
+<p>Taking all samples combined</p>
+<ul>
+<li>Increase in alignments to protein coding genes</li>
+<li>Decrease in pseudogenes</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="common-genes-being-impacted" class="slide level2">
+<h2>Common Genes Being Impacted</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
+<p><img data-src="assets/individual-genes-1.png"></p>
+</div><div class="column" style="width:35%;">
+<p>Taking the 20 most common shifts</p>
+<ul>
+<li>HLA-A</li>
+<li>HLA-H</li>
+<li>Ribosomal proteins</li>
+<li>Histone Proteins</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="quick-summary" class="slide level2">
+<h2>Quick Summary</h2>
+<ul>
+<li>These are only the uniquely-aligned reads from STARconsensus
+<ul>
+<li>Don’t overlap alignment positions in either reference</li>
+<li>Haven’t looked at unmapped <span class="math inline">\(\rightarrow\)</span> mapped, or multi-mappers</li>
+</ul></li>
+<li>Looks like it may be consistent &amp; true biology?</li>
+<li>I got these results Wed night so I’m still processing them mentally</li>
+</ul>
+</section>
+<section id="differential-gene-expression-analysis" class="slide level2">
+<h2>Differential Gene Expression Analysis</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="assets/plot-ma-1.png"></p>
+</figure>
+</div>
+</div><div class="column" style="width:40%;">
+<ul>
+<li>GRCh38 vs PROPHECY-modified</li>
+<li>Identical input reads</li>
+<li>All changes are alignment induced</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="genes-impacted-variably" class="slide level2 smaller">
+<h2>Genes Impacted Variably</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="assets/plot-variable-1.png"></p>
+</figure>
+</div>
+</div><div class="column" style="width:40%;">
+<p>Taking expression estimates within each reference:</p>
+<ol type="1">
+<li>Find the difference in counts per gene &amp; sample</li>
+<li>Take mean &amp; sd of differences</li>
+</ol>
+<div class="fragment">
+<ul>
+<li>Consistent changes will be low-variability, far from zero</li>
+<li>Inconsistent changes high-variability but near zero</li>
+<li>Like looking through an MA plot with varibility as 3<sup>rd</sup> dimension</li>
+</ul>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="what-about-salmon-transmogr" class="title-slide slide level1 center" data-background-color="#3D3D40">
+<h1>What about <code>salmon</code> + <code>transmogR</code></h1>
+
+</section>
+<section id="key-differences-to-star" class="slide level2">
+<h2>Key Differences to STAR</h2>
+<ul>
+<li>Only ~30% of reads align uniquely
+<ul>
+<li>Largest NH:i tag is ~24,000</li>
+<li>90% of reads align with NH:i &lt; 10</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>BAM files directly connect read ID to transcript
+<ul>
+<li>Makes comparison much simpler</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>How do the <em>transcript-level</em> counts change?</li>
+<li>How do the <em>overdispersion</em> estimates change?</li>
+</ul>
+</div>
+</section>
+<section id="salmon-metrics" class="slide level2">
+<h2>Salmon Metrics</h2>
+<ul>
+<li>Increase in Properly-Paired alignments (+3000)</li>
+<li>PROPHECY has strongest increase in correctly oriented fragments (+10,000 ISF)</li>
+<li>Decrease in umapped reads (-2000)</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Minor change in library sizes</li>
+<li>Similar numbers of detected transcripts (&gt;1 count)</li>
+</ul>
+</div>
+</section>
+<section id="overdispersion-estimates" class="slide level2">
+<h2>Overdispersion Estimates</h2>
+
+<img data-src="assets/compare-overdispersions-1.png" class="r-stretch quarto-figure-left"><p class="caption">Looking at how the number of transcripts / gene also impacts these</p></section>
+
+<section id="scaled-transcript-level-counts" class="slide level2">
+<h2>Scaled Transcript-Level Counts</h2>
+
+<img data-src="assets/compare-trans-counts-1.png" class="r-stretch quarto-figure-left"><p class="caption">This seems quite acceptable</p></section>
+
+<section id="variable-transcripts" class="slide level2">
+<h2>Variable Transcripts</h2>
+
+<img data-src="assets/trans-variable-1.png" class="r-stretch quarto-figure-left"></section>
+<section id="tracking-individual-reads" class="slide level2">
+<h2>Tracking Individual Reads</h2>
+<ul>
+<li>Can easily track a read &amp; all it’s transcripts</li>
+<li>Subset data to reads with NH:i <span class="math inline">\(\leq 10\)</span></li>
+<li>Subset reads to those aligning to a modified transcript either before or after</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Unique-mappers are far less informative for transcript-level alignments</li>
+<li>Haven’t checked for moves between chromosomes
+<ul>
+<li>Transcript &amp; Gene-Level moves are more fine-grained</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="tracking-reads-which-change-transcripts" class="slide level2">
+<h2>Tracking Reads Which Change Transcripts</h2>
+
+<img data-src="assets/salmon-moved-within-1.png" class="r-stretch quarto-figure-left"><p class="caption">Reads changing transcript <strong>within</strong> a gene</p><aside class="notes">
+<p>The consistency between samples is very encouraging</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="tracking-reads-which-change-transcripts-1" class="slide level2">
+<h2>Tracking Reads Which Change Transcripts</h2>
+
+<img data-src="assets/salmon-moved-across-1.png" class="r-stretch quarto-figure-left"><p class="caption">Reads changing transcript to different genes</p><aside class="notes">
+<ul>
+<li>Changes are again very consistent between samples</li>
+<li>Some similarity to STAR changes, but not the pseudogene story!!!</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="changing-transcripts-gene-level-categories" class="slide level2">
+<h2>Changing Transcripts: Gene-Level Categories</h2>
+
+<img data-src="assets/salmon-moved-gene-alluvial-1.png" class="r-stretch quarto-figure-left"><p class="caption">Shows a nice decrease in reads mapping nowhere</p><aside class="notes">
+<p>A small increase in protein coding genes for some samples</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="changing-transcripts-transcript-level-categories" class="slide level2">
+<h2>Changing Transcripts: Transcript-Level Categories</h2>
+
+<img data-src="assets/salmon-moved-trans-alluvial-1.png" class="r-stretch quarto-figure-left"><p class="caption">Lots of change between but no categories really sing out</p></section>
+<section id="where-to-from-here" class="slide level2">
+<h2>Where To From Here</h2>
+<ul>
+<li>Personalised Variant sets will give us the best estimate of ground-truth
+<ul>
+<li>Will run STARconsensus in Diploid mode</li>
+<li>Haven’t figured out how to do this for <code>transmogR</code> + `salmon</li>
+<li>Will just choose randomly from Het sites (???)</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Running a mini 90-sample cohort to see how it really plays at scale
+<ul>
+<li>Previously analysed by Prof Sam El-Osta’s team (Monash)</li>
+<li>Have a specific subset of complications</li>
+</ul></li>
+<li>How will WGCNA modules be impacted?</li>
+<li>How will true DGE / DTE results be impacted?</li>
+</ul>
+</div>
+</section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
+
+<img src="assets/bodl_logo_white_background.jpg" class="slide-logo r-stretch"><div class="footer footer-default">
+
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Baldoni2024-zf" class="csl-entry" role="listitem">
+Baldoni, Pedro L, Yunshun Chen, Soroor Hediyeh-Zadeh, Yang Liao, Xueyi Dong, Matthew E Ritchie, Wei Shi, and Gordon K Smyth. 2024. <span>“Dividing Out Quantification Uncertainty Allows Efficient Assessment of Differential Transcript Expression with edgeR.”</span> <em>Nucleic Acids Res.</em> 52 (3): e13.
+</div>
+<div id="ref-Easteal2020-fo" class="csl-entry" role="listitem">
+Easteal, Simon, Ruth M Arkell, Renzo F Balboa, Shayne A Bellingham, Alex D Brown, Tom Calma, Matthew C Cook, et al. 2020. <span>“Equitable Expanded Carrier Screening Needs Indigenous Clinical and Population Genomic Data.”</span> <em>Am. J. Hum. Genet.</em> 107 (2): 175–82.
+</div>
+<div id="ref-Kaminow2022-dz" class="csl-entry" role="listitem">
+Kaminow, Benjamin, Sara Ballouz, Jesse Gillis, and Alexander Dobin. 2022. <span>“Pan-Human Consensus Genome Significantly Improves the Accuracy of <span class="nocase">RNA-seq</span> Analyses.”</span> <em>Genome Res.</em> 32 (4): 738–49.
+</div>
+<div id="ref-Sibbesen2023-md" class="csl-entry" role="listitem">
+Sibbesen, Jonas A, Jordan M Eizenga, Adam M Novak, Jouni Sirén, Xian Chang, Erik Garrison, and Benedict Paten. 2023. <span>“Haplotype-Aware Pantranscriptome Analyses Using Spliced Pangenome Graphs.”</span> <em>Nat. Methods</em>, January.
+</div>
+<div id="ref-Srivastava2020-tm" class="csl-entry" role="listitem">
+Srivastava, Avi, Laraib Malik, Hirak Sarkar, Mohsen Zakeri, Fatemeh Almodaresi, Charlotte Soneson, Michael I Love, Carl Kingsford, and Rob Patro. 2020. <span>“Alignment and Mapping Methodology Influence Transcript Abundance Estimation.”</span> <em>Genome Biol.</em> 21 (1): 239.
 </div>
 </div>
 </section></section>
