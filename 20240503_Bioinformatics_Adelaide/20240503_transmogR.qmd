@@ -1,8 +1,7 @@
 ---
 title: "Alternate References For Transcriptomics"
 subtitle: "Adelaide Bioinformatics Seminars"
-author: "Dr Stevie Pederson (They/Them)"
-affiliation: "Black Ochre Data Labs"
+author: "Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs / ANU"
 date: "2024-05-03"
 date-format: long
 title-slide-attributes:
@@ -193,12 +192,16 @@ I'm acutely aware of the trust that has been placed in me and am very pleased to
     + Plays badly with `conda`
     + I struggle to interpret the results
     + Not R native (although `memes` does wrap some of it)
+
+![](https://smped.github.io/motifTestR/reference/figures/favicon.png){.absolute top=250 right=50 width='250px'}
     
 . . .
 
 - Particularly interested in motif positions within a set of sequence
     + Analogous to `centrimo`
 - Added enrichment testing because I could
+
+
 
 ::: {.notes}
 - The MEME-Suite plays really badly with `conda` and take a huge effort to install correctly
@@ -211,12 +214,12 @@ I'm acutely aware of the trust that has been placed in me and am very pleased to
 ::: {.incremental}
 
 1. Break sequences into bins
-2. Assign equal probabilites ($\pi_i$) of matches within bins $i = 1, ... I$
-    + except near boundaries
-3. Test matches in bin $i$ are as expected using $\pi_i$
+2. Assign probabilities ($\pi_i$) of matches within bins $i = 1, ... I$
+    + Proportion of the total viable positions for a match within each bin
+3. Test matches in bin $i$ are as expected using $\pi_i$ $\implies p_i$ 
     + `binomial.test()`
 4. Use harmonic mean p-value to obtain a single p-value for each motif
-    + Returns 'enriched sequence regions' where $p_i$ < $HMP(p)$
+    + Returns 'enriched sequence regions' where $p_i$ < $HMP(p.)$
 
 :::
 
@@ -257,7 +260,7 @@ I'm acutely aware of the trust that has been placed in me and am very pleased to
 A <- top_matches %>% 
   plotMatchPos(
     se = FALSE, abs = TRUE, linewidth = 1/2,
-    binwidth = motif_params$binwidth / 2
+    binwidth = 5
   ) +
   labs(
     x = "Distance From Centre", 
@@ -519,7 +522,7 @@ motif_list %>%
 
 ## Why?
 
-- Taking all socio-economic indicators $\implies$ disease risk is still hugely increased for Indigenous Australiams
+- Taking all socio-economic indicators $\implies$ disease risk is still hugely increased for Indigenous Australians
 - Not only disease risk, but higher rates of profound complications
 
 . . .
@@ -567,7 +570,7 @@ motif_list %>%
 
 . . .
 
-- NCIG are very close to a pangenome graph assembled from Indigneous Australians
+- NCIG are very close to a pangenome graph assembled from Indigenous Australians
     + A little too far off of to be viable yet
     + Monica Guilhaus doing an amazing job figuring out spliced pan-transcriptome graphs [@Sibbesen2023-md]
     
@@ -610,7 +613,7 @@ At least one member of our Indigenous Governance groups has said "Why are we eve
     
 ## Transcript-Level Analysis
 
-- `salmon` provides transcript-level counts with overdispersion estimate!
+- `salmon` provides transcript-level counts with overdispersion estimates!
 - Can we modify a reference transcriptome using a set of variants?
 
 ::: {.fragment}
@@ -647,7 +650,7 @@ Structural variants really need a new approach like the graph-based ones
 # DBPAInT: Developing Best Practices for the Analysis of Indigenous Transcriptomes  {background-color="#3D3D40"}
 
 ::: {.notes}
-Ths is very much work in progress with some results coming in last night
+This is very much work in progress with some results coming in last night
 :::
 
 ## The Approach
@@ -684,7 +687,7 @@ Ths is very much work in progress with some results coming in last night
 . . .
 
 - Also running a `transmogR` + `salmon` analysis
-    + Four sets of transcripomic alignments / sample
+    + Four sets of transcriptomic alignments / sample
     + Haven't figured out how to do a diploid transcriptome yet...
     
 ::: {.notes}
@@ -696,7 +699,7 @@ Personalised references give the closest to ground truth we can realistically ge
 ![](assets/ol-all-var-1.png)
 
 ::: {.notes}
-- High levels of common variation $\implies$ even the wrong variant set shold be an improvement
+- High levels of common variation $\implies$ even the wrong variant set should be an improvement
 - AFR & PROPHECY have the most uniqueness, but PROPHECY appears closer to the panhuman set
 :::
 
@@ -807,7 +810,7 @@ Taking reads where gapped alignments overlap a variant
 :::
 
 ::: {.notes}
-These strike me as patterns which support the underlying biology & diversity within particiapnts
+These strike me as patterns which support the underlying biology & diversity within participants
 :::
 
 ## Reads Overlapping Variants
@@ -903,7 +906,7 @@ Taking expression estimates within each reference:
 
 - Consistent changes will be low-variability, far from zero
 - Inconsistent changes high-variability but near zero
-- Like looking through an MA plot with varibility as 3^rd^ dimension
+- Like looking through an MA plot with variability as 3^rd^ dimension
 
 :::
 
@@ -1010,7 +1013,7 @@ A small increase in protein coding genes for some samples
 
 - Personalised Variant sets will give us the best estimate of ground-truth
     + Will run STARconsensus in Diploid mode
-    + Haven't figured out how to do this for `transmogR` + `salmon
+    + Haven't figured out how to do this for `transmogR` + `salmon`
     + Will just choose randomly from Het sites (???)
 
 . . .
@@ -1021,5 +1024,87 @@ A small increase in protein coding genes for some samples
     
 - How will WGCNA modules be impacted?
 - How will true DGE / DTE results be impacted?
+
+::: {.notes}
+Liza is also running de novo transcriptome assemblies on these samples
+:::
+
+## Acknowledgements {.smaller}
+
+::: {.columns}
+
+::: {.column width='30%'}
+
+#### [Black Ochre Data Labs]{.underline}
+
+Alex Brown  
+**Jimmy Breen**  
+Sam Buckberry  
+**Yassine Souilmi**  
+Bastien Llamas  
+Katharine Browne  
+**Liza Kretzschmar**  
+Alastair Ludington  
+Holly Massacci  
+**Sam Godwin**  
+Kaashifah Bruce  
+Rebecca Simpson  
+Sarah Munns  
+Ashlee Thomson
+
+
+:::
+
+::: {.column width='30%'}
+
+#### [TKI / ALIGN]{.underline}
+
+Johanna Barclay  
+Amanda Richards-Satour  
+Justine Clark  
+Rose Senesci  
+Analee Stearne  
+Louise Lyons  
+Dawn Lewis  
+Mary Brushe  
+Karrina DeMasi  
+Phoebe McColl  
+
+
+#### [NCIG]{.underline}
+
+Hardip Patel  
+
+:::
+
+::: {.column width='30%'}
+
+#### [SAHMRI]{.underline}
+
+**Tash Howard**  
+Marlie Frank  
+
+#### [SAGC]{.underline}
+
+Sen Wang  
+Paul Wang  
+Renee Smith  
+<br>
+
+#### [University of Adelaide]{.underline}
+
+Lachlan Baer  
+**Monica Guilhaus**  
+Wenjun (Nora) Liu  
+Megan Monaghan  
+
+
+:::
+
+:::
+
+![](https://d1blp3aor2iuhp.cloudfront.net/images/logos/logo-ANU-black.svg){.absolute bottom=10 left=350 width='200px'}
+
+![](assets/TKI.jpg){.absolute bottom=10 left=0 width='200px'}
 
 ## References

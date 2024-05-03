@@ -10,7 +10,7 @@
 <link href="20240503_transmogR_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.3.353">
 
-  <meta name="author" content="Dr Stevie Pederson (They/Them)">
+  <meta name="author" content="Dr Stevie Pederson (They/Them) Black Ochre Data Labs / ANU">
   <meta name="dcterms.date" content="2024-05-03">
   <title>Alternate References For Transcriptomics</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -416,7 +416,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Dr Stevie Pederson (They/Them) 
+Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs / ANU 
 </div>
 </div>
 </div>
@@ -570,6 +570,7 @@ Dr Stevie Pederson (They/Them)
 <li>Not R native (although <code>memes</code> does wrap some of it)</li>
 </ul></li>
 </ul>
+<p><img data-src="https://smped.github.io/motifTestR/reference/figures/favicon.png" class="absolute" style="top: 250px; right: 50px; width: 250px; "></p>
 <div class="fragment">
 <ul>
 <li>Particularly interested in motif positions within a set of sequence
@@ -603,17 +604,17 @@ Dr Stevie Pederson (They/Them)
 <div>
 <ol type="1">
 <li class="fragment">Break sequences into bins</li>
-<li class="fragment">Assign equal probabilites (<span class="math inline">\(\pi_i\)</span>) of matches within bins <span class="math inline">\(i = 1, ... I\)</span>
+<li class="fragment">Assign probabilities (<span class="math inline">\(\pi_i\)</span>) of matches within bins <span class="math inline">\(i = 1, ... I\)</span>
 <ul>
-<li class="fragment">except near boundaries</li>
+<li class="fragment">Proportion of the total viable positions for a match within each bin</li>
 </ul></li>
-<li class="fragment">Test matches in bin <span class="math inline">\(i\)</span> are as expected using <span class="math inline">\(\pi_i\)</span>
+<li class="fragment">Test matches in bin <span class="math inline">\(i\)</span> are as expected using <span class="math inline">\(\pi_i\)</span> <span class="math inline">\(\implies p_i\)</span>
 <ul>
 <li class="fragment"><code>binomial.test()</code></li>
 </ul></li>
 <li class="fragment">Use harmonic mean p-value to obtain a single p-value for each motif
 <ul>
-<li class="fragment">Returns ‘enriched sequence regions’ where <span class="math inline">\(p_i\)</span> &lt; <span class="math inline">\(HMP(p)\)</span></li>
+<li class="fragment">Returns ‘enriched sequence regions’ where <span class="math inline">\(p_i\)</span> &lt; <span class="math inline">\(HMP(p.)\)</span></li>
 </ul></li>
 </ol>
 </div>
@@ -670,7 +671,7 @@ Dr Stevie Pederson (They/Them)
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> top_matches <span class="sc">%&gt;%</span> </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotMatchPos</span>(</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">abs =</span> <span class="cn">TRUE</span>, <span class="at">linewidth =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> motif_params<span class="sc">$</span>binwidth <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="dv">5</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Distance From Centre"</span>, </span>
@@ -945,7 +946,7 @@ Dr Stevie Pederson (They/Them)
 <section id="why" class="slide level2">
 <h2>Why?</h2>
 <ul>
-<li>Taking all socio-economic indicators <span class="math inline">\(\implies\)</span> disease risk is still hugely increased for Indigenous Australiams</li>
+<li>Taking all socio-economic indicators <span class="math inline">\(\implies\)</span> disease risk is still hugely increased for Indigenous Australians</li>
 <li>Not only disease risk, but higher rates of profound complications</li>
 </ul>
 <div class="fragment">
@@ -1009,7 +1010,7 @@ Dr Stevie Pederson (They/Them)
 </div>
 <div class="fragment">
 <ul>
-<li>NCIG are very close to a pangenome graph assembled from Indigneous Australians
+<li>NCIG are very close to a pangenome graph assembled from Indigenous Australians
 <ul>
 <li>A little too far off of to be viable yet</li>
 <li>Monica Guilhaus doing an amazing job figuring out spliced pan-transcriptome graphs <span class="citation" data-cites="Sibbesen2023-md">(<a href="#/references" role="doc-biblioref" onclick="">Sibbesen et al. 2023</a>)</span></li>
@@ -1084,7 +1085,7 @@ Dr Stevie Pederson (They/Them)
 <section id="transcript-level-analysis" class="slide level2">
 <h2>Transcript-Level Analysis</h2>
 <ul>
-<li><code>salmon</code> provides transcript-level counts with overdispersion estimate!</li>
+<li><code>salmon</code> provides transcript-level counts with overdispersion estimates!</li>
 <li>Can we modify a reference transcriptome using a set of variants?</li>
 </ul>
 <div class="fragment">
@@ -1139,7 +1140,7 @@ Dr Stevie Pederson (They/Them)
 <section id="dbpaint-developing-best-practices-for-the-analysis-of-indigenous-transcriptomes" class="title-slide slide level1 center" data-background-color="#3D3D40">
 <h1>DBPAInT: Developing Best Practices for the Analysis of Indigenous Transcriptomes</h1>
 <aside class="notes">
-<p>Ths is very much work in progress with some results coming in last night</p>
+<p>This is very much work in progress with some results coming in last night</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1202,7 +1203,7 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>Also running a <code>transmogR</code> + <code>salmon</code> analysis
 <ul>
-<li>Four sets of transcripomic alignments / sample</li>
+<li>Four sets of transcriptomic alignments / sample</li>
 <li>Haven’t figured out how to do a diploid transcriptome yet…</li>
 </ul></li>
 </ul>
@@ -1226,7 +1227,7 @@ Dr Stevie Pederson (They/Them)
 
 <img data-src="assets/ol-all-var-1.png" class="r-stretch"><aside class="notes">
 <ul>
-<li>High levels of common variation <span class="math inline">\(\implies\)</span> even the wrong variant set shold be an improvement</li>
+<li>High levels of common variation <span class="math inline">\(\implies\)</span> even the wrong variant set should be an improvement</li>
 <li>AFR &amp; PROPHECY have the most uniqueness, but PROPHECY appears closer to the panhuman set</li>
 </ul>
 <style type="text/css">
@@ -1360,7 +1361,7 @@ Dr Stevie Pederson (They/Them)
 </div>
 </div>
 <aside class="notes">
-<p>These strike me as patterns which support the underlying biology &amp; diversity within particiapnts</p>
+<p>These strike me as patterns which support the underlying biology &amp; diversity within participants</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1452,7 +1453,7 @@ Dr Stevie Pederson (They/Them)
 <ul>
 <li>Consistent changes will be low-variability, far from zero</li>
 <li>Inconsistent changes high-variability but near zero</li>
-<li>Like looking through an MA plot with varibility as 3<sup>rd</sup> dimension</li>
+<li>Like looking through an MA plot with variability as 3<sup>rd</sup> dimension</li>
 </ul>
 </div>
 </div>
@@ -1596,7 +1597,7 @@ Dr Stevie Pederson (They/Them)
 <li>Personalised Variant sets will give us the best estimate of ground-truth
 <ul>
 <li>Will run STARconsensus in Diploid mode</li>
-<li>Haven’t figured out how to do this for <code>transmogR</code> + `salmon</li>
+<li>Haven’t figured out how to do this for <code>transmogR</code> + <code>salmon</code></li>
 <li>Will just choose randomly from Het sites (???)</li>
 </ul></li>
 </ul>
@@ -1610,7 +1611,72 @@ Dr Stevie Pederson (They/Them)
 <li>How will WGCNA modules be impacted?</li>
 <li>How will true DGE / DTE results be impacted?</li>
 </ul>
+<aside class="notes">
+<p>Liza is also running de novo transcriptome assemblies on these samples</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
+</section>
+<section id="acknowledgements" class="slide level2 smaller">
+<h2>Acknowledgements</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<h4 id="black-ochre-data-labs"><u>Black Ochre Data Labs</u></h4>
+<p>Alex Brown<br>
+<strong>Jimmy Breen</strong><br>
+Sam Buckberry<br>
+<strong>Yassine Souilmi</strong><br>
+Bastien Llamas<br>
+Katharine Browne<br>
+<strong>Liza Kretzschmar</strong><br>
+Alastair Ludington<br>
+Holly Massacci<br>
+<strong>Sam Godwin</strong><br>
+Kaashifah Bruce<br>
+Rebecca Simpson<br>
+Sarah Munns<br>
+Ashlee Thomson</p>
+</div><div class="column" style="width:30%;">
+<h4 id="tki-align"><u>TKI / ALIGN</u></h4>
+<p>Johanna Barclay<br>
+Amanda Richards-Satour<br>
+Justine Clark<br>
+Rose Senesci<br>
+Analee Stearne<br>
+Louise Lyons<br>
+Dawn Lewis<br>
+Mary Brushe<br>
+Karrina DeMasi<br>
+Phoebe McColl</p>
+<h4 id="ncig"><u>NCIG</u></h4>
+<p>Hardip Patel</p>
+</div><div class="column" style="width:30%;">
+<h4 id="sahmri"><u>SAHMRI</u></h4>
+<p><strong>Tash Howard</strong><br>
+Marlie Frank</p>
+<h4 id="sagc"><u>SAGC</u></h4>
+<p>Sen Wang<br>
+Paul Wang<br>
+Renee Smith<br>
+<br></p>
+<h4 id="university-of-adelaide"><u>University of Adelaide</u></h4>
+<p>Lachlan Baer<br>
+<strong>Monica Guilhaus</strong><br>
+Wenjun (Nora) Liu<br>
+Megan Monaghan</p>
+</div>
+</div>
+<p><img data-src="https://d1blp3aor2iuhp.cloudfront.net/images/logos/logo-ANU-black.svg" class="absolute" style="left: 350px; bottom: 10px; width: 200px; "></p>
+<p><img data-src="assets/TKI.jpg" class="absolute" style="left: 0px; bottom: 10px; width: 200px; "></p>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
