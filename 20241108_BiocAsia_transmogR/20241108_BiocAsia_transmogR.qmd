@@ -237,7 +237,7 @@ knitr:
     + Showing average change (Mean logFC) vs variation (SD logFC)
     + Also baseline logCPM (from GRCh38)
 - Some transcripts become far more variable
-    + e.g. low-expressed transcript of JAK1
+    + e.g. *JAK1-210*
 - Some become consistently higher/lower in signal estimates
 
 :::
@@ -276,7 +276,7 @@ knitr:
 
 ::: {.columns}
 
-::: {.column width="35%"}
+::: {.column width="30%"}
 ### Black Ochre Data Labs
 - Prof Alex Brown
 - **A/Prof Jimmmy Breen**
@@ -322,5 +322,11 @@ knitr:
 :::
 
 ::::
+
+![](assets/TheKids-RGB_Logo_Colour-Pattern.png){.absolute top=0 right=0 width="400"}
+
+![](assets/ANU_Primary_Horizontal_GoldBlack.jpg){.absolute top=300 right=20 width="350"}
+
+![](assets/bodl_logo_white_background.jpg){.absolute top=450 right=0 width="400"}
 
 ## References
