@@ -1,14 +1,14 @@
 ---
 title: "BiocAsia 2024"
 subtitle: "transmogR: A Bioconductor package to enable the easy<br>incorporation of variants into a reference transcriptome"
-author: "Dr Stevie Pederson"
+author: "Dr Stevie Pederson<br>Black Ochre Data Labs<br>The Kids Research Institute Australia / ANU"
 date: "2024-11-08"
 date-format: long
 title-slide-attributes:
     data-background-color: "#3D3D40"
     data-background-opacity: "70%"
     data-background-size: "20%"
-    data-background-position: "90% 10%"
+    data-background-position: "95% 10%"
     data-background-image: "https://smped.github.io/transmogR/reference/figures/transmogR.png"
 editor: source
 format: 
@@ -187,15 +187,14 @@ knitr:
 
 :::
 
-## Technical Assessment {visibility='hidden'}
+## Technical Assessment
 
 ::: {.columns}
 
 ::: {.column width="35%"}
-- Looking simply at reads moving between genes
+- Looking at reads moving between genes
 - Far more divergent than summary statistics indicate
-- Lots of change in HLA transcripts
-    + Will be treating as a stand-alone analysis
+- Lots of change in HLA transcripts <br>$\implies$ stand-alone analysis
 :::
 
 ::: {.column width="65%"}
@@ -323,10 +322,11 @@ knitr:
 
 ::::
 
-![](assets/TheKids-RGB_Logo_Colour-Pattern.png){.absolute top=0 right=0 width="400"}
+![](assets/bodl_logo_white_background.jpg){.absolute top=0 right=0 width="400"}
 
-![](assets/ANU_Primary_Horizontal_GoldBlack.jpg){.absolute top=300 right=20 width="350"}
+![](assets/TheKids-RGB_Logo_Colour-Pattern.png){.absolute top=200 right=0 width="400"}
 
-![](assets/bodl_logo_white_background.jpg){.absolute top=450 right=0 width="400"}
+![](assets/ANU_Primary_Horizontal_GoldBlack.jpg){.absolute top=500 right=20 width="350"}
+
 
 ## References
