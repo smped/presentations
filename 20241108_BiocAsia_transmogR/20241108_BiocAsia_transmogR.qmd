@@ -1,0 +1,326 @@
+---
+title: "BiocAsia 2024"
+subtitle: "transmogR: A Bioconductor package to enable the easy<br>incorporation of variants into a reference transcriptome"
+author: "Dr Stevie Pederson"
+date: "2024-11-08"
+date-format: long
+title-slide-attributes:
+    data-background-color: "#3D3D40"
+    data-background-opacity: "70%"
+    data-background-size: "20%"
+    data-background-position: "90% 10%"
+    data-background-image: "https://smped.github.io/transmogR/reference/figures/transmogR.png"
+editor: source
+format: 
+  revealjs:
+    bibliography: references.bib
+    theme: [bodl.scss]
+    code-line-numbers: false
+    width: 1280
+    height: 720
+    sansfont: Times New Roman
+    logo: assets/bodl_logo_white_background.jpg
+    slide-number: c/t
+include-after: |
+  <script type="text/javascript">
+    Reveal.on('ready', event => {
+      if (event.indexh === 0) {
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+      }
+    });
+    Reveal.addEventListener('slidechanged', (event) => {
+      if (event.indexh === 0) {
+        Reveal.configure({ slideNumber: null });
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+      }
+      if (event.indexh === 1) { 
+        Reveal.configure({ slideNumber: 'c' });
+        document.querySelector("div.has-logo > img.slide-logo").style.display = null;
+      }
+    });
+  </script>    
+knitr: 
+  opts_chunk: 
+    echo: true
+    include: true
+    warning: false
+    message: false
+    fig.align: left
+    fig.width: 8
+    fig.heght: 6
+---
+
+## Motivation
+
+- Currently leading the transcriptomic analysis for the PROPHECY study
+    + **P**reventing **R**enal, **OP**thalmic and **H**eart **E**vents in **C**ommunit**Y**
+- Study with 1376 South Australian Indigenous participants
+    + Genomic Variants, DNA Methylation, Transcriptomics, Proteomics, Lipidomics, Metabolomics
+    + Inflammatory Marker Panel, Retinal Scans, ECG, Urine Samples
+    + $>$ 1000 metadata categories
+
+::: {.notes}
+- All omics layers are taken from Whole Blood Samples
+:::
+
+## Motivation
+
+::: {style="font-size:95%;"}
+
+- Type II Diabetes rates are extremely high with younger onset
+    + Similar patterns with Chronic Kidney & Cardiovascular Disease
+
+:::
+
+![](assets/t2d_prevalence.png){.absolute bottom=0 left=0 width="600"}
+
+
+![](assets/cvd_prevalence.png){.absolute top=0 right=0 width="400"}
+
+
+![](assets/ckd_prevalence.png){.absolute bottom=0 right=0 width="400"}
+
+## Motivation
+
+- Source of this risk remains unknown
+    + After controlling for known risk factors $\implies$ still increased risk
+- Is there a genetic component?
+    + Regulatory regions, Coding Changes, Structural Variation?
+- Is there an epigenetic component?
+    + DNA Methylation
+
+. . .
+
+**If genetic risk $\implies$ will we be able to see it using GRCh38?**
+
+## Variation In Aboriginal Australians
+
+::: {.columns}
+
+::: {.column width="37%"}
+
+- About 25% of genetic variation in Aboriginal Australians is unique [@Easteal2020-fo]
+- Can we incorporate into transcriptomic analysis?
+- STARconsensus [@Kaminow2022-dz] for genomic alignments
+    + gene-level counts
+    + transcript-level analysis?
+
+:::
+
+::: {.column width="63%"}
+
+![Consensus variants found in >50% of unrelated individuals within a population, using the 1000 Genomes Project AFR population members and the complete 1000GP dataset (panhuman) in comparison to PROPHECY participants](assets/ol-all-var-1.png)
+
+:::
+    
+:::
+
+## transmogR
+
+- Able to produce a variant-modified reference transcriptome
+    + Using a transcriptomic reference $\implies$ don't generally need co-ordinates
+    + STARconsensus returns co-ordinates relative to unmodified reference
+- Can also create a variant-modified reference genome
+    + Used by `salmon` as decoy sequences [@Srivastava2020-tm]
+- This allows for quantification using `salmon` (or `kallisto`)
+    + Bootstrap/Overdispersion estimates returned for transcript-level analysis [@Baldoni2024-zf]
+    
+![](https://smped.github.io/transmogR/reference/figures/transmogR.png){.absolute top=40 right=0 width="200"}
+
+::: {.notes}
+:::
+
+## Main Functions
+
+- `transmogrify()`: Create a variant-modified transcriptome
+    + Can add optional tags to modified transcript names
+- `genomogrify()`: Create a variant-modified genome
+    + Can also add optional tags
+- `digestSalmon()`:
+    + Returns a `SummarizedExperiment` with assays `counts`, `scaledCounts`, `TPM` etc
+    + Also returns overdispersions & transcript lengths in `rowData`
+    + Can handle divergent references, e.g. parY-masked + chrY-masked 
+
+## Creating a New Reference
+
+- Requires a VCF with variants
+    + Or a GRanges object with `ALT/REF`
+    + Only tested with SNPs + InDels <50bp
+- Transcripts from GTF or `exonsBy()`
+- Genome from fasta or `BSgenome`
+- Takes about 25-30min
+    + Need to improve parallelisation
+    + Can be RAM intensive $\implies$ generally run on a server/HPC
+- Output Fasta files using `Biostrings::writeXStringSet()`
+
+## Does It Make Any Difference?
+
+- Pilot Analysis using 6 participants
+    + Also included personalised (haploid) transcriptomes as 'best-case' reference
+- Ran STARconsensus + transmogR/salmon
+    + Observations from STARconsensus [@Kaminow2022-dz] replicated
+    + PROPHECY closest to personalised $\implies$ GRCh38 least similar
+    
+. . .    
+
+- Tested using cohort-level data subset (93 participants)
+    + Sequencing focussed on CKD, Prof Sam El Osta group (Baker Heart & Diabetes Institute)
+    + Using the PROPHECY consensus variants vs GRCh38(chrY/parY-masked)
+
+## Technical Assessment
+
+::: {.columns}
+
+::: {.column width="40%"}
+- Change is shown relative to personalised references
+- Only a small number of fragments at the summary level
+- PROPHECY consistently closest to personalised in
+    1. Assigned Fragments
+    2. Concordant Fragments
+    3. Correct Orientation (ISF)
+:::
+
+::: {.column width="60%"}
+
+![](assets/boxplot-lib-format-1.png)
+:::
+
+:::
+
+## Technical Assessment {visibility='hidden'}
+
+::: {.columns}
+
+::: {.column width="35%"}
+- Looking simply at reads moving between genes
+- Far more divergent than summary statistics indicate
+- Lots of change in HLA transcripts
+    + Will be treating as a stand-alone analysis
+:::
+
+::: {.column width="65%"}
+
+![](assets/salmon-moved-across-1.png)
+:::
+
+:::
+
+## Technical Assessment
+
+::: {.columns}
+
+::: {.column width="35%"}
+- Comparing transcript-level expression estimates against personalised references
+    + Using scaled counts [@Baldoni2024-zf]
+- Baseline expression estimates will vary
+    + Impacted by raw counts and overdispersions
+
+:::
+
+::: {.column width="65%"}
+
+![](assets/compare-trans-lfc-1.png)
+:::
+
+:::
+
+## Cohort Level Analysis
+
+:::: {style="font-size:85%;"}
+
+::: {.columns}
+
+::: {.column width="35%"}
+
+- log2-ratio of scaled counts within each participant
+    + GRCh38 vs PROPHECY-modified
+    + Showing average change (Mean logFC) vs variation (SD logFC)
+    + Also baseline logCPM (from GRCh38)
+- Some transcripts become far more variable
+    + e.g. low-expressed transcript of JAK1
+- Some become consistently higher/lower in signal estimates
+
+:::
+
+::: {.column width="65%"}
+
+![](assets/lfc-sd-scaled-1.png)
+
+:::
+
+:::
+
+::::
+
+## Change in Gene-Ranks
+
+::: {.columns}
+
+::: {.column}
+- DGE Ranks: T2D vs No T2D
+- Most genes are consistent
+- Some do change ranks quite significantly
+:::
+
+::: {.column}
+![](assets/compare-ranks-full-1.png)
+:::
+
+:::
+
+## Acknowledgements
+
+<br>
+
+:::: {style="font-size:60%;"}
+
+::: {.columns}
+
+::: {.column width="35%"}
+### Black Ochre Data Labs
+- Prof Alex Brown
+- **A/Prof Jimmmy Breen**
+- Alastair Ludington
+- **Yassine Souilmi**
+- **Sam Godwin**
+- Natasha Howard
+- Liza Kretzchmar
+- Sam Buckberry
+- Holly Massacci
+- Johanna Barclay
+- Kat Brown
+- Adam Heterick
+- Justine Clark
+- Amanda Richards-Satour
+- Bastien Llamas
+- Mary Brushe
+- Louise Lyons
+:::
+
+::: {.column width="40%"}
+### Baker Heart & Diabetes Institute
+- Prof Sam El-Osta
+- Ishant Khurana
+- Scott Maxwell
+- Moshe Olshansky
+
+### National Centre for Indigenous Genomics
+- Hardip Patel
+
+### University of Sydney
+- Prof Jean Yang
+
+### SAGC
+- Paul Wang
+- John Salamon
+- Sen Wang
+- Renee Smith
+- Marlie Frank
+
+:::
+
+:::
+
+::::
+
+## References

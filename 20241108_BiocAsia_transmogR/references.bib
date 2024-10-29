@@ -1,0 +1,211 @@
+
+@ARTICLE{Easteal2020-fo,
+  title    = "Equitable Expanded Carrier Screening Needs Indigenous Clinical
+              and Population Genomic Data",
+  author   = "Easteal, Simon and Arkell, Ruth M and Balboa, Renzo F and
+              Bellingham, Shayne A and Brown, Alex D and Calma, Tom and Cook,
+              Matthew C and Davis, Megan and Dawkins, Hugh J S and Dinger,
+              Marcel E and Dobbie, Michael S and Farlow, Ashley and Gwynne,
+              Kylie G and Hermes, Azure and Hoy, Wendy E and Jenkins, Misty R
+              and Jiang, Simon H and Kaplan, Warren and Leslie, Stephen and
+              Llamas, Bastien and Mann, Graham J and McMorran, Brendan J and
+              McWhirter, Rebekah E and Meldrum, Cliff J and Nagaraj,
+              Shivashankar H and Newman, Saul J and Nunn, Jack S and
+              Ormond-Parker, Lyndon and Orr, Neil J and Paliwal, Devashi and
+              Patel, Hardip R and Pearson, Glenn and Pratt, Greg R and
+              Rambaldini, Boe and Russell, Lynette W and Savarirayan, Ravi and
+              Silcocks, Matthew and Skinner, John C and Souilmi, Yassine and
+              Vinuesa, Carola G and {National Centre for Indigenous Genomics}
+              and Baynam, Gareth",
+  abstract = "Expanded carrier screening (ECS) for recessive monogenic diseases
+              requires prior knowledge of genomic variation, including DNA
+              variants that cause disease. The composition of pathogenic
+              variants differs greatly among human populations, but
+              historically, research about monogenic diseases has focused
+              mainly on people with European ancestry. By comparison, less is
+              known about pathogenic DNA variants in people from other parts of
+              the world. Consequently, inclusion of currently underrepresented
+              Indigenous and other minority population groups in genomic
+              research is essential to enable equitable outcomes in ECS and
+              other areas of genomic medicine. Here, we discuss this issue in
+              relation to the implementation of ECS in Australia, which is
+              currently being evaluated as part of the national Government's
+              Genomics Health Futures Mission. We argue that significant effort
+              is required to build an evidence base and genomic reference data
+              so that ECS can bring significant clinical benefit for many
+              Aboriginal and/or Torres Strait Islander Australians. These
+              efforts are essential steps to achieving the Australian
+              Government's objectives and its commitment ``to leveraging the
+              benefits of genomics in the health system for all Australians.''
+              They require culturally safe, community-led research and
+              community involvement embedded within national health and medical
+              genomics programs to ensure that new knowledge is integrated into
+              medicine and health services in ways that address the specific
+              and articulated cultural and health needs of Indigenous people.
+              Until this occurs, people who do not have European ancestry are
+              at risk of being, in relative terms, further disadvantaged.",
+  journal  = "Am. J. Hum. Genet.",
+  volume   =  107,
+  number   =  2,
+  pages    = "175--182",
+  month    =  aug,
+  year     =  2020,
+  language = "en"
+}
+
+
+
+@ARTICLE{Sibbesen2023-md,
+  title    = "Haplotype-aware pantranscriptome analyses using spliced pangenome
+              graphs",
+  author   = "Sibbesen, Jonas A and Eizenga, Jordan M and Novak, Adam M and
+              Sir{\'e}n, Jouni and Chang, Xian and Garrison, Erik and Paten,
+              Benedict",
+  abstract = "Pangenomics is emerging as a powerful computational paradigm in
+              bioinformatics. This field uses population-level genome reference
+              structures, typically consisting of a sequence graph, to mitigate
+              reference bias and facilitate analyses that were challenging with
+              previous reference-based methods. In this work, we extend these
+              methods into transcriptomics to analyze sequencing data using the
+              pantranscriptome: a population-level transcriptomic reference.
+              Our toolchain, which consists of additions to the VG toolkit and
+              a standalone tool, RPVG, can construct spliced pangenome graphs,
+              map RNA sequencing data to these graphs, and perform
+              haplotype-aware expression quantification of transcripts in a
+              pantranscriptome. We show that this workflow improves accuracy
+              over state-of-the-art RNA sequencing mapping methods, and that it
+              can efficiently quantify haplotype-specific transcript expression
+              without needing to characterize the haplotypes of a sample
+              beforehand.",
+  journal  = "Nat. Methods",
+  month    =  jan,
+  year     =  2023,
+  language = "en"
+}
+
+
+@ARTICLE{Kaminow2022-dz,
+  title    = "Pan-human consensus genome significantly improves the accuracy of
+              {RNA-seq} analyses",
+  author   = "Kaminow, Benjamin and Ballouz, Sara and Gillis, Jesse and Dobin,
+              Alexander",
+  abstract = "The Human Reference Genome serves as the foundation for modern
+              genomic analyses. However, in its present form, it does not
+              adequately represent the vast genetic diversity of the human
+              population. In this study, we explored the consensus genome as a
+              potential successor of the current reference genome and assessed
+              its effect on the accuracy of RNA-seq read alignment. To find the
+              best haploid genome representation, we constructed consensus
+              genomes at the pan-human, superpopulation, and population levels,
+              using variant information from The 1000 Genomes Project
+              Consortium. Using personal haploid genomes as the ground truth,
+              we compared mapping errors for real RNA-seq reads aligned to the
+              consensus genomes versus the reference genome. For reads
+              overlapping homozygous variants, we found that the mapping error
+              decreased by a factor of approximately two to three when the
+              reference was replaced with the pan-human consensus genome. We
+              also found that using more population-specific consensuses
+              resulted in little to no increase over using the pan-human
+              consensus, suggesting a limit in the utility of incorporating a
+              more specific genomic variation. Replacing the reference with
+              consensus genomes impacts functional analyses, such as
+              differential expressions of isoforms, genes, and splice
+              junctions.",
+  journal  = "Genome Res.",
+  volume   =  32,
+  number   =  4,
+  pages    = "738--749",
+  month    =  apr,
+  year     =  2022,
+  language = "en"
+}
+
+
+@ARTICLE{Baldoni2024-zf,
+  title    = "Dividing out quantification uncertainty allows efficient
+              assessment of differential transcript expression with edgeR",
+  author   = "Baldoni, Pedro L and Chen, Yunshun and Hediyeh-Zadeh, Soroor and
+              Liao, Yang and Dong, Xueyi and Ritchie, Matthew E and Shi, Wei
+              and Smyth, Gordon K",
+  abstract = "Differential expression analysis of RNA-seq is one of the most
+              commonly performed bioinformatics analyses. Transcript-level
+              quantifications are inherently more uncertain than gene-level
+              read counts because of ambiguous assignment of sequence reads to
+              transcripts. While sequence reads can usually be assigned
+              unambiguously to a gene, reads are very often compatible with
+              multiple transcripts for that gene, particularly for genes with
+              many isoforms. Software tools designed for gene-level
+              differential expression do not perform optimally on transcript
+              counts because the read-to-transcript ambiguity (RTA) disrupts
+              the mean-variance relationship normally observed for gene level
+              RNA-seq data and interferes with the efficiency of the empirical
+              Bayes dispersion estimation procedures. The pseudoaligners
+              kallisto and Salmon provide bootstrap samples from which
+              quantification uncertainty can be assessed. We show that the
+              overdispersion arising from RTA can be elegantly estimated by
+              fitting a quasi-Poisson model to the bootstrap counts for each
+              transcript. The technical overdispersion arising from RTA can
+              then be divided out of the transcript counts, leading to scaled
+              counts that can be input for analysis by established gene-level
+              software tools with full statistical efficiency. Comprehensive
+              simulations and test data show that an edgeR analysis of the
+              scaled counts is more powerful and efficient than previous
+              differential transcript expression pipelines while providing
+              correct control of the false discovery rate. Simulations explore
+              a wide range of scenarios including the effects of paired vs
+              single-end reads, different read lengths and different numbers of
+              replicates.",
+  journal  = "Nucleic Acids Res.",
+  volume   =  52,
+  number   =  3,
+  pages    = "e13",
+  month    =  feb,
+  year     =  2024,
+  language = "en"
+}
+
+
+@ARTICLE{Srivastava2020-tm,
+  title    = "Alignment and mapping methodology influence transcript abundance
+              estimation",
+  author   = "Srivastava, Avi and Malik, Laraib and Sarkar, Hirak and Zakeri,
+              Mohsen and Almodaresi, Fatemeh and Soneson, Charlotte and Love,
+              Michael I and Kingsford, Carl and Patro, Rob",
+  abstract = "BACKGROUND: The accuracy of transcript quantification using
+              RNA-seq data depends on many factors, such as the choice of
+              alignment or mapping method and the quantification model being
+              adopted. While the choice of quantification model has been shown
+              to be important, considerably less attention has been given to
+              comparing the effect of various read alignment approaches on
+              quantification accuracy. RESULTS: We investigate the influence of
+              mapping and alignment on the accuracy of transcript
+              quantification in both simulated and experimental data, as well
+              as the effect on subsequent differential expression analysis. We
+              observe that, even when the quantification model itself is held
+              fixed, the effect of choosing a different alignment methodology,
+              or aligning reads using different parameters, on quantification
+              estimates can sometimes be large and can affect downstream
+              differential expression analyses as well. These effects can go
+              unnoticed when assessment is focused too heavily on simulated
+              data, where the alignment task is often simpler than in
+              experimentally acquired samples. We also introduce a new
+              alignment methodology, called selective alignment, to overcome
+              the shortcomings of lightweight approaches without incurring the
+              computational cost of traditional alignment. CONCLUSION: We
+              observe that, on experimental datasets, the performance of
+              lightweight mapping and alignment-based approaches varies
+              significantly, and highlight some of the underlying factors. We
+              show this variation both in terms of quantification and
+              downstream differential expression analysis. In all comparisons,
+              we also show the improved performance of our proposed selective
+              alignment method and suggest best practices for performing
+              RNA-seq quantification.",
+  journal  = "Genome Biol.",
+  volume   =  21,
+  number   =  1,
+  pages    = "239",
+  month    =  sep,
+  year     =  2020,
+  keywords = "Quantification; RNA-seq; Read-alignment",
+  language = "en"
+}
