@@ -1,7 +1,7 @@
 ---
 title: "BiocAsia 2024"
 subtitle: "transmogR: A Bioconductor package to enable the easy<br>incorporation of variants into a reference transcriptome"
-author: "Dr Stevie Pederson<br>Black Ochre Data Labs<br>The Kids Research Institute Australia / ANU"
+author: "Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Institute Australia / ANU"
 date: "2024-11-08"
 date-format: long
 title-slide-attributes:
@@ -54,7 +54,7 @@ knitr:
 
 - Currently leading the transcriptomic analysis for the PROPHECY study
     + **P**reventing **R**enal, **OP**thalmic and **H**eart **E**vents in **C**ommunit**Y**
-- Study with 1376 South Australian Indigenous participants
+- Study with ~1350 Aboriginal participants
     + Genomic Variants, DNA Methylation, Transcriptomics, Proteomics, Lipidomics, Metabolomics
     + Inflammatory Marker Panel, Retinal Scans, ECG, Urine Samples
     + $>$ 1000 metadata categories
@@ -65,25 +65,35 @@ knitr:
 
 ## Motivation
 
-::: {style="font-size:95%;"}
+::: {style="font-size:90%;"}
 
 - Type II Diabetes rates are extremely high with younger onset
-    + Similar patterns with Chronic Kidney & Cardiovascular Disease
+
+::: {.fragment fragment-index=1}
+
+- Similar patterns with Chronic Kidney & Cardiovascular Disease
 
 :::
 
+
+
 ![](assets/t2d_prevalence.png){.absolute bottom=0 left=0 width="600"}
 
+::: {.fragment fragment-index=1}
 
 ![](assets/cvd_prevalence.png){.absolute top=0 right=0 width="400"}
 
 
 ![](assets/ckd_prevalence.png){.absolute bottom=0 right=0 width="400"}
 
+:::
+
+:::
+
 ## Motivation
 
 - Source of this risk remains unknown
-    + After controlling for known risk factors $\implies$ still increased risk
+    + After controlling for external risk factors $\implies$ still increased risk
 - Is there a genetic component?
     + Regulatory regions, Coding Changes, Structural Variation?
 - Is there an epigenetic component?
@@ -92,6 +102,10 @@ knitr:
 . . .
 
 **If genetic risk $\implies$ will we be able to see it using GRCh38?**
+
+::: {.notes}
+- Alex, Kim etc setup in consultationwith community
+:::
 
 ## Variation In Aboriginal Australians
 
@@ -140,6 +154,8 @@ knitr:
     + Returns a `SummarizedExperiment` with assays `counts`, `scaledCounts`, `TPM` etc
     + Also returns overdispersions & transcript lengths in `rowData`
     + Can handle divergent references, e.g. parY-masked + chrY-masked 
+    
+![](assets/calvin.png){.absolute top=0 right=30 width="250"}
 
 ## Creating a New Reference
 
@@ -271,50 +287,71 @@ knitr:
 
 <br>
 
-:::: {style="font-size:60%;"}
+:::: {style="font-size:55%;"}
 
 ::: {.columns}
 
-::: {.column width="30%"}
+::: {.column width="25%"}
 ### Black Ochre Data Labs
-- Prof Alex Brown
-- **A/Prof Jimmmy Breen**
+- Alex Brown
+- **Jimmy Breen**
 - Alastair Ludington
 - **Yassine Souilmi**
 - **Sam Godwin**
-- Natasha Howard
-- Liza Kretzchmar
+- Liza Kretzschmar
 - Sam Buckberry
 - Holly Massacci
-- Johanna Barclay
-- Kat Brown
+- Katharine Brown
 - Adam Heterick
 - Justine Clark
 - Amanda Richards-Satour
 - Bastien Llamas
 - Mary Brushe
-- Louise Lyons
+- Sarah Munns
+- Rose Senesi
+- Kaashifah Bruce
 :::
 
-::: {.column width="40%"}
+::: {.column width="28%"}
 ### Baker Heart & Diabetes Institute
-- Prof Sam El-Osta
+- Sam El-Osta
 - Ishant Khurana
 - Scott Maxwell
 - Moshe Olshansky
 
+<br>
+
 ### National Centre for Indigenous Genomics
 - Hardip Patel
+- Azure Hermes
+
+<br>
+
+### SAHMRI / Wardliparingga
+- Natasha Howard
+- Marlie Frank
+- Odette Pearson
+- Kim Morey
+
+:::
+
+::: {.column width="25%"}
+### ALIGN
+- Johanna Barclay
+- Annalee Stearne
+- Louise Lyons<br>
 
 ### University of Sydney
-- Prof Jean Yang
+- Jean Yang
 
 ### SAGC
 - Paul Wang
 - John Salamon
 - Sen Wang
 - Renee Smith
-- Marlie Frank
+
+### Victor Chang
+- Jason Kovacic
 
 :::
 
@@ -322,11 +359,11 @@ knitr:
 
 ::::
 
-![](assets/bodl_logo_white_background.jpg){.absolute top=0 right=0 width="400"}
+![](assets/bodl_logo_white_background.jpg){.absolute top=100 right=0 width="300"}
 
-![](assets/TheKids-RGB_Logo_Colour-Pattern.png){.absolute top=200 right=0 width="400"}
+![](assets/TheKids-RGB_Logo_Colour-Pattern.png){.absolute top=250 right=0 width="300"}
 
-![](assets/ANU_Primary_Horizontal_GoldBlack.jpg){.absolute top=500 right=20 width="350"}
+![](assets/ANU_Primary_Horizontal_GoldBlack.jpg){.absolute top=500 right=20 width="280"}
 
 
 ## References
