@@ -10,6 +10,7 @@ title-slide-attributes:
     data-background-size: "20%"
     data-background-position: "95% 10%"
     data-background-image: "https://smped.github.io/transmogR/reference/figures/transmogR.png"
+    data-notes: "Incredibly grateful to the BODL team, our Indigenous Governance committee and all sutdy participants for allowing me to work on this project"
 editor: source
 format: 
   revealjs:
@@ -50,52 +51,72 @@ knitr:
     fig.heght: 6
 ---
 
-## Motivation
+## The PROPHECY Study
 
 - Currently leading the transcriptomic analysis for the PROPHECY study
     + **P**reventing **R**enal, **OP**thalmic and **H**eart **E**vents in **C**ommunit**Y**
-- Study with ~1350 Aboriginal participants
+- Study with ~1350 SA-based Aboriginal participants
     + Genomic Variants, DNA Methylation, Transcriptomics, Proteomics, Lipidomics, Metabolomics
     + Inflammatory Marker Panel, Retinal Scans, ECG, Urine Samples
     + $>$ 1000 metadata categories
+- Will be the largest existing indigenous dataset when collected
 
 ::: {.notes}
 - All omics layers are taken from Whole Blood Samples
 :::
 
-## Motivation
+## Type II Diabetes and Complications
 
-::: {style="font-size:90%;"}
+:::: {style="font-size:90%;"}
 
-- Type II Diabetes rates are extremely high with younger onset
+:::: {.columns}
 
-::: {.fragment fragment-index=1}
+::: {.column width='45%'}
 
-- Similar patterns with Chronic Kidney & Cardiovascular Disease
+For Aboriginal Australians, Type II Diabetes rates are extremely high with younger onset[^1]
 
-:::
+[^1]: https://www.indigenoushpf.gov.au
 
-
-
-![](assets/t2d_prevalence.png){.absolute bottom=0 left=0 width="600"}
-
-::: {.fragment fragment-index=1}
-
-![](assets/cvd_prevalence.png){.absolute top=0 right=0 width="400"}
-
-
-![](assets/ckd_prevalence.png){.absolute bottom=0 right=0 width="400"}
+![](assets/t2d_prevalence.png){.absolute bottom=100 left=0 width="600"}
 
 :::
 
+::: {.column width='5%'}
+
+:::
+
+::: {.column width='50%'}
+
+::: {.fragment fragment-index=1}
+
+Similar for Cardiovascular & Chronic Kidney Disease
+
+![](assets/cvd_prevalence.png){.absolute top=110 right=100 width="450"}
+
+
+![](assets/ckd_prevalence.png){.absolute bottom=0 right=100 width="450"}
+:::
+
+:::
+
+::::
+
+:::
+
+::: {.notes}
+- Both CKD and CVD can be complications from Type II Diabetes
+- This increase in disease burden translates to increased mortality, reduced life expectancy, an increased reliance on the health system and lower quality of life
 :::
 
 ## Motivation
 
 - Source of this risk remains unknown
-    + After controlling for external risk factors $\implies$ still increased risk
+    + After controlling for known external factors $\implies$ still highly increased risk
+
+. . .    
+    
 - Is there a genetic component?
-    + Regulatory regions, Coding Changes, Structural Variation?
+    + Regulatory regions, Coding Changes, Structural Variation, etc?
 - Is there an epigenetic component?
     + DNA Methylation
 
@@ -103,8 +124,14 @@ knitr:
 
 **If genetic risk $\implies$ will we be able to see it using GRCh38?**
 
+. . .
+
+<br>
+Pangenome approaches for transcriptomics are still too immature
+
+
 ::: {.notes}
-- Alex, Kim etc setup in consultationwith community
+- Alex, Kim etc setup in consultation with community
 :::
 
 ## Variation In Aboriginal Australians
@@ -113,17 +140,27 @@ knitr:
 
 ::: {.column width="37%"}
 
-- About 25% of genetic variation in Aboriginal Australians is unique [@Easteal2020-fo]
-- Can we incorporate into transcriptomic analysis?
+:::: {style="font-size:90%"}
+
+- About 25% of genetic variation in Aboriginal Australians is unique [@Easteal2020-fo]<br><br>
+
+::: {.incremental}
+
+- Can we incorporate into transcriptomic analysis?<br><br>
 - STARconsensus [@Kaminow2022-dz] for genomic alignments
     + gene-level counts
     + transcript-level analysis?
+    + Does it matter?
+
+:::
+
+::::
 
 :::
 
 ::: {.column width="63%"}
 
-![Consensus variants found in >50% of unrelated individuals within a population, using the 1000 Genomes Project AFR population members and the complete 1000GP dataset (panhuman) in comparison to PROPHECY participants](assets/ol-all-var-1.png)
+![*Consensus variants* found in >50% of unrelated individuals within a population, using the 1000GP AFR population members and the complete 1000GP dataset (panhuman) in comparison to PROPHECY participants](assets/ol-all-var-1.png)
 
 :::
     
@@ -131,31 +168,46 @@ knitr:
 
 ## transmogR
 
-- Able to produce a variant-modified reference transcriptome
-    + Using a transcriptomic reference $\implies$ don't generally need co-ordinates
-    + STARconsensus returns co-ordinates relative to unmodified reference
-- Can also create a variant-modified reference genome
-    + Used by `salmon` as decoy sequences [@Srivastava2020-tm]
-- This allows for quantification using `salmon` (or `kallisto`)
-    + Bootstrap/Overdispersion estimates returned for transcript-level analysis [@Baldoni2024-zf]
-    
 ![](https://smped.github.io/transmogR/reference/figures/transmogR.png){.absolute top=40 right=0 width="200"}
 
+- Able to produce a variant-modified reference transcriptome
+    + Using a transcriptomic reference $\implies$ don't need co-ordinates
+    + STARconsensus returns co-ordinates relative to unmodified reference
+    
+. . .    
+    
+- Can also create a variant-modified reference genome
+    + Used by `salmon` as decoy sequences [@Srivastava2020-tm]
+    + *Not used* for any coordinate-based information
+    
+. . .
+    
+- This allows for quantification using `salmon` (or `kallisto`)
+    + Overdispersion estimates returned for transcript-level analysis [@Baldoni2024-zf]
+    
 ::: {.notes}
+Enables creation of raw fasta files $\implies$ still need to index as per normal
 :::
 
 ## Main Functions
 
-- `transmogrify()`: Create a variant-modified transcriptome
-    + Can add optional tags to modified transcript names
-- `genomogrify()`: Create a variant-modified genome
-    + Can also add optional tags
+![](assets/calvin.png){.absolute top=0 right=30 width="240"}
+
+- `transmogrify()`: Create variant-modified transcriptome sequences
+    + Add optional tags to modified transcript names
+    
+. . .
+    
+- `genomogrify()`: Create variant-modified genome sequences
+    + Add optional tags
+    
+. . .
+    
 - `digestSalmon()`:
-    + Returns a `SummarizedExperiment` with assays `counts`, `scaledCounts`, `TPM` etc
-    + Also returns overdispersions & transcript lengths in `rowData`
+    + Returns a `SummarizedExperiment` with assays `counts`, `scaledCounts`, `TPM`, `effectiveLength` 
+    + Overdispersions & transcript lengths returned in `rowData`
     + Can handle divergent references, e.g. parY-masked + chrY-masked 
     
-![](assets/calvin.png){.absolute top=0 right=30 width="250"}
 
 ## Creating a New Reference
 
@@ -171,19 +223,21 @@ knitr:
 
 ## Does It Make Any Difference?
 
+- Only tested using a haploid transcriptome
 - Pilot Analysis using 6 participants
-    + Also included personalised (haploid) transcriptomes as 'best-case' reference
+    + Compared against unmodified GRCh38 (as worst case)
+    + Compared against personalised GRCh38 as 'best-case' reference
 - Ran STARconsensus + transmogR/salmon
     + Observations from STARconsensus [@Kaminow2022-dz] replicated
     + PROPHECY closest to personalised $\implies$ GRCh38 least similar
     
 . . .    
 
-- Tested using cohort-level data subset (93 participants)
+- Also tested using cohort-level data subset (93 participants)
     + Sequencing focussed on CKD, Prof Sam El Osta group (Baker Heart & Diabetes Institute)
-    + Using the PROPHECY consensus variants vs GRCh38(chrY/parY-masked)
+    + Using the PROPHECY consensus variants vs GRCh38 (chrY/parY-masked)
 
-## Technical Assessment
+## Technical Assessment: 6x Pilot Samples
 
 ::: {.columns}
 
@@ -203,12 +257,13 @@ knitr:
 
 :::
 
-## Technical Assessment
+## Technical Assessment: 6x Pilot Samples
 
 ::: {.columns}
 
 ::: {.column width="35%"}
 - Looking at reads moving between genes
+- 1 Changed alignment $\neq$ 1 changed count
 - Far more divergent than summary statistics indicate
 - Lots of change in HLA transcripts <br>$\implies$ stand-alone analysis
 :::
@@ -220,7 +275,12 @@ knitr:
 
 :::
 
-## Technical Assessment
+::: {.notes}
+- Alignments were taken from bam files output by salmon
+- 1 changed alignment $\neq$ 1 changed count due to multi-mapping and model fitting
+:::
+
+## Technical Assessment: 6x Pilot Samples {visibility='hidden'}
 
 ::: {.columns}
 
@@ -251,8 +311,7 @@ knitr:
     + GRCh38 vs PROPHECY-modified
     + Showing average change (Mean logFC) vs variation (SD logFC)
     + Also baseline logCPM (from GRCh38)
-- Some transcripts become far more variable
-    + e.g. *JAK1-210*
+- Some transcripts become far more variable (x $\approx$ 0;  y $\uparrow$)
 - Some become consistently higher/lower in signal estimates
 
 :::
@@ -267,6 +326,7 @@ knitr:
 
 ::::
 
+
 ## Change in Gene-Ranks
 
 ::: {.columns}
@@ -278,10 +338,28 @@ knitr:
 :::
 
 ::: {.column}
-![](assets/compare-ranks-full-1.png)
+![](assets/compare-dge-pval-full-font14.png)
 :::
 
 :::
+
+## Change in Transcript-Ranks
+
+::: {.columns}
+
+::: {.column}
+- DTE Ranks: T2D vs No T2D
+- Most transcripts are also consistent
+- Some do change ranks quite significantly
+:::
+
+::: {.column}
+![](assets/compare-dte-pval-full-font14.png)
+:::
+
+:::
+
+
 
 ## Acknowledgements
 

@@ -346,7 +346,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#3D3D40" data-background-image="https://smped.github.io/transmogR/reference/figures/transmogR.png" data-background-opacity="70%" data-background-position="95% 10%" data-background-size="20%" class="quarto-title-block center">
+<section id="title-slide" data-background-color="#3D3D40" data-background-image="https://smped.github.io/transmogR/reference/figures/transmogR.png" data-background-opacity="70%" data-background-position="95% 10%" data-background-size="20%" data-notes="Incredibly grateful to the BODL team, our Indigenous Governance committee and all sutdy participants for allowing me to work on this project" class="quarto-title-block center">
   <h1 class="title">BiocAsia 2024</h1>
   <p class="subtitle">transmogR: A Bioconductor package to enable the easy<br>incorporation of variants into a reference transcriptome</p>
 
@@ -360,19 +360,20 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 
   <p class="date">November 8, 2024</p>
 </section>
-<section id="motivation" class="slide level2">
-<h2>Motivation</h2>
+<section id="the-prophecy-study" class="slide level2">
+<h2>The PROPHECY Study</h2>
 <ul>
 <li>Currently leading the transcriptomic analysis for the PROPHECY study
 <ul>
 <li><strong>P</strong>reventing <strong>R</strong>enal, <strong>OP</strong>thalmic and <strong>H</strong>eart <strong>E</strong>vents in <strong>C</strong>ommunit<strong>Y</strong></li>
 </ul></li>
-<li>Study with ~1350 Aboriginal participants
+<li>Study with ~1350 SA-based Aboriginal participants
 <ul>
 <li>Genomic Variants, DNA Methylation, Transcriptomics, Proteomics, Lipidomics, Metabolomics</li>
 <li>Inflammatory Marker Panel, Retinal Scans, ECG, Urine Samples</li>
 <li><span class="math inline">\(&gt;\)</span> 1000 metadata categories</li>
 </ul></li>
+<li>Will be the largest existing indigenous dataset when collected</li>
 </ul>
 <aside class="notes">
 <ul>
@@ -390,45 +391,68 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
           display:block!important;
       }</style></aside>
 </section>
-<section id="motivation-1" class="slide level2">
-<h2>Motivation</h2>
+<section id="type-ii-diabetes-and-complications" class="slide level2">
+<h2>Type II Diabetes and Complications</h2>
 <div style="font-size:90%;">
-<ul>
-<li>Type II Diabetes rates are extremely high with younger onset</li>
-</ul>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>For Aboriginal Australians, Type II Diabetes rates are extremely high with younger onset<sup>1</sup></p>
+<p><img data-src="assets/t2d_prevalence.png" class="absolute" style="left: 0px; bottom: 100px; width: 600px; "></p>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:50%;">
 <div class="fragment" data-fragment-index="1">
+<p>Similar for Cardiovascular &amp; Chronic Kidney Disease</p>
+<p><img data-src="assets/cvd_prevalence.png" class="absolute" style="top: 110px; right: 100px; width: 450px; "></p>
+<p><img data-src="assets/ckd_prevalence.png" class="absolute" style="bottom: 0px; right: 100px; width: 450px; "></p>
+</div>
+</div></div>
+</div>
+<aside class="notes">
 <ul>
-<li>Similar patterns with Chronic Kidney &amp; Cardiovascular Disease</li>
+<li>Both CKD and CVD can be complications from Type II Diabetes</li>
+<li>This increase in disease burden translates to increased mortality, reduced life expectancy, an increased reliance on the health system and lower quality of life</li>
 </ul>
-</div>
-<p><img data-src="assets/t2d_prevalence.png" class="absolute" style="left: 0px; bottom: 0px; width: 600px; "></p>
-<div class="fragment" data-fragment-index="1">
-<p><img data-src="assets/cvd_prevalence.png" class="absolute" style="top: 0px; right: 0px; width: 400px; "></p>
-<p><img data-src="assets/ckd_prevalence.png" class="absolute" style="bottom: 0px; right: 0px; width: 400px; "></p>
-</div>
-</div>
-</section>
-<section id="motivation-2" class="slide level2">
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>https://www.indigenoushpf.gov.au</p></li></ol></aside></section>
+<section id="motivation" class="slide level2">
 <h2>Motivation</h2>
 <ul>
 <li>Source of this risk remains unknown
 <ul>
-<li>After controlling for external risk factors <span class="math inline">\(\implies\)</span> still increased risk</li>
+<li>After controlling for known external factors <span class="math inline">\(\implies\)</span> still highly increased risk</li>
 </ul></li>
+</ul>
+<div class="fragment">
+<ul>
 <li>Is there a genetic component?
 <ul>
-<li>Regulatory regions, Coding Changes, Structural Variation?</li>
+<li>Regulatory regions, Coding Changes, Structural Variation, etc?</li>
 </ul></li>
 <li>Is there an epigenetic component?
 <ul>
 <li>DNA Methylation</li>
 </ul></li>
 </ul>
+</div>
 <div class="fragment">
 <p><strong>If genetic risk <span class="math inline">\(\implies\)</span> will we be able to see it using GRCh38?</strong></p>
+</div>
+<div class="fragment">
+<p><br> Pangenome approaches for transcriptomics are still too immature</p>
 <aside class="notes">
 <ul>
-<li>Alex, Kim etc setup in consultationwith community</li>
+<li>Alex, Kim etc setup in consultation with community</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -447,44 +471,59 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <h2>Variation In Aboriginal Australians</h2>
 <div class="columns">
 <div class="column" style="width:37%;">
+<div style="font-size:90%">
 <ul>
-<li>About 25% of genetic variation in Aboriginal Australians is unique <span class="citation" data-cites="Easteal2020-fo">(<a href="#/references" role="doc-biblioref" onclick="">Easteal et al. 2020</a>)</span></li>
-<li>Can we incorporate into transcriptomic analysis?</li>
-<li>STARconsensus <span class="citation" data-cites="Kaminow2022-dz">(<a href="#/references" role="doc-biblioref" onclick="">Kaminow et al. 2022</a>)</span> for genomic alignments
+<li>About 25% of genetic variation in Aboriginal Australians is unique <span class="citation" data-cites="Easteal2020-fo">(<a href="#/references" role="doc-biblioref" onclick="">Easteal et al. 2020</a>)</span><br><br></li>
+</ul>
+<div>
 <ul>
-<li>gene-level counts</li>
-<li>transcript-level analysis?</li>
+<li class="fragment">Can we incorporate into transcriptomic analysis?<br><br></li>
+<li class="fragment">STARconsensus <span class="citation" data-cites="Kaminow2022-dz">(<a href="#/references" role="doc-biblioref" onclick="">Kaminow et al. 2022</a>)</span> for genomic alignments
+<ul>
+<li class="fragment">gene-level counts</li>
+<li class="fragment">transcript-level analysis?</li>
+<li class="fragment">Does it matter?</li>
 </ul></li>
 </ul>
+</div>
+</div>
 </div><div class="column" style="width:63%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="assets/ol-all-var-1.png"></p>
-<figcaption>Consensus variants found in &gt;50% of unrelated individuals within a population, using the 1000 Genomes Project AFR population members and the complete 1000GP dataset (panhuman) in comparison to PROPHECY participants</figcaption>
+<figcaption><em>Consensus variants</em> found in &gt;50% of unrelated individuals within a population, using the 1000GP AFR population members and the complete 1000GP dataset (panhuman) in comparison to PROPHECY participants</figcaption>
 </figure>
 </div>
 </div></div>
 </section>
 <section id="transmogr" class="slide level2">
 <h2>transmogR</h2>
+<p><img data-src="https://smped.github.io/transmogR/reference/figures/transmogR.png" class="absolute" style="top: 40px; right: 0px; width: 200px; "></p>
 <ul>
 <li>Able to produce a variant-modified reference transcriptome
 <ul>
-<li>Using a transcriptomic reference <span class="math inline">\(\implies\)</span> don’t generally need co-ordinates</li>
+<li>Using a transcriptomic reference <span class="math inline">\(\implies\)</span> don’t need co-ordinates</li>
 <li>STARconsensus returns co-ordinates relative to unmodified reference</li>
 </ul></li>
+</ul>
+<div class="fragment">
+<ul>
 <li>Can also create a variant-modified reference genome
 <ul>
 <li>Used by <code>salmon</code> as decoy sequences <span class="citation" data-cites="Srivastava2020-tm">(<a href="#/references" role="doc-biblioref" onclick="">Srivastava et al. 2020</a>)</span></li>
-</ul></li>
-<li>This allows for quantification using <code>salmon</code> (or <code>kallisto</code>)
-<ul>
-<li>Bootstrap/Overdispersion estimates returned for transcript-level analysis <span class="citation" data-cites="Baldoni2024-zf">(<a href="#/references" role="doc-biblioref" onclick="">Baldoni et al. 2024</a>)</span></li>
+<li><em>Not used</em> for any coordinate-based information</li>
 </ul></li>
 </ul>
-<p><img data-src="https://smped.github.io/transmogR/reference/figures/transmogR.png" class="absolute" style="top: 40px; right: 0px; width: 200px; "></p>
+</div>
+<div class="fragment">
+<ul>
+<li>This allows for quantification using <code>salmon</code> (or <code>kallisto</code>)
+<ul>
+<li>Overdispersion estimates returned for transcript-level analysis <span class="citation" data-cites="Baldoni2024-zf">(<a href="#/references" role="doc-biblioref" onclick="">Baldoni et al. 2024</a>)</span></li>
+</ul></li>
+</ul>
 <aside class="notes">
-
+<p>Enables creation of raw fasta files <span class="math inline">\(\implies\)</span> still need to index as per normal</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -496,26 +535,35 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</div>
 </section>
 <section id="main-functions" class="slide level2">
 <h2>Main Functions</h2>
+<p><img data-src="assets/calvin.png" class="absolute" style="top: 0px; right: 30px; width: 240px; "></p>
 <ul>
-<li><code>transmogrify()</code>: Create a variant-modified transcriptome
+<li><code>transmogrify()</code>: Create variant-modified transcriptome sequences
 <ul>
-<li>Can add optional tags to modified transcript names</li>
+<li>Add optional tags to modified transcript names</li>
 </ul></li>
-<li><code>genomogrify()</code>: Create a variant-modified genome
+</ul>
+<div class="fragment">
 <ul>
-<li>Can also add optional tags</li>
+<li><code>genomogrify()</code>: Create variant-modified genome sequences
+<ul>
+<li>Add optional tags</li>
 </ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li><code>digestSalmon()</code>:
 <ul>
-<li>Returns a <code>SummarizedExperiment</code> with assays <code>counts</code>, <code>scaledCounts</code>, <code>TPM</code> etc</li>
-<li>Also returns overdispersions &amp; transcript lengths in <code>rowData</code></li>
+<li>Returns a <code>SummarizedExperiment</code> with assays <code>counts</code>, <code>scaledCounts</code>, <code>TPM</code>, <code>effectiveLength</code></li>
+<li>Overdispersions &amp; transcript lengths returned in <code>rowData</code></li>
 <li>Can handle divergent references, e.g.&nbsp;parY-masked + chrY-masked</li>
 </ul></li>
 </ul>
-<p><img data-src="assets/calvin.png" class="absolute" style="top: 0px; right: 30px; width: 250px; "></p>
+</div>
 </section>
 <section id="creating-a-new-reference" class="slide level2">
 <h2>Creating a New Reference</h2>
@@ -538,9 +586,11 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <section id="does-it-make-any-difference" class="slide level2">
 <h2>Does It Make Any Difference?</h2>
 <ul>
+<li>Only tested using a haploid transcriptome</li>
 <li>Pilot Analysis using 6 participants
 <ul>
-<li>Also included personalised (haploid) transcriptomes as ‘best-case’ reference</li>
+<li>Compared against unmodified GRCh38 (as worst case)</li>
+<li>Compared against personalised GRCh38 as ‘best-case’ reference</li>
 </ul></li>
 <li>Ran STARconsensus + transmogR/salmon
 <ul>
@@ -550,16 +600,16 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 </ul>
 <div class="fragment">
 <ul>
-<li>Tested using cohort-level data subset (93 participants)
+<li>Also tested using cohort-level data subset (93 participants)
 <ul>
 <li>Sequencing focussed on CKD, Prof Sam El Osta group (Baker Heart &amp; Diabetes Institute)</li>
-<li>Using the PROPHECY consensus variants vs GRCh38(chrY/parY-masked)</li>
+<li>Using the PROPHECY consensus variants vs GRCh38 (chrY/parY-masked)</li>
 </ul></li>
 </ul>
 </div>
 </section>
-<section id="technical-assessment" class="slide level2">
-<h2>Technical Assessment</h2>
+<section id="technical-assessment-6x-pilot-samples" class="slide level2">
+<h2>Technical Assessment: 6x Pilot Samples</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <ul>
@@ -576,37 +626,37 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <p><img data-src="assets/boxplot-lib-format-1.png"></p>
 </div></div>
 </section>
-<section id="technical-assessment-1" class="slide level2">
-<h2>Technical Assessment</h2>
+<section id="technical-assessment-6x-pilot-samples-1" class="slide level2">
+<h2>Technical Assessment: 6x Pilot Samples</h2>
 <div class="columns">
 <div class="column" style="width:35%;">
 <ul>
 <li>Looking at reads moving between genes</li>
+<li>1 Changed alignment <span class="math inline">\(\neq\)</span> 1 changed count</li>
 <li>Far more divergent than summary statistics indicate</li>
 <li>Lots of change in HLA transcripts <br><span class="math inline">\(\implies\)</span> stand-alone analysis</li>
 </ul>
 </div><div class="column" style="width:65%;">
 <p><img data-src="assets/salmon-moved-across-1.png"></p>
 </div></div>
-</section>
-<section id="technical-assessment-2" class="slide level2">
-<h2>Technical Assessment</h2>
-<div class="columns">
-<div class="column" style="width:35%;">
+<aside class="notes">
 <ul>
-<li>Comparing transcript-level expression estimates against personalised references
-<ul>
-<li>Using scaled counts <span class="citation" data-cites="Baldoni2024-zf">(<a href="#/references" role="doc-biblioref" onclick="">Baldoni et al. 2024</a>)</span></li>
-</ul></li>
-<li>Baseline expression estimates will vary
-<ul>
-<li>Impacted by raw counts and overdispersions</li>
-</ul></li>
+<li>Alignments were taken from bam files output by salmon</li>
+<li>1 changed alignment <span class="math inline">\(\neq\)</span> 1 changed count due to multi-mapping and model fitting</li>
 </ul>
-</div><div class="column" style="width:65%;">
-<p><img data-src="assets/compare-trans-lfc-1.png"></p>
-</div></div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
+
 <section id="cohort-level-analysis" class="slide level2">
 <h2>Cohort Level Analysis</h2>
 <div style="font-size:85%;">
@@ -619,10 +669,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <li>Showing average change (Mean logFC) vs variation (SD logFC)</li>
 <li>Also baseline logCPM (from GRCh38)</li>
 </ul></li>
-<li>Some transcripts become far more variable
-<ul>
-<li>e.g.&nbsp;<em>JAK1-210</em></li>
-</ul></li>
+<li>Some transcripts become far more variable (x <span class="math inline">\(\approx\)</span> 0; y <span class="math inline">\(\uparrow\)</span>)</li>
 <li>Some become consistently higher/lower in signal estimates</li>
 </ul>
 </div><div class="column" style="width:65%;">
@@ -640,7 +687,20 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <li>Some do change ranks quite significantly</li>
 </ul>
 </div><div class="column">
-<p><img data-src="assets/compare-ranks-full-1.png"></p>
+<p><img data-src="assets/compare-dge-pval-full-font14.png"></p>
+</div></div>
+</section>
+<section id="change-in-transcript-ranks" class="slide level2">
+<h2>Change in Transcript-Ranks</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>DTE Ranks: T2D vs No T2D</li>
+<li>Most transcripts are also consistent</li>
+<li>Some do change ranks quite significantly</li>
+</ul>
+</div><div class="column">
+<p><img data-src="assets/compare-dte-pval-full-font14.png"></p>
 </div></div>
 </section>
 <section id="acknowledgements" class="slide level2">
@@ -742,6 +802,7 @@ Srivastava, Avi, Laraib Malik, Hirak Sarkar, Mohsen Zakeri, Fatemeh Almodaresi, 
 </div>
 </div>
 </section>
+
     </div>
   </div>
 
