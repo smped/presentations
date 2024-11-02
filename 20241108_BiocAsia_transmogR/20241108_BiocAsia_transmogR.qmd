@@ -223,21 +223,26 @@ Enables creation of raw fasta files $\implies$ still need to index as per normal
 
 ## Does It Make Any Difference?
 
-- Only tested using a haploid transcriptome
+- Only tested using haploid transcriptomes
 - Pilot Analysis using 6 participants
-    + Compared against unmodified GRCh38 (as worst case)
-    + Compared against personalised GRCh38 as 'best-case' reference
+    + Included GRCh38 as *worst case*
+    + Personalised GRCh38 as *best-case*
+    + Also AFR, panhuman and PROPHECY consensus variant sets
 - Ran STARconsensus + transmogR/salmon
     + Observations from STARconsensus [@Kaminow2022-dz] replicated
     + PROPHECY closest to personalised $\implies$ GRCh38 least similar
     
-. . .    
+<!-- . . .     -->
 
-- Also tested using cohort-level data subset (93 participants)
-    + Sequencing focussed on CKD, Prof Sam El Osta group (Baker Heart & Diabetes Institute)
-    + Using the PROPHECY consensus variants vs GRCh38 (chrY/parY-masked)
+<!-- - Also tested using cohort-level data subset (93 participants) -->
+<!--     + Sequencing focussed on CKD, Prof Sam El Osta group (Baker Heart & Diabetes Institute) -->
+<!--     + Using the PROPHECY consensus variants vs GRCh38 (chrY/parY-masked) -->
 
-## Technical Assessment: 6x Pilot Samples
+::: {.notes}
+Intent is to assess whether the PROPHECY consensus set shows improvement or even any impact
+:::
+
+## Technical Assessment
 
 ::: {.columns}
 
@@ -257,7 +262,11 @@ Enables creation of raw fasta files $\implies$ still need to index as per normal
 
 :::
 
-## Technical Assessment: 6x Pilot Samples
+::: {.notes}
+These are very small numbers but PROPHECY does appear to resemble the personalised
+:::
+
+## Technical Assessment
 
 ::: {.columns}
 
@@ -270,7 +279,7 @@ Enables creation of raw fasta files $\implies$ still need to index as per normal
 
 ::: {.column width="65%"}
 
-![](assets/salmon-moved-across-1.png)
+![GRCh38 vs PROPHECY](assets/salmon-moved-across-1.png)
 :::
 
 :::
@@ -327,7 +336,7 @@ Enables creation of raw fasta files $\implies$ still need to index as per normal
 ::::
 
 
-## Change in Gene-Ranks
+## Change in Gene-Ranks {visibility='hidden'}
 
 ::: {.columns}
 
