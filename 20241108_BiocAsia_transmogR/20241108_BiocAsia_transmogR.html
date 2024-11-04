@@ -449,10 +449,10 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <p><strong>If genetic risk <span class="math inline">\(\implies\)</span> will we be able to see it using GRCh38?</strong></p>
 </div>
 <div class="fragment">
-<p><br> Pangenome approaches for transcriptomics are still too immature</p>
+<p><br> Graph-based approaches for transcriptomics are still too immature</p>
 <aside class="notes">
 <ul>
-<li>Alex, Kim etc setup in consultation with community</li>
+<li>Alex, Kim etc set up in consultation with community</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -586,11 +586,12 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <section id="does-it-make-any-difference" class="slide level2">
 <h2>Does It Make Any Difference?</h2>
 <ul>
-<li>Only tested using a haploid transcriptome</li>
+<li>Only tested using haploid transcriptomes</li>
 <li>Pilot Analysis using 6 participants
 <ul>
-<li>Compared against unmodified GRCh38 (as worst case)</li>
-<li>Compared against personalised GRCh38 as ‘best-case’ reference</li>
+<li>Included GRCh38 as <em>worst case</em></li>
+<li>Personalised GRCh38 as <em>best-case</em></li>
+<li>Also AFR, panhuman and PROPHECY consensus variant sets</li>
 </ul></li>
 <li>Ran STARconsensus + transmogR/salmon
 <ul>
@@ -598,18 +599,22 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <li>PROPHECY closest to personalised <span class="math inline">\(\implies\)</span> GRCh38 least similar</li>
 </ul></li>
 </ul>
-<div class="fragment">
-<ul>
-<li>Also tested using cohort-level data subset (93 participants)
-<ul>
-<li>Sequencing focussed on CKD, Prof Sam El Osta group (Baker Heart &amp; Diabetes Institute)</li>
-<li>Using the PROPHECY consensus variants vs GRCh38 (chrY/parY-masked)</li>
-</ul></li>
-</ul>
-</div>
+<aside class="notes">
+<p>Intent is to assess whether the PROPHECY consensus set shows improvement or even any impact</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="technical-assessment-6x-pilot-samples" class="slide level2">
-<h2>Technical Assessment: 6x Pilot Samples</h2>
+<section id="technical-assessment" class="slide level2">
+<h2>Technical Assessment</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <ul>
@@ -625,20 +630,36 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 </div><div class="column" style="width:60%;">
 <p><img data-src="assets/boxplot-lib-format-1.png"></p>
 </div></div>
+<aside class="notes">
+<p>These are very small numbers but PROPHECY does appear to resemble the personalised</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="technical-assessment-6x-pilot-samples-1" class="slide level2">
-<h2>Technical Assessment: 6x Pilot Samples</h2>
+<section id="technical-assessment-1" class="slide level2">
+<h2>Technical Assessment</h2>
+<div style="font-size:90%">
 <div class="columns">
 <div class="column" style="width:35%;">
 <ul>
-<li>Looking at reads moving between genes</li>
+<li>Looking at reads moving between genes (GRCh38 <span class="math inline">\(\rightarrow\)</span> PROPHECY)</li>
 <li>1 Changed alignment <span class="math inline">\(\neq\)</span> 1 changed count</li>
 <li>Far more divergent than summary statistics indicate</li>
-<li>Lots of change in HLA transcripts <br><span class="math inline">\(\implies\)</span> stand-alone analysis</li>
+<li>Lots of change in HLA genes <br><span class="math inline">\(\implies\)</span> stand-alone analysis</li>
+<li>Reads changing transcript within the same gene were mostly HLA</li>
 </ul>
 </div><div class="column" style="width:65%;">
 <p><img data-src="assets/salmon-moved-across-1.png"></p>
 </div></div>
+</div>
 <aside class="notes">
 <ul>
 <li>Alignments were taken from bam files output by salmon</li>
@@ -656,8 +677,45 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
           display:block!important;
       }</style></aside>
 </section>
-
 <section id="cohort-level-analysis" class="slide level2">
+<h2>Cohort Level Analysis</h2>
+<ul>
+<li>93 participants selected for a CKD analysis by the El Osta group (Baker Institute)</li>
+<li>Performed a quick T2D vs No T2D analysis</li>
+<li>Ran analyses in parallel
+<ul>
+<li>GRCh38 vs PROPHECY-modified GRCh38</li>
+<li>PAR-Y excluded for males, chrY excluded for females</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Compared log<sub>2</sub> ratios of scaled counts
+<ul>
+<li>Incorporates counts AND overdispersions</li>
+</ul></li>
+<li>Also transcript-level DTE results</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>PAR-Y excluded to be careful wrangling PAR region variants</li>
+<li>DTE analysis was just a crude T2D vs No T2D</li>
+<li>May not have been well balances for this analysis as complications were the focus</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="cohort-level-analysis-1" class="slide level2">
 <h2>Cohort Level Analysis</h2>
 <div style="font-size:85%;">
 <div class="columns">
@@ -677,27 +735,16 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 </div></div>
 </div>
 </section>
-<section id="change-in-gene-ranks" class="slide level2">
-<h2>Change in Gene-Ranks</h2>
-<div class="columns">
-<div class="column">
-<ul>
-<li>DGE Ranks: T2D vs No T2D</li>
-<li>Most genes are consistent</li>
-<li>Some do change ranks quite significantly</li>
-</ul>
-</div><div class="column">
-<p><img data-src="assets/compare-dge-pval-full-font14.png"></p>
-</div></div>
-</section>
-<section id="change-in-transcript-ranks" class="slide level2">
-<h2>Change in Transcript-Ranks</h2>
+
+<section id="change-in-transcript-level-results" class="slide level2">
+<h2>Change in Transcript-Level Results</h2>
 <div class="columns">
 <div class="column">
 <ul>
 <li>DTE Ranks: T2D vs No T2D</li>
 <li>Most transcripts are also consistent</li>
 <li>Some do change ranks quite significantly</li>
+<li>Probably time to simulate data for confidence</li>
 </ul>
 </div><div class="column">
 <p><img data-src="assets/compare-dte-pval-full-font14.png"></p>
@@ -737,13 +784,11 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <li>Scott Maxwell</li>
 <li>Moshe Olshansky</li>
 </ul>
-<p><br></p>
 <h3 id="national-centre-for-indigenous-genomics">National Centre for Indigenous Genomics</h3>
 <ul>
 <li>Hardip Patel</li>
 <li>Azure Hermes</li>
 </ul>
-<p><br></p>
 <h3 id="sahmri-wardliparingga">SAHMRI / Wardliparingga</h3>
 <ul>
 <li>Natasha Howard</li>
@@ -751,16 +796,16 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <li>Odette Pearson</li>
 <li>Kim Morey</li>
 </ul>
-</div><div class="column" style="width:25%;">
+<h3 id="university-of-sydney">University of Sydney</h3>
+<ul>
+<li>Jean Yang</li>
+</ul>
+</div><div class="column" style="width:22%;">
 <h3 id="align">ALIGN</h3>
 <ul>
 <li>Johanna Barclay</li>
 <li>Annalee Stearne</li>
-<li>Louise Lyons<br></li>
-</ul>
-<h3 id="university-of-sydney">University of Sydney</h3>
-<ul>
-<li>Jean Yang</li>
+<li>Louise Lyons</li>
 </ul>
 <h3 id="sagc">SAGC</h3>
 <ul>
@@ -769,7 +814,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <li>Sen Wang</li>
 <li>Renee Smith</li>
 </ul>
-<h3 id="victor-chang">Victor Chang</h3>
+<h3 id="victor-chang-cardiac-research-institute">Victor Chang Cardiac Research Institute</h3>
 <ul>
 <li>Jason Kovacic</li>
 </ul>

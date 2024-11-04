@@ -127,11 +127,11 @@ Similar for Cardiovascular & Chronic Kidney Disease
 . . .
 
 <br>
-Pangenome approaches for transcriptomics are still too immature
+Graph-based approaches for transcriptomics are still too immature
 
 
 ::: {.notes}
-- Alex, Kim etc setup in consultation with community
+- Alex, Kim etc set up in consultation with community
 :::
 
 ## Variation In Aboriginal Australians
@@ -232,11 +232,6 @@ Enables creation of raw fasta files $\implies$ still need to index as per normal
     + Observations from STARconsensus [@Kaminow2022-dz] replicated
     + PROPHECY closest to personalised $\implies$ GRCh38 least similar
     
-<!-- . . .     -->
-
-<!-- - Also tested using cohort-level data subset (93 participants) -->
-<!--     + Sequencing focussed on CKD, Prof Sam El Osta group (Baker Heart & Diabetes Institute) -->
-<!--     + Using the PROPHECY consensus variants vs GRCh38 (chrY/parY-masked) -->
 
 ::: {.notes}
 Intent is to assess whether the PROPHECY consensus set shows improvement or even any impact
@@ -268,45 +263,52 @@ These are very small numbers but PROPHECY does appear to resemble the personalis
 
 ## Technical Assessment
 
+:::: {style="font-size:90%"}
+
 ::: {.columns}
 
 ::: {.column width="35%"}
-- Looking at reads moving between genes
+- Looking at reads moving between genes (GRCh38 $\rightarrow$ PROPHECY)
 - 1 Changed alignment $\neq$ 1 changed count
 - Far more divergent than summary statistics indicate
-- Lots of change in HLA transcripts <br>$\implies$ stand-alone analysis
+- Lots of change in HLA genes <br>$\implies$ stand-alone analysis
+- Reads changing transcript within the same gene were mostly HLA
 :::
 
 ::: {.column width="65%"}
 
-![GRCh38 vs PROPHECY](assets/salmon-moved-across-1.png)
+![](assets/salmon-moved-across-1.png)
 :::
 
 :::
+
+::::
 
 ::: {.notes}
 - Alignments were taken from bam files output by salmon
 - 1 changed alignment $\neq$ 1 changed count due to multi-mapping and model fitting
 :::
 
-## Technical Assessment: 6x Pilot Samples {visibility='hidden'}
+## Cohort Level Analysis
 
-::: {.columns}
+- 93 participants selected for a CKD analysis by the El Osta group (Baker Institute)
+- Performed a quick T2D vs No T2D analysis
+- Ran analyses in parallel
+    + GRCh38 vs PROPHECY-modified GRCh38
+    + PAR-Y excluded for males, chrY excluded for females
+    
+. . .
 
-::: {.column width="35%"}
-- Comparing transcript-level expression estimates against personalised references
-    + Using scaled counts [@Baldoni2024-zf]
-- Baseline expression estimates will vary
-    + Impacted by raw counts and overdispersions
+- Compared log~2~ ratios of scaled counts
+    + Incorporates counts AND overdispersions
+- Also transcript-level DTE results
 
+::: {.notes}
+- PAR-Y excluded to be careful wrangling PAR region variants
+- DTE analysis was just a crude T2D vs No T2D
+- May not have been well balances for this analysis as complications were the focus
 :::
 
-::: {.column width="65%"}
-
-![](assets/compare-trans-lfc-1.png)
-:::
-
-:::
 
 ## Cohort Level Analysis
 
@@ -336,12 +338,13 @@ These are very small numbers but PROPHECY does appear to resemble the personalis
 ::::
 
 
-## Change in Gene-Ranks {visibility='hidden'}
+## Change in Gene-Level results {visibility='hidden'}
 
 ::: {.columns}
 
 ::: {.column}
 - DGE Ranks: T2D vs No T2D
+    + STARconsensus + FeatureCounts
 - Most genes are consistent
 - Some do change ranks quite significantly
 :::
@@ -352,7 +355,7 @@ These are very small numbers but PROPHECY does appear to resemble the personalis
 
 :::
 
-## Change in Transcript-Ranks
+## Change in Transcript-Level Results
 
 ::: {.columns}
 
@@ -360,6 +363,7 @@ These are very small numbers but PROPHECY does appear to resemble the personalis
 - DTE Ranks: T2D vs No T2D
 - Most transcripts are also consistent
 - Some do change ranks quite significantly
+- Probably time to simulate data for confidence
 :::
 
 ::: {.column}
@@ -406,13 +410,11 @@ These are very small numbers but PROPHECY does appear to resemble the personalis
 - Scott Maxwell
 - Moshe Olshansky
 
-<br>
 
 ### National Centre for Indigenous Genomics
 - Hardip Patel
 - Azure Hermes
 
-<br>
 
 ### SAHMRI / Wardliparingga
 - Natasha Howard
@@ -420,16 +422,16 @@ These are very small numbers but PROPHECY does appear to resemble the personalis
 - Odette Pearson
 - Kim Morey
 
+### University of Sydney
+- Jean Yang
+
 :::
 
-::: {.column width="25%"}
+::: {.column width="22%"}
 ### ALIGN
 - Johanna Barclay
 - Annalee Stearne
-- Louise Lyons<br>
-
-### University of Sydney
-- Jean Yang
+- Louise Lyons
 
 ### SAGC
 - Paul Wang
@@ -437,7 +439,7 @@ These are very small numbers but PROPHECY does appear to resemble the personalis
 - Sen Wang
 - Renee Smith
 
-### Victor Chang
+### Victor Chang Cardiac Research Institute
 - Jason Kovacic
 
 :::
