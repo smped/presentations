@@ -372,7 +372,15 @@ These are very small numbers but PROPHECY does appear to resemble the personalis
 
 :::
 
+## Bonus Extra Self Promotion
 
+![](https://smped.github.io/motifTestR/reference/figures/favicon.png){.absolute top=40 right=0 width="250"}
+
+- I personally struggle with the MEME-Suite & conda environment<br>$\implies$ developed `motifTestR`
+- Has a test for positional bias within sequences
+- Also tests for enrichment
+    + `poisson`, `quasipoisson`, `hypergeometric`, `non-parametric`
+- Can cluster motifs and test as a cluster instead of individual motifs
 
 ## Acknowledgements
 
