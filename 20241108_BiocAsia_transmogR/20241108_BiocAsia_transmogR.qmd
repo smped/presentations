@@ -186,7 +186,8 @@ Graph-based approaches for transcriptomics are still too immature
     + Overdispersion estimates returned for transcript-level analysis [@Baldoni2024-zf]
     
 ::: {.notes}
-Enables creation of raw fasta files $\implies$ still need to index as per normal
+- Enables creation of raw fasta files $\implies$ still need to index as per normal
+- Currently trying to find a way to create diploid, personalised references
 :::
 
 ## Main Functions
