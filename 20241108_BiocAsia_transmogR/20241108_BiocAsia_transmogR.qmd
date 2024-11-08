@@ -378,7 +378,8 @@ These are very small numbers but PROPHECY does appear to resemble the personalis
 
 - I personally struggle with the MEME-Suite & conda environment<br>$\implies$ developed `motifTestR`
 - Has a test for positional bias within sequences
-- Also tests for enrichment
+    + Analogous to `centrimo`
+- Also tests for enrichment within sequences
     + `poisson`, `quasipoisson`, `hypergeometric`, `non-parametric`
 - Can cluster motifs and test as a cluster instead of individual motifs
 
