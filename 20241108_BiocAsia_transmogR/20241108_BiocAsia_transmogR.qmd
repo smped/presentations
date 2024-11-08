@@ -377,6 +377,7 @@ These are very small numbers but PROPHECY does appear to resemble the personalis
 ![](https://smped.github.io/motifTestR/reference/figures/favicon.png){.absolute top=40 right=0 width="250"}
 
 - I personally struggle with the MEME-Suite & conda environment<br>$\implies$ developed `motifTestR`
+    + May have re-invented the wheel
 - Has a test for positional bias within sequences
     + Analogous to `centrimo`
 - Also tests for enrichment within sequences
