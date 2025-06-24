@@ -215,7 +215,7 @@ knitr:
 . . .    
     
 - Used to be an F1000R 'pipeline' giving an indexed DOI for a Bioc workflow
-    + Submit $\LaTeX$ document with workflow $\implies$ published on both Bioconductor & F100R
+    + Submit $\LaTeX$ document with workflow $\implies$ published on both Bioconductor & F1000R
     + F1000R now require MS Word documents $\implies$ pipeline is broken
     
 . . .    
