@@ -6,3 +6,4 @@
 - [ALIGN, Australia, November 2023](20231107_ALIGN/20231107_ALIGN_Transcriptomics.html)
 - [Adelaide Biomed Bioinformatics, May 2024](20240503_Bioinformatics_Adelaide/20240503_transmogR.html)
 - [BiocAsia 2024, Sydney, Nov 2024](20241108_BiocAsia_transmogR/20241108_BiocAsia_transmogR.html)
+- [Inaugural Bioconductor Meetup, Adelaide, Jun 2025](20250625_BiocMeetup_Adelaide/presentation.html)

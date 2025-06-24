@@ -1,0 +1,301 @@
+---
+title: "Bioc Meetup, Adelaide"
+author: "Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Institute Australia / ANU"
+date: "2025-06-25"
+date-format: long
+title-slide-attributes:
+    data-background-color: "#3D3D40"
+    data-background-opacity: "70%"
+    data-background-size: "20%"
+    data-background-position: "95% 10%"
+editor: source
+format: 
+  revealjs:
+    bibliography: references.bib
+    theme: [bodl.scss]
+    code-line-numbers: false
+    width: 1280
+    height: 720
+    sansfont: Times New Roman
+    logo: assets/bodl_logo_white_background.jpg
+    slide-number: c/t
+include-after: |
+  <script type="text/javascript">
+    Reveal.on('ready', event => {
+      if (event.indexh === 0) {
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+      }
+    });
+    Reveal.addEventListener('slidechanged', (event) => {
+      if (event.indexh === 0) {
+        Reveal.configure({ slideNumber: null });
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+      }
+      if (event.indexh === 1) { 
+        Reveal.configure({ slideNumber: 'c' });
+        document.querySelector("div.has-logo > img.slide-logo").style.display = null;
+      }
+    });
+  </script>    
+knitr: 
+  opts_chunk: 
+    echo: true
+    include: true
+    warning: false
+    message: false
+    fig.align: left
+    fig.width: 8
+    fig.heght: 6
+---
+
+## A Brief Personal History
+
+- First encountered `limma` & R v1.5.? in Nov 2002
+- PhD 2008-2018 $\implies$ developed an (unpublished) microarray package
+    + No `RStudio`, No `Rcpp`, No `tidyverse`
+    + MCMC engine written in `C` $\implies$ using `.Call()`
+
+::: {.fragment}
+![](https://c-for-dummies.com/blog/wp-content/uploads/2018/04/c2nd.png){.absolute right=0 top=50 width='240px'}
+:::
+
+
+::: {.fragment}
+
+- No-one in Adelaide knew how to make `R` talk to `C` (~2009)
+    + Attended UseR (Coventry, 2011)
+    + Started Adelaide R Users Group (~2012, Gary Glonek & Jono Tuke)
+    
+:::
+
+::: {.fragment}
+    
+- Looked the distant Bioconductor Community with awe
+    + No connection to the community in Adelaide $\implies$ only WEHI in Australia
+    + Tiny Adelaide bioinformatics community in 2008 (Greg Goodall, Simon Barry, Jozef Gecz)
+    
+:::
+
+::: {.notes}
+- Attending UseR was my best attempt at finding help & support
+    + Was lucky enough to be the moment JJ Allaire launched RStudio
+- Stopped attending User Group after 12 months as I'd returned to guitar teaching
+:::
+
+
+## A Brief Personal History
+
+::: {.notes}
+- Was probably asked to apply by Gary because I'd started the User Group & I'd tutored stats for him
+- Never had any bioinformatics mentorship or trained with someone with more experience than me
+- To complete the picture of perfection: I was also homeless
+- Within DVCR I answered to Kerry Jaeger who was extremely supportive through out entire existence
+- Wasn't out as Non-Binary yet $\implies$ my most striking experience of male privilege
+- No idea how to write a Bioc package. Didn't know anyone else in Adelaide who did
+:::
+
+- Was offered position in 2014 to start Bioinformatics Hub at University of Adelaide
+    + 1 Yr contract (DVCR funded project)
+    + No PhD (until 2018)
+    + No experience in academia
+    + Never seen a FastQ file or used an HPC
+    
+::: {.incremental}
+    
+- Build bioinformatics capacity in Adelaide
+    + White, mid-40s & male [$\implies$ everyone assumed I knew what I was talking about]{.fragment}
+    + Fumbled & stumbled early $\implies$ eventually found our way [(Hien + Jimmy joined 2015)]{.fragment}
+
+:::  
+  
+::: {.fragment}
+- Started helping with BiocAsia in 2016
+:::
+
+::: {.fragment}
+
+- Developed both `strandcheckR` & `ngsReports`
+    + 2018-2019: Chris Ward & Hien To
+
+![](https://smped.github.io/ngsReports/reference/figures/ngsReports.png){.absolute right=400 top=550 width='150px'}
+
+:::
+
+
+
+
+
+## More Recently
+
+::: {.notes}
+- I believe many of Kerry's projects within DVCR were no longer supported & she retired
+:::
+
+- Bioinformatics Hub was closed in 2020
+    + Change in DVCR (Anton Middelberg appointed in 2019)
+
+::: {.fragment}
+
+- 2020 - 2022: Dame Roma Mitchell Cancer Research Labs
+    + Worked on ChIP-Seq + multiomics of Breast Cancer
+    + Developed `extraChIPs`
+
+![](https://smped.github.io/extraChIPs/reference/figures/extraChIPs.png){.absolute right=200 top=200 width='150px'}
+
+:::
+
+::: {.fragment}
+    
+- 2022 - 2025: Black Ochre Data Labs
+    + PROPHECY: Type 2 Diabetes + Vascular complications in Indigenous Australians
+    + Working on transcriptomics layer (~1200 libraries)
+    + Cohort-level analysis $\implies$ Cohort-level multiomics
+  
+![](https://smped.github.io/motifTestR/reference/figures/favicon.png){.absolute right=200 top=520 width='150px'}
+
+![](https://smped.github.io/transmogR/reference/figures/transmogR.png){.absolute right=0 top=520 width='150px'}
+    
+:::  
+
+::: {.fragment}
+<br>
+
+- Really pleased we now have multiple Bioc developers in Adelaide
+:::
+  
+## The Community Advisory Board {background-image=https://blog.bioconductor.org/posts/2025-03-05-CAB/CAB-map-2025.png background-size="90%"  background-position='40% 65%'}
+
+- I joined the Bioconductor Community Advisory Board (CAB) in late 2023
+
+::: {.notes}
+
+- A CAB term is 3 years
+- Don't know when to shut-up so have found myself as Co-Chair with Janani & Lori as Secretary
+- CAB nominations are now open
+- Looking for better representation from Central/Southern America, Asia & within Industry
+    
+:::
+
+
+## Bioconductor As An Organisation
+
+
+1. Scientific Advisory Board: https://bioconductor.org/about/scientific-advisory-board/
+2. Technical Advisory Board: https://bioconductor.org/about/technical-advisory-board/
+    + Currently no Australian representation
+3. Community Advisory Board: https://bioconductor.org/about/community-advisory-board/
+
+. . .
+
+- The Core Team is currently 6 people: https://bioconductor.org/about/core-team/
+    + Maria Doyle (Limerick, Ireland) as the Bioconductor Community Manager
+
+. . .
+
+- Multiple active Bioconductor working groups: https://workinggroups.bioconductor.org/currently-active-working-groups-committees.html
+    + Resource Translation, Social Media, Package Review, Workflows/Publications, RLadies etc
+    + Great way to contribute [$\implies$ can also be beneficial for career]{.fragment}
+ 
+
+## Workflows Working Group (sic) Update
+
+::: {.notes}
+
+- Discovered when Nora was putting one together for `sSNAPPY`
+- Are also contemplating changing the name on Bioc: Playbooks? Tutorials?
+    + Trying to avoid confusion with snakemake, nextflow etc
+    
+:::
+
+- Workflows are a special type of package $\implies$ extended tutorials
+    + Reflect key decision making steps
+    + Integration across multiple packages
+    + No package building time-limits
+    
+. . .    
+    
+- Used to be an F1000R 'pipeline' giving an indexed DOI for a Bioc workflow
+    + Submit $\LaTeX$ document with workflow $\implies$ published on both Bioconductor & F100R
+    + F1000R now require MS Word documents $\implies$ pipeline is broken
+    
+. . .    
+    
+- Being addressed by Charlotte Soneson, Mike Love, Susan Holmes, Laurent Gatto, Lori Shepherd, Vince Carey, Sean Davis, Davide Risso + me (with raging imposter syndrome)
+
+## Workflows Working Group (sic) Update
+
+::: {.notes}
+
+- JOSE/JOSS etc are well down the track to being indexed publications
+    + Mike has figured out how to manually add these to PubMed
+    
+:::
+
+- Relationship now established with Journal of Open Source Education (Lorena Barba)
+- Workflow initially reviewed in-house
+    + Need a team of internal Bioconductor reviewers
+    + Developing key assessment criteria & checklist for reviewers
+    + Needs to satisfy JOSE standards
+
+. . .
+    
+- Then fast-tracked within JOSE if wanted
+    + Have established a team of Bioc Editors at JOSE
+    + Mike, Laurent, Vince, Charlotte
+
+
+
+## The Bioconductor Community
+
+::: {.notes}
+- Bioc has always been strongly DEI $\implies$ impacts on funding are unclear
+    + 2/6 Core Team members prefer They/Them
+    + Software Carpentries are already feeling the anti-DEI threat
+- Many contributors are immigrants to the USA
+
+:::
+
+- Bioconductor officially left Twitter in late 2023
+    + Staying was considered a breach of the Bioc Code of Conduct
+    + Community hasn't really reformed on Mastodon or BlueSky
+
+. . .
+
+- The Bioconductor Slack has been effectively archived
+    + Community now on Zulip
+    + Is the social media era over?
+- Support site is still quite active
+  
+. . .
+
+- BiocAsia feels like it's at a crossroads $\implies$ not BiocAustralia
+
+. . .
+
+- Attendance at Bioc (USA) not viable for many
+    + UK also becoming hostile to gender diverse community
+    
+. . .
+
+- US researchers are having a very tough time $\implies$ keeping their heads down
+
+
+
+## The Bioconductor Community
+
+- What does this mean for us?
+
+. . .
+
+#### Discussion Questions:
+
+- Is social media over and what does this mean for the Bioconductor Community
+- Role, need and strategy for BiocAsia?
+    + Ellis Patrick (USyd) already proposed a Zoom Seminar Series
+- What stages of our career did we feel most alone & needing help?
+    + Early tutorials? Package Development?
+    + What do we think is most helpful across key career stages?
+- Could smaller meetups be a good strategy for the Asia/Pacific or globally?
+    + Is there even a need? Are we all doing OK?
+- Do we need more training as a local/national community?
+
