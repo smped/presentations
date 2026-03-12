@@ -1,0 +1,172 @@
+---
+title: "Large Cohort Transcriptomics"
+subtitle: "Adelaide Biomed Seminar Series"
+author: "Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Institute Australia / ANU"
+date: "2026-03-13"
+date-format: long
+title-slide-attributes:
+    data-background-color: "#3D3D40"
+    data-background-opacity: "70%"
+    data-background-size: "20%"
+    data-background-position: "95% 10%"
+editor: source
+format: 
+  revealjs:
+    bibliography: references.bib
+    theme: [assets/bodl.scss]
+    code-line-numbers: false
+    width: 1280
+    height: 720
+    sansfont: Times New Roman
+    logo: assets/bodl_logo_white_background.jpg
+    slide-number: c/t
+include-after: |
+  <script type="text/javascript">
+    Reveal.on('ready', event => {
+      if (event.indexh === 0) {
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+      }
+    });
+    Reveal.addEventListener('slidechanged', (event) => {
+      if (event.indexh === 0) {
+        Reveal.configure({ slideNumber: null });
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+      }
+      if (event.indexh === 1) { 
+        Reveal.configure({ slideNumber: 'c' });
+        document.querySelector("div.has-logo > img.slide-logo").style.display = null;
+      }
+    });
+  </script>    
+knitr: 
+  opts_chunk: 
+    echo: true
+    include: true
+    warning: false
+    message: false
+    fig.align: left
+    fig.width: 8
+    fig.heght: 6
+---
+
+##
+
+::: {.columns}
+
+::: {.column width="35%"}
+
+### Acknowledgement of Country
+
+![](images/karrawirraparri.png)
+
+:::
+
+::: {.column width="65%"}
+
+I would like to acknowledge that many of us are meeting today on Kaurna Country (Karrawirraparri: Redgum Forest River).<br>
+
+I acknowledge the deep feelings of attachment and relationship of the Kaurna people to their Place.<br><br>
+
+I also pay my respects to the cultural authority of Aboriginal and Torres Strait Islander peoples from other areas of Australia online today, and pay my respects to Elders past, present and emerging. 
+
+
+:::
+
+:::
+
+::: {.notes}
+I also wish to express how grateful I am for the opportunity to be involved in this space.
+I'm acutely aware of the trust that has been placed in me and am very pleased to be surrounded by so many wise & experienced researchers
+:::
+
+
+## About Me
+
+- Did 1st year science in 1986 $\rightarrow$ completed 2002-2005
+    + 1988-1991: Elder Conservatorium
+    
+::: {.fragment}
+- First came across R (1.5.1) analysing two-colour microarrays in Dec 2002
+
+![https://deepwiki.com/cran/limma/1.1-package-history-and-evolution](images/limma.png){fig-align="left"}
+:::
+
+## About Me
+
+:::: {.columns}
+
+::: {.column width=55%}
+
+- PhD 2008-2018
+    + Normal student: 2008-2011
+    + Homeless/Couch-surfing: 2012-2013
+    + Bioinformatics Hub: 2014-2020
+    
+::: {.incremental}
+- 2020-2022: Dame Roma Mitchell Cancer Research Labs
+- 2022-2026: Black Ochre Data Labs
+:::
+    
+::: 
+
+::: {.column width=45%}    
+![](images/IMG_5349.JPG){height=300px}
+![](images/IMG_5317.JPG){height=300px}
+:::    
+
+::::    
+    
+## Bioconductor Enthusiast
+
+![](https://smped.github.io/ngsReports/reference/figures/ngsReports.png){.absolute left=0 top=100 width='150px'}
+
+![](https://smped.github.io/extraChIPs/reference/figures/extraChIPs.png){.absolute left=200 top=100 width='150px'}
+
+![](https://smped.github.io/motifTestR/reference/figures/favicon.png){.absolute left=400 top=100 width='150px'}
+
+![](https://smped.github.io/transmogR/reference/figures/transmogR.png){.absolute left=600 top=100 width='150px'}
+
+![](https://smped.github.io/SimpleUpset/reference/figures/SimpleUpset.png){.absolute right=100 top=100 width='150px'}
+<br><br><br><br>
+
+- Also developed & maintain `strandcheckR` (Hien To)
+    + Helped with `sSNAPPY` (Nora Liu) + `tadar` (Lachlan Baer)
+- Currently co-chair of Community Advisory Board 
+    + Leading BiocAsia Working Group
+
+![](https://bioconductor.org/images/cab/LoriShepherd.png){.absolute right=0 bottom=100 width='150px'}
+![](https://bioconductor.org/images/cab/KevinRueAlbrecht.png){.absolute right=200 bottom=100 width='150px'}
+
+
+## The PROPHECY Study
+
+![](images/life_expectancy.png)
+
+
+## The PROPHECY Study
+
+![](images/t2d_burden.png)
+
+## 
+
+![](images/prophecy.png)
+
+## The PROPHECY Study
+
+![](images/prophecy_layers.png)
+
+::: {.fragment .fade-in-then-out data-fragment-index="1"}
+
+::: {.rect_outline .absolute top='220px' left='240px' width='120px' height='80px'}
+:::
+
+:::
+
+##
+
+Is large cohort transcriptomics just scRNA without the zero counts?
+
+. . .
+
+![Stevie speaks the truth](https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3N3Q5cW0wMXloa2J2dzFwNTZqMm00NmE2cXV3cm5uZWVnOXlxM3hneCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/26hkhKd2Cp5WMWU1O/giphy.gif){fig-align="left"}
+

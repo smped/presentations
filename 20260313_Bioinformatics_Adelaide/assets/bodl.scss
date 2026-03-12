@@ -1,0 +1,116 @@
+/*-- scss:defaults --*/
+
+//
+// Color system
+//
+
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #EAEEE8 !default;
+$gray-300: #D8DCD7 !default;
+$gray-400: #C7CBC7 !default;
+$gray-500: #B5BAB7 !default;
+$gray-600: #939797 !default;
+$gray-700: #707576 !default;
+$gray-800: #4D5256 !default;
+$gray-900: #3C4146 !default;
+$black:    #2B3036 !default;
+
+$central-red:      #9E2900 !default;
+$banksia-orange:   #F58C05 !default;
+$eucalypt-green:   #759C78 !default;
+$fairy-wren-blue:  #68B0E3 !default;
+$kangaroo-red:     #B84700 !default;
+$desert-flame-yellow:  #FFB814 !default;
+$lorikeet-green:   #75B24D !default;
+$budgerigar-blue:    #85B8DB !default;
+$bush-tomato-red: #E05C0A !default;
+$coral-pea-purple:  #6f42c1 !default;
+$kingfisher-blue: #368AC4 !default;
+$kookaburra-blue: #D6E8F2 !default;
+$willie-wagtail-black: #3D3D40 !default;
+$emu-grey: #EBEDEB !default;
+
+$code-block-font-size: 0.5em !important;
+$presentation-font-size-root: 40px !important;
+$body-bg: $white;
+$body-color: $central-red;
+$dark-bg-text-color: $kookaburra-blue;
+$link-color: $banksia-orange;
+$light-bg-text-color: $central-red;
+$code-block-bg: $kookaburra-blue;
+$code-block-border-color: $budgerigar-blue;
+
+
+/* Simply define all colours as styles using BODL themes*/
+.blue {
+  color: $kingfisher-blue;
+}
+
+.purple {
+  color: $coral-pea-purple;
+}
+
+.red {
+  color: $central-red;
+}
+
+.orange {
+  color: $banksia-orange;
+}
+
+.yellow {
+  color: $desert-flame-yellow;
+}
+
+.green {
+  color: $eucalypt-green;
+}
+
+
+/*-- scss:rules --*/
+
+.reveal .slide-logo {
+  height: 80px !important;
+  max-width: unset !important;
+  max-height: unset !important;
+}
+
+
+/*-- Define overlay shapes --*/
+.rect {
+  background-color: #759C78;
+  opacity: .5;
+
+  width: 200px;
+  height: 150px;
+}
+
+.circ {
+  background-color: yellow;
+  opacity: .5;
+
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+}
+
+
+.rect_outline {
+  border: 5px solid;
+  border-color:#6f42c1;
+  opacity: .5;
+
+  width: 200px;
+  height: 150px;
+}
+
+.circ_outline {
+  border: 5px solid;
+  border-color: green;
+  opacity: .5;
+
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+}
