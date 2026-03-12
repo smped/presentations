@@ -29,7 +29,27 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/theme/quarto-df13e8f4d07ea8c21c93dca9daf5aa7f.css">
   <link href="presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="presentation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -122,6 +142,17 @@
       margin-right: 0; 
     }
   </style>
+  <link href="presentation_files/libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+  <script src="presentation_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+  <script src="presentation_files/libs/viz-1.8.2/viz.js"></script>
+  <link href="presentation_files/libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+  <script src="presentation_files/libs/grViz-binding-1.0.11/grViz.js"></script>
+  <script src="presentation_files/libs/core-js-2.5.3/shim.min.js"></script>
+  <script src="presentation_files/libs/react-18.2.0/react.min.js"></script>
+  <script src="presentation_files/libs/react-18.2.0/react-dom.min.js"></script>
+  <script src="presentation_files/libs/reactwidget-2.0.0/react-tools.js"></script>
+  <link href="presentation_files/libs/reactable-0.4.5/reactable.css" rel="stylesheet">
+  <script src="presentation_files/libs/reactable-binding-0.4.5/reactable.js"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -169,8 +200,9 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <section id="about-me" class="slide level2">
 <h2>About Me</h2>
 <ul>
-<li>Did 1st year science in 1986 <span class="math inline">\(\rightarrow\)</span> completed 2002-2005
+<li>Did 1st year science in 1986 <span class="math inline">\(\rightarrow\)</span> completed 2002-2005 (Genetics)
 <ul>
+<li>BMa.Comp.Sc. (Hons) 2006-2007</li>
 <li>1988-1991: Elder Conservatorium</li>
 </ul></li>
 </ul>
@@ -203,7 +235,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <li class="fragment">2022-2026: Black Ochre Data Labs</li>
 </ul>
 </div><div class="column" style="width:45%;">
-<p><img data-src="images/IMG_5349.JPG" height="300"> <img data-src="images/IMG_5317.JPG" height="300"></p>
+<p><img data-src="images/IMG_5317.JPG" height="300"> <img data-src="images/IMG_5349.JPG" height="300"></p>
 </div></div>
 </section>
 <section id="bioconductor-enthusiast" class="slide level2">
@@ -225,20 +257,37 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 </ul>
 <p><img data-src="https://bioconductor.org/images/cab/LoriShepherd.png" class="absolute" style="bottom: 100px; right: 0px; width: 150px; "> <img data-src="https://bioconductor.org/images/cab/KevinRueAlbrecht.png" class="absolute" style="bottom: 100px; right: 200px; width: 150px; "></p>
 </section>
-<section id="the-prophecy-study" class="slide level2">
-<h2>The PROPHECY Study</h2>
+<section>
+<section id="the-prophecy-study" class="title-slide slide level1 center" data-background-color="#3d3d40" data-background-image="images/prophecy.png" data-background-size="100%" data-background-opacity="0.3" data-background-position="40% 50%">
+<h1>The PROPHECY Study</h1>
 
-<img data-src="images/life_expectancy.png" class="r-stretch"></section>
+</section>
 <section id="the-prophecy-study-1" class="slide level2">
 <h2>The PROPHECY Study</h2>
 
-<img data-src="images/t2d_burden.png" class="r-stretch"></section>
-<section id="section-1" class="slide level2">
-<h2></h2>
-
-<img data-src="images/prophecy.png" class="r-stretch"></section>
+<img data-src="images/life_expectancy.png" class="r-stretch"></section>
 <section id="the-prophecy-study-2" class="slide level2">
 <h2>The PROPHECY Study</h2>
+
+<img data-src="images/t2d_burden.png" class="r-stretch"></section>
+<section id="the-prophecy-study-3" class="slide level2">
+<h2>The PROPHECY Study</h2>
+<aside class="notes">
+<ul>
+<li>A key design element is that all research is community led, not researcher led</li>
+<li></li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 
 <img data-src="images/prophecy_layers.png" class="r-stretch"><div class="fragment fade-in-then-out" data-fragment-index="1">
 <div class="rect_outline absolute" style="top: 220px; left: 240px; width: 120px; height: 80px; ">
@@ -246,8 +295,21 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 </div>
 </div>
 </section>
-<section id="section-2" class="slide level2">
-<h2></h2>
+<section id="the-prophecy-study-4" class="slide level2">
+<h2>The PROPHECY Study</h2>
+<ul>
+<li>A key design element <span class="math inline">\(\rightarrow\)</span> all research is community led, not researcher led</li>
+<li>Prof Alex Brown spent 5 years consulting with SA communities first</li>
+<li>Strong Indigenous Data Sovereignty Principles</li>
+<li>Strict data management protocols
+<ul>
+<li>High demand for clear documentation</li>
+</ul></li>
+</ul>
+<p><img data-src="https://2020.diabetescongress.com.au/uploads/images/speakers/_speaker/Alex-Brown.jpg" class="absolute" style="bottom: 100px; right: 20px; width: 350px; "></p>
+</section>
+<section id="clickbait-time" class="slide level2">
+<h2>Clickbait Time</h2>
 <p>Is large cohort transcriptomics just scRNA without the zero counts?</p>
 <div class="fragment">
 <div class="quarto-figure quarto-figure-left">
@@ -256,9 +318,925 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <figcaption>Stevie speaks the truth</figcaption>
 </figure>
 </div>
+</div>
+</section></section>
+<section>
+<section id="the-prophecy-transcriptomics-layer" class="title-slide slide level1 center" data-background-color="#3d3d40" data-background-image="images/prophecy.png" data-background-size="100%" data-background-opacity="0.3" data-background-position="40% 50%">
+<h1>The PROPHECY Transcriptomics Layer</h1>
 
+</section>
+<section id="sequencing-considerations" class="slide level2">
+<h2>Sequencing Considerations</h2>
+<aside class="notes">
+<ul>
+<li>Previously, I’d only done n = 4, with up to 4 treatment groups</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<ul>
+<li>Whole Blood from participants <span class="math inline">\(\implies\)</span> incredibly valuable resource</li>
+<li>Trying to to get everything as ‘right’ as possible <span class="math inline">\(\implies\)</span> no second chances</li>
+<li>13x96 well plates were planned for &amp; paid before I joined <span class="math inline">\(\implies\)</span> N = 1248</li>
+</ul>
+<div class="fragment fade-in-then-out" data-fragment-index="1">
+<p><img data-src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2024/09/far-side-roger-screws-up.jpg" class="absolute" style="width: 350px; "></p>
+</div>
+<div class="fragment fade-in" data-fragment-index="2">
+<ul>
+<li>Subset of 93 participants already sequenced by the El Osta group
+<ul>
+<li>Focus on Chronic Kidney Disease (CKD) + Diabetes (T2D)</li>
+</ul></li>
+<li>Total RNA <span class="math inline">\(\implies\)</span> rRNA Depleted <strong>but not</strong> hbRNA depleted
+<ul>
+<li>hbRNA was 30-50% of library</li>
+<li>rRNA consistently below 20% (mostly below 10%)</li>
+</ul></li>
+<li>Pilot study compared polyA with totalRNA (rRNA + hbRNA depleted)</li>
+</ul>
 </div>
 </section>
+<section id="study-design" class="slide level2">
+<h2>Study Design</h2>
+<ul>
+<li>Prepared in batches of 96 <span class="math inline">\(\implies\)</span> batch effects
+<ul>
+<li>All reagents from same supplier batches</li>
+</ul></li>
+<li>Chose a design strategy compatible with hRUV <span class="citation" data-cites="Kim2021-kz">(<a href="#/references" role="doc-biblioref" onclick="">Kim et al. 2021</a>)</span>
+<ul>
+<li>Short replicates, Long replicates, Pools</li>
+</ul></li>
+<li>1134 Blood samples were selected for inclusion based on:
+<ul>
+<li>RIN &gt;5.0 &amp; RNA concentration &gt; 25ng/μl</li>
+</ul></li>
+<li>Samples are stored in extraction order with a ULN
+<ul>
+<li>Randomising samples would be extremely difficult</li>
+<li>Only had access to RIN, Concentration &amp; Sex</li>
+<li>El Osta sub-cohort were all late ULNs</li>
+</ul></li>
+</ul>
+</section>
+<section id="experimental-design" class="slide level2">
+<h2>Experimental Design</h2>
+<div class="columns">
+<div class="column">
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="presentation_files/figure-revealjs/plate-long-1.png" class="quarto-figure quarto-figure-left" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column">
+<ul>
+<li>Plates include:
+<ul>
+<li>6 <em>Long Replicates</em> to straddle consecutive plates</li>
+</ul></li>
+</ul>
+</div></div>
+<div class="fragment">
+<h3 id="trivia-time">Trivia Time!!!</h3>
+</div>
+<div class="fragment">
+<ul>
+<li>Did you know that plates are prepared using a multi-tip pipette?</li>
+<li>Ordered by columns not rows</li>
+</ul>
+</div>
+</section>
+<section id="experimental-design-1" class="slide level2">
+<h2>Experimental Design</h2>
+<div class="columns">
+<div class="column">
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="presentation_files/figure-revealjs/plate-short-1.png" class="quarto-figure quarto-figure-left" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column">
+<ul>
+<li>Plates include:
+<ul>
+<li>6 <em>Long Replicates</em> to straddle consecutive plates</li>
+<li>6 <em>Short Replicates</em> within plates</li>
+</ul></li>
+</ul>
+</div></div>
+</section>
+<section id="experimental-design-2" class="slide level2">
+<h2>Experimental Design</h2>
+<div class="columns">
+<div class="column">
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="presentation_files/figure-revealjs/plate-pools-1.png" class="quarto-figure quarto-figure-left" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column">
+<ul>
+<li>Plates include:
+<ul>
+<li>6 <em>Long Replicates</em> to straddle consecutive plates</li>
+<li>6 <em>Short Replicates</em> within plates</li>
+<li>3 distinct <em>pools</em> across all 13 plates</li>
+<li>87 Participants <span class="math inline">\(\implies\)</span> 1,134 total</li>
+</ul></li>
+</ul>
+</div></div>
+</section>
+<section id="data-processing-workflow" class="slide level2">
+<h2>Data Processing Workflow</h2>
+<ul>
+<li>Data processing written in <code>nextflow</code>
+<ul>
+<li>Dr Alastair Ludington &amp; Holly Massacci</li>
+</ul></li>
+<li>Run as every plate came in</li>
+<li>Produced a set of plate-level QC reports
+<ul>
+<li>Threw everything at it: <code>fastp</code>, <code>RSeQC</code>, <code>samtools stats</code>, all log files etc</li>
+<li>Forgot to include <code>strandcheckR</code> <span class="citation" data-cites="To2019-rj">(<a href="#/references" role="doc-biblioref" onclick="">To and Pederson 2019</a>)</span> <span class="math inline">\(\rightarrow\)</span> supplementary pipeline</li>
+</ul></li>
+<li>Manually checked every plate for Pass/Fail/Caution
+<ul>
+<li>Thinking about which libraries to resequence</li>
+</ul></li>
+</ul>
+<p><img data-src="images/holly.png" class="absolute" style="top: 80px; right: 280px; width: 250px; "> <img data-src="images/archer.png" class="absolute" style="top: 80px; right: 0px; width: 250px; "></p>
+</section>
+<section id="data-processing-workflow-1" class="slide level2">
+<h2>Data Processing Workflow</h2>
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div class="grViz html-widget html-fill-item" id="htmlwidget-4a59113dfe1b602679dc" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-4a59113dfe1b602679dc">{"x":{"diagram":"\ndigraph {\n\n  # a \"graph\" statement\n  graph [overlap = true, fontsize = 10, newrank = true, ordering=\"in\"]\n\n  subgraph cluster_QC {\n\n    # Key Data Nodes\n    node [shape = box, penwidth = 3]\n    FQ_PROC [label = \"Trimmed & \nDeDuplicated FQ\"]\n\n    # Minor Data Nodes\n    node [shape = box, fontcolor = grey30, color = grey30, penwidth = 1]\n    FPJ [label = \"fastp.json\"];\n\n    # Process Nodes\n    node [shape = ellipse, penwidth = 1, color = red, fontcolor = red]\n    FP [label = \"fastp\"]\n\n    # External Inputs\n    node [shape = box, color = navyblue, fontcolor = navyblue, penwidth = 1]\n    ADAPTERS [label = \"Adapter\nSequences\"]\n\n    # Reporting Nodes\n    node [shape = diamond, color = forestgreen, fontcolor = forestgreen, penwidth = 2]\n    RAW_QC [label = \"Library QC Report\"]\n\n    ADAPTERS -> FP -> FPJ\n\n    edge [penwidth=1]\n    FPJ -> RAW_QC;\n\n    fontsize=30;\n    label = \"Library QC\";\n    color = grey;\n\n  }\n\n  subgraph cluster_depletion {\n\n    # Process Nodes\n    node [shape = ellipse, penwidth = 1, color = red, fontcolor = red]\n    BWA1 [label = \"bwa\"]\n    BWA2 [label = \"bwa\"]\n    HEAD [label = \"head (bash)\"]\n    FLAGSTAT1 [label = \"samtools flagstat\"]\n    FLAGSTAT2 [label = \"samtools flagstat\"]\n\n    # Minor Data Nodes\n    node [shape = box, fontcolor = grey30, color = grey30, penwidth = 1]\n    SUBFQ [label = \"subsample_R1.fastq.gz\"];\n    RRNABAM [label = \"rrna.bam\"];\n    HBRNABAM [label = \"hbrna.bam\"];\n    RRNAFLAGSTATS [label = \"rrna.flagstats\"];\n    HBRNAFLAGSTATS [label = \"hbrna.flagstats\"];\n\n    # External Inputs\n    node [shape = box, color = navyblue, fontcolor = navyblue, penwidth = 1]\n    RRNA [label = \"rRNA\nTranscriptome\"];\n    HBRNA [label = \"hbRNA\nTranscriptome\"];\n\n    # Reporting Nodes\n    node [shape = diamond, color = forestgreen, fontcolor = forestgreen, penwidth = 2]\n    DEPLETION_QC [label = \"Depletion Checks\"]\n\n    HEAD -> SUBFQ\n    {SUBFQ RRNA} -> BWA1 -> RRNABAM -> FLAGSTAT1 -> RRNAFLAGSTATS ->  DEPLETION_QC\n    {SUBFQ HBRNA} -> BWA2 -> HBRNABAM -> FLAGSTAT2 -> HBRNAFLAGSTATS ->  DEPLETION_QC\n\n    fontsize=30;\n    label = \"Depletion Checks\";\n    color = grey;\n\n  }\n\n\n  subgraph cluster_salmon {\n\n      # Key Data Nodes\n      node [shape = box, penwidth = 3]\n      TRANS_COUNTS [label = \"Transcript-Level\nCounts\"]\n\n      # Process Nodes\n      node [shape = ellipse, penwidth = 1, color = red, fontcolor = red]\n      SALMON [label = \"salmon\"]\n\n      # Minor Data Nodes\n      node [shape = box, fontcolor = grey30, color = grey30, penwidth = 1]\n      SALMON_METRICS [label = \"salmon\nQC metrics\"]\n\n      # Reporting Nodes\n      node [shape = diamond, color = forestgreen, fontcolor = forestgreen, penwidth = 2]\n      SALMON_QC [label = \"Salmon QC\"]\n\n      # External Inputs\n      node [shape = box, color = navyblue, fontcolor = navyblue, penwidth = 1]\n      FULL_TRANS_REF [label = \"Full & Y-Excluded\nConsensus Transcriptome\"]\n\n      FULL_TRANS_REF -> SALMON -> {TRANS_COUNTS SALMON_METRICS}\n      SALMON_METRICS -> SALMON_QC\n\n      fontsize=30;\n      label = \"Salmon\";\n      color = grey;\n\n  }\n\n  subgraph cluster_star {\n\n      # Key Data Nodes\n      node [shape = box, penwidth = 3]\n      STAR_BAM [label = \"Aligned.bam\"]\n      GENE_COUNTS [label = \"Gene-Level\nCounts\"]\n      SJ [label = \"Splice Junctions\"]\n\n      # Process Nodes\n      node [shape = ellipse, penwidth = 1, color = red, fontcolor = red]\n      STAR [label = \"STAR\n2 Pass Mode\"]\n      SAMTOOLS [label = \"samtools\"]\n      FCOUNTS [label = \"featureCounts\"]\n\n      # Minor Data Nodes\n      node [shape = box, fontcolor = grey30, color = grey30, penwidth = 1]\n      STAR_BAI [label = \"Aligned.bam.bai\"]\n      BAM_STATS [label = \"Samtools Stats\"]\n      STAR_LOGS [label = \"STAR Logs\"]\n\n      # External Inputs\n      node [shape = box, color = navyblue, fontcolor = navyblue, penwidth = 1]\n      FULL_REF [label = \"Full & Y-Masked\nConsensus Genome\"]\n      FULL_GTF [label = \"Gencode GTF\"]\n      FULL_REF -> STAR -> {SJ STAR_LOGS STAR_BAM}\n      {STAR_BAM STAR_BAI FULL_GTF} -> FCOUNTS -> GENE_COUNTS\n      STAR_BAM -> SAMTOOLS -> {STAR_BAI BAM_STATS}\n\n\n      fontsize=30;\n      label = \"STAR\";\n      color = grey;\n\n  }\n\n  subgraph cluster_idchecks {\n\n\n      # Process Nodes\n      node [shape = ellipse, penwidth = 1, color = red, fontcolor = red]\n      BCFTOOLS [label = \"bcftools\"]\n\n      # External Inputs\n      node [shape = box, color = navyblue, fontcolor = navyblue, penwidth = 1]\n      CONS_SNPS [label = \"Consensus SNPs\"]\n\n      # Reporting Nodes\n      node [shape = diamond, color = forestgreen, fontcolor = forestgreen, penwidth = 2]\n      CHECK_VARS [label = \"Variant\nChecking\"]\n\n      {STAR_BAM STAR_BAI CONS_SNPS} -> BCFTOOLS -> CHECK_VARS\n\n      fontsize=30;\n      label = \"Sample\nChecks\";\n      color = grey;\n\n  }\n\n  subgraph cluster_alnqc {\n\n      # Key Data Nodes\n      node [shape = box, penwidth = 3]\n      BW [label = \"Coverage\nBigWig\"]\n\n      # Process Nodes\n      node [shape = ellipse, penwidth = 1, color = red, fontcolor = red]\n      RSEQC [label = \"RSeQC\"]\n      BEDOPTS [label = \"bedopts\"]\n      BAM2BW [label = \"bam2wig\"]\n      RNA_METRICS [label = \"tin\ninner_distance\nread_distribution\"]\n\n      # Reporting Nodes\n      node [shape = diamond, color = forestgreen, fontcolor = forestgreen, penwidth = 2]\n      ALN_QC [label = \"Alignment QC\"]\n\n      # External Inputs\n      node [shape = box, color = navyblue, fontcolor = navyblue, penwidth = 1]\n      GENE_BED [label = \"Gene BED File\"]\n\n      FULL_GTF -> BEDOPTS -> GENE_BED\n      {STAR_BAM GENE_BED} -> RSEQC -> RNA_METRICS\n      {STAR_LOGS RNA_METRICS BAM_STATS} -> ALN_QC\n      {STAR_BAM RSEQC} -> BAM2BW -> BW\n\n\n      fontsize=30;\n      label = \"Alignment\nQC\";\n      color = grey;\n\n  }\n\n  # Key Data Nodes\n  node [shape = box, penwidth = 3]\n  FQ_RAW [label = \"Raw FQ\"];\n\n  # Edges\n  edge [penwidth=2]\n  FQ_RAW -> {HEAD FP}\n  FP -> FQ_PROC -> {SALMON STAR}\n\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="1">
+<div class="rect_outline absolute" style="bottom: 150px; right: 260px; width: 200px; height: 450px; ">
+
+</div>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="2">
+<div class="rect_outline absolute" style="top: 90px; left: 240px; width: 140px; height: 250px; ">
+
+</div>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="3">
+<div class="rect_outline absolute" style="top: 190px; left: 360px; width: 140px; height: 200px; ">
+
+</div>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="4">
+<div class="rect_outline absolute" style="top: 180px; left: 500px; width: 160px; height: 375px; ">
+
+</div>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="5">
+<div class="rect_outline absolute" style="bottom: 180px; right: 455px; width: 160px; height: 300px; ">
+
+</div>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="6">
+<div class="rect_outline absolute" style="top: 380px; left: 420px; width: 100px; height: 220px; ">
+
+</div>
+</div>
+</section>
+<section id="pipeline-output" class="slide level2">
+<h2>Pipeline Output</h2>
+<div style="font-size: 85%">
+<pre><code>/path/to/prophecy/PROP000000/ # PROPHECY ID
+└── 1234567 # Aliquot ID
+    └── RNASEQ
+        ├── bigwigs
+        │   └── E200099999 # Sequencing Run ID
+        │       └── 23-00000 # ULN
+        │           ├── GRCh38
+        │           └── PROPHECY
+        ├── depletion
+        │   └── E200099999
+        │       └── 23-00000
+        │           ├── 1234567_1_hbrna.flagstat
+        │           └── 1234567_1_rrna.flagstat
+        ├── fastp
+        │   └── E200099999
+        │       └── 23-00000
+        │           ├── 1234567_1_fastp.html
+        │           └── 1234567_1_fastp.json
+        ├── fastq
+        │   └── E200099999
+        │       └── 23-00000
+        │           ├── 23-00000_1_S24_L01_R1_001.fastq.gz
+        │           ├── 23-00000_1_S24_L01_R1_001.md5
+        │           └── 23-00000_1_S24_L01_R2_001.fastq.gz
+        ├── featureCounts
+        │   └── E200099999
+        │       └── 23-00000
+        │           ├── GRCh38
+        │           └── PROPHECY
+        ├── rseqc
+        │   └── E200099999
+        │       └── 23-00000
+        │           ├── GRCh38
+        │           │   ├── inner_distance
+        │           │   │   ├── 1234567_1.inner_distance_freq.txt
+        │           │   │   ├── 1234567_1.inner_distance_mean.txt
+        │           │   │   └── 1234567_1.inner_distance.txt
+        │           │   ├── read_distribution
+        │           │   │   └── 1234567_1.read_distribution.tsv
+        │           │   └── tin
+        │           │       ├── 1234567_1.summary.txt
+        │           │       └── 1234567_1.tin.tsv
+        │           └── PROPHECY
+        ├── salmon
+        │   └── E200099999
+        │       └── 23-00000
+        │           ├── GRCh38
+        │           │   └── 1234567_1
+        │           │       ├── aux_info
+        │           │       ├── cmd_info.json
+        │           │       ├── lib_format_counts.json
+        │           │       ├── libParams
+        │           │       ├── logs
+        │           │       └── quant.sf        
+        │           └── PROPHECY
+        └── star
+            └── E200099999
+                └── 23-00000
+                    ├── GRCh38
+                    │   ├── 1234567_1.cram
+                    │   ├── 1234567_1.cram.crai
+                    │   ├── 1234567_1.cram.md5
+                    │   ├── 1234567_1.Log.final.out
+                    │   ├── 1234567_1.SJ.out.tab
+                    │   ├── 1234567_1.stats
+                    │   └── 1234567_1_strandcheckr.tsv.gz                    
+                    └── PROPHECY</code></pre>
+</div>
+<ul>
+<li>For all 1248 libraries (including 1 repeated run …)</li>
+</ul>
+</section>
+<section id="final-outcome" class="slide level2">
+<h2>Final Outcome</h2>
+<ul>
+<li>31 sample mixups <span class="math inline">\(\implies\)</span> all resolved successfully
+<ul>
+<li>Only one library was an unexpected participant</li>
+<li>17 had no genotypes <span class="math inline">\(\implies\)</span> assumed correct</li>
+</ul></li>
+<li>1 library broke <code>STARconsensus</code>
+<ul>
+<li><code>DUG</code> team identified bug in <code>STAR</code> &amp; made pull request</li>
+</ul></li>
+<li>Re-integrating mixups was non-trivial
+<ul>
+<li>QC reports written for 96 samples failed</li>
+<li>Manual re-collation of all QC outputs</li>
+</ul></li>
+</ul>
+</section>
+<section id="final-summary" class="slide level2">
+<h2>Final Summary</h2>
+<div style="font-size:60%">
+<table class="caption-top">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 13%">
+<col style="width: 26%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Plate</th>
+<th style="text-align: right;">Pass</th>
+<th style="text-align: right;">Caution</th>
+<th style="text-align: right;">Fail</th>
+<th style="text-align: right;">Incomplete</th>
+<th style="text-align: right;">Total Yield (billions)</th>
+<th style="text-align: right;">Mean Q30</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SAGCQA0503-2</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6.26</td>
+<td style="text-align: right;">94.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SAGCQA0503-3</td>
+<td style="text-align: right;">92</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6.36</td>
+<td style="text-align: right;">95.2%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SAGCQA0503-4</td>
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6.14</td>
+<td style="text-align: right;">94.4%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SAGCQA0503-5</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6.24</td>
+<td style="text-align: right;">94.2%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SAGCQA0503-6</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6.31</td>
+<td style="text-align: right;">94.7%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SAGCQA0503-7</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5.94</td>
+<td style="text-align: right;">94.2%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SAGCQA0503-8</td>
+<td style="text-align: right;">85</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5.51</td>
+<td style="text-align: right;">92.4%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SAGCQA0503-9</td>
+<td style="text-align: right;">92</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5.81</td>
+<td style="text-align: right;">93.1%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SAGCQA0503-10</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5.69</td>
+<td style="text-align: right;">93.3%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SAGCQA0503-11</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4.89</td>
+<td style="text-align: right;">91.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SAGCQA0503-12</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5.83</td>
+<td style="text-align: right;">93.9%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SAGCQA0503-13</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5.21</td>
+<td style="text-align: right;">92.8%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SAGCQA0503-14</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6.31</td>
+<td style="text-align: right;">94.7%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Total</strong></td>
+<td style="text-align: right;"><strong>919</strong></td>
+<td style="text-align: right;"><strong>250</strong></td>
+<td style="text-align: right;"><strong>78</strong></td>
+<td style="text-align: right;"><strong>1</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="qc" class="slide level2">
+<h2>QC</h2>
+<div style="font-size:47%">
+<table class="caption-top">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Source</th>
+<th style="text-align: left;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>status</code></td>
+<td style="text-align: left;">Manual Inspection</td>
+<td style="text-align: left;">Originally defined in order to identify libraries which might be candidates for resequencing</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>rin</code></td>
+<td style="text-align: left;">SAGC</td>
+<td style="text-align: left;">RNA Integrity Number with high values (&gt; 7) indicating a higher quality sample</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>conc</code></td>
+<td style="text-align: left;">SAGC</td>
+<td style="text-align: left;">RNA Concentration in the original extractions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>depletion_conc</code></td>
+<td style="text-align: left;">SAGC</td>
+<td style="text-align: left;">RNA Concentration used for the rRNA/hbRNA deletion step. Two values were used with the lower concentration being an attempt to reduce saturation of the depletion reagents</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>rrna_rate</code></td>
+<td style="text-align: left;">BODL pipeline</td>
+<td style="text-align: left;">Estimates the proportion of reads deriving from rRNA by aligning a subset of reads to an rRNA reference</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>hbrna_rate</code></td>
+<td style="text-align: left;">BODL pipeline</td>
+<td style="text-align: left;">Estimates the proportion of reads deriving from hbRNA by aligning a subset of reads to an rRNA reference</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>duplication_rate</code></td>
+<td style="text-align: left;"><code>fastp</code></td>
+<td style="text-align: left;">Taken directly from the fastp reports, given that UMIs were included in all libraries</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>sequenced_fragments</code></td>
+<td style="text-align: left;"><code>fastp</code></td>
+<td style="text-align: left;">The initial number of frgaments contained in each pair of fastq files</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>q30_rate</code></td>
+<td style="text-align: left;"><code>fastp</code></td>
+<td style="text-align: left;">The proportion of bases acheiving a PHRED quality score &gt; 30 when being sequenced</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>gc_content</code></td>
+<td style="text-align: left;"><code>fastp</code></td>
+<td style="text-align: left;">The average GC content of reads across the entire library</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>gene_assigned_rate</code></td>
+<td style="text-align: left;"><code>salmon</code></td>
+<td style="text-align: left;"><code>num_frags_with_concordant_consistent_mappings</code> / <code>sequenced_fragments</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>decoy_aligned_rate</code></td>
+<td style="text-align: left;"><code>salmon</code></td>
+<td style="text-align: left;"><code>num_decoy_fragments</code> / <code>sequenced_fragments</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>median_insert_size</code></td>
+<td style="text-align: left;"><code>samtools stats</code></td>
+<td style="text-align: left;">Calculated by only taking alignments which are concordantly paired</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>sd_log10_insert_size</code></td>
+<td style="text-align: left;"><code>samtools stats</code></td>
+<td style="text-align: left;">Calculated by only taking alignments which are concordantly paired, the transforming the insert size using log<sub>10</sub> and finding the standard deviation</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>median_tin</code></td>
+<td style="text-align: left;"><code>nf-core</code></td>
+<td style="text-align: left;">The median TIN score across all measured trancripts</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>prop_no_feature</code></td>
+<td style="text-align: left;"><code>featureCounts</code></td>
+<td style="text-align: left;">The proportion of input reads which aligned where there was no annotated feature</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>stranded_coverage</code></td>
+<td style="text-align: left;"><code>strandcheckR</code></td>
+<td style="text-align: left;">The proportion of windows showing &gt;90% of reads with a stranded bias, weighted by coverage</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>prop_assigned</code></td>
+<td style="text-align: left;"><code>featureCounts</code> / <code>salmon</code></td>
+<td style="text-align: left;">The proportion of input reads which were assigned to a gene/transcript</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="qc-duplication-rates" class="slide level2">
+<h2>QC: Duplication Rates</h2>
+
+<img data-src="images/duplication-by-plate-1.png" class="r-stretch"></section>
+<section id="qc-rrna-content" class="slide level2">
+<h2>QC: rRNA Content</h2>
+
+<img data-src="images/compare-rrna-1.png" class="r-stretch"></section>
+<section id="qc-strandedness-of-alignments" class="slide level2">
+<h2>QC: Strandedness of Alignments</h2>
+<div class="columns">
+<div class="column">
+<p><img data-src="images/stranded-coverage-1.png"></p>
+</div><div class="column">
+<div class="fragment">
+<p><img data-src="images/gdna-by-plate-1.png"></p>
+</div>
+</div></div>
+</section>
+<section id="qc-strandedness-vs-insert-size-variability" class="slide level2">
+<h2>QC: Strandedness Vs Insert Size Variability</h2>
+
+<img data-src="images/gdna-vs-ins-var-1.png" class="r-stretch"></section>
+<section id="qc-of-sequenced-reads-assigned-to-genes" class="slide level2">
+<h2>QC: % Of Sequenced Reads Assigned to Genes</h2>
+
+<img data-src="images/fc-assigned-1.png" class="r-stretch"></section>
+<section id="similarity-of-qc-metrics" class="slide level2">
+<h2>Similarity of QC Metrics</h2>
+
+<img data-src="images/corrplot-1.png" class="r-stretch"></section>
+<section id="outlier-detection" class="slide level2">
+<h2>Outlier Detection</h2>
+<ol type="1">
+<li>Run PCA</li>
+<li>Find Robust Z-scores for PC1-4</li>
+<li>Label as “No”, “Potential” or “Unambiguous” Outlier
+<ul>
+<li>|Z| &gt; 1/200 (2.5758) or |Z| &gt; 1/2000 (3.2905)</li>
+</ul></li>
+<li>Find which QC metrics have outlier threshold</li>
+</ol>
+</section>
+<section id="outlier-detection-1" class="slide level2">
+<h2>Outlier Detection</h2>
+<div class="columns">
+<div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/low-metric-thresholds-1.png"></p>
+<figcaption>Outliers at low values</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/high-metric-thresholds-1.png"></p>
+<figcaption>Outliers at high values</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="outlier-detection-2" class="slide level2">
+<h2>Outlier Detection</h2>
+<p><img data-src="images/upset-key-vars-1.png" class="absolute" style="top: 100px; left: 0px; width: 900px; "></p>
+<div class="fragment">
+<p><img data-src="https://smped.github.io/SimpleUpset/reference/figures/SimpleUpset.png" class="absolute" style="top: 100px; right: 100px; width: 150px; "></p>
+</div>
+</section>
+<section id="outlier-detection-3" class="slide level2">
+<h2>Outlier Detection</h2>
+
+<img data-src="images/final-pca-1.png" class="r-stretch"></section>
+<section id="normalisation" class="slide level2">
+<h2>Normalisation</h2>
+<ul>
+<li>Do we have batch effects?
+<ul>
+<li><code>hRUV</code> <span class="citation" data-cites="Kim2021-kz">(<a href="#/references" role="doc-biblioref" onclick="">Kim et al. 2021</a>)</span>, <code>RUV</code> <span class="citation" data-cites="Risso2014-qg">(<a href="#/references" role="doc-biblioref" onclick="">Risso et al. 2014</a>)</span>, <code>RUVIII-NB</code> <span class="citation" data-cites="Salim2022-rj">(<a href="#/references" role="doc-biblioref" onclick="">Salim et al. 2022</a>)</span></li>
+<li>TMM <span class="citation" data-cites="Robinson2010-qp">(<a href="#/references" role="doc-biblioref" onclick="">Robinson and Oshlack 2010</a>)</span>, <code>CQN</code> <span class="citation" data-cites="Hansen2012-jz">(<a href="#/references" role="doc-biblioref" onclick="">Hansen, Irizarry, and Wu 2012</a>)</span></li>
+</ul></li>
+<li><code>hRUV</code> hard-wired to USyd metabolomics structure
+<ul>
+<li>Rewrote significant amount of (github-only) package</li>
+</ul></li>
+<li><code>RUVIII-NB</code> also needed rewriting (github only)</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Didn’t need them anyway 😅</li>
+</ul>
+</div>
+</section>
+<section id="batch-effects" class="slide level2">
+<h2>Batch Effects</h2>
+
+<img data-src="images/pca-raw-1.png" class="r-stretch"></section>
+<section id="gc-length-artefacts" class="slide level2">
+<h2>GC &amp; Length Artefacts</h2>
+<div style="font-size:90%">
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="images/combined-rotations-1.png"></p>
+</div><div class="column" style="width:40%;">
+<ul>
+<li class="fragment">Bin gene-level rotations from PCA by GC &amp; Length</li>
+<li class="fragment">Perform <span class="math inline">\(t\)</span>-test in each bin</li>
+<li class="fragment">If no bias <span class="math inline">\(\implies\)</span> random noise</li>
+<li class="fragment">Looks like GC &amp; length is impacting signal</li>
+</ul>
+</div></div>
+</div>
+</section>
+<section id="conditional-quantile-normalisation" class="slide level2">
+<h2>Conditional Quantile Normalisation</h2>
+
+<img data-src="images/pca-cqn-1.png" class="r-stretch quarto-figure-left"><p class="caption">PC4 captures age 🎉</p></section>
+<section id="performance-on-pools" class="slide level2">
+<h2>Performance on Pools</h2>
+<div class="columns">
+<div class="column">
+<p><img data-src="images/tmm-pools-1.png"></p>
+</div><div class="column">
+<p><img data-src="images/cqn-pools-1.png"></p>
+</div></div>
+<p>Both improve further using <code>glmTreat()</code> at FC &gt; 1.1</p>
+</section>
+<section id="do-any-qc-metrics-impact-signal" class="slide level2">
+<h2>Do Any QC Metrics Impact Signal</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="images/complete-metrics-plot-1.png"></p>
+</div><div class="column" style="width:40%;">
+<ul>
+<li>Several QC metrics strongly correlate with PC1-3</li>
+<li>How will this impact DGE analysis?</li>
+<li>Can I check?</li>
+</ul>
+</div></div>
+</section>
+<section id="using-qc-metrics-as-predictors" class="slide level2">
+<h2>Using QC Metrics As Predictors</h2>
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div class="reactable html-widget html-fill-item" id="htmlwidget-ffc124a22dc526a8033d" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-ffc124a22dc526a8033d">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"coef":["Prop No Feature","Gene Assigned Rate","Prop Assigned","RIN","SD log10 Insert Size","Median Insert Size","Decoy Aligned Rate","hbRNA Rate","GC Content","Median Tin","Conc","Q30 Rate","Depletion Conc","Duplication Rate","rRNA Rate","Stranded Coverage","Sequenced Fragments"],"nDE":[11816,11684,11655,11537,11494,11276,11023,10672,8606,8243,6728,5152,5083,3599,1601,1060,171],"top_gene":["ENSG00000281195","TALAM1","TALAM1","TBCEL","CENATAC","PABPN1","ENSG00000280287","HBA1","ENSG00000290038","CHMP4A","TIMM8B","RPL13AP5","RPSA2","ENSG00000290038","MT-RNR1","TALAM1","RPL13AP5"],"gene_type":["lncRNA","lncRNA","lncRNA","protein_coding","protein_coding","protein_coding","TEC","protein_coding","lncRNA","protein_coding","protein_coding","processed_pseudogene","protein_coding","lncRNA","Mt_rRNA","lncRNA","processed_pseudogene"],"Q1":[0.205357142857143,0.204928571428571,0.2055,0.194428571428571,0.2055,0.191714285714286,0.195214285714286,0.169642857142857,0.159,0.116785714285714,0.101571428571429,0.0610714285714286,0.0775,0.0429285714285714,0.031,0.0271428571428571,0.00421428571428571],"Q2":[0.211857142857143,0.209857142857143,0.209428571428571,0.206785714285714,0.207857142857143,0.200642857142857,0.1985,0.192571428571429,0.155214285714286,0.145785714285714,0.119357142857143,0.0904285714285714,0.0872142857142857,0.054,0.0241428571428571,0.0181428571428571,0.00321428571428571],"Q3":[0.213142857142857,0.206642857142857,0.205428571428571,0.209357142857143,0.203142857142857,0.204857142857143,0.195714285714286,0.199428571428571,0.150857142857143,0.159214285714286,0.125214285714286,0.1095,0.0976428571428571,0.076,0.0285714285714286,0.0156428571428571,0.00192857142857143],"Q4":[0.213642857142857,0.213142857142857,0.212142857142857,0.2135,0.2045,0.208214285714286,0.197928571428571,0.200642857142857,0.149642857142857,0.167,0.134428571428571,0.107,0.100714285714286,0.0841428571428571,0.0306428571428571,0.0147857142857143,0.00285714285714286],"mean_gc":[0.485230896801646,0.485678531294568,0.48547096565743,0.485072943195065,0.485202804529892,0.485388346965225,0.484716074796123,0.48655230634273,0.48558842498627,0.487858954154054,0.486435199632921,0.488509217881652,0.480068635699605,0.473266997959184,0.492580498622014,0.503611422238164,0.474119597361045],"mean_length":[4719.40206652058,4699.18761329903,4702.56812878586,4703.49289132616,4733.74010577661,4711.29441955981,4722.3297896665,4804.99750141362,4742.3146889368,4485.99394000667,4391.75429862889,4368.27850755664,4490.78023178923,4552.71940573309,4042.61614488541,5316.11786663301,1522.59285688669]},"columns":[{"id":"coef","name":"QC Metric","type":"character"},{"id":"nDE","name":"DE Genes","type":"numeric","format":{"cell":{"separators":true},"aggregated":{"separators":true}}},{"id":"top_gene","name":"Highest Ranked Gene","type":"character","cell":[{"name":"em","attribs":{},"children":["ENSG00000281195"]},{"name":"em","attribs":{},"children":["TALAM1"]},{"name":"em","attribs":{},"children":["TALAM1"]},{"name":"em","attribs":{},"children":["TBCEL"]},{"name":"em","attribs":{},"children":["CENATAC"]},{"name":"em","attribs":{},"children":["PABPN1"]},{"name":"em","attribs":{},"children":["ENSG00000280287"]},{"name":"em","attribs":{},"children":["HBA1"]},{"name":"em","attribs":{},"children":["ENSG00000290038"]},{"name":"em","attribs":{},"children":["CHMP4A"]},{"name":"em","attribs":{},"children":["TIMM8B"]},{"name":"em","attribs":{},"children":["RPL13AP5"]},{"name":"em","attribs":{},"children":["RPSA2"]},{"name":"em","attribs":{},"children":["ENSG00000290038"]},{"name":"em","attribs":{},"children":["MT-RNR1"]},{"name":"em","attribs":{},"children":["TALAM1"]},{"name":"em","attribs":{},"children":["RPL13AP5"]}],"html":true,"minWidth":100},{"id":"gene_type","name":"Gene Type","type":"character"},{"id":"Q1","name":"Q1","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":75},{"id":"Q2","name":"Q2","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":75},{"id":"Q3","name":"Q3","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":75},{"id":"Q4","name":"Q4","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":75},{"id":"mean_gc","name":"Mean GC Content","type":"numeric","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}},"maxWidth":90},{"id":"mean_length","name":"Mean DE Gene Length","type":"numeric","format":{"cell":{"digits":0},"aggregated":{"digits":0}},"maxWidth":90}],"pagination":false,"theme":{"style":{"fontSize":14}},"dataKey":"df90639d970ab153d63431dff8ae439c"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="managing-noise" class="slide level2">
+<h2>Managing Noise</h2>
+<ul>
+<li>Strategy is to fit a null (intercept-only) model
+<ul>
+<li>Add QC metrics to find which improve fit <br><span class="math inline">\(\implies\)</span> becomes baseline model for all DGE analysis</li>
+<li>Identify best combination of metrics</li>
+</ul></li>
+<li>gDNA-related metrics (QC PC1)
+<ul>
+<li><code>stranded_coverage</code>, <code>prop_no_feature</code>, <code>sd_log10_insert_size</code>, <code>decoy_aligned_rate</code>, <code>gene_assigned_rate</code></li>
+</ul></li>
+<li>Library composition metrics (QC PC2)
+<ul>
+<li><code>hbrna_rate</code>, <code>rrna_rate</code>, <code>gc_content</code>, <code>duplication_rate</code></li>
+</ul></li>
+<li>Also tried RIN</li>
+</ul>
+</section>
+<section id="managing-noise-gdna-metrics" class="slide level2">
+<h2>Managing Noise: gDNA Metrics</h2>
+<div class="columns">
+<div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/gdna-resid-quartile-1.png"></p>
+<figcaption>Lower Dispersions <span class="math inline">\(\implies\)</span> better fit</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/gdna-dev-ratio-quartile-1.png"></p>
+<figcaption>Differences from intercept-only</figcaption>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section id="managing-noise-library-composition" class="slide level2">
+<h2>Managing Noise: Library Composition</h2>
+<div class="columns">
+<div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/comp-resid-quartile-1.png"></p>
+<figcaption>Lower Dispersions <span class="math inline">\(\implies\)</span> better fit</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/comp-dev-ratio-quartile-1.png"></p>
+<figcaption>Differences from intercept-only</figcaption>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section id="managing-noise-combined-metrics" class="slide level2">
+<h2>Managing Noise: Combined Metrics</h2>
+<div class="columns">
+<div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/cand-dev-ratio-quartile-1.png"></p>
+<figcaption>Lower Dispersions <span class="math inline">\(\implies\)</span> better fit</figcaption>
+</figure>
+</div>
+</div><div class="column">
+<div class="{incremental}">
+<ul>
+<li>No combination outperformed <code>prop_no_feature</code> as a natural spline
+<ul>
+<li>Each predictor costs degrees of freedom</li>
+</ul></li>
+<li>Have also tested age as a predictor
+<ul>
+<li>Natural spline is better than linear</li>
+</ul></li>
+<li>PC1 from genotype data improves about 30% of genes</li>
+</ul>
+</div>
+</div></div>
+</section>
+<section id="take-home" class="slide level2">
+<h2>Take Home</h2>
+<div style="font-size:95%">
+<ul>
+<li>Unlike any dataset I’ve ever worked with</li>
+<li>The gDNA work reinforces Hien To’s work on <code>strandcheckR</code>
+<ul>
+<li>Would love to see it added to <code>nf-core</code></li>
+</ul></li>
+<li>Setting all data handling early is great
+<ul>
+<li>Unexpected challenges incorporating mixups</li>
+<li>Typos in sample sheets can be infuriating (e.g.&nbsp;Pool vs pool)</li>
+</ul></li>
+<li>Didn’t see any clinical variables for &gt;2yrs
+<ul>
+<li>T2D: 000’s of DE Genes</li>
+<li>CKD: 000’s of DE Genes</li>
+<li>CHD is a really difficult phenotype</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="clickbait-time-1" class="slide level2">
+<h2>Clickbait Time</h2>
+<p>Is large cohort transcriptomics just scRNA without the zero counts?</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3N3Q5cW0wMXloa2J2dzFwNTZqMm00NmE2cXV3cm5uZWVnOXlxM3hneCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/26hkhKd2Cp5WMWU1O/giphy.gif"></p>
+<figcaption>Stevie speaks the truth</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:60%;">
+<p>The questions are completely different:</p>
+<ul>
+<li class="fragment">We want clusters of genes defining disease pathology with age + complication, NOT clusters of cells</li>
+<li class="fragment">QC represents fundamentally different technical processes</li>
+</ul>
+</div></div>
+</section>
+<section id="acknowledgements" class="slide level2">
+<h2>Acknowledgements</h2>
+<div style="font-size:80%">
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><u><strong>Black Ochre Data Labs</strong></u></p>
+<p>Alex Brown</p>
+<p><strong>Jimmy Breen</strong></p>
+<p><strong>Alastair Ludington</strong></p>
+<p>Sam Buckberry</p>
+<p>Liza Kretzschmar</p>
+<p>Yassine Souilmi</p>
+<p>Katharine Brown</p>
+<p>Rose Senesi</p>
+<p>Sam Godwin</p>
+<p>Rebecca Simpson</p>
+</div><div class="column" style="width:25%;">
+<p><br> Adam Heterick</p>
+<p>Kaashifah Bruce</p>
+<p>Bastien Llamas</p>
+<p>Amanda Richards-Satour</p>
+<p>Justine Clark</p>
+<p>Holly Massacci</p>
+<p>Sarah Munns</p>
+<p>Alli Foster</p>
+<p>Sehaj Dhariwal</p>
+</div><div class="column" style="width:25%;">
+<p><u><strong>SAGC</strong></u></p>
+<p>Sen Wang</p>
+<p>Renee Smith</p>
+<p><strong>John Salamon</strong></p>
+<p>Paul Wang</p>
+<p><u><strong>Baker Heart &amp; Diabetes Institute</strong></u></p>
+<p>Sam El Osta</p>
+<p>Ishant Kurma</p>
+<p>Moshe Olshansky</p>
+<p>Scott Maxwell</p>
+</div><div class="column" style="width:25%;">
+<p><u><strong>SAHMRI / Wardliparingga</strong></u></p>
+<p><strong>Natasha Howard</strong></p>
+<p><u><strong>Victor Chang Cardiac Research Institute</strong></u></p>
+<p>Jason Kovacic</p>
+<p><u><strong>University of Sydney</strong></u></p>
+<p>Jean Yang</p>
+<p><u><strong>Centre For Population Genomics</strong></u></p>
+<p>Dan MacArthur</p>
+</div></div>
+</div>
+</section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Hansen2012-jz" class="csl-entry" role="listitem">
+Hansen, Kasper D, Rafael A Irizarry, and Zhijin Wu. 2012. <span>“Removing Technical Variability in <span>RNA</span>-Seq Data Using Conditional Quantile Normalization.”</span> <em>Biostatistics</em> 13 (2): 204–16.
+</div>
+<div id="ref-Kim2021-kz" class="csl-entry" role="listitem">
+Kim, Taiyun, Owen Tang, Stephen T Vernon, Katharine A Kott, Yen Chin Koay, John Park, David E James, et al. 2021. <span>“A Hierarchical Approach to Removal of Unwanted Variation for Large-Scale Metabolomics Data.”</span> <em>Nat. Commun.</em> 12 (1): 4992.
+</div>
+<div id="ref-Risso2014-qg" class="csl-entry" role="listitem">
+Risso, Davide, John Ngai, Terence P Speed, and Sandrine Dudoit. 2014. <span>“Normalization of <span>RNA</span>-Seq Data Using Factor Analysis of Control Genes or Samples.”</span> <em>Nat. Biotechnol.</em> 32 (9): 896–902.
+</div>
+<div id="ref-Robinson2010-qp" class="csl-entry" role="listitem">
+Robinson, Mark D, and Alicia Oshlack. 2010. <span>“A Scaling Normalization Method for Differential Expression Analysis of <span>RNA</span>-Seq Data.”</span> <em>Genome Biol.</em> 11 (3): R25.
+</div>
+<div id="ref-Salim2022-rj" class="csl-entry" role="listitem">
+Salim, Agus, Ramyar Molania, Jianan Wang, Alysha De Livera, Rachel Thijssen, and Terence P Speed. 2022. <span>“<span>RUV</span>-<span>III</span>-<span>NB</span>: Normalization of Single Cell <span>RNA</span>-Seq Data.”</span> <em>Nucleic Acids Res.</em> 50 (16): e96.
+</div>
+<div id="ref-To2019-rj" class="csl-entry" role="listitem">
+To, Thu-Hien, and Stephen Pederson. 2019. <span>“<span class="nocase">strandCheckR</span>: An <span>R</span> Package for Quantifying and Removing Double Strand Sequences for Strand-Specific <span>RNA</span>-Seq.”</span> <em>J. Open Source Softw.</em> 4 (34): 1145.
+</div>
+</div>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="assets/bodl_logo_white_background.jpg" class="slide-logo"></p>

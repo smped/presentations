@@ -1,0 +1,221 @@
+
+@ARTICLE{Kim2021-kz,
+  title    = "A hierarchical approach to removal of unwanted variation for
+              large-scale metabolomics data",
+  author   = "Kim, Taiyun and Tang, Owen and Vernon, Stephen T and Kott,
+              Katharine A and Koay, Yen Chin and Park, John and James, David E
+              and Grieve, Stuart M and Speed, Terence P and Yang, Pengyi and
+              Figtree, Gemma A and O'Sullivan, John F and Yang, Jean Yee Hwa",
+  journal  = "Nat. Commun.",
+  volume   =  12,
+  number   =  1,
+  pages    =  4992,
+  abstract = "Liquid chromatography-mass spectrometry-based metabolomics studies
+              are increasingly applied to large population cohorts, which run
+              for several weeks or even years in data acquisition. This
+              inevitably introduces unwanted intra- and inter-batch variations
+              over time that can overshadow true biological signals and thus
+              hinder potential biological discoveries. To date, normalisation
+              approaches have struggled to mitigate the variability introduced
+              by technical factors whilst preserving biological variance,
+              especially for protracted acquisitions. Here, we propose a study
+              design framework with an arrangement for embedding biological
+              sample replicates to quantify variance within and between batches
+              and a workflow that uses these replicates to remove unwanted
+              variation in a hierarchical manner (hRUV). We use this design to
+              produce a dataset of more than 1000 human plasma samples run over
+              an extended period of time. We demonstrate significant improvement
+              of hRUV over existing methods in preserving biological signals
+              whilst removing unwanted variation for large scale metabolomics
+              studies. Our tools not only provide a strategy for large scale
+              data normalisation, but also provides guidance on the design
+              strategy for large omics studies.",
+  month    =  aug,
+  year     =  2021,
+  language = "en"
+}
+
+@ARTICLE{Risso2014-qg,
+  title    = "Normalization of {RNA}-seq data using factor analysis of control
+              genes or samples",
+  author   = "Risso, Davide and Ngai, John and Speed, Terence P and Dudoit,
+              Sandrine",
+  journal  = "Nat. Biotechnol.",
+  volume   =  32,
+  number   =  9,
+  pages    = "896--902",
+  abstract = "Normalization of RNA-sequencing (RNA-seq) data has proven
+              essential to ensure accurate inference of expression levels. Here,
+              we show that usual normalization approaches mostly account for
+              sequencing depth and fail to correct for library preparation and
+              other more complex unwanted technical effects. We evaluate the
+              performance of the External RNA Control Consortium (ERCC) spike-in
+              controls and investigate the possibility of using them directly
+              for normalization. We show that the spike-ins are not reliable
+              enough to be used in standard global-scaling or regression-based
+              normalization procedures. We propose a normalization strategy,
+              called remove unwanted variation (RUV), that adjusts for nuisance
+              technical effects by performing factor analysis on suitable sets
+              of control genes (e.g., ERCC spike-ins) or samples (e.g.,
+              replicate libraries). Our approach leads to more accurate
+              estimates of expression fold-changes and tests of differential
+              expression compared to state-of-the-art normalization methods. In
+              particular, RUV promises to be valuable for large collaborative
+              projects involving multiple laboratories, technicians, and/or
+              sequencing platforms.",
+  month    =  sep,
+  year     =  2014,
+  language = "en"
+}
+
+@ARTICLE{To2019-rj,
+  title     = "{strandCheckR}: An {R} package for quantifying and removing
+               double strand sequences for strand-specific {RNA}-seq",
+  author    = "To, Thu-Hien and Pederson, Stephen",
+  journal   = "J. Open Source Softw.",
+  publisher = "The Open Journal",
+  volume    =  4,
+  number    =  34,
+  pages     =  1145,
+  abstract  = "RNA-seq data reveals the expression level of every
+               gene/transcript extracted from a specific tissue of an
+               individual. Numerous research questions can involve a study of
+               the relationship between gene expression and phenotypes, or
+               treatment groups. However, assessing data quality is the first
+               step before performing any analysis. fastqc (Andrews, 2014) has
+               become an industry-standard quality control tool for much high
+               throughput sequencing data. This package aims to provide an
+               additional quality control step for strand-specific RNA-seq data,
+               to quickly detect issues with library preparation, and also to
+               rescue it in some less extreme cases.",
+  month     =  feb,
+  year      =  2019
+}
+
+@ARTICLE{Salim2022-rj,
+  title     = "{RUV}-{III}-{NB}: normalization of single cell {RNA}-seq data",
+  author    = "Salim, Agus and Molania, Ramyar and Wang, Jianan and De Livera,
+               Alysha and Thijssen, Rachel and Speed, Terence P",
+  journal   = "Nucleic Acids Res.",
+  publisher = "Oxford University Press (OUP)",
+  volume    =  50,
+  number    =  16,
+  pages     = "e96",
+  abstract  = "Normalization of single cell RNA-seq data remains a challenging
+               task. The performance of different methods can vary greatly
+               between datasets when unwanted factors and biology are
+               associated. Most normalization methods also only remove the
+               effects of unwanted variation for the cell embedding but not from
+               gene-level data typically used for differential expression (DE)
+               analysis to identify marker genes. We propose RUV-III-NB, a
+               method that can be used to remove unwanted variation from both
+               the cell embedding and gene-level counts. Using
+               pseudo-replicates, RUV-III-NB explicitly takes into account
+               potential association with biology when removing unwanted
+               variation. The method can be used for both UMI or read counts and
+               returns adjusted counts that can be used for downstream analyses
+               such as clustering, DE and pseudotime analyses. Using published
+               datasets with different technological platforms, kinds of biology
+               and levels of association between biology and unwanted variation,
+               we show that RUV-III-NB manages to remove library size and batch
+               effects, strengthen biological signals, improve DE analyses, and
+               lead to results exhibiting greater concordance with independent
+               datasets of the same kind. The performance of RUV-III-NB is
+               consistent and is not sensitive to the number of factors assumed
+               to contribute to the unwanted variation.",
+  month     =  sep,
+  year      =  2022,
+  keywords  = "libraries; datasets; rna-seq",
+  language  = "en"
+}
+
+@ARTICLE{Hansen2012-jz,
+  title     = "Removing technical variability in {RNA}-seq data using
+               conditional quantile normalization",
+  author    = "Hansen, Kasper D and Irizarry, Rafael A and Wu, Zhijin",
+  journal   = "Biostatistics",
+  publisher = "academic.oup.com",
+  volume    =  13,
+  number    =  2,
+  pages     = "204--216",
+  abstract  = "The ability to measure gene expression on a genome-wide scale is
+               one of the most promising accomplishments in molecular biology.
+               Microarrays, the technology that first permitted this, were
+               riddled with problems due to unwanted sources of variability.
+               Many of these problems are now mitigated, after a decade's worth
+               of statistical methodology development. The recently developed
+               RNA sequencing (RNA-seq) technology has generated much excitement
+               in part due to claims of reduced variability in comparison to
+               microarrays. However, we show that RNA-seq data demonstrate
+               unwanted and obscuring variability similar to what was first
+               observed in microarrays. In particular, we find guanine-cytosine
+               content (GC-content) has a strong sample-specific effect on gene
+               expression measurements that, if left uncorrected, leads to false
+               positives in downstream results. We also report on commonly
+               observed data distortions that demonstrate the need for data
+               normalization. Here, we describe a statistical methodology that
+               improves precision by 42\% without loss of accuracy. Our
+               resulting conditional quantile normalization algorithm combines
+               robust generalized regression to remove systematic bias
+               introduced by deterministic features such as GC-content and
+               quantile normalization to correct for global distortions.",
+  month     =  apr,
+  year      =  2012,
+  language  = "en"
+}
+
+@ARTICLE{Liao2014-gy,
+  title    = "{featureCounts}: an efficient general purpose program for
+              assigning sequence reads to genomic features",
+  author   = "Liao, Yang and Smyth, Gordon K and Shi, Wei",
+  journal  = "Bioinformatics",
+  volume   =  30,
+  number   =  7,
+  pages    = "923--930",
+  abstract = "MOTIVATION: Next-generation sequencing technologies generate
+              millions of short sequence reads, which are usually aligned to a
+              reference genome. In many applications, the key information
+              required for downstream analysis is the number of reads mapping to
+              each genomic feature, for example to each exon or each gene. The
+              process of counting reads is called read summarization. Read
+              summarization is required for a great variety of genomic analyses
+              but has so far received relatively little attention in the
+              literature. RESULTS: We present featureCounts, a read
+              summarization program suitable for counting reads generated from
+              either RNA or genomic DNA sequencing experiments. featureCounts
+              implements highly efficient chromosome hashing and feature
+              blocking techniques. It is considerably faster than existing
+              methods (by an order of magnitude for gene-level summarization)
+              and requires far less computer memory. It works with either single
+              or paired-end reads and provides a wide range of options
+              appropriate for different sequencing applications. AVAILABILITY
+              AND IMPLEMENTATION: featureCounts is available under GNU General
+              Public License as part of the Subread
+              (http://subread.sourceforge.net) or Rsubread
+              (http://www.bioconductor.org) software packages.",
+  month    =  apr,
+  year     =  2014,
+  language = "en"
+}
+
+@ARTICLE{Robinson2010-qp,
+  title    = "A scaling normalization method for differential expression
+              analysis of {RNA}-seq data",
+  author   = "Robinson, Mark D and Oshlack, Alicia",
+  journal  = "Genome Biol.",
+  volume   =  11,
+  number   =  3,
+  pages    = "R25",
+  abstract = "The fine detail provided by sequencing-based transcriptome surveys
+              suggests that RNA-seq is likely to become the platform of choice
+              for interrogating steady state RNA. In order to discover
+              biologically important changes in expression, we show that
+              normalization continues to be an essential step in the analysis.
+              We outline a simple and effective method for performing
+              normalization and show dramatically improved results for inferring
+              differential expression in simulated and publicly available data
+              sets.",
+  month    =  mar,
+  year     =  2010,
+  language = "en"
+}

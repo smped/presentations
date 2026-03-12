@@ -40,7 +40,7 @@ include-after: |
   </script>    
 knitr: 
   opts_chunk: 
-    echo: true
+    echo: false
     include: true
     warning: false
     message: false
@@ -48,6 +48,15 @@ knitr:
     fig.width: 8
     fig.heght: 6
 ---
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+library(bodlR)
+library(reactable)
+library(htmltools)
+theme_set(theme_bodl())
+```
+
 
 ##
 
@@ -80,9 +89,11 @@ I'm acutely aware of the trust that has been placed in me and am very pleased to
 :::
 
 
+
 ## About Me
 
-- Did 1st year science in 1986 $\rightarrow$ completed 2002-2005
+- Did 1st year science in 1986 $\rightarrow$ completed 2002-2005 (Genetics)
+    + BMa.Comp.Sc. (Hons) 2006-2007
     + 1988-1991: Elder Conservatorium
     
 ::: {.fragment}
@@ -110,8 +121,8 @@ I'm acutely aware of the trust that has been placed in me and am very pleased to
 ::: 
 
 ::: {.column width=45%}    
-![](images/IMG_5349.JPG){height=300px}
 ![](images/IMG_5317.JPG){height=300px}
+![](images/IMG_5349.JPG){height=300px}
 :::    
 
 ::::    
@@ -137,6 +148,8 @@ I'm acutely aware of the trust that has been placed in me and am very pleased to
 ![](https://bioconductor.org/images/cab/LoriShepherd.png){.absolute right=0 bottom=100 width='150px'}
 ![](https://bioconductor.org/images/cab/KevinRueAlbrecht.png){.absolute right=200 bottom=100 width='150px'}
 
+# The PROPHECY Study {background-color="#3d3d40" background-image=images/prophecy.png background-size="100%" background-opacity="0.3" background-position='40% 50%'}
+
 
 ## The PROPHECY Study
 
@@ -147,11 +160,13 @@ I'm acutely aware of the trust that has been placed in me and am very pleased to
 
 ![](images/t2d_burden.png)
 
-## 
-
-![](images/prophecy.png)
 
 ## The PROPHECY Study
+
+::: {.notes}
+- A key design element is that all research is community led, not researcher led
+- 
+:::
 
 ![](images/prophecy_layers.png)
 
@@ -162,7 +177,18 @@ I'm acutely aware of the trust that has been placed in me and am very pleased to
 
 :::
 
-##
+
+## The PROPHECY Study
+
+- A key design element $\rightarrow$ all research is community led, not researcher led
+- Prof Alex Brown spent 5 years consulting with SA communities first
+- Strong Indigenous Data Sovereignty Principles
+- Strict data management protocols
+    + High demand for clear documentation
+
+![](https://2020.diabetescongress.com.au/uploads/images/speakers/_speaker/Alex-Brown.jpg){.absolute right=20 bottom=100 width='350px'}
+
+## Clickbait Time
 
 Is large cohort transcriptomics just scRNA without the zero counts?
 
@@ -170,3 +196,1086 @@ Is large cohort transcriptomics just scRNA without the zero counts?
 
 ![Stevie speaks the truth](https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3N3Q5cW0wMXloa2J2dzFwNTZqMm00NmE2cXV3cm5uZWVnOXlxM3hneCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/26hkhKd2Cp5WMWU1O/giphy.gif){fig-align="left"}
 
+# The PROPHECY Transcriptomics Layer {background-color="#3d3d40" background-image=images/prophecy.png background-size="100%" background-opacity="0.3" background-position='40% 50%'}
+
+## Sequencing Considerations
+
+::: {.notes}
+- Previously, I'd only done n = 4, with up to 4 treatment groups
+:::
+
+- Whole Blood from participants $\implies$ incredibly valuable resource
+- Trying to to get everything as 'right' as possible $\implies$ no second chances
+- 13x96 well plates were planned for & paid before I joined $\implies$ N = 1248
+
+::: {.fragment .fade-in-then-out data-fragment-index="1"}
+
+![](https://static1.cbrimages.com/wordpress/wp-content/uploads/2024/09/far-side-roger-screws-up.jpg){.absolute width='350px'}
+
+:::
+
+::: {.fragment .fade-in data-fragment-index="2"}
+
+- Subset of 93 participants already sequenced by the El Osta group
+    + Focus on Chronic Kidney Disease (CKD) + Diabetes (T2D)
+- Total RNA $\implies$ rRNA Depleted **but not** hbRNA depleted
+    + hbRNA was 30-50% of library
+    + rRNA consistently below 20% (mostly below 10%)
+- Pilot study compared polyA with totalRNA (rRNA + hbRNA depleted)
+
+:::
+
+## Study Design
+
+- Prepared in batches of 96 $\implies$ batch effects 
+    + All reagents from same supplier batches
+- Chose a design strategy compatible with hRUV [@Kim2021-kz]
+    + Short replicates, Long replicates, Pools
+- 1134 Blood samples were selected for inclusion based on:
+    + RIN >5.0 & RNA concentration > 25ng/&#956;l 
+- Samples are stored in extraction order with a ULN
+    + Randomising samples would be extremely difficult
+    + Only had access to RIN, Concentration & Sex
+    + El Osta sub-cohort were all late ULNs
+
+## Experimental Design
+
+:::: {.columns}
+::: {.column}
+
+```{r plate-df}
+set.seed(11)
+plate_df <- tibble(
+  plate = "Plate i",
+  col = rep_len(LETTERS[1:8], 96) %>% as.factor(),
+  row = rep(1:12, each = 8) %>% as.factor(),
+  pool = FALSE,
+  short = FALSE,
+  long = seq_along(plate) %in% c(1:3, sample(4:96, 3)),
+  library = ifelse(long, paste("Long Rep", seq_along(plate)), NA_character_)
+)
+set.seed(101)
+short <- plate_df %>% 
+  dplyr::filter(!long) %>% 
+  sample_n(6) %>% 
+  arrange(col, row) %>% 
+  mutate(
+    short = TRUE,
+    library = rep_len(paste("Short Rep", 1:3), 6)
+  )
+set.seed(1010)
+pools <- plate_df %>% 
+  dplyr::filter(!long) %>% 
+  anti_join(short) %>% 
+  sample_n(3) %>% 
+  arrange(col, row) %>% 
+  mutate(
+    pool = TRUE,
+    library = paste0("Pool", 1:3)
+  )
+final_plate <- plate_df %>% 
+  anti_join(short, by = join_by(plate, col, row, pool, short, long, library)) %>% 
+  anti_join(pools, by = join_by(plate, col, row, pool, short, long, library)) %>% 
+  bind_rows(short) %>% 
+  bind_rows(pools) %>% 
+  arrange(col, row) %>% 
+  mutate(
+    library = ifelse(is.na(library), paste("Participant", seq_along(library)), library),
+    type = case_when(
+      pool ~ "Pool",
+      short ~ "Short Replicate",
+      long ~ "Long Replicate",
+      TRUE ~ "Participant Sample"
+    ) %>% fct_infreq(),
+    x = as.integer(col), 
+    y = row %>% fct_rev() %>% as.integer()
+  )
+```
+
+
+```{r plate-long}
+final_plate %>% 
+  ggplot(aes(col, fct_rev(row))) +
+  geom_point(
+    shape = 21, size = 8, fill = "grey70"
+  ) +
+  geom_point(
+    aes(fill = type),
+    data = . %>% dplyr::filter(long) ,
+    shape = 21, size = 8
+  ) +
+  geom_curve(
+    aes(x = -1, xend = x, y = rnd, yend = y),
+    data = . %>% 
+      dplyr::filter(long, y == 12) %>% 
+      mutate(rnd = sample(1:12, 3)),
+    arrow = arrow(length = unit(0.03, "npc")),
+    curvature = -1/4
+  ) +
+  geom_curve(
+    aes(x = x, xend = 8.6, y = y, yend = 12),
+    data = . %>% 
+      dplyr::filter(long, y != 12),
+    arrow = arrow(length = unit(0.03, "npc")),
+    curvature = -1/10
+  ) +
+  facet_wrap(~plate) +
+  labs(x = NULL, y = NULL) +
+  coord_cartesian(xlim = c(1, 8)) +
+  scale_fill_bodl(name = "Library Type", values = -1)
+```
+
+:::
+
+::: {.column}
+- Plates include:
+    + 6 *Long Replicates* to straddle consecutive plates
+    
+:::
+::::
+
+::: {.fragment}
+
+### Trivia Time!!!
+
+:::
+
+::: {.fragment}
+- Did you know that plates are prepared using a multi-tip pipette?
+- Ordered by columns not rows
+
+:::
+
+## Experimental Design
+
+:::: {.columns}
+::: {.column}
+
+```{r plate-short}
+final_plate %>% 
+  ggplot(aes(col, fct_rev(row))) +
+  geom_point(
+    shape = 21, size = 8, fill = "grey70"
+  ) +
+  geom_point(
+    aes(fill = type),
+    data = . %>% dplyr::filter(short | long),
+    shape = 21, size = 8
+  ) +
+  geom_curve(
+    aes(
+      x = x_FALSE, xend = x_TRUE, y = y_FALSE, yend = y_TRUE
+    ),
+    data = . %>% 
+      dplyr::filter(short) %>% 
+      mutate(dup = duplicated(library)) %>% 
+      pivot_wider(names_from = dup, values_from = c(x, y), id_cols = library),
+    arrow = arrow(length = unit(0.03, "npc")),
+    curvature = -1/2
+  ) +
+  facet_wrap(~plate) +
+  labs(x = NULL, y = NULL) +
+  coord_cartesian(xlim = c(1, 8)) +
+  scale_fill_bodl(name = "Library Type", values = -1)
+```
+
+:::
+
+::: {.column}
+- Plates include:
+    + 6 *Long Replicates* to straddle consecutive plates
+    + 6 *Short Replicates* within plates
+:::
+
+::::
+
+## Experimental Design
+
+:::: {.columns}
+::: {.column}
+
+```{r plate-pools}
+final_plate %>% 
+  ggplot(aes(col, fct_rev(row))) +
+  geom_point(
+    shape = 21, size = 8, fill = "grey70"
+  ) +
+  geom_point(
+    aes(fill = type),
+    data = . %>% dplyr::filter(short | long | pool),
+    shape = 21, size = 8
+  ) +
+  geom_curve(
+    aes(x = -1, xend = x, y = rnd, yend = y),
+    data = . %>% 
+      dplyr::filter(pool) %>% 
+      mutate(rnd = sample(1:12, 3)),
+    arrow = arrow(length = unit(0.03, "npc")),
+    curvature = -1/12
+  ) +
+  geom_curve(
+    aes(x = x, xend = 8.6, y = y, yend = rnd),
+    data = . %>% 
+      dplyr::filter(pool) %>% 
+      mutate(rnd = sample(1:12, 3)),
+    arrow = arrow(length = unit(0.03, "npc")),
+    curvature = -1/10
+  ) +
+  facet_wrap(~plate) +
+  labs(x = NULL, y = NULL) +
+  coord_cartesian(xlim = c(1, 8)) +
+  scale_fill_bodl(name = "Library Type", values = -1)
+```
+
+:::
+
+::: {.column}
+- Plates include:
+    + 6 *Long Replicates* to straddle consecutive plates
+    + 6 *Short Replicates* within plates
+    + 3 distinct *pools* across all 13 plates
+    + 87 Participants $\implies$ 1,134 total
+    
+:::
+
+::::
+
+## Data Processing Workflow
+
+- Data processing written in `nextflow`
+    + Dr Alastair Ludington & Holly Massacci
+- Run as every plate came in
+- Produced a set of plate-level QC reports
+    + Threw everything at it: `fastp`, `RSeQC`, `samtools stats`, all log files etc
+    + Forgot to include `strandcheckR` [@To2019-rj] $\rightarrow$ supplementary pipeline
+- Manually checked every plate for Pass/Fail/Caution
+    + Thinking about which libraries to resequence
+    
+![](images/holly.png){.absolute right=280 top=80 width='250px'}
+![](images/archer.png){.absolute right=0 top=80 width='250px'}
+
+## Data Processing Workflow
+
+```{r pipeline, out.width='100%'}
+library(DiagrammeR)
+
+grViz("
+digraph {
+
+  # a 'graph' statement
+  graph [overlap = true, fontsize = 10, newrank = true, ordering='in']
+
+  subgraph cluster_QC {
+
+    # Key Data Nodes
+    node [shape = box, penwidth = 3]
+    FQ_PROC [label = 'Trimmed & \nDeDuplicated FQ']
+
+    # Minor Data Nodes
+    node [shape = box, fontcolor = grey30, color = grey30, penwidth = 1]
+    FPJ [label = 'fastp.json'];
+
+    # Process Nodes
+    node [shape = ellipse, penwidth = 1, color = red, fontcolor = red]
+    FP [label = 'fastp']
+
+    # External Inputs
+    node [shape = box, color = navyblue, fontcolor = navyblue, penwidth = 1]
+    ADAPTERS [label = 'Adapter\nSequences']
+
+    # Reporting Nodes
+    node [shape = diamond, color = forestgreen, fontcolor = forestgreen, penwidth = 2]
+    RAW_QC [label = 'Library QC Report']
+
+    ADAPTERS -> FP -> FPJ
+
+    edge [penwidth=1]
+    FPJ -> RAW_QC;
+
+    fontsize=30;
+    label = 'Library QC';
+    color = grey;
+
+  }
+
+  subgraph cluster_depletion {
+
+    # Process Nodes
+    node [shape = ellipse, penwidth = 1, color = red, fontcolor = red]
+    BWA1 [label = 'bwa']
+    BWA2 [label = 'bwa']
+    HEAD [label = 'head (bash)']
+    FLAGSTAT1 [label = 'samtools flagstat']
+    FLAGSTAT2 [label = 'samtools flagstat']
+
+    # Minor Data Nodes
+    node [shape = box, fontcolor = grey30, color = grey30, penwidth = 1]
+    SUBFQ [label = 'subsample_R1.fastq.gz'];
+    RRNABAM [label = 'rrna.bam'];
+    HBRNABAM [label = 'hbrna.bam'];
+    RRNAFLAGSTATS [label = 'rrna.flagstats'];
+    HBRNAFLAGSTATS [label = 'hbrna.flagstats'];
+
+    # External Inputs
+    node [shape = box, color = navyblue, fontcolor = navyblue, penwidth = 1]
+    RRNA [label = 'rRNA\nTranscriptome'];
+    HBRNA [label = 'hbRNA\nTranscriptome'];
+
+    # Reporting Nodes
+    node [shape = diamond, color = forestgreen, fontcolor = forestgreen, penwidth = 2]
+    DEPLETION_QC [label = 'Depletion Checks']
+
+    HEAD -> SUBFQ
+    {SUBFQ RRNA} -> BWA1 -> RRNABAM -> FLAGSTAT1 -> RRNAFLAGSTATS ->  DEPLETION_QC
+    {SUBFQ HBRNA} -> BWA2 -> HBRNABAM -> FLAGSTAT2 -> HBRNAFLAGSTATS ->  DEPLETION_QC
+
+    fontsize=30;
+    label = 'Depletion Checks';
+    color = grey;
+
+  }
+
+
+  subgraph cluster_salmon {
+
+      # Key Data Nodes
+      node [shape = box, penwidth = 3]
+      TRANS_COUNTS [label = 'Transcript-Level\nCounts']
+
+      # Process Nodes
+      node [shape = ellipse, penwidth = 1, color = red, fontcolor = red]
+      SALMON [label = 'salmon']
+
+      # Minor Data Nodes
+      node [shape = box, fontcolor = grey30, color = grey30, penwidth = 1]
+      SALMON_METRICS [label = 'salmon\nQC metrics']
+
+      # Reporting Nodes
+      node [shape = diamond, color = forestgreen, fontcolor = forestgreen, penwidth = 2]
+      SALMON_QC [label = 'Salmon QC']
+
+      # External Inputs
+      node [shape = box, color = navyblue, fontcolor = navyblue, penwidth = 1]
+      FULL_TRANS_REF [label = 'Full & Y-Excluded\nConsensus Transcriptome']
+
+      FULL_TRANS_REF -> SALMON -> {TRANS_COUNTS SALMON_METRICS}
+      SALMON_METRICS -> SALMON_QC
+
+      fontsize=30;
+      label = 'Salmon';
+      color = grey;
+
+  }
+
+  subgraph cluster_star {
+
+      # Key Data Nodes
+      node [shape = box, penwidth = 3]
+      STAR_BAM [label = 'Aligned.bam']
+      GENE_COUNTS [label = 'Gene-Level\nCounts']
+      SJ [label = 'Splice Junctions']
+
+      # Process Nodes
+      node [shape = ellipse, penwidth = 1, color = red, fontcolor = red]
+      STAR [label = 'STAR\n2 Pass Mode']
+      SAMTOOLS [label = 'samtools']
+      FCOUNTS [label = 'featureCounts']
+
+      # Minor Data Nodes
+      node [shape = box, fontcolor = grey30, color = grey30, penwidth = 1]
+      STAR_BAI [label = 'Aligned.bam.bai']
+      BAM_STATS [label = 'Samtools Stats']
+      STAR_LOGS [label = 'STAR Logs']
+
+      # External Inputs
+      node [shape = box, color = navyblue, fontcolor = navyblue, penwidth = 1]
+      FULL_REF [label = 'Full & Y-Masked\nConsensus Genome']
+      FULL_GTF [label = 'Gencode GTF']
+      FULL_REF -> STAR -> {SJ STAR_LOGS STAR_BAM}
+      {STAR_BAM STAR_BAI FULL_GTF} -> FCOUNTS -> GENE_COUNTS
+      STAR_BAM -> SAMTOOLS -> {STAR_BAI BAM_STATS}
+
+
+      fontsize=30;
+      label = 'STAR';
+      color = grey;
+
+  }
+
+  subgraph cluster_idchecks {
+
+
+      # Process Nodes
+      node [shape = ellipse, penwidth = 1, color = red, fontcolor = red]
+      BCFTOOLS [label = 'bcftools']
+
+      # External Inputs
+      node [shape = box, color = navyblue, fontcolor = navyblue, penwidth = 1]
+      CONS_SNPS [label = 'Consensus SNPs']
+
+      # Reporting Nodes
+      node [shape = diamond, color = forestgreen, fontcolor = forestgreen, penwidth = 2]
+      CHECK_VARS [label = 'Variant\nChecking']
+
+      {STAR_BAM STAR_BAI CONS_SNPS} -> BCFTOOLS -> CHECK_VARS
+
+      fontsize=30;
+      label = 'Sample\nChecks';
+      color = grey;
+
+  }
+
+  subgraph cluster_alnqc {
+
+      # Key Data Nodes
+      node [shape = box, penwidth = 3]
+      BW [label = 'Coverage\nBigWig']
+
+      # Process Nodes
+      node [shape = ellipse, penwidth = 1, color = red, fontcolor = red]
+      RSEQC [label = 'RSeQC']
+      BEDOPTS [label = 'bedopts']
+      BAM2BW [label = 'bam2wig']
+      RNA_METRICS [label = 'tin\ninner_distance\nread_distribution']
+
+      # Reporting Nodes
+      node [shape = diamond, color = forestgreen, fontcolor = forestgreen, penwidth = 2]
+      ALN_QC [label = 'Alignment QC']
+
+      # External Inputs
+      node [shape = box, color = navyblue, fontcolor = navyblue, penwidth = 1]
+      GENE_BED [label = 'Gene BED File']
+
+      FULL_GTF -> BEDOPTS -> GENE_BED
+      {STAR_BAM GENE_BED} -> RSEQC -> RNA_METRICS
+      {STAR_LOGS RNA_METRICS BAM_STATS} -> ALN_QC
+      {STAR_BAM RSEQC} -> BAM2BW -> BW
+
+
+      fontsize=30;
+      label = 'Alignment\nQC';
+      color = grey;
+
+  }
+
+  # Key Data Nodes
+  node [shape = box, penwidth = 3]
+  FQ_RAW [label = 'Raw FQ'];
+
+  # Edges
+  edge [penwidth=2]
+  FQ_RAW -> {HEAD FP}
+  FP -> FQ_PROC -> {SALMON STAR}
+
+
+}
+")
+```
+
+::: {.fragment .fade-in-then-out data-fragment-index="1"}
+::: {.rect_outline .absolute bottom='150px' right='260px' width='200px' height='450px'}
+:::
+:::
+
+::: {.fragment .fade-in-then-out data-fragment-index="2"}
+::: {.rect_outline .absolute top='90px' left='240px' width='140px' height='250px'}
+:::
+:::
+
+::: {.fragment .fade-in-then-out data-fragment-index="3"}
+::: {.rect_outline .absolute top='190px' left='360px' width='140px' height='200px'}
+:::
+:::
+
+::: {.fragment .fade-in-then-out data-fragment-index="4"}
+::: {.rect_outline .absolute top='180px' left='500px' width='160px' height='375px'}
+:::
+:::
+
+::: {.fragment .fade-in-then-out data-fragment-index="5"}
+::: {.rect_outline .absolute bottom='180px' right='455px' width='160px' height='300px'}
+:::
+:::
+
+::: {.fragment .fade-in-then-out data-fragment-index="6"}
+::: {.rect_outline .absolute top='380px' left='420px' width='100px' height='220px'}
+:::
+:::
+
+## Pipeline Output
+
+::: {style="font-size: 85%"}
+
+```
+/path/to/prophecy/PROP000000/ # PROPHECY ID
+└── 1234567 # Aliquot ID
+    └── RNASEQ
+        ├── bigwigs
+        │   └── E200099999 # Sequencing Run ID
+        │       └── 23-00000 # ULN
+        │           ├── GRCh38
+        │           └── PROPHECY
+        ├── depletion
+        │   └── E200099999
+        │       └── 23-00000
+        │           ├── 1234567_1_hbrna.flagstat
+        │           └── 1234567_1_rrna.flagstat
+        ├── fastp
+        │   └── E200099999
+        │       └── 23-00000
+        │           ├── 1234567_1_fastp.html
+        │           └── 1234567_1_fastp.json
+        ├── fastq
+        │   └── E200099999
+        │       └── 23-00000
+        │           ├── 23-00000_1_S24_L01_R1_001.fastq.gz
+        │           ├── 23-00000_1_S24_L01_R1_001.md5
+        │           └── 23-00000_1_S24_L01_R2_001.fastq.gz
+        ├── featureCounts
+        │   └── E200099999
+        │       └── 23-00000
+        │           ├── GRCh38
+        │           └── PROPHECY
+        ├── rseqc
+        │   └── E200099999
+        │       └── 23-00000
+        │           ├── GRCh38
+        │           │   ├── inner_distance
+        │           │   │   ├── 1234567_1.inner_distance_freq.txt
+        │           │   │   ├── 1234567_1.inner_distance_mean.txt
+        │           │   │   └── 1234567_1.inner_distance.txt
+        │           │   ├── read_distribution
+        │           │   │   └── 1234567_1.read_distribution.tsv
+        │           │   └── tin
+        │           │       ├── 1234567_1.summary.txt
+        │           │       └── 1234567_1.tin.tsv
+        │           └── PROPHECY
+        ├── salmon
+        │   └── E200099999
+        │       └── 23-00000
+        │           ├── GRCh38
+        │           │   └── 1234567_1
+        │           │       ├── aux_info
+        │           │       ├── cmd_info.json
+        │           │       ├── lib_format_counts.json
+        │           │       ├── libParams
+        │           │       ├── logs
+        │           │       └── quant.sf        
+        │           └── PROPHECY
+        └── star
+            └── E200099999
+                └── 23-00000
+                    ├── GRCh38
+                    │   ├── 1234567_1.cram
+                    │   ├── 1234567_1.cram.crai
+                    │   ├── 1234567_1.cram.md5
+                    │   ├── 1234567_1.Log.final.out
+                    │   ├── 1234567_1.SJ.out.tab
+                    │   ├── 1234567_1.stats
+                    │   └── 1234567_1_strandcheckr.tsv.gz                    
+                    └── PROPHECY
+```
+
+:::
+
+- For all `r 13*96` libraries (including 1 repeated run ...)
+
+## Final Outcome
+
+- 31 sample mixups $\implies$ all resolved successfully
+    + Only one library was an unexpected participant
+    + 17 had no genotypes $\implies$ assumed correct
+- 1 library broke `STARconsensus`
+    + `DUG` team identified bug in `STAR` & made pull request
+- Re-integrating mixups was non-trivial
+    + QC reports written for 96 samples failed
+    + Manual re-collation of all QC outputs
+
+## Final Summary
+
+::: {style = "font-size:60%"}
+
+---------------------------------------------------------------------------------------------
+Plate                Pass   Caution     Fail   Incomplete   Total Yield (billions)   Mean Q30
+--------------- --------- --------- -------- ------------ ------------------------ ----------
+SAGCQA0503-2           40        47        9            0                     6.26      94.8%
+
+SAGCQA0503-3           92         4        0            0                     6.36      95.2%
+
+SAGCQA0503-4           70        15       11            0                     6.14      94.4%
+
+SAGCQA0503-5           68        18       10            0                     6.24      94.2%
+
+SAGCQA0503-6           62        28        6            0                     6.31      94.7%
+
+SAGCQA0503-7           77        11        8            0                     5.94      94.2%
+
+SAGCQA0503-8           85         6        5            0                     5.51      92.4%
+
+SAGCQA0503-9           92         1        3            0                     5.81      93.1%
+
+SAGCQA0503-10          68        22        6            0                     5.69      93.3%
+
+SAGCQA0503-11          88         7        0            1                     4.89      91.4%
+
+SAGCQA0503-12          49        36       11            0                     5.83      93.9%
+
+SAGCQA0503-13          90         3        3            0                     5.21      92.8%
+
+SAGCQA0503-14          38        52        6            0                     6.31      94.7%
+
+**Total**         **919**   **250**   **78**        **1**                                    
+---------------------------------------------------------------------------------------------
+
+      
+:::
+
+## QC
+
+::: {style = "font-size:47%"}
+
+| Name | Source | Interpretation |
+|:---- |:---- |:------------------ |
+| `status` | Manual Inspection | Originally defined in order to identify libraries which might be candidates for resequencing |
+| `rin`    | SAGC              | RNA Integrity Number with high values (> 7) indicating a higher quality sample |
+| `conc`   | SAGC              | RNA Concentration in the original extractions |
+| `depletion_conc`   | SAGC    | RNA Concentration used for the rRNA/hbRNA deletion step. Two values were used with the lower concentration being an attempt to reduce saturation of the depletion reagents |
+| `rrna_rate` | BODL pipeline  | Estimates the proportion of reads deriving from rRNA by aligning a subset of reads to an rRNA reference |
+| `hbrna_rate` | BODL pipeline | Estimates the proportion of reads deriving from hbRNA by aligning a subset of reads to an rRNA reference |
+| `duplication_rate` | `fastp`   | Taken directly from the fastp reports, given that UMIs were included in all libraries |
+| `sequenced_fragments` | `fastp` | The initial number of frgaments contained in each pair of fastq files |
+| `q30_rate` | `fastp` | The proportion of bases acheiving a PHRED quality score > 30 when being sequenced |
+| `gc_content` | `fastp` | The average GC content of reads across the entire library |
+| `gene_assigned_rate` | `salmon` | `num_frags_with_concordant_consistent_mappings` / `sequenced_fragments`|
+| `decoy_aligned_rate` | `salmon` | `num_decoy_fragments` / `sequenced_fragments` |
+| `median_insert_size` | `samtools stats` | Calculated by only taking alignments which are concordantly paired |
+| `sd_log10_insert_size` | `samtools stats` | Calculated by only taking alignments which are concordantly paired, the transforming the insert size using log~10~ and finding the standard deviation |
+| `median_tin` | `nf-core` | The median TIN score across all measured trancripts |
+| `prop_no_feature` | `featureCounts` | The proportion of input reads which aligned where there was no annotated feature |
+| `stranded_coverage` | `strandcheckR` | The proportion of windows showing >90% of reads with a stranded bias, weighted by coverage |
+| `prop_assigned` | `featureCounts` / `salmon` | The proportion of input reads which were assigned to a gene/transcript |
+
+:::
+
+## QC: Duplication Rates
+
+![](images/duplication-by-plate-1.png)
+
+## QC: rRNA Content
+
+![](images/compare-rrna-1.png)
+
+## QC: Strandedness of Alignments
+
+:::: {.columns}
+::: {.column}
+
+![](images/stranded-coverage-1.png)
+:::
+::: {.column}
+
+::: {.fragment}
+
+![](images/gdna-by-plate-1.png)
+:::
+:::
+::::
+
+## QC: Strandedness Vs Insert Size Variability
+
+![](images/gdna-vs-ins-var-1.png)
+
+## QC: % Of Sequenced Reads Assigned to Genes
+
+![](images/fc-assigned-1.png)
+
+## Similarity of QC Metrics
+
+![](images/corrplot-1.png)
+
+## Outlier Detection
+
+1. Run PCA
+2. Find Robust Z-scores for PC1-4
+3. Label as "No", "Potential" or "Unambiguous" Outlier
+    + |Z| > 1/200 (`r round(qnorm(0.995), 4)`) or |Z| > 1/2000 (`r round(qnorm(0.9995), 4)`)
+4. Find which QC metrics have outlier threshold
+
+## Outlier Detection
+
+:::: {.columns}
+::: {.column}
+
+![Outliers at low values](images/low-metric-thresholds-1.png)
+:::
+::: {.column}
+![Outliers at high values](images/high-metric-thresholds-1.png)
+
+:::
+::::
+
+## Outlier Detection
+
+![](images/upset-key-vars-1.png){.absolute left=0 top=100 width='900px'}
+
+::: {.fragment}
+
+![](https://smped.github.io/SimpleUpset/reference/figures/SimpleUpset.png){.absolute right=100 top=100 width='150px'}
+
+:::
+
+## Outlier Detection
+
+![](images/final-pca-1.png)
+
+## Normalisation
+
+- Do we have batch effects?
+    + `hRUV` [@Kim2021-kz], `RUV` [@Risso2014-qg], `RUVIII-NB` [@Salim2022-rj]
+    + TMM [@Robinson2010-qp], `CQN` [@Hansen2012-jz]
+- `hRUV` hard-wired to USyd metabolomics structure
+    + Rewrote significant amount of (github-only) package
+- `RUVIII-NB` also needed rewriting (github only)
+
+::: {.fragment}
+- Didn't need them anyway &#128517;
+:::
+
+## Batch Effects
+
+![](images/pca-raw-1.png)
+
+## GC & Length Artefacts
+
+::: {style="font-size:90%"}
+
+:::: {.columns}
+::: {.column width='60%'}
+
+![](images/combined-rotations-1.png)
+:::
+::: {.column width='40%'}
+::: {.incremental}
+- Bin gene-level rotations from PCA by GC & Length
+- Perform $t$-test in each bin
+- If no bias $\implies$ random noise
+- Looks like GC & length is impacting signal
+:::
+:::
+::::
+:::
+
+## Conditional Quantile Normalisation
+
+![PC4 captures age &#127881;](images/pca-cqn-1.png){fig-align="left"}
+
+## Performance on Pools
+
+:::: {.columns}
+::: {.column}
+![](images/tmm-pools-1.png)
+:::
+
+::: {.column}
+![](images/cqn-pools-1.png)
+:::
+::::
+
+Both improve further using `glmTreat()` at FC > 1.1
+
+## Do Any QC Metrics Impact Signal
+
+:::: {.columns}
+::: {.column width='60%'}
+
+![](images/complete-metrics-plot-1.png)
+:::
+::: {.column width='40%'}
+- Several QC metrics strongly correlate with PC1-3
+- How will this impact DGE analysis?
+- Can I check?
+:::
+::::
+
+
+## Using QC Metrics As Predictors
+
+```{r}
+tbl <- structure(list(x = list(tag = structure(list(name = "Reactable", 
+    attribs = list(data = structure("{\"coef\":[\"Prop No Feature\",\"Gene Assigned Rate\",\"Prop Assigned\",\"RIN\",\"SD log10 Insert Size\",\"Median Insert Size\",\"Decoy Aligned Rate\",\"hbRNA Rate\",\"GC Content\",\"Median Tin\",\"Conc\",\"Q30 Rate\",\"Depletion Conc\",\"Duplication Rate\",\"rRNA Rate\",\"Stranded Coverage\",\"Sequenced Fragments\"],\"nDE\":[11816,11684,11655,11537,11494,11276,11023,10672,8606,8243,6728,5152,5083,3599,1601,1060,171],\"top_gene\":[\"ENSG00000281195\",\"TALAM1\",\"TALAM1\",\"TBCEL\",\"CENATAC\",\"PABPN1\",\"ENSG00000280287\",\"HBA1\",\"ENSG00000290038\",\"CHMP4A\",\"TIMM8B\",\"RPL13AP5\",\"RPSA2\",\"ENSG00000290038\",\"MT-RNR1\",\"TALAM1\",\"RPL13AP5\"],\"gene_type\":[\"lncRNA\",\"lncRNA\",\"lncRNA\",\"protein_coding\",\"protein_coding\",\"protein_coding\",\"TEC\",\"protein_coding\",\"lncRNA\",\"protein_coding\",\"protein_coding\",\"processed_pseudogene\",\"protein_coding\",\"lncRNA\",\"Mt_rRNA\",\"lncRNA\",\"processed_pseudogene\"],\"Q1\":[0.205357142857143,0.204928571428571,0.2055,0.194428571428571,0.2055,0.191714285714286,0.195214285714286,0.169642857142857,0.159,0.116785714285714,0.101571428571429,0.0610714285714286,0.0775,0.0429285714285714,0.031,0.0271428571428571,0.00421428571428571],\"Q2\":[0.211857142857143,0.209857142857143,0.209428571428571,0.206785714285714,0.207857142857143,0.200642857142857,0.1985,0.192571428571429,0.155214285714286,0.145785714285714,0.119357142857143,0.0904285714285714,0.0872142857142857,0.054,0.0241428571428571,0.0181428571428571,0.00321428571428571],\"Q3\":[0.213142857142857,0.206642857142857,0.205428571428571,0.209357142857143,0.203142857142857,0.204857142857143,0.195714285714286,0.199428571428571,0.150857142857143,0.159214285714286,0.125214285714286,0.1095,0.0976428571428571,0.076,0.0285714285714286,0.0156428571428571,0.00192857142857143],\"Q4\":[0.213642857142857,0.213142857142857,0.212142857142857,0.2135,0.2045,0.208214285714286,0.197928571428571,0.200642857142857,0.149642857142857,0.167,0.134428571428571,0.107,0.100714285714286,0.0841428571428571,0.0306428571428571,0.0147857142857143,0.00285714285714286],\"mean_gc\":[0.485230896801646,0.485678531294568,0.48547096565743,0.485072943195065,0.485202804529892,0.485388346965225,0.484716074796123,0.48655230634273,0.48558842498627,0.487858954154054,0.486435199632921,0.488509217881652,0.480068635699605,0.473266997959184,0.492580498622014,0.503611422238164,0.474119597361045],\"mean_length\":[4719.40206652058,4699.18761329903,4702.56812878586,4703.49289132616,4733.74010577661,4711.29441955981,4722.3297896665,4804.99750141362,4742.3146889368,4485.99394000667,4391.75429862889,4368.27850755664,4490.78023178923,4552.71940573309,4042.61614488541,5316.11786663301,1522.59285688669]}", class = "json"), 
+        columns = list(list(id = "coef", name = "QC Metric", 
+            type = "character"), list(id = "nDE", name = "DE Genes", 
+            type = "numeric", format = list(cell = structure(list(
+                separators = TRUE), class = "colFormat"), aggregated = structure(list(
+                separators = TRUE), class = "colFormat"))), list(
+            id = "top_gene", name = "Highest Ranked Gene", type = "character", 
+            cell = list(structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                children = list("ENSG00000281195")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("TALAM1")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("TALAM1")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("TBCEL")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("CENATAC")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("PABPN1")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("ENSG00000280287")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("HBA1")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("ENSG00000290038")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("CHMP4A")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("TIMM8B")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("RPL13AP5")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("RPSA2")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("ENSG00000290038")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("MT-RNR1")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("TALAM1")), class = "shiny.tag"), 
+                structure(list(name = "em", attribs = structure(list(), names = character(0)), 
+                  children = list("RPL13AP5")), class = "shiny.tag")), 
+            html = TRUE, minWidth = 100), list(id = "gene_type", 
+            name = "Gene Type", type = "character"), list(id = "Q1", 
+            name = "Q1", type = "numeric", format = list(cell = structure(list(
+                digits = 1L, percent = TRUE), class = "colFormat"), 
+                aggregated = structure(list(digits = 1L, percent = TRUE), class = "colFormat")), 
+            maxWidth = 75), list(id = "Q2", name = "Q2", type = "numeric", 
+            format = list(cell = structure(list(digits = 1L, 
+                percent = TRUE), class = "colFormat"), aggregated = structure(list(
+                digits = 1L, percent = TRUE), class = "colFormat")), 
+            maxWidth = 75), list(id = "Q3", name = "Q3", type = "numeric", 
+            format = list(cell = structure(list(digits = 1L, 
+                percent = TRUE), class = "colFormat"), aggregated = structure(list(
+                digits = 1L, percent = TRUE), class = "colFormat")), 
+            maxWidth = 75), list(id = "Q4", name = "Q4", type = "numeric", 
+            format = list(cell = structure(list(digits = 1L, 
+                percent = TRUE), class = "colFormat"), aggregated = structure(list(
+                digits = 1L, percent = TRUE), class = "colFormat")), 
+            maxWidth = 75), list(id = "mean_gc", name = "Mean GC Content", 
+            type = "numeric", format = list(cell = structure(list(
+                digits = 1L, percent = TRUE), class = "colFormat"), 
+                aggregated = structure(list(digits = 1L, percent = TRUE), class = "colFormat")), 
+            maxWidth = 90), list(id = "mean_length", name = "Mean DE Gene Length", 
+            type = "numeric", format = list(cell = structure(list(
+                digits = 0L), class = "colFormat"), aggregated = structure(list(
+                digits = 0L), class = "colFormat")), maxWidth = 90)), 
+        pagination = FALSE, theme = structure(list(style = list(
+            fontSize = 14)), class = "reactableTheme"), dataKey = "df90639d970ab153d63431dff8ae439c", 
+        static = FALSE), children = list()), class = c("reactR_component", 
+"shiny.tag", "list")), class = "reactR_markup"), width = NULL, 
+    height = NULL, sizingPolicy = list(defaultWidth = "auto", 
+        defaultHeight = "auto", padding = NULL, fill = NULL, 
+        viewer = list(defaultWidth = NULL, defaultHeight = NULL, 
+            padding = NULL, fill = TRUE, suppress = FALSE, paneHeight = NULL), 
+        browser = list(defaultWidth = NULL, defaultHeight = NULL, 
+            padding = NULL, fill = FALSE, external = FALSE), 
+        knitr = list(defaultWidth = NULL, defaultHeight = NULL, 
+            figure = FALSE)), dependencies = list(), elementId = NULL, 
+    preRenderHook = NULL, jsHooks = list()), class = c("reactable", 
+"htmlwidget"), package = "reactable")
+browsable(tagList(tbl))
+```
+
+
+## Managing Noise
+
+- Strategy is to fit a null (intercept-only) model
+    + Add QC metrics to find which improve fit <br>$\implies$ becomes baseline model for all DGE analysis
+    + Identify best combination of metrics
+- gDNA-related metrics (QC PC1)
+    + `stranded_coverage`, `prop_no_feature`, `sd_log10_insert_size`, `decoy_aligned_rate`, `gene_assigned_rate`
+- Library composition metrics (QC PC2)
+    + `hbrna_rate`, `rrna_rate`, `gc_content`, `duplication_rate`
+- Also tried RIN
+  
+## Managing Noise: gDNA Metrics
+
+:::: {.columns}
+::: {.column}
+![Lower Dispersions $\implies$ better fit](images/gdna-resid-quartile-1.png)
+:::
+::: {.column}
+::: {.fragment}
+![Differences from intercept-only](images/gdna-dev-ratio-quartile-1.png)
+:::
+:::
+::::
+    
+## Managing Noise: Library Composition
+
+:::: {.columns}
+::: {.column}
+![Lower Dispersions $\implies$ better fit](images/comp-resid-quartile-1.png)
+:::
+::: {.column}
+::: {.fragment}
+![Differences from intercept-only](images/comp-dev-ratio-quartile-1.png)
+:::
+:::
+::::    
+
+## Managing Noise: Combined Metrics
+
+:::: {.columns}
+::: {.column}
+![Lower Dispersions $\implies$ better fit](images/cand-dev-ratio-quartile-1.png)
+:::
+::: {.column}
+::: {incremental}
+- No combination outperformed `prop_no_feature` as a natural spline
+    + Each predictor costs degrees of freedom
+- Have also tested age as a predictor
+    + Natural spline is better than linear
+- PC1 from genotype data improves about 30% of genes
+
+:::
+:::
+::::    
+
+## Take Home
+
+::: {style="font-size:95%"}
+
+- Unlike any dataset I've ever worked with
+- The gDNA work reinforces Hien To's work on `strandcheckR`
+    + Would love to see it added to `nf-core`
+- Setting all data handling early is great
+    + Unexpected challenges incorporating mixups
+    + Typos in sample sheets can be infuriating (e.g. Pool vs pool)
+- Didn't see any clinical variables for >2yrs
+    - T2D: 000's of DE Genes
+    - CKD: 000's of DE Genes
+    - CHD is a really difficult phenotype
+
+:::
+
+## Clickbait Time
+
+Is large cohort transcriptomics just scRNA without the zero counts?
+
+:::: {.columns}
+::: {.column width='40%'}
+
+![Stevie speaks the truth](https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3N3Q5cW0wMXloa2J2dzFwNTZqMm00NmE2cXV3cm5uZWVnOXlxM3hneCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/26hkhKd2Cp5WMWU1O/giphy.gif){fig-align="left"}
+:::
+::: {.column width='60%'}
+The questions are completely different:
+
+::: {.incremental}
+
+- We want clusters of genes defining disease pathology with age + complication, NOT clusters of cells
+- QC represents fundamentally different technical processes
+
+:::
+:::
+::::
+
+## Acknowledgements
+
+::: {style="font-size:80%"}
+
+:::: {.columns}
+
+::: {.column width='25%'}
+[**Black Ochre Data Labs**]{.underline}
+
+Alex Brown
+
+**Jimmy Breen**
+
+**Alastair Ludington**
+
+Sam Buckberry
+
+Liza Kretzschmar
+
+Yassine Souilmi
+
+Katharine Brown
+
+Rose Senesi
+
+Sam Godwin
+
+Rebecca Simpson
+
+:::
+
+::: {.column width='25%'}
+<br>
+Adam Heterick
+
+Kaashifah Bruce
+
+Bastien Llamas
+
+Amanda Richards-Satour
+
+Justine Clark
+
+Holly Massacci
+
+Sarah Munns
+
+Alli Foster
+
+Sehaj Dhariwal
+
+:::
+
+::: {.column width='25%'}
+[**SAGC**]{.underline}
+
+Sen Wang
+
+Renee Smith
+
+**John Salamon**
+
+Paul Wang
+
+[**Baker Heart & Diabetes Institute**]{.underline}
+
+Sam El Osta
+
+Ishant Kurma
+
+Moshe Olshansky
+
+Scott Maxwell
+
+:::
+::: {.column width='25%'}
+
+[**SAHMRI / Wardliparingga**]{.underline}
+
+**Natasha Howard**
+
+[**Victor Chang Cardiac Research Institute**]{.underline}
+
+Jason Kovacic
+
+[**University of Sydney**]{.underline}
+
+Jean Yang
+
+[**Centre For Population Genomics**]{.underline}
+
+Dan MacArthur
+
+
+:::
+::::
+
+:::
+
+## References
