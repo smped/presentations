@@ -204,13 +204,15 @@ Is large cohort transcriptomics just scRNA without the zero counts?
 - Previously, I'd only done n = 4, with up to 4 treatment groups
 :::
 
+::: {style = "font-size:94%"}
+
 - Whole Blood from participants $\implies$ incredibly valuable resource
 - Trying to to get everything as 'right' as possible $\implies$ no second chances
 - 13x96 well plates were planned for & paid before I joined $\implies$ N = 1248
 
 ::: {.fragment .fade-in-then-out data-fragment-index="1"}
 
-![](https://static1.cbrimages.com/wordpress/wp-content/uploads/2024/09/far-side-roger-screws-up.jpg){.absolute width='350px'}
+![](https://static1.cbrimages.com/wordpress/wp-content/uploads/2024/09/far-side-roger-screws-up.jpg){.absolute width='380px'}
 
 :::
 
@@ -224,8 +226,11 @@ Is large cohort transcriptomics just scRNA without the zero counts?
 - Pilot study compared polyA with totalRNA (rRNA + hbRNA depleted)
 
 :::
+:::
 
 ## Study Design
+
+::: {style="font-size:90%"}
 
 - Prepared in batches of 96 $\implies$ batch effects 
     + All reagents from same supplier batches
@@ -237,6 +242,8 @@ Is large cohort transcriptomics just scRNA without the zero counts?
     + Randomising samples would be extremely difficult
     + Only had access to RIN, Concentration & Sex
     + El Osta sub-cohort were all late ULNs
+
+:::
 
 ## Experimental Design
 
@@ -832,7 +839,7 @@ SAGCQA0503-14          38        52        6            0                     6.
 
 ## QC
 
-::: {style = "font-size:47%"}
+::: {style = "font-size:46%"}
 
 | Name | Source | Interpretation |
 |:---- |:---- |:------------------ |
@@ -843,7 +850,7 @@ SAGCQA0503-14          38        52        6            0                     6.
 | `rrna_rate` | BODL pipeline  | Estimates the proportion of reads deriving from rRNA by aligning a subset of reads to an rRNA reference |
 | `hbrna_rate` | BODL pipeline | Estimates the proportion of reads deriving from hbRNA by aligning a subset of reads to an rRNA reference |
 | `duplication_rate` | `fastp`   | Taken directly from the fastp reports, given that UMIs were included in all libraries |
-| `sequenced_fragments` | `fastp` | The initial number of frgaments contained in each pair of fastq files |
+| `sequenced_fragments` | `fastp` | The initial number of fragments contained in each pair of fastq files |
 | `q30_rate` | `fastp` | The proportion of bases acheiving a PHRED quality score > 30 when being sequenced |
 | `gc_content` | `fastp` | The average GC content of reads across the entire library |
 | `gene_assigned_rate` | `salmon` | `num_frags_with_concordant_consistent_mappings` / `sequenced_fragments`|
@@ -853,7 +860,7 @@ SAGCQA0503-14          38        52        6            0                     6.
 | `median_tin` | `nf-core` | The median TIN score across all measured trancripts |
 | `prop_no_feature` | `featureCounts` | The proportion of input reads which aligned where there was no annotated feature |
 | `stranded_coverage` | `strandcheckR` | The proportion of windows showing >90% of reads with a stranded bias, weighted by coverage |
-| `prop_assigned` | `featureCounts` / `salmon` | The proportion of input reads which were assigned to a gene/transcript |
+| `prop_assigned` | `featureCounts` / `salmon` | The proportion of sequenced fragments assigned to a gene/transcript |
 
 :::
 
@@ -916,7 +923,7 @@ SAGCQA0503-14          38        52        6            0                     6.
 
 ## Outlier Detection
 
-![](images/upset-key-vars-1.png){.absolute left=0 top=100 width='900px'}
+![](images/upset-key-vars-1.png){.absolute left=0 top=80 width='800px'}
 
 ::: {.fragment}
 
@@ -956,6 +963,7 @@ SAGCQA0503-14          38        52        6            0                     6.
 :::
 ::: {.column width='40%'}
 ::: {.incremental}
+- Method developed by Lachlan Baer
 - Bin gene-level rotations from PCA by GC & Length
 - Perform $t$-test in each bin
 - If no bias $\implies$ random noise
@@ -977,11 +985,15 @@ SAGCQA0503-14          38        52        6            0                     6.
 :::
 
 ::: {.column}
+::: {.fragment}
 ![](images/cqn-pools-1.png)
+:::
 :::
 ::::
 
+::: {.fragment}
 Both improve further using `glmTreat()` at FC > 1.1
+:::
 
 ## Do Any QC Metrics Impact Signal
 
@@ -1088,6 +1100,8 @@ browsable(tagList(tbl))
 
 ## Managing Noise
 
+::: {style="font-size: 90%"}
+
 - Strategy is to fit a null (intercept-only) model
     + Add QC metrics to find which improve fit <br>$\implies$ becomes baseline model for all DGE analysis
     + Identify best combination of metrics
@@ -1096,6 +1110,8 @@ browsable(tagList(tbl))
 - Library composition metrics (QC PC2)
     + `hbrna_rate`, `rrna_rate`, `gc_content`, `duplication_rate`
 - Also tried RIN
+  
+:::
   
 ## Managing Noise: gDNA Metrics
 
@@ -1130,6 +1146,7 @@ browsable(tagList(tbl))
 ![Lower Dispersions $\implies$ better fit](images/cand-dev-ratio-quartile-1.png)
 :::
 ::: {.column}
+::: {style="font-size:90%"}
 ::: {incremental}
 - No combination outperformed `prop_no_feature` as a natural spline
     + Each predictor costs degrees of freedom
@@ -1139,6 +1156,7 @@ browsable(tagList(tbl))
 
 :::
 :::
+:::
 ::::    
 
 ## Take Home
@@ -1146,7 +1164,7 @@ browsable(tagList(tbl))
 ::: {style="font-size:95%"}
 
 - Unlike any dataset I've ever worked with
-- The gDNA work reinforces Hien To's work on `strandcheckR`
+- The gDNA aspect reinforces Hien To's work on `strandcheckR`
     + Would love to see it added to `nf-core`
 - Setting all data handling early is great
     + Unexpected challenges incorporating mixups

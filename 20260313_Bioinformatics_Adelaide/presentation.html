@@ -342,13 +342,14 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+<div style="font-size:94%">
 <ul>
 <li>Whole Blood from participants <span class="math inline">\(\implies\)</span> incredibly valuable resource</li>
 <li>Trying to to get everything as ‘right’ as possible <span class="math inline">\(\implies\)</span> no second chances</li>
 <li>13x96 well plates were planned for &amp; paid before I joined <span class="math inline">\(\implies\)</span> N = 1248</li>
 </ul>
 <div class="fragment fade-in-then-out" data-fragment-index="1">
-<p><img data-src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2024/09/far-side-roger-screws-up.jpg" class="absolute" style="width: 350px; "></p>
+<p><img data-src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2024/09/far-side-roger-screws-up.jpg" class="absolute" style="width: 380px; "></p>
 </div>
 <div class="fragment fade-in" data-fragment-index="2">
 <ul>
@@ -364,9 +365,11 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <li>Pilot study compared polyA with totalRNA (rRNA + hbRNA depleted)</li>
 </ul>
 </div>
+</div>
 </section>
 <section id="study-design" class="slide level2">
 <h2>Study Design</h2>
+<div style="font-size:90%">
 <ul>
 <li>Prepared in batches of 96 <span class="math inline">\(\implies\)</span> batch effects
 <ul>
@@ -387,6 +390,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <li>El Osta sub-cohort were all late ULNs</li>
 </ul></li>
 </ul>
+</div>
 </section>
 <section id="experimental-design" class="slide level2">
 <h2>Experimental Design</h2>
@@ -777,7 +781,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 </section>
 <section id="qc" class="slide level2">
 <h2>QC</h2>
-<div style="font-size:47%">
+<div style="font-size:46%">
 <table class="caption-top">
 <colgroup>
 <col style="width: 17%">
@@ -830,7 +834,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <tr class="even">
 <td style="text-align: left;"><code>sequenced_fragments</code></td>
 <td style="text-align: left;"><code>fastp</code></td>
-<td style="text-align: left;">The initial number of frgaments contained in each pair of fastq files</td>
+<td style="text-align: left;">The initial number of fragments contained in each pair of fastq files</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>q30_rate</code></td>
@@ -880,7 +884,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <tr class="even">
 <td style="text-align: left;"><code>prop_assigned</code></td>
 <td style="text-align: left;"><code>featureCounts</code> / <code>salmon</code></td>
-<td style="text-align: left;">The proportion of input reads which were assigned to a gene/transcript</td>
+<td style="text-align: left;">The proportion of sequenced fragments assigned to a gene/transcript</td>
 </tr>
 </tbody>
 </table>
@@ -950,7 +954,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 </section>
 <section id="outlier-detection-2" class="slide level2">
 <h2>Outlier Detection</h2>
-<p><img data-src="images/upset-key-vars-1.png" class="absolute" style="top: 100px; left: 0px; width: 900px; "></p>
+<p><img data-src="images/upset-key-vars-1.png" class="absolute" style="top: 80px; left: 0px; width: 800px; "></p>
 <div class="fragment">
 <p><img data-src="https://smped.github.io/SimpleUpset/reference/figures/SimpleUpset.png" class="absolute" style="top: 100px; right: 100px; width: 150px; "></p>
 </div>
@@ -991,6 +995,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <p><img data-src="images/combined-rotations-1.png"></p>
 </div><div class="column" style="width:40%;">
 <ul>
+<li class="fragment">Method developed by Lachlan Baer</li>
 <li class="fragment">Bin gene-level rotations from PCA by GC &amp; Length</li>
 <li class="fragment">Perform <span class="math inline">\(t\)</span>-test in each bin</li>
 <li class="fragment">If no bias <span class="math inline">\(\implies\)</span> random noise</li>
@@ -1009,9 +1014,13 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <div class="column">
 <p><img data-src="images/tmm-pools-1.png"></p>
 </div><div class="column">
+<div class="fragment">
 <p><img data-src="images/cqn-pools-1.png"></p>
+</div>
 </div></div>
+<div class="fragment">
 <p>Both improve further using <code>glmTreat()</code> at FC &gt; 1.1</p>
+</div>
 </section>
 <section id="do-any-qc-metrics-impact-signal" class="slide level2">
 <h2>Do Any QC Metrics Impact Signal</h2>
@@ -1037,6 +1046,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 </section>
 <section id="managing-noise" class="slide level2">
 <h2>Managing Noise</h2>
+<div style="font-size: 90%">
 <ul>
 <li>Strategy is to fit a null (intercept-only) model
 <ul>
@@ -1053,6 +1063,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 </ul></li>
 <li>Also tried RIN</li>
 </ul>
+</div>
 </section>
 <section id="managing-noise-gdna-metrics" class="slide level2">
 <h2>Managing Noise: gDNA Metrics</h2>
@@ -1107,6 +1118,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 </figure>
 </div>
 </div><div class="column">
+<div style="font-size:90%">
 <div class="{incremental}">
 <ul>
 <li>No combination outperformed <code>prop_no_feature</code> as a natural spline
@@ -1120,6 +1132,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <li>PC1 from genotype data improves about 30% of genes</li>
 </ul>
 </div>
+</div>
 </div></div>
 </section>
 <section id="take-home" class="slide level2">
@@ -1127,7 +1140,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <div style="font-size:95%">
 <ul>
 <li>Unlike any dataset I’ve ever worked with</li>
-<li>The gDNA work reinforces Hien To’s work on <code>strandcheckR</code>
+<li>The gDNA aspect reinforces Hien To’s work on <code>strandcheckR</code>
 <ul>
 <li>Would love to see it added to <code>nf-core</code></li>
 </ul></li>
