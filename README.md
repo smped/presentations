@@ -7,4 +7,4 @@
 - [Adelaide Biomed Bioinformatics, May 2024](20240503_Bioinformatics_Adelaide/20240503_transmogR.html)
 - [BiocAsia 2024, Sydney, Nov 2024](20241108_BiocAsia_transmogR/20241108_BiocAsia_transmogR.html)
 - [Inaugural Bioconductor Meetup, Adelaide, Jun 2025](20250625_BiocMeetup_Adelaide/presentation.html)
-- [Adelaide Biomed Bioinformatics, March 2026](2026_Bioinformatics_Adelaide/presentation.html)
+- [Adelaide Biomed Bioinformatics, March 2026](20260313_Bioinformatics_Adelaide/presentation.html)
