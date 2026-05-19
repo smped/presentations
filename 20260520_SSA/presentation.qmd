@@ -1,0 +1,240 @@
+---
+title: "The Bioconductor Project"
+author: "Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Institute Australia / ANU"
+date: "2026-05-20"
+date-format: long
+title-slide-attributes:
+    data-background-color: "#3D3D40"
+    data-background-opacity: "70%"
+    data-background-size: "20%"
+    data-background-position: "95% 10%"
+editor: source
+format: 
+  revealjs:
+    bibliography: references.bib
+    theme: [assets/bodl.scss]
+    code-line-numbers: false
+    width: 1280
+    height: 720
+    sansfont: Times New Roman
+    logo: assets/bodl_logo_white_background.jpg
+    slide-number: c/t
+include-after: |
+  <script type="text/javascript">
+    Reveal.on('ready', event => {
+      if (event.indexh === 0) {
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+      }
+    });
+    Reveal.addEventListener('slidechanged', (event) => {
+      if (event.indexh === 0) {
+        Reveal.configure({ slideNumber: null });
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+      }
+      if (event.indexh === 1) { 
+        Reveal.configure({ slideNumber: 'c' });
+        document.querySelector("div.has-logo > img.slide-logo").style.display = null;
+      }
+    });
+  </script>    
+knitr: 
+  opts_chunk: 
+    echo: false
+    include: true
+    warning: false
+    message: false
+    fig.align: left
+    fig.width: 8
+    fig.heght: 6
+---
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+library(bodlR)
+library(reactable)
+library(htmltools)
+theme_set(theme_bodl())
+```
+
+
+
+## About Me
+
+- Posdoctoral Bioinformatician, The Kids Research Institute Australia (Adelaide)
+- Leading transcriptomics analysis of large-cohort, multiomics study (n > 1000)
+    + T2D + Complications (CVD, CKD, DR) in the SA Aboriginal Community
+- Coordinator, Bioinformatics Hub, University of Adelaide 2014-2020
+- PhD, University of Adelaide 2008-2018 (Prof Simon Barry, Prof Gary Glonek)
+
+. . .
+
+- First exposure to R was as an undergraduate student 2002 (v1.5?)
+    
+## Bioconductor Enthusiast
+
+![](https://smped.github.io/ngsReports/reference/figures/ngsReports.png){.absolute left=0 top=100 width='150px'}
+
+![](https://smped.github.io/extraChIPs/reference/figures/extraChIPs.png){.absolute left=200 top=100 width='150px'}
+
+![](https://smped.github.io/motifTestR/reference/figures/favicon.png){.absolute left=400 top=100 width='150px'}
+
+![](https://smped.github.io/transmogR/reference/figures/transmogR.png){.absolute left=600 top=100 width='150px'}
+
+![](https://smped.github.io/SimpleUpset/reference/figures/SimpleUpset.png){.absolute right=100 top=100 width='150px'}
+<br><br><br><br>
+
+- Also developed & maintain `strandcheckR` (Hien To)
+    + Helped with `sSNAPPY` (Nora Liu) + `tadar` (Lachlan Baer)
+    
+::: {.fragment}
+    
+- Currently co-chair of Community Advisory Board 
+    + Leading BiocAsia Working Group
+
+:::
+
+## What Is Bioconductor?
+
+:::: {.columns}
+::: {.column width='48%'}
+::: {style="font-size:80%"}
+
+- Started in 2001 by Robert Gentleman, Dana Farber Cancer Research Institute
+    + Raphael Irizarry, Sandrine Dudoit, Vince Carey
+    + Version 1.0, May 2002 (R v1.5)
+- First publication: Genome Biology 2004
+
+::: {.fragment}
+Key aims:
+
+- Reproducibility
+- Transparency
+- Efficiency
+    + Computational & Method Development
+- Statistical Rigour
+
+:::
+    
+:::
+:::
+
+::: {.column width='52%'}
+![](assets/bioc_gb_2004.png)
+:::
+
+::::
+
+## What Is Bioconductor?
+
+- Has become a highly connected, ecosystem of packages
+    - 2418 Software, 928 Annotation, 436 Data & 25 Workflows
+- Computational efficiency paramount for genomic data
+    + `S4`-focussed ecosystem (`Vector`, `List`, `DataFrame`, `Rle` etc)
+    + "Tidy" approaches gaining popularity and being developed
+- Core classes expected to be used across packages
+    + e.g. `GenomicRanges`, `SummarizedExperiment`
+    + Clearly defined structures for *sample metadata* and *genomic metadata*
+- Classes can be extended across contexts <br>$\implies$ DNA methylation, single-cell RNA-Seq etc
+
+## Governance
+
+- Core Team
+- Scientific Advisory Board (~2012)
+- Technical Advisory Board (~2013)
+- Community Advisory Board (~2020)
+
+::: {.fragment .fade-out fragment-index=1}
+
+![](assets/bioc_core.png){.absolute right=0 top=100 width='600'}
+:::
+
+::: {.fragment .fade-in-then-out fragment-index=1}
+
+![](assets/sab.png){.absolute right=0 top=100 width='650'}
+:::
+
+::: {.fragment .fade-in-then-out fragment-index=2}
+
+![](assets/tab.png){.absolute right=0 top=0 width='600'}
+:::
+
+::: {.fragment .fade-in-then-out fragment-index=3}
+
+![](assets/cab.png){.absolute right=0 top=0 width='600'}
+:::
+
+## Packages
+
+- Twice annual release $\implies$ shortly after R releases
+    + Release has minimum R version requirements
+    + Keep package interdependencies stable & reproducible within release
+    + Bugfixes within release but **not** major UI updates
+    + Release 3.23 April 2029
+- Docker Containers also released with each cycle
+- Twice weekly build testing (release) + nightly (devel)
+    + Formerly the Bioconductor Build System (BBS) <br>$\implies$ Windows, OSX, Linux, Arch
+    + Migrating to R-Universe for testing (& distribution)
+    
+## Installation
+
+- Recommended method `BiocManager::install()`
+    + Accepts a version argument and auto-detects
+- Can also check version `BiocManager::version()`
+- Also installs from `CRAN`
+- Compatible with `remotes` syntax: `BiocManager::install("user/repo")`
+    + Can't enforce version compatability using `remotes`
+
+## Package Submission
+
+:::: {.columns}
+::: {style="font-size:80%"}
+::: {.column width='45%'}
+- Packages submitted by opening a github issue: `Bioconductor/Contributions`
+
+::: {.fragment fragment-index=1}
+- Submission process documented in a Bioconductor book
+    <!-- + https://contributions.bioconductor.org/index.html -->
+
+:::
+
+::: {.fragment}
+- Submitted to `devel` for inclusion in next `release`
+- Reviewed by community volunteer
+- Must include a vignette
+- Standard `S4` object classes **strongly** recommended
+    + Results as `tibble`s etc are also fine
+- Can only depend on Bioc/CRAN packages    
+    
+:::
+
+:::
+
+::: {.column width='55%'}
+:::
+:::
+::::
+
+::: {.fragment .fade-in fragment-index=1}
+
+![](assets/contributions.png){.absolute right=0 top=0 width='650'}
+:::
+
+## Key Additional Questions For Panel:
+
+
+- Submit to Bioconductor if depending on Bioc infrastructure/classes
+    + CRAN can be tetchy with overly large vignettes
+    + Package size requirements also strictly enforced
+    
+::: {.fragment}
+
+- Packages must pass `R CMD check` **and** `BiocCheck::check()`
+
+:::    
+
+::: {.fragment}
+
+- Aarnet have recently re-established local mirror
+    + I have not tested installation
+
+:::
