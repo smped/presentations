@@ -1,0 +1,197 @@
+---
+title: "transmogR"
+subtitle: "Using genomic variants to modify a reference transcriptome for analysis of an Australian Indigenous population"
+author: "Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Institute Australia / ANU"
+date: "2026-05-20"
+date-format: long
+title-slide-attributes:
+    data-background-color: "#3D3D40"
+    data-background-opacity: "70%"
+    data-background-size: "20%"
+    data-background-position: "95% 10%"
+editor: source
+format: 
+  revealjs:
+    bibliography: references.bib
+    theme: [assets/bodl.scss]
+    code-line-numbers: false
+    width: 1280
+    height: 720
+    sansfont: Times New Roman
+    logo: assets/bodl_logo_white_background.jpg
+    slide-number: c/t
+include-after: |
+  <script type="text/javascript">
+    Reveal.on('ready', event => {
+      if (event.indexh === 0) {
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+      }
+    });
+    Reveal.addEventListener('slidechanged', (event) => {
+      if (event.indexh === 0) {
+        Reveal.configure({ slideNumber: null });
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+      }
+      if (event.indexh === 1) { 
+        Reveal.configure({ slideNumber: 'c' });
+        document.querySelector("div.has-logo > img.slide-logo").style.display = null;
+      }
+    });
+  </script>    
+knitr: 
+  opts_chunk: 
+    echo: false
+    include: true
+    warning: false
+    message: false
+    fig.align: left
+    fig.width: 8
+    fig.height: 6
+---
+
+## The PROPHECY Study: T2D Multiomics
+
+:::: {.columns}
+::: {.column width='60%'}
+
+![Diabetes-related mortality. Taken from @NAQSHBANDI20081](images/t2d_mortality.jpg)
+
+:::
+
+::: {.column width='40%'}
+::: {style="font-size:90%"}
+
+- Mortality rate is ~10x higher
+- Age of onset is earlier
+- Complication rates $\uparrow\uparrow\uparrow$
+    + Cardiovascular Disease
+    + Chronic Kidney Disease
+    + Diabetic Retinopathy
+    
+::: {.fragment}
+- PROPHECY: 1391 from SA Aboriginal communities
+- DNA, DNAme, RNA, Proteomics, Lipidomics, Metabolomics, ECG, Retinal scans etc
+:::
+:::
+:::
+::::
+
+::: {.rect_outline .absolute bottom='80px' left='290px' width='145px' height='550px'}
+:::
+
+
+## Variation With The Indigenous Australian Population
+
+- 25% of genomic variation unique to Australian Aboriginal population
+- `STARconsensus` has shown improved mapping and quantification [@Kaminow2022-dz]
+    + Even the wrong population group
+    
+::: {.fragment}
+- If variants are driving progression $\implies$ will we see it in the RNA-seq?
+- Can we bring the reference *transcriptome* closer to our participants?
+- What impact will this have at the gene-level and transcript-level?
+:::
+
+## PROPHECY Consensus Variants
+
+:::: {.columns}
+::: {.column width='60%'}
+
+![](images/ol-all-var-1.png)
+
+:::
+
+::: {.column width='40%'}
+::: {style="font-size:90%"}
+
+- Consensus variants: AF > 0.5 in 'unrelated'
+    + PROPHECY participants
+    + AFR & Panhuman variant sets from 1000GP
+- Pilot Study of 6 participants: personalised (haploid) references
+- Tested using `salmon` [@Srivastava2020-tm]
+- Full DTE in sub-cohort of n=93
+
+:::
+:::
+::::
+
+::: {.rect_outline .absolute bottom='180px' left='405px' width='50px' height='350px'}
+:::
+
+
+## The Package `transmogR`
+
+- Can take a set of variants (SNP + INDEL)
+    + Also checks for overlapping variants
+- Modify genome sequence [$\implies$ co-ordinates change]{.fragment}
+
+::: {.incremental}
+
+- Track coordinate shifts after modification
+- Optional tags added to sequence IDs
+- Modify transcriptome sequences
+- `digestSalmon()`: parse counts, TPM, effLen & overdispersions
+    + Can handle divergent references: chrY-excluded vs complete
+    + Personalised transcriptomes [$\implies$ statistical assumptions?]{.fragment}
+
+:::
+
+![](https://smped.github.io/transmogR/reference/figures/transmogR.png){.absolute top=0 right=20 width=200}
+
+
+## Benchmarking
+
+::: {.notes}
+- Very similar strategy to STARconsensus
+- Different assessment criteria (i.e. not unique-alignments)
+:::
+
+- Assumed that personalised references would be *optimal* quantification
+    + n = 6 (Pilot Study)
+- "Ground truth" for comparison to *consensus references*
+- Chose all homogeneous sites + 50% of hetergeneous sites
+    + Still only a haploid reference
+
+. . .
+
+- Compared 1) GRCh38, 2) AFR, 3) 'panhuman' and PROPHECY based transcriptome references
+    + panhuman derived from all 1000GP sub-populations
+    + AFR most divergent from panhuman
+
+## Comparison Against Alternate References
+
+
+:::: {.columns}
+::: {.column width='60%'}
+
+![](images/salmon_diagnostics.png)
+
+:::
+
+::: {.column width='40%'}
+::: {style="font-size:90%"}
+
+- Library sizes: ~50m (2x150)
+- PROPHECY consensus consistently closer to personalised
+- GRCh38 consistently furthest
+- Very similar to `STARconsensus` paper
+
+:::
+:::
+::::
+
+## Differences At The Gene Level
+
+## Differences At The Transcript Level
+
+## Differential Transcript Analysis
+
+## Differential Transcript Analysis
+
+## Future Directions
+
+## Acknowledgements
+
+# References
+
+##
