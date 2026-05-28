@@ -147,7 +147,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#3D3D40" data-background-opacity="70%" data-background-position="95% 10%" data-background-size="20%" class="quarto-title-block center">
+<section id="title-slide" data-background-color="#3D3D40" data-background-image="https://smped.github.io/transmogR/reference/figures/transmogR.png" data-background-opacity="70%" data-background-position="90% 90%" data-background-size="15%" class="quarto-title-block center">
   <h1 class="title">transmogR</h1>
   <p class="subtitle">Using genomic variants to modify a reference transcriptome for analysis of an Australian Indigenous population</p>
 
@@ -161,8 +161,8 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 
   <p class="date">May 20, 2026</p>
 </section>
-<section id="the-prophecy-study-t2d-multiomics" class="slide level2">
-<h2>The PROPHECY Study: T2D Multiomics</h2>
+<section id="the-prophecy-motivation" class="slide level2">
+<h2>The PROPHECY Motivation</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="quarto-figure quarto-figure-center">
@@ -172,10 +172,13 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 </figure>
 </div>
 </div><div class="column" style="width:40%;">
-<div style="font-size:90%">
+<div style="font-size:85%">
+<ul>
+<li>Type 2 Diabetes in Indigenous Australians
 <ul>
 <li>Mortality rate is ~10x higher</li>
-<li>Age of onset is earlier</li>
+<li>Age of onset is much earlier</li>
+</ul></li>
 <li>Complication rates <span class="math inline">\(\uparrow\uparrow\uparrow\)</span>
 <ul>
 <li>Cardiovascular Disease</li>
@@ -183,56 +186,47 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <li>Diabetic Retinopathy</li>
 </ul></li>
 </ul>
-<div class="fragment">
-<ul>
-<li>PROPHECY: 1391 from SA Aboriginal communities</li>
-<li>DNA, DNAme, RNA, Proteomics, Lipidomics, Metabolomics, ECG, Retinal scans etc</li>
-</ul>
-</div>
 </div>
 </div></div>
 <div class="rect_outline absolute" style="left: 290px; bottom: 80px; width: 145px; height: 550px; ">
 
 </div>
 </section>
-<section id="variation-with-the-indigenous-australian-population" class="slide level2">
-<h2>Variation With The Indigenous Australian Population</h2>
+<section id="the-prophecy-multiomics-project" class="slide level2">
+<h2>The PROPHECY Multiomics Project</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="images/australia_google_maps.png"></p>
+</div><div class="column" style="width:40%;">
+<div style="font-size:85%">
 <ul>
-<li>25% of genomic variation unique to Australian Aboriginal population</li>
-<li><code>STARconsensus</code> has shown improved mapping and quantification <span class="citation" data-cites="Kaminow2022-dz">(<a href="#/section" role="doc-biblioref" onclick="">Kaminow et al. 2022</a>)</span>
+<li>Indigenous led project
 <ul>
-<li>Even the wrong population group</li>
+<li>Run from Adelaide (+ Perth)</li>
+<li>Historical lands of Kaurna people</li>
 </ul></li>
+<li>1391 participants from SA Aboriginal communities</li>
 </ul>
 <div class="fragment">
 <ul>
-<li>If variants are driving progression <span class="math inline">\(\implies\)</span> will we see it in the RNA-seq?</li>
-<li>Can we bring the reference <em>transcriptome</em> closer to our participants?</li>
-<li>What impact will this have at the gene-level and transcript-level?</li>
+<li>DNA, DNAme, <strong>RNA</strong>, Proteomics, Lipidomics, Metabolomics, Inflammatory Panel, ECG, Retinal scans, clinical &amp; psychosocial measures etc</li>
 </ul>
 </div>
-</section>
-<section id="prophecy-consensus-variants" class="slide level2">
-<h2>PROPHECY Consensus Variants</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<p><img data-src="images/ol-all-var-1.png"></p>
-</div><div class="column" style="width:40%;">
-<div style="font-size:90%">
-<ul>
-<li>Consensus variants: AF &gt; 0.5 in ‘unrelated’
-<ul>
-<li>PROPHECY participants</li>
-<li>AFR &amp; Panhuman variant sets from 1000GP</li>
-</ul></li>
-<li>Pilot Study of 6 participants: personalised (haploid) references</li>
-<li>Tested using <code>salmon</code> <span class="citation" data-cites="Srivastava2020-tm">(<a href="#/section" role="doc-biblioref" onclick="">Srivastava et al. 2020</a>)</span></li>
-<li>Full DTE in sub-cohort of n=93</li>
-</ul>
 </div>
 </div></div>
-<div class="rect_outline absolute" style="left: 405px; bottom: 180px; width: 50px; height: 350px; ">
-
+</section>
+<section id="variation-within-the-indigenous-australian-population" class="slide level2">
+<h2>Variation Within The Indigenous Australian Population</h2>
+<ul>
+<li>25% of genomic variation unique to Australian Aboriginal population <span class="citation" data-cites="Easteal2020-fo">(<a href="#/section" role="doc-biblioref" onclick="">Easteal et al. 2020</a>)</span></li>
+<li>If variants are driving progression <span class="math inline">\(\implies\)</span> will we see it in the RNA-seq?</li>
+<li><code>STARconsensus</code> has shown improved mapping and quantification <span class="citation" data-cites="Kaminow2022-dz">(<a href="#/section" role="doc-biblioref" onclick="">Kaminow et al. 2022</a>)</span></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Can we bring the reference <em>transcriptome</em> closer to our participants?</li>
+<li>What impact will this have at both the gene-level and the transcript-level?</li>
+</ul>
 </div>
 </section>
 <section id="the-package-transmogr" class="slide level2">
@@ -250,7 +244,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <li class="fragment">Modify transcriptome sequences</li>
 <li class="fragment"><code>digestSalmon()</code>: parse counts, TPM, effLen &amp; overdispersions
 <ul>
-<li class="fragment">Can handle divergent references: chrY-excluded vs complete</li>
+<li class="fragment">Can handle divergent references: Complete vs chrY-excluded</li>
 <li class="fragment">Personalised transcriptomes <span class="fragment"><span class="math inline">\(\implies\)</span> statistical assumptions?</span></li>
 </ul></li>
 </ul>
@@ -274,29 +268,51 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+<div style="font-size:90%">
 <ul>
-<li>Assumed that personalised references would be <em>optimal</em> quantification
+<li>Assuming personalised references <span class="math inline">\(\implies\)</span> <em>optimal</em> quantification
 <ul>
 <li>n = 6 (Pilot Study)</li>
 </ul></li>
 <li>“Ground truth” for comparison to <em>consensus references</em></li>
-<li>Chose all homogeneous sites + 50% of hetergeneous sites
-<ul>
+<li>Chose all homogeneous sites + 50% of heterogeneous sites</li>
+<li>Considered the “best-case” set of pseudo-alignments (and counts)</li>
 <li>Still only a haploid reference</li>
-</ul></li>
 </ul>
 <div class="fragment">
 <ul>
-<li>Compared 1) GRCh38, 2) AFR, 3) ‘panhuman’ and PROPHECY based transcriptome references
+<li>Compared to 1) GRCh38, 2) AFR, 3) ‘panhuman’ and 4) PROPHECY-consensus transcriptome
 <ul>
 <li>panhuman derived from all 1000GP sub-populations</li>
 <li>AFR most divergent from panhuman</li>
 </ul></li>
 </ul>
 </div>
+</div>
 </section>
-<section id="comparison-against-alternate-references" class="slide level2">
-<h2>Comparison Against Alternate References</h2>
+<section id="prophecy-consensus-variants" class="slide level2">
+<h2>PROPHECY Consensus Variants</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
+<p><img data-src="images/ol-all-var-1.png"></p>
+</div><div class="column" style="width:35%;">
+<div style="font-size:85%">
+<ul>
+<li>Consensus variants: <br>AF &gt; 0.5 in ‘unrelated’
+<ul>
+<li>PROPHECY participants</li>
+<li>AFR &amp; Panhuman variant sets from 1000GP</li>
+</ul></li>
+<li>Tested using <code>salmon</code> <span class="citation" data-cites="Srivastava2020-tm">(<a href="#/section" role="doc-biblioref" onclick="">Srivastava et al. 2020</a>)</span></li>
+</ul>
+</div>
+</div></div>
+<div class="rect_outline absolute" style="left: 440px; bottom: 160px; width: 50px; height: 350px; ">
+
+</div>
+</section>
+<section id="changing-salmon-metrics" class="slide level2">
+<h2>Changing <code>salmon</code> Metrics</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <p><img data-src="images/salmon_diagnostics.png"></p>
@@ -304,6 +320,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <div style="font-size:90%">
 <ul>
 <li>Library sizes: ~50m (2x150)</li>
+<li>Showing changes from personalised references</li>
 <li>PROPHECY consensus consistently closer to personalised</li>
 <li>GRCh38 consistently furthest</li>
 <li>Very similar to <code>STARconsensus</code> paper</li>
@@ -311,23 +328,139 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 </div>
 </div></div>
 </section>
-<section id="differences-at-the-gene-level" class="slide level2">
-<h2>Differences At The Gene Level</h2>
+<section id="similarity-of-transcript-counts" class="slide level2">
+<h2>Similarity of Transcript Counts</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="images/alt_cors.png"></p>
+</div><div class="column" style="width:40%;">
+<div style="font-size:90%">
+<ul>
+<li>All highly correlated (&gt;99.6%)</li>
+<li>Counts from PROPHECY-consensus reference closest to personalised</li>
+<li>GRCh38 least correlated</li>
+</ul>
+</div>
+</div></div>
 </section>
-<section id="differences-at-the-transcript-level" class="slide level2">
-<h2>Differences At The Transcript Level</h2>
+<section id="change-in-bootstrap-overdispersions" class="slide level2">
+<h2>Change In Bootstrap Overdispersions</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="images/personal_boot_ods.png"></p>
+</div><div class="column" style="width:40%;">
+<div style="font-size:90%">
+<ul>
+<li>Taking individual-level boostraps (n = 100)</li>
+<li>Change in alternate refs against personalised</li>
+<li><strong>No global shift!!!</strong></li>
+</ul>
+</div>
+</div></div>
+</section>
+<section id="dispersions-relative-to-grch38" class="slide level2">
+<h2>Dispersions Relative To GRCh38</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img data-src="images/compare-overdisp-grch38-1.png"></p>
+</div><div class="column" style="width:40%;">
+<div style="font-size:90%">
+<ul>
+<li>Dataset level dispersions</li>
+<li>Compared to GRCh38
+<ul>
+<li>Worst but most standard</li>
+</ul></li>
+<li>What impact would a consensus-variant-based reference have?</li>
+<li>Most are relatively consistent</li>
+<li>Small number strongly changed</li>
+</ul>
+</div>
+</div></div>
+</section>
+<section id="differential-expression-analysis" class="slide level2">
+<h2>Differential Expression Analysis</h2>
+<ul>
+<li>Performed DGE analysis
+<ul>
+<li>T2D vs No T2D (n = 93)</li>
+<li>Standard <code>edgeR::glmQLFit()</code> methods</li>
+</ul></li>
+<li>Performed DTE analysis
+<ul>
+<li>Scaled counts by overdispersions <span class="citation" data-cites="Baldoni2024-zf">(<a href="#/section" role="doc-biblioref" onclick="">Baldoni et al. 2024</a>)</span></li>
+</ul></li>
+</ul>
+<div class="fragment">
+<p><em>Do cohort-level results change with the PROPHECY consensus-modified reference trancriptome</em>?</p>
+</div>
+<div class="fragment">
+<p>(Not at the gene level. No.)</p>
+</div>
 </section>
 <section id="differential-transcript-analysis" class="slide level2">
 <h2>Differential Transcript Analysis</h2>
-</section>
-<section id="differential-transcript-analysis-1" class="slide level2">
-<h2>Differential Transcript Analysis</h2>
+<div class="columns">
+<div class="column">
+<p><img data-src="images/compare-pval-full-1.png"></p>
+</div><div class="column">
+<p><img data-src="images/compare-lfc-full-1.png"></p>
+</div></div>
 </section>
 <section id="future-directions" class="slide level2">
 <h2>Future Directions</h2>
+<ul>
+<li>Repeat benchmarking using public data</li>
+<li>Repeat using methods of <span class="citation" data-cites="Singh2025-fk">Singh et al. (<a href="#/section" role="doc-biblioref" onclick="">2025</a>)</span></li>
+<li>Can <code>salmon</code> be extended to a diploid reference?
+<ul>
+<li>Personalised reference transcriptomes?</li>
+<li>Cell-line specific reference transcriptomes?</li>
+<li>Will require rethink of statistical assumptions for DTE/DGE</li>
+</ul></li>
+</ul>
 </section>
 <section id="acknowledgements" class="slide level2">
 <h2>Acknowledgements</h2>
+<div style="font-size:75%">
+<div class="columns">
+<div class="column" style="width:28%;">
+<p><u><strong>Black Ochre Data Labs</strong></u></p>
+<p><em>Alex Brown</em></p>
+<p><em>Jimmy Breen</em></p>
+<p>Alastair Ludington</p>
+<p>Sam Buckberry</p>
+<p>Liza Kretzschmar</p>
+<p><em>Yassine Souilmi</em></p>
+<p>Katharine Brown</p>
+<p>Rose Senesi</p>
+<p>Sam Godwin</p>
+<p>Rebecca Simpson</p>
+</div><div class="column" style="width:28%;">
+<p><br> Natasha Howard</p>
+<p>Adam Heterick</p>
+<p>Kaashifah Bruce</p>
+<p>Bastien Llamas</p>
+<p>Amanda Richards-Satour</p>
+<p>Justine Clark</p>
+<p>Holly Massacci</p>
+<p>Sarah Munns</p>
+<p>Alli Foster</p>
+<p>Sehaj Dhariwal</p>
+</div><div class="column" style="width:35%;">
+<p><u><strong>Baker Heart &amp; Diabetes Institute</strong></u></p>
+<p>Sam El Osta</p>
+<p><em>Ishant Kurma</em></p>
+<p>Moshe Olshansky</p>
+<p>Scott Maxwell</p>
+<p><u><strong>Centre For Population Genomics</strong></u></p>
+<p><em>Dan MacArthur</em></p>
+<p><u><strong>University of Sydney</strong></u></p>
+<p>Jean Yang</p>
+</div></div>
+</div>
+<p><img data-src="assets/TheKids-RGB_Logo_Colour-Pattern.png" class="absolute" style="bottom: -50px; right: 70px; width: 250px; "></p>
+<p><img data-src="assets/ANU_Primary_Horizontal_GoldBlack.jpg" class="absolute" style="left: 650px; bottom: 0px; width: 280px; "></p>
 </section>
 <section>
 <section id="references" class="title-slide slide level1 center">
@@ -338,11 +471,20 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <h2></h2>
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Baldoni2024-zf" class="csl-entry" role="listitem">
+Baldoni, Pedro L, Yunshun Chen, Soroor Hediyeh-Zadeh, Yang Liao, Xueyi Dong, Matthew E Ritchie, Wei Shi, and Gordon K Smyth. 2024. <span>“Dividing Out Quantification Uncertainty Allows Efficient Assessment of Differential Transcript Expression with <span class="nocase">edgeR</span>.”</span> <em>Nucleic Acids Res.</em> 52 (3): e13.
+</div>
+<div id="ref-Easteal2020-fo" class="csl-entry" role="listitem">
+Easteal, Simon, Ruth M Arkell, Renzo F Balboa, Shayne A Bellingham, Alex D Brown, Tom Calma, Matthew C Cook, et al. 2020. <span>“Equitable Expanded Carrier Screening Needs Indigenous Clinical and Population Genomic Data.”</span> <em>Am. J. Hum. Genet.</em> 107 (2): 175–82.
+</div>
 <div id="ref-Kaminow2022-dz" class="csl-entry" role="listitem">
 Kaminow, Benjamin, Sara Ballouz, Jesse Gillis, and Alexander Dobin. 2022. <span>“Pan-Human Consensus Genome Significantly Improves the Accuracy of <span>RNA</span>-Seq Analyses.”</span> <em>Genome Res.</em> 32 (4): 738–49.
 </div>
 <div id="ref-NAQSHBANDI20081" class="csl-entry" role="listitem">
 Naqshbandi, Mariam, Stewart B. Harris, James G. Esler, and Fred Antwi-Nsiah. 2008. <span>“Global Complication Rates of Type 2 Diabetes in Indigenous Peoples: A Comprehensive Review.”</span> <em>Diabetes Research and Clinical Practice</em> 82 (1): 1–17. https://doi.org/<a href="https://doi.org/10.1016/j.diabres.2008.07.017">https://doi.org/10.1016/j.diabres.2008.07.017</a>.
+</div>
+<div id="ref-Singh2025-fk" class="csl-entry" role="listitem">
+Singh, Noor P, Euphy Wu, Jason Fan, Michael I Love, and Rob Patro. 2025. <span>“Tree-Based Differential Testing Using Inferential Uncertainty for <span>RNA</span>-Seq.”</span> <em>Genome Res.</em>, August, gr.279981.124.
 </div>
 <div id="ref-Srivastava2020-tm" class="csl-entry" role="listitem">
 Srivastava, Avi, Laraib Malik, Hirak Sarkar, Mohsen Zakeri, Fatemeh Almodaresi, Charlotte Soneson, Michael I Love, Carl Kingsford, and Rob Patro. 2020. <span>“Alignment and Mapping Methodology Influence Transcript Abundance Estimation.”</span> <em>Genome Biol.</em> 21 (1): 239.
