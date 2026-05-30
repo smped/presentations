@@ -245,7 +245,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <li class="fragment"><code>digestSalmon()</code>: parse counts, TPM, effLen &amp; overdispersions
 <ul>
 <li class="fragment">Can handle divergent references: Complete vs chrY-excluded</li>
-<li class="fragment">Personalised transcriptomes <span class="fragment"><span class="math inline">\(\implies\)</span> statistical assumptions?</span></li>
+<li class="fragment">Personalised transcriptomes</li>
 </ul></li>
 </ul>
 <p><img data-src="https://smped.github.io/transmogR/reference/figures/transmogR.png" class="absolute" style="top: 0px; right: 20px; width: 200px; "></p>
@@ -313,6 +313,23 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 </section>
 <section id="changing-salmon-metrics" class="slide level2">
 <h2>Changing <code>salmon</code> Metrics</h2>
+<aside class="notes">
+<ul>
+<li>Small decreases in aligned fragment</li>
+<li>Small increase in decoy-preferred alignments</li>
+<li>Increase in alignments below thresholod of mapping</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <div class="columns">
 <div class="column" style="width:60%;">
 <p><img data-src="images/salmon_diagnostics.png"></p>
@@ -383,7 +400,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <ul>
 <li>Performed DGE analysis
 <ul>
-<li>T2D vs No T2D (n = 93)</li>
+<li>T2D vs No T2D (n = 93, Sam El Osta group)</li>
 <li>Standard <code>edgeR::glmQLFit()</code> methods</li>
 </ul></li>
 <li>Performed DTE analysis

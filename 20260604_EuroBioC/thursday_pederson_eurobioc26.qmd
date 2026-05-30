@@ -130,7 +130,7 @@ knitr:
 - Modify transcriptome sequences
 - `digestSalmon()`: parse counts, TPM, effLen & overdispersions
     + Can handle divergent references: Complete vs chrY-excluded
-    + Personalised transcriptomes [$\implies$ statistical assumptions?]{.fragment}
+    + Personalised transcriptomes 
 
 :::
 
@@ -190,6 +190,12 @@ knitr:
 
 
 ## Changing `salmon` Metrics
+
+::: {.notes}
+- Small decreases in aligned fragment
+- Small increase in decoy-preferred alignments
+- Increase in alignments below thresholod of mapping
+:::
 
 
 :::: {.columns}
@@ -279,7 +285,7 @@ knitr:
 ## Differential Expression Analysis
 
 - Performed DGE analysis
-    + T2D vs No T2D (n = 93)
+    + T2D vs No T2D (n = 93, Sam El Osta group)
     + Standard `edgeR::glmQLFit()` methods
 - Performed DTE analysis
     + Scaled counts by overdispersions [@Baldoni2024-zf]
