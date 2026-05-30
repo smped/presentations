@@ -21,6 +21,7 @@ format:
     sansfont: Times New Roman
     logo: assets/bodl_logo_white_background.jpg
     slide-number: c/t
+    embed-resources: true
 include-after: |
   <script type="text/javascript">
     Reveal.on('ready', event => {
