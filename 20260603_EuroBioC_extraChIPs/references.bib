@@ -1,0 +1,417 @@
+
+@ARTICLE{Hickey2021-mz,
+  title    = "The androgen receptor is a tumor suppressor in estrogen
+              receptor-positive breast cancer",
+  author   = "Hickey, Theresa E and Selth, Luke A and Chia, Kee Ming and
+              Laven-Law, Geraldine and Milioli, Heloisa H and Roden, Daniel and
+              Jindal, Shalini and Hui, Mun and Finlay-Schultz, Jessica and
+              Ebrahimie, Esmaeil and Birrell, Stephen N and Stelloo, Suzan and
+              Iggo, Richard and Alexandrou, Sarah and Caldon, C Elizabeth and
+              Abdel-Fatah, Tarek M and Ellis, Ian O and Zwart, Wilbert and
+              Palmieri, Carlo and Sartorius, Carol A and Swarbrick, Alex and
+              Lim, Elgene and Carroll, Jason S and Tilley, Wayne D",
+  journal  = "Nat. Med.",
+  volume   =  27,
+  number   =  2,
+  pages    = "310--320",
+  abstract = "The role of the androgen receptor (AR) in estrogen receptor
+              (ER)-α-positive breast cancer is controversial, constraining
+              implementation of AR-directed therapies. Using a diverse,
+              clinically relevant panel of cell-line and patient-derived models,
+              we demonstrate that AR activation, not suppression, exerts potent
+              antitumor activity in multiple disease contexts, including
+              resistance to standard-of-care ER and CDK4/6 inhibitors. Notably,
+              AR agonists combined with standard-of-care agents enhanced
+              therapeutic responses. Mechanistically, agonist activation of AR
+              altered the genomic distribution of ER and essential co-activators
+              (p300, SRC-3), resulting in repression of ER-regulated cell cycle
+              genes and upregulation of AR target genes, including known tumor
+              suppressors. A gene signature of AR activity positively predicted
+              disease survival in multiple clinical ER-positive breast cancer
+              cohorts. These findings provide unambiguous evidence that AR has a
+              tumor suppressor role in ER-positive breast cancer and support AR
+              agonism as the optimal AR-directed treatment strategy, revealing a
+              rational therapeutic opportunity.",
+  month    =  feb,
+  year     =  2021,
+  language = "en"
+}
+
+@MISC{Pederson-fd,
+  title        = "{prepareChIPs}:",
+  author       = "Pederson, Stevie",
+  year         = 2022,
+  howpublished = "\url{https://workflowhub.eu/workflows/528}",
+  note         = "Accessed: 2026-5-6",
+  language     = "en"
+}
+
+@ARTICLE{Hicks2018-uw,
+  title    = "Smooth quantile normalization",
+  author   = "Hicks, Stephanie C and Okrah, Kwame and Paulson, Joseph N and
+              Quackenbush, John and Irizarry, Rafael A and Bravo, Héctor Corrada",
+  journal  = "Biostatistics",
+  volume   =  19,
+  number   =  2,
+  pages    = "185--198",
+  abstract = "Between-sample normalization is a critical step in genomic data
+              analysis to remove systematic bias and unwanted technical
+              variation in high-throughput data. Global normalization methods
+              are based on the assumption that observed variability in global
+              properties is due to technical reasons and are unrelated to the
+              biology of interest. For example, some methods correct for
+              differences in sequencing read counts by scaling features to have
+              similar median values across samples, but these fail to reduce
+              other forms of unwanted technical variation. Methods such as
+              quantile normalization transform the statistical distributions
+              across samples to be the same and assume global differences in the
+              distribution are induced by only technical variation. However, it
+              remains unclear how to proceed with normalization if these
+              assumptions are violated, for example, if there are global
+              differences in the statistical distributions between biological
+              conditions or groups, and external information, such as negative
+              or control features, is not available. Here, we introduce a
+              generalization of quantile normalization, referred to as smooth
+              quantile normalization (qsmooth), which is based on the assumption
+              that the statistical distribution of each sample should be the
+              same (or have the same distributional shape) within biological
+              groups or conditions, but allowing that they may differ between
+              groups. We illustrate the advantages of our method on several
+              high-throughput datasets with global differences in distributions
+              corresponding to different biological conditions. We also perform
+              a Monte Carlo simulation study to illustrate the bias-variance
+              tradeoff and root mean squared error of qsmooth compared to other
+              global normalization methods. A software implementation is
+              available from https://github.com/stephaniehicks/qsmooth.",
+  month    =  apr,
+  year     =  2018,
+  language = "en"
+}
+
+@ARTICLE{Hicks2015-ee,
+  title    = "quantro: a data-driven approach to guide the choice of an
+              appropriate normalization method",
+  author   = "Hicks, Stephanie C and Irizarry, Rafael A",
+  journal  = "Genome Biol.",
+  volume   =  16,
+  number   =  1,
+  pages    =  117,
+  abstract = "Normalization is an essential step in the analysis of
+              high-throughput data. Multi-sample global normalization methods,
+              such as quantile normalization, have been successfully used to
+              remove technical variation. However, these methods rely on the
+              assumption that observed global changes across samples are due to
+              unwanted technical variability. Applying global normalization
+              methods has the potential to remove biologically driven variation.
+              Currently, it is up to the subject matter experts to determine if
+              the stated assumptions are appropriate. Here, we propose a
+              data-driven alternative. We demonstrate the utility of our method
+              (quantro) through examples and simulations. A software
+              implementation is available from
+              http://www.bioconductor.org/packages/release/bioc/html/quantro.html
+              .",
+  month    =  jun,
+  year     =  2015,
+  language = "en"
+}
+
+@Article{Lee209-gb,
+    title = {plyranges: a grammar of genomic data transformation},
+    author = {{Lee} and {Stuart} and {Cook} and {Dianne} and {Lawrence} and {Michael}},
+    journal = {Genome Biol.},
+    year = {2019},
+    volume = {20},
+    number = {1},
+    pages = {4},
+    url = {http://dx.doi.org/10.1186/s13059-018-1597-8},
+  }
+
+@ARTICLE{Zhang2008-ms,
+  title    = "Model-based analysis of {ChIP}-Seq ({MACS})",
+  author   = "Zhang, Yong and Liu, Tao and Meyer, Clifford A and Eeckhoute,
+              Jérôme and Johnson, David S and Bernstein, Bradley E and Nusbaum,
+              Chad and Myers, Richard M and Brown, Myles and Li, Wei and Liu, X
+              Shirley",
+  journal  = "Genome Biol.",
+  volume   =  9,
+  number   =  9,
+  pages    = "R137",
+  abstract = "We present Model-based Analysis of ChIP-Seq data, MACS, which
+              analyzes data generated by short read sequencers such as Solexa's
+              Genome Analyzer. MACS empirically models the shift size of
+              ChIP-Seq tags, and uses it to improve the spatial resolution of
+              predicted binding sites. MACS also uses a dynamic Poisson
+              distribution to effectively capture local biases in the genome,
+              allowing for more robust predictions. MACS compares favorably to
+              existing ChIP-Seq peak-finding algorithms, and is freely
+              available.",
+  month    =  sep,
+  year     =  2008,
+  language = "en"
+}
+
+@ARTICLE{Amemiya2019-et,
+  title    = "The {ENCODE} Blacklist: Identification of Problematic Regions of
+              the Genome",
+  author   = "Amemiya, Haley M and Kundaje, Anshul and Boyle, Alan P",
+  journal  = "Sci. Rep.",
+  volume   =  9,
+  number   =  1,
+  pages    =  9354,
+  abstract = "Functional genomics assays based on high-throughput sequencing
+              greatly expand our ability to understand the genome. Here, we
+              define the ENCODE blacklist- a comprehensive set of regions in the
+              human, mouse, worm, and fly genomes that have anomalous,
+              unstructured, or high signal in next-generation sequencing
+              experiments independent of cell line or experiment. The removal of
+              the ENCODE blacklist is an essential quality measure when
+              analyzing functional genomics data.",
+  month    =  jun,
+  year     =  2019,
+  language = "en"
+}
+
+
+@Article{Lun2016-cs,
+    author = {Aaron T L Lun and Gordon K Smyth},
+    title = {csaw: a {B}ioconductor package for differential binding analysis of {C}h{I}{P}-seq data using sliding windows},
+    journal = {Nucleic Acids Res.},
+    year = {2016},
+    volume = {44},
+    number = {5},
+    pages = {e45},
+  }
+
+@ARTICLE{Robinson2010-qp,
+  title    = "A scaling normalization method for differential expression
+              analysis of {RNA}-seq data",
+  author   = "Robinson, Mark D and Oshlack, Alicia",
+  journal  = "Genome Biol.",
+  volume   =  11,
+  number   =  3,
+  pages    = "R25",
+  abstract = "The fine detail provided by sequencing-based transcriptome surveys
+              suggests that RNA-seq is likely to become the platform of choice
+              for interrogating steady state RNA. In order to discover
+              biologically important changes in expression, we show that
+              normalization continues to be an essential step in the analysis.
+              We outline a simple and effective method for performing
+              normalization and show dramatically improved results for inferring
+              differential expression in simulated and publicly available data
+              sets.",
+  month    =  mar,
+  year     =  2010,
+  language = "en"
+}
+
+@ARTICLE{Anders2010-sd,
+  title    = "Differential expression analysis for sequence count data",
+  author   = "Anders, Simon and Huber, Wolfgang",
+  journal  = "Genome Biol.",
+  volume   =  11,
+  number   =  10,
+  pages    = "R106",
+  abstract = "High-throughput sequencing assays such as RNA-Seq, ChIP-Seq or
+              barcode counting provide quantitative readouts in the form of
+              count data. To infer differential signal in such data correctly
+              and with good statistical power, estimation of data variability
+              throughout the dynamic range and a suitable error model are
+              required. We propose a method based on the negative binomial
+              distribution, with variance and mean linked by local regression
+              and present an implementation, DESeq, as an R/Bioconductor
+              package.",
+  month    =  oct,
+  year     =  2010,
+  language = "en"
+}
+
+@Article{Chen2025-ed,
+    author = {Yunshun Chen and Lizhong Chen and Aaron T L Lun and Pedro Baldoni and Gordon K Smyth},
+    title = {{edgeR} v4: powerful differential analysis of sequencing data with expanded functionality and improved support for small counts and larger datasets},
+    year = {2025},
+    journal = {Nucleic Acids Research},
+    volume = {53},
+    number = {2},
+    pages = {gkaf018},
+    doi = {10.1093/nar/gkaf018},
+  }
+
+@ARTICLE{McCarthy2009-qf,
+  title    = "Testing significance relative to a fold-change threshold is a
+              {TREAT}",
+  author   = "McCarthy, Davis J and Smyth, Gordon K",
+  journal  = "Bioinformatics",
+  volume   =  25,
+  number   =  6,
+  pages    = "765--771",
+  abstract = "MOTIVATION: Statistical methods are used to test for the
+              differential expression of genes in microarray experiments. The
+              most widely used methods successfully test whether the true
+              differential expression is different from zero, but give no
+              assurance that the differences found are large enough to be
+              biologically meaningful. RESULTS: We present a method, t-tests
+              relative to a threshold (TREAT), that allows researchers to test
+              formally the hypothesis (with associated p-values) that the
+              differential expression in a microarray experiment is greater than
+              a given (biologically meaningful) threshold. We have evaluated the
+              method using simulated data, a dataset from a quality control
+              experiment for microarrays and data from a biological experiment
+              investigating histone deacetylase inhibitors. When the magnitude
+              of differential expression is taken into account, TREAT improves
+              upon the false discovery rate of existing methods and identifies
+              more biologically relevant genes. AVAILABILITY: R code
+              implementing our methods is contributed to the software package
+              limma available at http://www.bioconductor.org.",
+  month    =  mar,
+  year     =  2009,
+  language = "en"
+}
+
+@Article{DiffBind2012,
+    title = {Differential oestrogen receptor binding is associated with clinical outcome in breast cancer},
+    author = {Caryn S. Ross-Innes and Rory Stark and Andrew E. Teschendorff and Kelly A. Holmes and H. Raza Ali and Mark J. Dunning and Gordon D. Brown and Ondrej Gojis and Ian O. Ellis and Andrew R. Green and Simak Ali and Suet-Feung Chin and Carlo Palmieri and Carlos Caldas and Jason S. Carroll},
+    journal = {Nature},
+    year = {2012},
+    volume = {481},
+    pages = {-4},
+    url = {http://www.nature.com/nature/journal/v481/n7381/full/nature10730.html},
+  }
+
+@ARTICLE{Law2014-xq,
+  title    = "voom: Precision weights unlock linear model analysis tools for
+              {RNA}-seq read counts",
+  author   = "Law, Charity W and Chen, Yunshun and Shi, Wei and Smyth, Gordon K",
+  journal  = "Genome Biol.",
+  volume   =  15,
+  number   =  2,
+  pages    = "R29",
+  abstract = "New normal linear modeling strategies are presented for analyzing
+              read counts from RNA-seq experiments. The voom method estimates
+              the mean-variance relationship of the log-counts, generates a
+              precision weight for each observation and enters these into the
+              limma empirical Bayes analysis pipeline. This opens access for
+              RNA-seq analysts to a large body of methodology developed for
+              microarrays. Simulation studies show that voom performs as well or
+              better than count-based RNA-seq methods even when the data are
+              generated according to the assumptions of the earlier methods. Two
+              case studies illustrate the use of linear modeling and gene set
+              testing methods.",
+  month    =  feb,
+  year     =  2014,
+  language = "en"
+}
+
+@Article{Love2014-de,
+    title = {Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2},
+    author = {Michael I. Love and Wolfgang Huber and Simon Anders},
+    year = {2014},
+    journal = {Genome Biology},
+    doi = {10.1186/s13059-014-0550-8},
+    volume = {15},
+    issue = {12},
+    pages = {550},
+  }
+
+@ARTICLE{Landt2012-tn,
+  title    = "{ChIP}-seq guidelines and practices of the {ENCODE} and
+              {modENCODE} consortia",
+  author   = "Landt, Stephen G and Marinov, Georgi K and Kundaje, Anshul and
+              Kheradpour, Pouya and Pauli, Florencia and Batzoglou, Serafim and
+              Bernstein, Bradley E and Bickel, Peter and Brown, James B and
+              Cayting, Philip and Chen, Yiwen and DeSalvo, Gilberto and Epstein,
+              Charles and Fisher-Aylor, Katherine I and Euskirchen, Ghia and
+              Gerstein, Mark and Gertz, Jason and Hartemink, Alexander J and
+              Hoffman, Michael M and Iyer, Vishwanath R and Jung, Youngsook L
+              and Karmakar, Subhradip and Kellis, Manolis and Kharchenko, Peter
+              V and Li, Qunhua and Liu, Tao and Liu, X Shirley and Ma, Lijia and
+              Milosavljevic, Aleksandar and Myers, Richard M and Park, Peter J
+              and Pazin, Michael J and Perry, Marc D and Raha, Debasish and
+              Reddy, Timothy E and Rozowsky, Joel and Shoresh, Noam and Sidow,
+              Arend and Slattery, Matthew and Stamatoyannopoulos, John A and
+              Tolstorukov, Michael Y and White, Kevin P and Xi, Simon and
+              Farnham, Peggy J and Lieb, Jason D and Wold, Barbara J and Snyder,
+              Michael",
+  journal  = "Genome Res.",
+  volume   =  22,
+  number   =  9,
+  pages    = "1813--1831",
+  abstract = "Chromatin immunoprecipitation (ChIP) followed by high-throughput
+              DNA sequencing (ChIP-seq) has become a valuable and widely used
+              approach for mapping the genomic location of transcription-factor
+              binding and histone modifications in living cells. Despite its
+              widespread use, there are considerable differences in how these
+              experiments are conducted, how the results are scored and
+              evaluated for quality, and how the data and metadata are archived
+              for public use. These practices affect the quality and utility of
+              any global ChIP experiment. Through our experience in performing
+              ChIP-seq experiments, the ENCODE and modENCODE consortia have
+              developed a set of working standards and guidelines for ChIP
+              experiments that are updated routinely. The current guidelines
+              address antibody validation, experimental replication, sequencing
+              depth, data and metadata reporting, and data quality assessment.
+              We discuss how ChIP quality, assessed in these ways, affects
+              different uses of ChIP-seq data. All data sets used in the
+              analysis have been deposited for public viewing and downloading at
+              the ENCODE (http://encodeproject.org/ENCODE/) and modENCODE
+              (http://www.modencode.org/) portals.",
+  month    =  sep,
+  year     =  2012,
+  language = "en"
+}
+
+@Article{Wilson2019-hm,
+    title = {The harmonic mean p-value for combining dependent tests},
+    author = {Daniel J. Wilson},
+    journal = {{Proceedings of the National Academy of Sciences U.S.A.}},
+    volume = {116},
+    number = {4},
+    pages = {1195--1200},
+    year = {2019},
+    publisher = {National Academy of Sciences U.S.A.},
+    url = {https://www.pnas.org/content/116/4/1195},
+  }
+
+
+@InBook{Hahne2016-gv,
+    author = {Florian Hahne and Robert Ivanek},
+    editor = {Ewy Math{\'e} and Sean Davis},
+    chapter = {Visualizing Genomic Data Using Gviz and Bioconductor},
+    title = {Statistical Genomics: Methods and Protocols},
+    year = {2016},
+    publisher = {Springer New York},
+    address = {New York, NY},
+    pages = {335--351},
+    isbn = {978-1-4939-3578-9},
+    doi = {10.1007/978-1-4939-3578-9_16},
+    url = {http://dx.doi.org/10.1007/978-1-4939-3578-9_16},
+  }
+
+
+@Article{Wickham2019-tv,
+    title = {Welcome to the {tidyverse}},
+    author = {Hadley Wickham and Mara Averick and Jennifer Bryan and Winston Chang and Lucy D'Agostino McGowan and Romain François and Garrett Grolemund and Alex Hayes and Lionel Henry and Jim Hester and Max Kuhn and Thomas Lin Pedersen and Evan Miller and Stephan Milton Bache and Kirill Müller and Jeroen Ooms and David Robinson and Dana Paige Seidel and Vitalie Spinu and Kohske Takahashi and Davis Vaughan and Claus Wilke and Kara Woo and Hiroaki Yutani},
+    year = {2019},
+    journal = {Journal of Open Source Software},
+    volume = {4},
+    number = {43},
+    pages = {1686},
+    doi = {10.21105/joss.01686},
+  }
+
+@MISC{Tamang2024-mw,
+  title        = "{ChIP} Sequencing ({ChIP}-seq): Principle, Steps, Uses,
+                  Diagram",
+  author       = "Tamang, Sanju",
+  booktitle    = "Microbe Notes",
+  publisher    = "Sagar Aryal",
+  abstract     = "ChIP Sequencing (ChIP-seq) is a method of sequencing that
+                  combines chromatin immunoprecipitation (ChIP) with sequencing
+                  to study DNA-protein interactions and the roles of DNA-binding
+                  proteins like transcription factors and other
+                  chromatin-associated proteins.",
+  month        =  aug,
+  year         =  2024,
+  howpublished = "\url{https://microbenotes.com/chip-sequencing/}",
+  note         = "Accessed: 2026-5-31",
+  language     = "en"
+}

@@ -1,0 +1,676 @@
+---
+title: "The package extraChIPs"
+author: "Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Institute Australia / ANU"
+date: "2026-05-20"
+date-format: long
+title-slide-attributes:
+    data-background-color: "#3D3D40"
+    data-background-opacity: "70%"
+    data-background-size: "20%"
+    data-background-position: "90% 90%"
+    data-background-image: https://smped.github.io/extraChIPs/reference/figures/extraChIPs.png
+editor: source
+format: 
+  revealjs:
+    bibliography: references.bib
+    theme: [assets/bodl.scss]
+    code-line-numbers: false
+    width: 1280
+    height: 720
+    sansfont: Times New Roman
+    logo: assets/bodl_logo_white_background.jpg
+    slide-number: c/t
+include-after: |
+  <script type="text/javascript">
+    Reveal.on('ready', event => {
+      if (event.indexh === 0) {
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+      }
+    });
+    Reveal.addEventListener('slidechanged', (event) => {
+      if (event.indexh === 0) {
+        Reveal.configure({ slideNumber: null });
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+      }
+      if (event.indexh === 1) { 
+        Reveal.configure({ slideNumber: 'c' });
+        document.querySelector("div.has-logo > img.slide-logo").style.display = null;
+      }
+    });
+  </script>    
+knitr: 
+  opts_chunk: 
+    echo: true
+    include: true
+    warning: false
+    message: false
+    fig.align: left
+    fig.width: 8
+    fig.height: 6
+---
+
+## Setup
+
+Material can be found under the `Articles` tab at `https://smped.github.io/extraChIPsWorkshop/` 
+<br><br>
+3 Options for today's workshop:
+
+1. Please log into the workshop resources provided
+2. To run locally install the package: `BiocManager::install("smped/extraChIPsWorkshop")`
+3. Alternatively run the docker container locally
+
+``` bash
+docker run -e PASSWORD=<my_chosen_password> -p 8787:8787 ghcr.io/smped/extrachipsworkshop
+```
+
+ (login: `rstudio`)
+ 
+## Today's Material
+
+- Will analyses two ChIP targets under control vs treated
+    + E2 (Control) vs E2+DHT (treated)
+    + ER (Estrogen Receptor) + H3K27ac
+    + Both from same passages & experiments
+- Does testosterone treatment (DHT) impact binding of the Estrogen Receptor and gene regulation in beast cancer [@Hickey2021-mz]
+
+## ChIP-Seq Primer
+
+![Sourced from @Tamang2024-mw](https://microbenotes.com/wp-content/uploads/2024/09/ChIP-Sequencing-ChIP-seq.jpeg)
+
+## Prior Familiarity
+
+- `GenomicRanges` and `GenomicRangesList` objects
+- `SummarizedExperiment` objects
+- The package `ggplot2`
+- The use of either `|>` or `%>%` as pipe operators
+    + I have relied on the `.` syntax for a handful of lines
+
+
+## The package `extraChIPs`
+
+- Originally a collection of functions to enable a `snakemake` workflow (GRAVI, unpublished)
+- Focus on Differential Signal Analysis in >1 comparison
+
+. . .
+
+- Some core functions under the hood:
+    + `reduceMC`, `setdiffMC`, `unionMC` $\implies$ retain mcols from `x`
+    + `as_tibble` parses GRanges as character column `range`
+    + `plotAssay*`: plotting Densities, PCA, RLE
+    + `bestOverlap` and `propOverlap` for comparing ranges to features
+
+# Starting the Analysis {background-color="#3D3D40" background-image="https://smped.github.io/extraChIPs/reference/figures/extraChIPs.png" background-opacity="70%" background-position="90% 20%" background-size="20%"}
+
+## Loading All Packages
+
+```{r packages}
+library(tidyverse)
+library(extraChIPsWorkshop) # Replace with extraChIPs in your own analysis
+library(rtracklayer)
+library(plyranges)
+library(Rsamtools)
+library(csaw)
+library(BiocParallel)
+library(DFplyr)
+library(quantro)
+library(qsmooth)
+library(edgeR)
+library(magrittr)
+library(patchwork)
+library(ggrepel)
+library(glue)
+library(viridisLite)
+library(pander)
+theme_set(theme_bw())
+```
+
+
+## Defining the Correct Genome
+
+```{r sq}
+## This is a helper function with some common genomes predefined
+## - Turn the chr prefix off by setting `chr = FALSE`
+## - Include chrM by adding `mito = "M` (or whichever you have)
+## No scaffolds/haplotypes etc are included
+## Best practice is still to use BAM headers
+## Pull requests with any additional genomes welcome
+sq <- defineSeqinfo("GRCh37", chr = TRUE)
+sq
+```
+
+## Loading Gene & Transcript Definitions
+
+```{r gtf}
+f <- system.file(
+  'extdata/annotation', 'gencode.v44lift37.reduced.gtf.gz', 
+  package = "extraChIPsWorkshop"
+)
+gtf <- import.gff(f) # From rtracklayer
+seqinfo(gtf) <- sq
+```
+
+- These annotations have been prepared to play nicely with `sq`
+- May take some fiddling in the real world 
+    + e.g.`subset(gtf, seqnames %in% seqlevels(sq))`
+- Setting up `seqinfo` can be a bit fiddly, but is *vital*
+
+## Defining Genomic Regions and Features
+
+```{r regions}
+split_gtf <- split(gtf, gtf$type)
+regions <- defineRegions(
+  genes = split_gtf$gene, 
+  transcripts = split_gtf$transcript, 
+  exons = split_gtf$exon, 
+  intron = FALSE
+)
+names(regions)
+```
+
+::: {style="font-size:90%"}
+
+- Define *promoters*, *upstream promoters*, *gene bodies*, *proximal* & *distal* intergenic
+    + Setting `intron = TRUE` will split `gene_body` into `intron` & `exon`
+    + Maps to the most suitable gene(s)
+- Ranges of promoters around TSS can be changed
+- Any additional annotations (e.g. enhancers) can be incorporated (`setdiffMC`)
+
+:::
+
+
+## Black and Grey Listed Regions
+
+```{r bl-gl, results='hide'}
+bl <- system.file(
+  'extdata/annotation', 'hg19-blacklist.v2.bed.gz', package = "extraChIPsWorkshop"
+  )
+gl <- system.file(
+  'extdata/annotation', 'SRR8315192_greylist.bed', package = "extraChIPsWorkshop"
+)
+importPeaks(c(bl, gl), seqinfo = sq, type = "bed")
+```
+
+- `importPeaks()` takes multiple files *of the same type* $\implies$ `GRangesList`
+- Only sequences in `seqinfo = sq` are returned
+
+::: {.fragment}
+
+```{r exclude-ranges}
+exclude_ranges <- c(bl, gl) %>% 
+  importPeaks(seqinfo = sq, type = "bed") %>% 
+  unlist() %>% 
+  GenomicRanges::reduce()
+```
+
+:::
+
+# Fixed Width Peaks {background-color="#3D3D40" background-image="https://smped.github.io/extraChIPs/reference/figures/extraChIPs.png" background-opacity="70%" background-position="90% 20%" background-size="20%"}
+
+## Defining Peaks
+
+- Each sample will have a set of peaks called, e.g. `macs2 callpeak` [@Zhang2008-ms]
+- Peak ranges will vary between samples:
+    + Differrent centre positions + different widths
+- Need to define consistent ranges across all samples
+    + Known as a consensus peaks
+- Setting all peaks to the same width $\implies$ easier downstream analysis
+- No fixed strategy $\implies$ must *be sensible*
+    + How to manage peaks only found in a fraction of one treatment group
+    
+## Defining Samples
+
+```{r samples}
+treat_levels <- c("E2", "E2DHT")
+samples <- tibble(
+  id = paste0("SRR83151", seq(80, 92)),
+  target = case_when(
+    id %in% paste0("SRR83151", seq(80, 85)) ~ "ER", # The first 6 are ER
+    id %in% paste0("SRR83151", seq(86, 91)) ~ "H3K27ac", # The next 6 are H3K27ac
+    id == "SRR8315192" ~ "input"
+  ),
+  treat = case_when(
+    id %in% paste0("SRR83151", seq(80, 82)) ~ "E2", # The first 3 are E2 in each 
+    id %in% paste0("SRR83151", seq(86, 88)) ~ "E2",
+    id %in% paste0("SRR83151", seq(83, 85)) ~ "E2DHT", # The next 3 are E2+DHT
+    id %in% paste0("SRR83151", seq(89, 91)) ~ "E2DHT",
+    TRUE ~ NA
+  ) %>% 
+    factor(treat_levels)
+) %>% 
+  split(.$target) # Here's a line where I relied on `.`
+```
+
+## The ER Peaks
+
+```{r samples-er, results='hide'}
+samples$ER <- samples$ER %>% 
+  mutate(
+    ## Add the paths. Files provided in the workshop package
+    peak_file = paste0(id, "_peaks.narrowPeak.gz"),
+    peak_path = system.file("extdata/peaks", peak_file, package = "extraChIPsWorkshop")
+)
+importPeaks(samples$ER$peak_path[1])
+```
+
+- This is the standard `narrowPeak` format
+    + `score` etc are about confidence in peak call
+    + `peak` is expected centre within range
+- Both the range and expected centre will vary between samples
+
+## The ER Peaks
+
+```{r er-peaks}
+er_peaks <- importPeaks(
+  ## `blacklist = exclude_ranges` will drop any overlapping ranges
+  ## `seqinfo - sq` will exclude peaks not within the specified chromosomes
+  ## Setting `centre = TRUE` will calculate absolute position for centre
+  samples$ER$peak_path, blacklist = exclude_ranges, seqinfo = sq, centre = TRUE
+)
+names(er_peaks) <- samples$ER$id
+er_peaks
+```
+
+## The ER Peaks
+
+```{r er-width}
+plotGrlCol(er_peaks) + scale_y_log10()
+```
+
+## The ER Peaks
+
+```{r er-score}
+#| output-location: column
+treat_colours <- setNames(
+  c("steelblue", "red3"), treat_levels
+)
+plotGrlCol(
+  er_peaks,
+  var = "score", geom = "violin", 
+  quantile.linetype = 1, quantiles = 0.5, 
+  .id = "id", df = samples$ER,
+  fill = "treat", 
+  q = 0.5, q_size = NULL, 
+  total_geom = "none"
+) +
+  scale_fill_manual(
+    values = treat_colours
+  ) + scale_y_log10()
+```
+
+## The ER Peaks
+
+```{r er-upset}
+#| fig-width: 10
+#| fig-height: 5
+plotOverlaps(
+  er_peaks, 
+  sort_sets = "none", set_col = rep(treat_colours, each = 3), exp_sets = 0.3
+)
+```
+
+## Consensus Peaks
+
+- Looking for confident binding sites that change
+    + Not binary on/off sites
+- Sites confidently found in either condition?
+    + Maybe 2 of 3 samples?
+
+. . .
+
+- Consensus sites for each condition
+    + Merge across conditions
+    
+. . .
+
+- How do we define the boundaries of the range?
+- What do we do with the peak centres?
+
+## Consensus Peaks
+
+```{r}
+er_peaks %>% 
+  subset(samples$ER$treat == "E2") %>% 
+  makeConsensus(p = 2/3, var = "centre") # This will retain the centre column
+```
+
+## Consensus Peaks
+
+```{r}
+er_peaks %>% 
+  subset(samples$ER$treat == "E2") %>% 
+  makeConsensus(p = 2/3, var = "centre")  %>% 
+  mutate(centre = map_dbl(centre, mean)) ## Take the mean of all centres
+```
+
+## Consensus Peaks
+
+```{r}
+#| output-location: slide
+er_peaks %>% 
+  split(samples$ER$treat) %>% 
+  lapply(
+    \(peaks) {
+      peaks %>% 
+        makeConsensus(p = 2 / 3, var = "centre") %>% 
+        mutate(centre = map_dbl(centre, mean)) # Find mean per treatment
+    }
+  ) %>% 
+  GRangesList() %>% 
+  makeConsensus(var = "centre") %>% 
+  mutate(centre = as.integer(map_dbl(centre, mean))) 
+```
+
+
+## Consensus Peaks
+
+```{r}
+#| output-location: slide
+er_peaks %>% 
+  split(samples$ER$treat) %>% 
+  lapply(
+    \(peaks) {
+      peaks %>% 
+        makeConsensus(p = 2 / 3, var = "centre") %>% 
+        mutate(centre = map_dbl(centre, mean)) 
+    }
+  ) %>% 
+  GRangesList() %>% 
+  makeConsensus(var = "centre") %>% 
+  mutate(centre = as.integer(map_dbl(centre, mean))) %>% 
+  mutate(
+    region = bestOverlap(., regions) %>% fct(names(regions))
+  )
+```
+
+
+## Consensus Peaks
+
+```{r consensus-peaks}
+consensus_peaks <- er_peaks %>% 
+  split(samples$ER$treat) %>% 
+  lapply(
+    \(peaks) {
+      peaks %>% 
+        makeConsensus(p = 2 / 3, var = "centre") %>% 
+        mutate(centre = map_dbl(centre, mean)) 
+    }
+  ) %>% 
+  GRangesList() %>% 
+  makeConsensus(var = "centre") %>% 
+  mutate(centre = as.integer(map_dbl(centre, mean))) %>% 
+  mutate(
+    region = bestOverlap(., regions) %>% fct(names(regions))
+  ) %>% 
+  mapByFeature(genes = split_gtf$gene, prom = regions$promoter)
+```
+
+
+## Consensus Peaks
+
+::: {.notes}
+1. Ranges overlapping a promoter are assigned to that gene
+2. Ranges overlapping an enhancer are assigned to all genes within a specified distance
+3. Ranges overlapping a long-range interaction are assigned to all genes connected by the interaction
+4. Ranges with no gene assignment from the previous steps are assigned to all overlapping genes or the nearest gene within a specified distance
+
+:::
+
+```{r}
+consensus_peaks
+```
+
+## Consensus Peaks
+
+```{r overlap-venn}
+#| output-location: column
+GRangesList(
+  E2 = filter(
+    consensus_peaks, E2
+  ),
+  E2DHT = filter(
+    consensus_peaks, E2DHT
+  )
+) %>% 
+  plotOverlaps(
+    set_col = treat_colours
+  )
+```
+
+## Consensus Peaks
+
+```{r region-pie}
+#| output-location: column
+region_colours <- setNames(
+  viridis(
+    length(regions), direction = -1
+  ), 
+  names(regions)
+)
+plotPie(
+  consensus_peaks, 
+  fill = "region", total_size = 5
+) +
+  scale_fill_manual(
+    values = region_colours
+  )
+```
+
+# Differential Signal Analysis {background-color="#3D3D40" background-image="https://smped.github.io/extraChIPs/reference/figures/extraChIPs.png" background-opacity="70%" background-position="90% 20%" background-size="20%"}
+
+## Differential Signal (Binding) Analysis
+
+- Already characterised genes and features ER is bound
+- Where does it change?
+- What genes are likely to be impacted?
+
+. . .
+
+$\implies$ Differential Signal Analysis
+
+## Differential Signal (Binding) Analysis
+
+- Already defined consensus peaks
+    + Ensures consistent analysis across samples
+    + Centred at best estimate of binding site
+- Set fixed-width regions
+    + Same width across all peaks
+    + Represent the original consensus peaks
+    + Enables easier downstream analysis
+
+## Centered Peaks
+
+- From plot of widths 400bp is a good upper width
+
+```{r centered-peaks}
+centred_peaks <- consensus_peaks %>% 
+  mutate(range = paste(seqnames(.), centre, sep = ":")) %>% 
+  colToRanges("range", seqinfo = seqinfo(.)) %>% 
+  resize(width = 400, fix = 'center') 
+```
+
+
+## Counts Within Peaks
+
+- Need BAM files to count alignments
+    + Too large for a workshop $\implies$ has been pre-prepared
+- Example code given in workshop
+    + Was run on a laptop but not guaranteed
+    
+```{r er-se}
+#| results: hide
+f <- system.file("extdata/counts/er_se.rds", package = "extraChIPsWorkshop")
+er_se <- read_rds(f)
+rowRanges(er_se)
+colData(er_se)
+```
+
+## Alignments Vs Library Size
+
+- Most alignments **not** in peaks
+
+```{r frip}
+colData(er_se) %>% 
+  as_tibble() %>% 
+  mutate(
+    counted = assay(er_se, "counts") |> colSums(),
+    FRIP = counted / totals
+  )
+```
+
+## Adding logCPM
+
+- `er_se` is a `SummarizedExperiment`
+- Can easily add assays as appropriate
+
+```{r add-logcpm}
+assay(er_se, "logCPM") <- er_se %>%
+  cpm(log = TRUE) %>% 
+  set_rownames(rownames(er_se)) 
+```
+
+## Checking Count Densities
+
+```{r plot-densities, eval = FALSE}
+#| results: hide
+## The raw counts (using log1p)
+plotAssayDensities(er_se, assay = "counts", colour = "treat", trans = "log1p") +
+  scale_colour_manual(values = treat_colours)
+## After library size normalisation
+plotAssayDensities(er_se, assay = "logCPM", colour = "treat") +
+  scale_colour_manual(values = treat_colours)
+```
+
+## Checking RLE
+
+```{r plot-rle, eval=FALSE}
+#| results: hide
+## The classic view, per-sample
+plotAssayRle(er_se, "logCPM", fill = "treat") +
+  scale_fill_manual(values = treat_colours)
+## Alternatively, group by treatment
+plotAssayRle(er_se, "logCPM", fill = "treat", by_x = "treat") +
+  scale_fill_manual(values = treat_colours)
+```
+
+## PCA
+
+```{r plot-assay-pca}
+#| output-location: column
+plotAssayPCA(
+  er_se, "logCPM", colour = "treat"
+) +
+  scale_colour_manual(
+    values = treat_colours
+  )
+```
+
+## Normalisation
+
+::: {.notes}
+- Library sizes represent the amount of biological material
+- Very consistent for RNA-Seq but not so for ChIP-Seq
+:::
+
+- Most commonly, we use the total alignments as library size
+    + Can use counts within peaks only $\implies$ **need a good reason**
+- No normalisation on counts $\implies$ library size only
+- Can also use TMM, RLE etc [@Robinson2010-qp; @Anders2010-sd]
+
+. . .
+
+- Key assumption: *library-sizes roughly constant*
+    + Not always applicable for ChIP-Seq (is mostly for RNA-Seq)
+    + AR is sequestered in cytoplasm until androgens are present
+
+## Checking Assumptions
+
+- The package `quantro` is very helpful for this question [@Hicks2015-ee]
+- If distributions are radically different $\implies$ only library-size appropriate
+
+```{r}
+qtest <- quantro(assay(er_se, "logCPM"), groupFactor = er_se$treat)
+qtest
+```
+
+## Model Fitting
+
+- `fitAssayDiff()` can fit `method = c("qlf", "wald", "lt")` <br>`edgeR::glmQLF()` [@Chen2025-ed], <br>`DESeq2::nbinomWaldTest()` [@Love2014-de] or <br>`limma::lmFit()` (limma-trend) [@Law2014-xq]
+    + limma-trend is fitted on logCPM values
+- `DiffBind` standard is RLE-normalisation + DESeq2 [@DiffBind2012]
+    + `extraChIPs` results are identical
+- Can also apply range-based H~0~ [@McCarthy2009-qf]
+
+## Model Fitting
+
+::: {.notes}
+Anyone running on RELEASE 3_23 may have issues here
+:::
+
+```{r}
+X <- model.matrix(~treat, data = colData(er_se))
+er_diffsig <- er_se %>% 
+  fitAssayDiff(design = X, norm = "TMM", asRanges = TRUE, method = "qlf") %>% 
+  ## Add a column assigning each peak as Increased, Decreased, Unchanged etc
+  addDiffStatus(drop = TRUE) 
+table(er_diffsig$status)
+```
+
+## MA Plots
+
+```{r plot-ma}
+#| output-location: slide
+status_colours <- c(
+  Undetected = "grey90", Unchanged = "grey50",
+  Decreased = "royalblue2", Increased = "red3"
+)
+er_diffsig %>%
+  as_tibble() %>% 
+  ggplot(aes(logCPM, logFC)) +
+  geom_point(aes(colour = status), alpha = 0.8) +
+  geom_smooth(se = FALSE, method = "loess") +
+  labs(colour = "Status") +
+  scale_colour_manual(values = status_colours) 
+```
+
+## Volcano Plots
+
+```{r plot-volcano}
+#| output-location: slide
+status_colours <- c(
+  Undetected = "grey90", Unchanged = "grey50",
+  Decreased = "royalblue2", Increased = "red3"
+)
+er_diffsig %>%
+  as_tibble() %>% 
+  ggplot(aes(logFC, -log10(PValue))) +
+  geom_point(aes(colour = status), alpha = 0.8) +
+  labs(colour = "Status") +
+  scale_colour_manual(values = status_colours) 
+```
+
+## Donut Plots
+
+::: {.notes}
+- Those on RELEASE 3_23 may hve troubles again
+:::
+
+```{r er-donut}
+#| output-location: slide
+er_diffsig %>% 
+  plotSplitDonut(
+    inner = "region", outer = "status", label_size = 4,
+    inner_palette = region_colours,
+    outer_palette = status_colours,
+    inner_glue = "{str_wrap(.data[[inner]], 15)}\n{comma(n)} ({percent(p,0.1)})",
+    outer_glue = "{comma(n)} {.data[[outer]]}",
+    inner_label_alpha = 0.6, 
+    outer_label_colour = "palette", outer_rotate = TRUE,
+    outer_label = "text", outer_min_p = 0, outer_nudge_r = 0.6
+  )
+```
+
+
+# References
+
+## 
+
