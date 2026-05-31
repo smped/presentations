@@ -670,6 +670,22 @@ er_diffsig %>%
 ```
 
 
+# Sliding Windows {background-color="#3D3D40" background-image="https://smped.github.io/extraChIPs/reference/figures/extraChIPs.png" background-opacity="70%" background-position="90% 20%" background-size="20%"}
+
+## H3K27ac
+
+- In addition to ER, H3K27ac was also a ChIP target
+    + Have the same two conditions
+- Indicates a transcriptionally active region (i.e. promoter/enhancer)
+- Much broader peaks
+    + Can have valleys where other TFs are bound to the DNA
+- Potentially better suited to sliding window analysis 
+
+## H3K27ac
+
+- Start with merged treatment-specific peaks
+    + Able to be produced by `macs2 callpeak`
+
 # References
 
 ## 
