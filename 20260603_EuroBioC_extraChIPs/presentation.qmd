@@ -88,6 +88,11 @@ docker run -e PASSWORD=<my_chosen_password> -p 8787:8787 ghcr.io/smped/extrachip
 
 ## The package `extraChIPs`
 
+::: {.notes}
+- Developed before the tidyomics ecosystem developed
+- Should interact well with it
+:::
+
 - Originally a collection of functions to enable a `snakemake` workflow (GRAVI, unpublished)
 - Focus on Differential Signal Analysis in >1 comparison
 
@@ -210,7 +215,7 @@ exclude_ranges <- c(bl, gl) %>%
 
 - Each sample will have a set of peaks called, e.g. `macs2 callpeak` [@Zhang2008-ms]
 - Peak ranges will vary between samples:
-    + Differrent centre positions + different widths
+    + Different centre positions + different widths
 - Need to define consistent ranges across all samples
     + Known as a consensus peaks
 - Setting all peaks to the same width $\implies$ easier downstream analysis
@@ -323,7 +328,7 @@ plotOverlaps(
 . . .
 
 - How do we define the boundaries of the range?
-- What do we do with the peak centres?
+- What do we do with the peak centers?
 
 ## Consensus Peaks
 
@@ -339,7 +344,7 @@ er_peaks %>%
 er_peaks %>% 
   subset(samples$ER$treat == "E2") %>% 
   makeConsensus(p = 2/3, var = "centre")  %>% 
-  mutate(centre = map_dbl(centre, mean)) ## Take the mean of all centres
+  mutate(centre = map_dbl(centre, mean)) ## Take the mean of all centers
 ```
 
 ## Consensus Peaks
@@ -471,7 +476,7 @@ $\implies$ Differential Signal Analysis
 
 - Already defined consensus peaks
     + Ensures consistent analysis across samples
-    + Centred at best estimate of binding site
+    + Centered at best estimate of binding site
 - Set fixed-width regions
     + Same width across all peaks
     + Represent the original consensus peaks
@@ -651,7 +656,7 @@ er_diffsig %>%
 ## Donut Plots
 
 ::: {.notes}
-- Those on RELEASE 3_23 may hve troubles again
+- Those on RELEASE 3_23 may have troubles again
 :::
 
 ```{r er-donut}
@@ -683,8 +688,271 @@ er_diffsig %>%
 
 ## H3K27ac
 
+::: {.notes}
+- May be a typo in the glue call
+:::
+
 - Start with merged treatment-specific peaks
-    + Able to be produced by `macs2 callpeak`
+    + Produced by `macs2 callpeak` set to narrow peak
+    + `glue` syntax can be used to name during parsing
+    
+```{r load-h3k}
+f <- paste(
+  "H3K27ac", c("E2", "E2DHT"), "merged_peaks.narrowPeak.gz", sep = "_"
+  )
+h3k27ac_peaks <- system.file(
+  "extdata/peaks", f, package = "extraChIPsWorkshop"
+) |>
+  importPeaks(
+    seqinfo = sq, blacklist = exclude_ranges, 
+    glueNames = "{basename(x) |> str_remove('_merged.+') |> str_remove('H3K27ac_')}"
+  )
+```
+
+## H3K27ac Peak Widths
+
+```{r plot-h3k-widths}
+plotGrlCol(h3k27ac_peaks) + scale_y_log10()
+```
+
+## H3K27ac Counts
+
+- Use sliding windows across the entire genome
+    + Again using `csaw` infrastructure [@Lun2016-cs] 
+    + Windows with low counts discarded
+- Very resource intensive 
+    + 6x BAM ran on 16Gb laptop (only just)
+    
+. . .
+    
+- After obtaining genomic windows $\implies$ discard uninformative windows
+    + Analogous to discarding 'undetected' genes in RNA-Seq
+    + `csaw` offers multiple `filterWindows*` options
+    
+## H3K27ac Counts
+
+- `dualFilter()` uses a set of guide/reference ranges expected to contain signal
+    + Select values for signal/input and min(signal) based on guide ranges
+    + Values would retain q = 50%, 90% etc of guide ranges 
+    + 50% is restrictive, 90% is inclusive
+    
+. . .
+
+- Very resource intensive (Ran on 16Gb + 4Gb Swap)
+- Flexible for different target types, e.g. RNAPolII
+    + Ranges can be from independent experiment
+- No input sample only uses min(signal)
+
+::: {.notes}
+- Windows will still be overlapping here signal is confidently found
+:::
+
+## H3K27ac Counts
+
+
+```{r load-h3k-windows}
+## Pre-filtered counts provided in package
+h3k27ac_se <- system.file(
+  "extdata/counts", "h3k27ac_se.rds", package = "extraChIPsWorkshop"
+) |> read_rds()
+## Now add a logCPM assay
+assay(h3k27ac_se, "logCPM") <- h3k27ac_se %>%
+  cpm(log = TRUE, lib.size = h3k27ac_se$totals) %>% 
+  set_rownames(rownames(h3k27ac_se)) 
+```
+
+## Checking Densities
+
+```{r plot-density-h3k}
+#| output-location: column
+## Workshop vignette also plots log1p(counts)
+plotAssayDensities(
+  h3k27ac_se, assay = "logCPM",
+  ## Setting n_max will downsample 
+  ## for faster plotting
+  colour = "treat", n_max = 1e5
+  ) +
+  scale_colour_manual(
+    values = treat_colours
+  )
+```
+
+
+## Additional Plots
+
+- Try making RLE plots:`plotAssayRle()`
+- PCA plots: `plotAssayPCA()`
+
+## Normalisation
+
+- Check if libraries drawn from same distributions
+
+```{r h3k-qtest}
+qtest <- quantro(assay(h3k27ac_se, "logCPM"), groupFactor = h3k27ac_se$treat)
+qtest
+```
+
+
+## Normalisation
+
+- Can apply any normalisation strategy (TMM, RLE etc)
+- Less common alternative: Smooth Quantile Normalisation [@Hicks2018-uw]
+    + Uses weighting strategy across expression quantiles
+    + Relatively robust to diverging sample distributions
+- Well-suited for sliding windows before merging
+
+## Smooth Quantile Normalisation
+
+- Let's normalise the logCPM assay
+- Add it as the assay `qsmooth`
+
+```{r}
+qs <- assay(h3k27ac_se, "logCPM") %>% 
+  qsmooth(group_factor = h3k27ac_se$treat)
+assay(h3k27ac_se, "qsmooth") <- qsmoothData(qs)
+```
+
+## Smooth Quantile Normalisation
+
+
+```{r qsmooth-densities}
+#| output-location: column
+plotAssayDensities(
+  h3k27ac_se, assay = "qsmooth", 
+  colour = "treat", n_max = 1e5
+) +
+  scale_colour_manual(
+    values = treat_colours
+  )
+```
+
+## Differential Signal Analysis
+
+- Perform analysis on all windows
+    + Use `limma-trend` on normalised logCPM
+    + Need to set normalisation to "none" (already done)
+- Merge overlapping windows
+    + Combined PValue: Harmonic Mean [@Wilson2019-hm]
+    + Estimates of logFC, logCPM
+- `csaw` also offers multiple approaches
+    + Wrappers in `extrachIPs` to standardise output structure
+
+## Differential Signal Analysis
+
+- Fit on all windows
+
+```{r}
+X <- model.matrix(~treat, data = colData(h3k27ac_se))
+h3k27ac_diffwin <- h3k27ac_se %>% 
+  fitAssayDiff(
+    assay = "qsmooth", design = X, norm = "none", asRanges = TRUE, 
+    method = "lt"
+  ) 
+```
+
+## Differential Signal Analysis
+
+- Now merge overlapping windows
+
+```{r}
+h3k27ac_diffsig <- h3k27ac_diffwin %>% 
+  ## Merge using the HMP, retaining those with 3 or more
+  mergeByHMP(hm_pre = "", min_win = 3) %>% 
+  ## Add status column
+  addDiffStatus(sig_col = "PValue_fdr", drop = TRUE) %>% 
+  ## Assign a genomic region
+  mutate(region = bestOverlap(., regions) %>% fct(names(regions))) %>% 
+  ## Map each merged region to a gene
+  mapByFeature(genes = split_gtf$gene, prom = regions$promoter)
+```
+
+## Inspection of Results
+
+- MA Plots
+- Volcano Plots
+- Donut Plots
+
+# Integration of Results {background-color="#3D3D40" background-image="https://smped.github.io/extraChIPs/reference/figures/extraChIPs.png" background-opacity="70%" background-position="90% 20%" background-size="20%"}
+
+## Data Integration
+
+- Changes in both H3K27ac and ER highest priority targets
+- How do the two ChIP targets change together?
+- Can we visualise in a browser-style layout
+
+## Data Integration
+
+```{r}
+## Form a named GRangesList with identical columns.
+## This relies on plyranges::select to harmonise columns
+both_diffsig <- GRangesList(
+  ER = er_diffsig %>% 
+    select(logFC, logCPM, PValue, FDR, status, region, starts_with("gene")),
+  H3K27ac = h3k27ac_diffsig %>% 
+    select(
+      logFC, logCPM, PValue = PValue, FDR = PValue_fdr, status, region, 
+      starts_with("gene")
+    )
+) 
+```
+
+## Plotting Pairwise Changes
+
+```{r}
+## Define colours for Up/Down/Unchanged/Undetected for both targets individually
+combined_status_colours <- c(
+  setNames(status_colours, paste("ER", names(status_colours))),
+  setNames(status_colours, paste("H3K27ac", names(status_colours)))
+)
+## Define colours for both targets together
+grp_colours <- c(
+  "yellow3", "purple4", # ER Unchanged
+  "lightgreen", "forestgreen", # H3K27ac Unchanged
+  "#99999955", "royalblue2", "red3"# Both Unchanged/Decreased/Increased
+) 
+```
+
+
+## Plotting Pairwise Changes
+
+```{r plot-pairwise}
+#| output-location: slide
+both_diffsig %>% 
+  plotPairwise(
+    "logFC", colour = "status", label = "gene_name", label_alpha = 0.8
+  ) +
+  geom_hline(yintercept = 0, colour = "grey30") +
+  geom_vline(xintercept = 0, colour = "grey30") +
+  scale_colour_manual(values = grp_colours) +
+  scale_fill_manual(values = combined_status_colours) +
+  guides(fill = "none") +
+  theme(
+    legend.position = "bottom",
+    ggside.axis.text.x.bottom = element_text(angle = 90, vjust = 0.25)
+  ) 
+```
+
+## Mapping Columns Across Targets
+
+```{r}
+both_mapped_status <- both_diffsig %>% 
+  mapGrlCols(
+    var = c("status", "region", "logFC"), collapse = "gene_name", 
+    method = "coverage", p = 1
+  ) 
+both_mapped_status
+```
+
+## Visualising using Gviz
+
+- plotHFGC: HiC, Features, Gene Models, Coverage
+    + All layers optional
+    + Always show in that order
+- Coverage requires `BigWig` Files
+    + Each target as a `BigWigFilelist` $\implies$ overlaid
+    + Should be merged across samples
+    + List of BigWigFileLists $\implies$ separate tracks
+- Can annotate ChIP-Seq coverage by status
 
 # References
 

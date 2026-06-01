@@ -267,6 +267,22 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 </section>
 <section id="the-package-extrachips" class="slide level2">
 <h2>The package <code>extraChIPs</code></h2>
+<aside class="notes">
+<ul>
+<li>Developed before the tidyomics ecosystem developed</li>
+<li>Should interact well with it</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <ul>
 <li>Originally a collection of functions to enable a <code>snakemake</code> workflow (GRAVI, unpublished)</li>
 <li>Focus on Differential Signal Analysis in &gt;1 comparison</li>
@@ -421,7 +437,7 @@ Dr Stevie Pederson (They/Them)<br>Black Ochre Data Labs<br>The Kids Research Ins
 <li>Each sample will have a set of peaks called, e.g.&nbsp;<code>macs2 callpeak</code> <span class="citation" data-cites="Zhang2008-ms">(<a href="#/section" role="doc-biblioref" onclick="">Zhang et al. 2008</a>)</span></li>
 <li>Peak ranges will vary between samples:
 <ul>
-<li>Differrent centre positions + different widths</li>
+<li>Different centre positions + different widths</li>
 </ul></li>
 <li>Need to define consistent ranges across all samples
 <ul>
@@ -595,7 +611,7 @@ GRanges object with 5171 ranges and 6 metadata columns:
 <div class="fragment">
 <ul>
 <li>How do we define the boundaries of the range?</li>
-<li>What do we do with the peak centres?</li>
+<li>What do we do with the peak centers?</li>
 </ul>
 </div>
 </section>
@@ -644,7 +660,7 @@ GRanges object with 5171 ranges and 6 metadata columns:
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="" aria-hidden="true" tabindex="-1"></a>er_peaks <span class="sc">%&gt;%</span> </span>
 <span id="cb19-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(samples<span class="sc">$</span>ER<span class="sc">$</span>treat <span class="sc">==</span> <span class="st">"E2"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb19-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">makeConsensus</span>(<span class="at">p =</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="at">var =</span> <span class="st">"centre"</span>)  <span class="sc">%&gt;%</span> </span>
-<span id="cb19-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">centre =</span> <span class="fu">map_dbl</span>(centre, mean)) <span class="do">## Take the mean of all centres</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">centre =</span> <span class="fu">map_dbl</span>(centre, mean)) <span class="do">## Take the mean of all centers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GRanges object with 6895 ranges and 5 metadata columns:
          seqnames              ranges strand |    centre SRR8315180 SRR8315181
@@ -944,7 +960,7 @@ GRanges object with 5171 ranges and 6 metadata columns:
 <li>Already defined consensus peaks
 <ul>
 <li>Ensures consistent analysis across samples</li>
-<li>Centred at best estimate of binding site</li>
+<li>Centered at best estimate of binding site</li>
 </ul></li>
 <li>Set fixed-width regions
 <ul>
@@ -1216,7 +1232,7 @@ Unchanged Decreased Increased
 <h2>Donut Plots</h2>
 <aside class="notes">
 <ul>
-<li>Those on RELEASE 3_23 may hve troubles again</li>
+<li>Those on RELEASE 3_23 may have troubles again</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1253,6 +1269,439 @@ Unchanged Decreased Increased
 </div>
 </div></section></section>
 <section>
+<section id="sliding-windows" class="title-slide slide level1 center" data-background-color="#3D3D40" data-background-image="https://smped.github.io/extraChIPs/reference/figures/extraChIPs.png" data-background-opacity="70%" data-background-position="90% 20%" data-background-size="20%">
+<h1>Sliding Windows</h1>
+
+</section>
+<section id="h3k27ac" class="slide level2">
+<h2>H3K27ac</h2>
+<ul>
+<li>In addition to ER, H3K27ac was also a ChIP target
+<ul>
+<li>Have the same two conditions</li>
+</ul></li>
+<li>Indicates a transcriptionally active region (i.e.&nbsp;promoter/enhancer)</li>
+<li>Much broader peaks
+<ul>
+<li>Can have valleys where other TFs are bound to the DNA</li>
+</ul></li>
+<li>Potentially better suited to sliding window analysis</li>
+</ul>
+</section>
+<section id="h3k27ac-1" class="slide level2">
+<h2>H3K27ac</h2>
+<aside class="notes">
+<ul>
+<li>May be a typo in the glue call</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<ul>
+<li>Start with merged treatment-specific peaks
+<ul>
+<li>Produced by <code>macs2 callpeak</code> set to narrow peak</li>
+<li><code>glue</code> syntax can be used to name during parsing</li>
+</ul></li>
+</ul>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
+<span id="cb45-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"H3K27ac"</span>, <span class="fu">c</span>(<span class="st">"E2"</span>, <span class="st">"E2DHT"</span>), <span class="st">"merged_peaks.narrowPeak.gz"</span>, <span class="at">sep =</span> <span class="st">"_"</span></span>
+<span id="cb45-3"><a href="" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb45-4"><a href="" aria-hidden="true" tabindex="-1"></a>h3k27ac_peaks <span class="ot">&lt;-</span> <span class="fu">system.file</span>(</span>
+<span id="cb45-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"extdata/peaks"</span>, f, <span class="at">package =</span> <span class="st">"extraChIPsWorkshop"</span></span>
+<span id="cb45-6"><a href="" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb45-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">importPeaks</span>(</span>
+<span id="cb45-8"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">seqinfo =</span> sq, <span class="at">blacklist =</span> exclude_ranges, </span>
+<span id="cb45-9"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">glueNames =</span> <span class="st">"{basename(x) |&gt; str_remove('_merged.+') |&gt; str_remove('H3K27ac_')}"</span></span>
+<span id="cb45-10"><a href="" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="h3k27ac-peak-widths" class="slide level2">
+<h2>H3K27ac Peak Widths</h2>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">plotGrlCol</span>(h3k27ac_peaks) <span class="sc">+</span> <span class="fu">scale_y_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="presentation_files/figure-revealjs/plot-h3k-widths-1.png" class="quarto-figure quarto-figure-left r-stretch" width="768"></section>
+<section id="h3k27ac-counts" class="slide level2">
+<h2>H3K27ac Counts</h2>
+<ul>
+<li>Use sliding windows across the entire genome
+<ul>
+<li>Again using <code>csaw</code> infrastructure <span class="citation" data-cites="Lun2016-cs">(<a href="#/section" role="doc-biblioref" onclick="">Lun and Smyth 2016</a>)</span></li>
+<li>Windows with low counts discarded</li>
+</ul></li>
+<li>Very resource intensive
+<ul>
+<li>6x BAM ran on 16Gb laptop (only just)</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>After obtaining genomic windows <span class="math inline">\(\implies\)</span> discard uninformative windows
+<ul>
+<li>Analogous to discarding ‘undetected’ genes in RNA-Seq</li>
+<li><code>csaw</code> offers multiple <code>filterWindows*</code> options</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="h3k27ac-counts-1" class="slide level2">
+<h2>H3K27ac Counts</h2>
+<ul>
+<li><code>dualFilter()</code> uses a set of guide/reference ranges expected to contain signal
+<ul>
+<li>Select values for signal/input and min(signal) based on guide ranges</li>
+<li>Values would retain q = 50%, 90% etc of guide ranges</li>
+<li>50% is restrictive, 90% is inclusive</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Very resource intensive (Ran on 16Gb + 4Gb Swap)</li>
+<li>Flexible for different target types, e.g.&nbsp;RNAPolII
+<ul>
+<li>Ranges can be from independent experiment</li>
+</ul></li>
+<li>No input sample only uses min(signal)</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Windows will still be overlapping here signal is confidently found</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="h3k27ac-counts-2" class="slide level2">
+<h2>H3K27ac Counts</h2>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="do">## Pre-filtered counts provided in package</span></span>
+<span id="cb47-2"><a href="" aria-hidden="true" tabindex="-1"></a>h3k27ac_se <span class="ot">&lt;-</span> <span class="fu">system.file</span>(</span>
+<span id="cb47-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"extdata/counts"</span>, <span class="st">"h3k27ac_se.rds"</span>, <span class="at">package =</span> <span class="st">"extraChIPsWorkshop"</span></span>
+<span id="cb47-4"><a href="" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">read_rds</span>()</span>
+<span id="cb47-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="do">## Now add a logCPM assay</span></span>
+<span id="cb47-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">assay</span>(h3k27ac_se, <span class="st">"logCPM"</span>) <span class="ot">&lt;-</span> h3k27ac_se <span class="sc">%&gt;%</span></span>
+<span id="cb47-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cpm</span>(<span class="at">log =</span> <span class="cn">TRUE</span>, <span class="at">lib.size =</span> h3k27ac_se<span class="sc">$</span>totals) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-8"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_rownames</span>(<span class="fu">rownames</span>(h3k27ac_se)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="checking-densities" class="slide level2">
+<h2>Checking Densities</h2>
+<div class="cell columns column-output-location" data-layout-align="left">
+<div class="column">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="do">## Workshop vignette also plots log1p(counts)</span></span>
+<span id="cb48-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">plotAssayDensities</span>(</span>
+<span id="cb48-3"><a href="" aria-hidden="true" tabindex="-1"></a>  h3k27ac_se, <span class="at">assay =</span> <span class="st">"logCPM"</span>,</span>
+<span id="cb48-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Setting n_max will downsample </span></span>
+<span id="cb48-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="do">## for faster plotting</span></span>
+<span id="cb48-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">colour =</span> <span class="st">"treat"</span>, <span class="at">n_max =</span> <span class="fl">1e5</span></span>
+<span id="cb48-7"><a href="" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb48-8"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(</span>
+<span id="cb48-9"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> treat_colours</span>
+<span id="cb48-10"><a href="" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="presentation_files/figure-revealjs/plot-density-h3k-1.png" class="quarto-figure quarto-figure-left" width="768"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section id="additional-plots" class="slide level2">
+<h2>Additional Plots</h2>
+<ul>
+<li>Try making RLE plots:<code>plotAssayRle()</code></li>
+<li>PCA plots: <code>plotAssayPCA()</code></li>
+</ul>
+</section>
+<section id="normalisation-1" class="slide level2">
+<h2>Normalisation</h2>
+<ul>
+<li>Check if libraries drawn from same distributions</li>
+</ul>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="" aria-hidden="true" tabindex="-1"></a>qtest <span class="ot">&lt;-</span> <span class="fu">quantro</span>(<span class="fu">assay</span>(h3k27ac_se, <span class="st">"logCPM"</span>), <span class="at">groupFactor =</span> h3k27ac_se<span class="sc">$</span>treat)</span>
+<span id="cb49-2"><a href="" aria-hidden="true" tabindex="-1"></a>qtest</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>quantro: Test for global differences in distributions
+   nGroups:  2 
+   nTotSamples:  6 
+   nSamplesinGroups:  3 3 
+   anovaPval:  0.99173 
+   quantroStat:  0.67149 
+   quantroPvalPerm:  Use B &gt; 0 for permutation testing. </code></pre>
+</div>
+</div>
+</section>
+<section id="normalisation-2" class="slide level2">
+<h2>Normalisation</h2>
+<ul>
+<li>Can apply any normalisation strategy (TMM, RLE etc)</li>
+<li>Less common alternative: Smooth Quantile Normalisation <span class="citation" data-cites="Hicks2018-uw">(<a href="#/section" role="doc-biblioref" onclick="">Hicks et al. 2018</a>)</span>
+<ul>
+<li>Uses weighting strategy across expression quantiles</li>
+<li>Relatively robust to diverging sample distributions</li>
+</ul></li>
+<li>Well-suited for sliding windows before merging</li>
+</ul>
+</section>
+<section id="smooth-quantile-normalisation" class="slide level2">
+<h2>Smooth Quantile Normalisation</h2>
+<ul>
+<li>Let’s normalise the logCPM assay</li>
+<li>Add it as the assay <code>qsmooth</code></li>
+</ul>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="" aria-hidden="true" tabindex="-1"></a>qs <span class="ot">&lt;-</span> <span class="fu">assay</span>(h3k27ac_se, <span class="st">"logCPM"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb51-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qsmooth</span>(<span class="at">group_factor =</span> h3k27ac_se<span class="sc">$</span>treat)</span>
+<span id="cb51-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">assay</span>(h3k27ac_se, <span class="st">"qsmooth"</span>) <span class="ot">&lt;-</span> <span class="fu">qsmoothData</span>(qs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="smooth-quantile-normalisation-1" class="slide level2">
+<h2>Smooth Quantile Normalisation</h2>
+<div class="cell columns column-output-location" data-layout-align="left">
+<div class="column">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">plotAssayDensities</span>(</span>
+<span id="cb52-2"><a href="" aria-hidden="true" tabindex="-1"></a>  h3k27ac_se, <span class="at">assay =</span> <span class="st">"qsmooth"</span>, </span>
+<span id="cb52-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">colour =</span> <span class="st">"treat"</span>, <span class="at">n_max =</span> <span class="fl">1e5</span></span>
+<span id="cb52-4"><a href="" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb52-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(</span>
+<span id="cb52-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> treat_colours</span>
+<span id="cb52-7"><a href="" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="presentation_files/figure-revealjs/qsmooth-densities-1.png" class="quarto-figure quarto-figure-left" width="768"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section id="differential-signal-analysis-1" class="slide level2">
+<h2>Differential Signal Analysis</h2>
+<ul>
+<li>Perform analysis on all windows
+<ul>
+<li>Use <code>limma-trend</code> on normalised logCPM</li>
+<li>Need to set normalisation to “none” (already done)</li>
+</ul></li>
+<li>Merge overlapping windows
+<ul>
+<li>Combined PValue: Harmonic Mean <span class="citation" data-cites="Wilson2019-hm">(<a href="#/section" role="doc-biblioref" onclick="">Wilson 2019</a>)</span></li>
+<li>Estimates of logFC, logCPM</li>
+</ul></li>
+<li><code>csaw</code> also offers multiple approaches
+<ul>
+<li>Wrappers in <code>extrachIPs</code> to standardise output structure</li>
+</ul></li>
+</ul>
+</section>
+<section id="differential-signal-analysis-2" class="slide level2">
+<h2>Differential Signal Analysis</h2>
+<ul>
+<li>Fit on all windows</li>
+</ul>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span>treat, <span class="at">data =</span> <span class="fu">colData</span>(h3k27ac_se))</span>
+<span id="cb53-2"><a href="" aria-hidden="true" tabindex="-1"></a>h3k27ac_diffwin <span class="ot">&lt;-</span> h3k27ac_se <span class="sc">%&gt;%</span> </span>
+<span id="cb53-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fitAssayDiff</span>(</span>
+<span id="cb53-4"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">assay =</span> <span class="st">"qsmooth"</span>, <span class="at">design =</span> X, <span class="at">norm =</span> <span class="st">"none"</span>, <span class="at">asRanges =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb53-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"lt"</span></span>
+<span id="cb53-6"><a href="" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="differential-signal-analysis-3" class="slide level2">
+<h2>Differential Signal Analysis</h2>
+<ul>
+<li>Now merge overlapping windows</li>
+</ul>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="" aria-hidden="true" tabindex="-1"></a>h3k27ac_diffsig <span class="ot">&lt;-</span> h3k27ac_diffwin <span class="sc">%&gt;%</span> </span>
+<span id="cb54-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Merge using the HMP, retaining those with 3 or more</span></span>
+<span id="cb54-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mergeByHMP</span>(<span class="at">hm_pre =</span> <span class="st">""</span>, <span class="at">min_win =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb54-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Add status column</span></span>
+<span id="cb54-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addDiffStatus</span>(<span class="at">sig_col =</span> <span class="st">"PValue_fdr"</span>, <span class="at">drop =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb54-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Assign a genomic region</span></span>
+<span id="cb54-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">region =</span> <span class="fu">bestOverlap</span>(., regions) <span class="sc">%&gt;%</span> <span class="fu">fct</span>(<span class="fu">names</span>(regions))) <span class="sc">%&gt;%</span> </span>
+<span id="cb54-8"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Map each merged region to a gene</span></span>
+<span id="cb54-9"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapByFeature</span>(<span class="at">genes =</span> split_gtf<span class="sc">$</span>gene, <span class="at">prom =</span> regions<span class="sc">$</span>promoter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="inspection-of-results" class="slide level2">
+<h2>Inspection of Results</h2>
+<ul>
+<li>MA Plots</li>
+<li>Volcano Plots</li>
+<li>Donut Plots</li>
+</ul>
+</section></section>
+<section>
+<section id="integration-of-results" class="title-slide slide level1 center" data-background-color="#3D3D40" data-background-image="https://smped.github.io/extraChIPs/reference/figures/extraChIPs.png" data-background-opacity="70%" data-background-position="90% 20%" data-background-size="20%">
+<h1>Integration of Results</h1>
+
+</section>
+<section id="data-integration" class="slide level2">
+<h2>Data Integration</h2>
+<ul>
+<li>Changes in both H3K27ac and ER highest priority targets</li>
+<li>How do the two ChIP targets change together?</li>
+<li>Can we visualise in a browser-style layout</li>
+</ul>
+</section>
+<section id="data-integration-1" class="slide level2">
+<h2>Data Integration</h2>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="do">## Form a named GRangesList with identical columns.</span></span>
+<span id="cb55-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="do">## This relies on plyranges::select to harmonise columns</span></span>
+<span id="cb55-3"><a href="" aria-hidden="true" tabindex="-1"></a>both_diffsig <span class="ot">&lt;-</span> <span class="fu">GRangesList</span>(</span>
+<span id="cb55-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">ER =</span> er_diffsig <span class="sc">%&gt;%</span> </span>
+<span id="cb55-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(logFC, logCPM, PValue, FDR, status, region, <span class="fu">starts_with</span>(<span class="st">"gene"</span>)),</span>
+<span id="cb55-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">H3K27ac =</span> h3k27ac_diffsig <span class="sc">%&gt;%</span> </span>
+<span id="cb55-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(</span>
+<span id="cb55-8"><a href="" aria-hidden="true" tabindex="-1"></a>      logFC, logCPM, <span class="at">PValue =</span> PValue, <span class="at">FDR =</span> PValue_fdr, status, region, </span>
+<span id="cb55-9"><a href="" aria-hidden="true" tabindex="-1"></a>      <span class="fu">starts_with</span>(<span class="st">"gene"</span>)</span>
+<span id="cb55-10"><a href="" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb55-11"><a href="" aria-hidden="true" tabindex="-1"></a>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="plotting-pairwise-changes" class="slide level2">
+<h2>Plotting Pairwise Changes</h2>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="do">## Define colours for Up/Down/Unchanged/Undetected for both targets individually</span></span>
+<span id="cb56-2"><a href="" aria-hidden="true" tabindex="-1"></a>combined_status_colours <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb56-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(status_colours, <span class="fu">paste</span>(<span class="st">"ER"</span>, <span class="fu">names</span>(status_colours))),</span>
+<span id="cb56-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(status_colours, <span class="fu">paste</span>(<span class="st">"H3K27ac"</span>, <span class="fu">names</span>(status_colours)))</span>
+<span id="cb56-5"><a href="" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb56-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="do">## Define colours for both targets together</span></span>
+<span id="cb56-7"><a href="" aria-hidden="true" tabindex="-1"></a>grp_colours <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb56-8"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"yellow3"</span>, <span class="st">"purple4"</span>, <span class="co"># ER Unchanged</span></span>
+<span id="cb56-9"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"lightgreen"</span>, <span class="st">"forestgreen"</span>, <span class="co"># H3K27ac Unchanged</span></span>
+<span id="cb56-10"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"#99999955"</span>, <span class="st">"royalblue2"</span>, <span class="st">"red3"</span><span class="co"># Both Unchanged/Decreased/Increased</span></span>
+<span id="cb56-11"><a href="" aria-hidden="true" tabindex="-1"></a>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="plotting-pairwise-changes-1" class="slide level2">
+<h2>Plotting Pairwise Changes</h2>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="" aria-hidden="true" tabindex="-1"></a>both_diffsig <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotPairwise</span>(</span>
+<span id="cb57-3"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="st">"logFC"</span>, <span class="at">colour =</span> <span class="st">"status"</span>, <span class="at">label =</span> <span class="st">"gene_name"</span>, <span class="at">label_alpha =</span> <span class="fl">0.8</span></span>
+<span id="cb57-4"><a href="" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb57-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">colour =</span> <span class="st">"grey30"</span>) <span class="sc">+</span></span>
+<span id="cb57-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">colour =</span> <span class="st">"grey30"</span>) <span class="sc">+</span></span>
+<span id="cb57-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> grp_colours) <span class="sc">+</span></span>
+<span id="cb57-8"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> combined_status_colours) <span class="sc">+</span></span>
+<span id="cb57-9"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb57-10"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb57-11"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb57-12"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">ggside.axis.text.x.bottom =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.25</span>)</span>
+<span id="cb57-13"><a href="" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+</section>
+<section id="plotting-pairwise-changes-1-output" class="slide level2 output-location-slide"><h2>Plotting Pairwise Changes</h2><div class="cell output-location-slide" data-layout-align="left">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="presentation_files/figure-revealjs/plot-pairwise-1.png" class="quarto-figure quarto-figure-left" width="768"></p>
+</figure>
+</div>
+</div>
+</div></section><section id="mapping-columns-across-targets" class="slide level2">
+<h2>Mapping Columns Across Targets</h2>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="" aria-hidden="true" tabindex="-1"></a>both_mapped_status <span class="ot">&lt;-</span> both_diffsig <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapGrlCols</span>(</span>
+<span id="cb58-3"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">var =</span> <span class="fu">c</span>(<span class="st">"status"</span>, <span class="st">"region"</span>, <span class="st">"logFC"</span>), <span class="at">collapse =</span> <span class="st">"gene_name"</span>, </span>
+<span id="cb58-4"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"coverage"</span>, <span class="at">p =</span> <span class="dv">1</span></span>
+<span id="cb58-5"><a href="" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb58-6"><a href="" aria-hidden="true" tabindex="-1"></a>both_mapped_status</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GRanges object with 5419 ranges and 7 metadata columns:
+         seqnames              ranges strand | ER_status H3K27ac_status
+            &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; |  &lt;factor&gt;       &lt;factor&gt;
+     [1]     chr1       877114-877513      * | Unchanged      Unchanged
+     [2]     chr1     1009006-1009405      * | Unchanged      Unchanged
+     [3]     chr1     1014741-1015140      * | Unchanged      Unchanged
+     [4]     chr1     1051383-1051782      * | Unchanged      Unchanged
+     [5]     chr1     1368362-1368761      * | Unchanged      Unchanged
+     ...      ...                 ...    ... .       ...            ...
+  [5415]     chrX 149736801-149737047      * | Unchanged      Unchanged
+  [5416]     chrX 150017389-150017788      * | Unchanged      Unchanged
+  [5417]     chrX 153386612-153387011      * | Unchanged      Unchanged
+  [5418]     chrX 153769219-153769618      * | Unchanged      Unchanged
+  [5419]     chrX 153769835-153770234      * | Unchanged      Unchanged
+                   ER_region      H3K27ac_region    ER_logFC H3K27ac_logFC
+                    &lt;factor&gt;            &lt;factor&gt;   &lt;numeric&gt;     &lt;numeric&gt;
+     [1] promoter            promoter            -0.48323153    -0.1429666
+     [2] promoter            gene_body            0.09522249     0.1112011
+     [3] proximal_intergenic proximal_intergenic  0.10654786    -0.0768317
+     [4] promoter            promoter             0.00113261    -0.1786717
+     [5] promoter            promoter            -0.11358266    -0.0518217
+     ...                 ...                 ...         ...           ...
+  [5415]           promoter            gene_body  -0.2733495    0.18067806
+  [5416]           gene_body           gene_body  -0.2101436   -0.32185709
+  [5417]           gene_body           gene_body  -0.1868168   -0.35128058
+  [5418]           promoter            promoter   -0.0377612   -0.00176551
+  [5419]           promoter            promoter    0.0539533   -0.00176551
+               gene_name
+             &lt;character&gt;
+     [1]          SAMD11
+     [2]          RNF223
+     [3]        C1orf159
+     [4]        C1orf159
+     [5] LINC01770; VWA1
+     ...             ...
+  [5415]            MTM1
+  [5416]          CD99L2
+  [5417]           MECP2
+  [5418]     G6PD; IKBKG
+  [5419]     G6PD; IKBKG
+  -------
+  seqinfo: 24 sequences from GRCh37 genome</code></pre>
+</div>
+</div>
+</section>
+<section id="visualising-using-gviz" class="slide level2">
+<h2>Visualising using Gviz</h2>
+<ul>
+<li>plotHFGC: HiC, Features, Gene Models, Coverage
+<ul>
+<li>All layers optional</li>
+<li>Always show in that order</li>
+</ul></li>
+<li>Coverage requires <code>BigWig</code> Files
+<ul>
+<li>Each target as a <code>BigWigFilelist</code> <span class="math inline">\(\implies\)</span> overlaid</li>
+<li>Should be merged across samples</li>
+<li>List of BigWigFileLists <span class="math inline">\(\implies\)</span> separate tracks</li>
+</ul></li>
+<li>Can annotate ChIP-Seq coverage by status</li>
+</ul>
+</section></section>
+<section>
 <section id="references" class="title-slide slide level1 center">
 <h1>References</h1>
 
@@ -1273,11 +1722,17 @@ Hickey, Theresa E, Luke A Selth, Kee Ming Chia, Geraldine Laven-Law, Heloisa H M
 <div id="ref-Hicks2015-ee" class="csl-entry" role="listitem">
 Hicks, Stephanie C, and Rafael A Irizarry. 2015. <span>“Quantro: A Data-Driven Approach to Guide the Choice of an Appropriate Normalization Method.”</span> <em>Genome Biol.</em> 16 (1): 117.
 </div>
+<div id="ref-Hicks2018-uw" class="csl-entry" role="listitem">
+Hicks, Stephanie C, Kwame Okrah, Joseph N Paulson, John Quackenbush, Rafael A Irizarry, and Héctor Corrada Bravo. 2018. <span>“Smooth Quantile Normalization.”</span> <em>Biostatistics</em> 19 (2): 185–98.
+</div>
 <div id="ref-Law2014-xq" class="csl-entry" role="listitem">
 Law, Charity W, Yunshun Chen, Wei Shi, and Gordon K Smyth. 2014. <span>“Voom: Precision Weights Unlock Linear Model Analysis Tools for <span>RNA</span>-Seq Read Counts.”</span> <em>Genome Biol.</em> 15 (2): R29.
 </div>
 <div id="ref-Love2014-de" class="csl-entry" role="listitem">
 Love, Michael I., Wolfgang Huber, and Simon Anders. 2014. <span>“Moderated Estimation of Fold Change and Dispersion for RNA-Seq Data with DESeq2.”</span> <em>Genome Biology</em> 15: 550. <a href="https://doi.org/10.1186/s13059-014-0550-8">https://doi.org/10.1186/s13059-014-0550-8</a>.
+</div>
+<div id="ref-Lun2016-cs" class="csl-entry" role="listitem">
+Lun, Aaron T L, and Gordon K Smyth. 2016. <span>“Csaw: A <span>B</span>ioconductor Package for Differential Binding Analysis of <span>C</span>h<span>I</span><span>P</span>-Seq Data Using Sliding Windows.”</span> <em>Nucleic Acids Res.</em> 44 (5): e45.
 </div>
 <div id="ref-McCarthy2009-qf" class="csl-entry" role="listitem">
 McCarthy, Davis J, and Gordon K Smyth. 2009. <span>“Testing Significance Relative to a Fold-Change Threshold Is a <span>TREAT</span>.”</span> <em>Bioinformatics</em> 25 (6): 765–71.
@@ -1290,6 +1745,9 @@ Ross-Innes, Caryn S., Rory Stark, Andrew E. Teschendorff, Kelly A. Holmes, H. Ra
 </div>
 <div id="ref-Tamang2024-mw" class="csl-entry" role="listitem">
 Tamang, Sanju. 2024. <span>“<span>ChIP</span> Sequencing (<span>ChIP</span>-Seq): Principle, Steps, Uses, Diagram.”</span> <a href="https://microbenotes.com/chip-sequencing/" class="uri">https://microbenotes.com/chip-sequencing/</a>; Sagar Aryal.
+</div>
+<div id="ref-Wilson2019-hm" class="csl-entry" role="listitem">
+Wilson, Daniel J. 2019. <span>“The Harmonic Mean p-Value for Combining Dependent Tests.”</span> <em><span>Proceedings of the National Academy of Sciences U.S.A.</span></em> 116 (4): 1195–1200. <a href="https://www.pnas.org/content/116/4/1195">https://www.pnas.org/content/116/4/1195</a>.
 </div>
 <div id="ref-Zhang2008-ms" class="csl-entry" role="listitem">
 Zhang, Yong, Tao Liu, Clifford A Meyer, Jérôme Eeckhoute, David S Johnson, Bradley E Bernstein, Chad Nusbaum, et al. 2008. <span>“Model-Based Analysis of <span>ChIP</span>-Seq (<span>MACS</span>).”</span> <em>Genome Biol.</em> 9 (9): R137.

@@ -9,3 +9,4 @@
 - [Inaugural Bioconductor Meetup, Adelaide, Jun 2025](20250625_BiocMeetup_Adelaide/presentation.html)
 - [Adelaide Biomed Bioinformatics, March 2026](20260313_Bioinformatics_Adelaide/presentation.html)
 - [Statistical Society of Australia, May 2026](20260520_SSA/presentation.html)
+- [extraChIPs Workshop, EuroBioC, June 2026](20260603_EuroBioC_extraChIPs/presentation.html)
